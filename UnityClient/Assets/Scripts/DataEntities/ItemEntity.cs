@@ -75,7 +75,86 @@ public class ItemCombatComponent {
     public float RuntimeDamage;
 }
 
+// What an item's tile in the backpack shows besides its icon: the AP it costs (top left) and its one key number
+// (bottom right). The name and the rest are on the hover card.
+public enum ItemTileValueKind {
+    None,
+    Damage,
+    Heal,
+    San,
+    Shield,
+    Boost,
+    Gold
+}
+
+public struct ItemTileFace {
+    // 0 for passive items and items that are not used in a fight.
+    public int APCost;
+    public string Value;
+    public ItemTileValueKind Kind;
+    // Its damage is up from neighbours right now.
+    public bool Boosted;
+}
+
 public static class ItemPresentationRules {
+    public static ItemTileFace BuildTileFace(ItemEntity item) {
+        ItemTileFace face = new ItemTileFace { Value = string.Empty, Kind = ItemTileValueKind.None };
+        if (item == null) {
+            return face;
+        }
+
+        ItemCombatComponent combat = item.Combat;
+        if (combat == null) {
+            if (item.BaseValue > 0) {
+                face.Value = $"{item.BaseValue}G";
+                face.Kind = ItemTileValueKind.Gold;
+            }
+
+            return face;
+        }
+
+        if (combat.TriggerType == TriggerType.Manual.ToString()) {
+            face.APCost = Mathf.Max(0, combat.APCost);
+        }
+
+        EffectData firstEffect = combat.Effects != null && combat.Effects.Count > 0 ? combat.Effects[0] : null;
+        float firstParam = firstEffect?.Params != null && firstEffect.Params.Length > 0 ? firstEffect.Params[0] : 0f;
+        switch (combat.DamageType) {
+            case nameof(DamageType.Physical):
+            case nameof(DamageType.Energy):
+                int baseDamage = combat.BaseValue;
+                int runtimeDamage = (int)combat.RuntimeDamage;
+                face.Value = (runtimeDamage > 0 ? runtimeDamage : baseDamage).ToString();
+                face.Kind = ItemTileValueKind.Damage;
+                face.Boosted = runtimeDamage > baseDamage;
+                return face;
+            case nameof(DamageType.Heal):
+                face.Value = $"+{combat.BaseValue}";
+                face.Kind = ItemTileValueKind.Heal;
+                return face;
+            case nameof(DamageType.RestoreSAN):
+                face.Value = $"+{combat.BaseValue}";
+                face.Kind = ItemTileValueKind.San;
+                return face;
+            case nameof(DamageType.Shield):
+                face.Value = firstParam > 0f ? $"+{Mathf.RoundToInt(firstParam)}" : string.Empty;
+                face.Kind = ItemTileValueKind.Shield;
+                return face;
+        }
+
+        if (firstEffect != null && firstParam > 0f) {
+            if (firstEffect.EffectID == "DamageMultiplier") {
+                face.Value = $"+{Mathf.RoundToInt(firstParam * 100f)}%";
+                face.Kind = ItemTileValueKind.Boost;
+            } else if (firstEffect.EffectID != null && firstEffect.EffectID.Contains("Shield")) {
+                face.Value = $"+{Mathf.RoundToInt(firstParam)}";
+                face.Kind = ItemTileValueKind.Shield;
+            }
+        }
+
+        return face;
+    }
+
     public static string BuildCompactSummary(ItemEntity item) {
         if (item == null) {
             return string.Empty;

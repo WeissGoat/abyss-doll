@@ -38,6 +38,7 @@ public class HUDController : MonoBehaviour {
     private Image _sanBarTrack;
     private Image _sanBarFill;
     private Image _sanCandle;
+    private CombatTargetArrow _targetArrow;
     private const string ShieldIconID = VisualAssetService.UICombatShieldBadgeID;
     // ui_combat_hp_bar_frame: its height in pixels and the dark opening inside it (left, bottom, right, top), which the
     // fill covers. Drawn at any height, the frame scales with it.
@@ -306,6 +307,8 @@ public class HUDController : MonoBehaviour {
 
     private void EnsureCombatMainSkin() {
         EnsureBottomShade();
+        // From the chosen weapon (or the bare-hands button) to the pointer while a target is being picked.
+        _targetArrow = CombatTargetArrow.Ensure(transform, () => _unarmedStrikeBtn != null ? (RectTransform)_unarmedStrikeBtn.transform : null);
 
         _turnBannerImage = EnsureSkinImage(
             transform,

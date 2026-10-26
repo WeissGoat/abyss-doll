@@ -6,6 +6,8 @@ public static class ItemUseService {
 
     public static bool HasPendingEnemyTargetSelection => _pendingTargetItem != null && _pendingUserFighter != null;
     public static string PendingTargetItemName => _pendingTargetItem?.Name ?? string.Empty;
+    // The backpack item waiting for a target; empty for a bare-hands strike, which is no item in the backpack.
+    public static string PendingTargetItemInstanceID => _pendingTargetItem?.InstanceID ?? string.Empty;
 
     public static bool TryUseItem(ItemEntity item, out string failureReason) {
         failureReason = string.Empty;

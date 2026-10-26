@@ -72,6 +72,14 @@ public static class CombatPreviewTest {
         GridSolver.RecalculateAllEffects(doll);
         Check(Mathf.Approximately(dagger.Combat.RuntimeDamage, baseDamage * 1.25f), $"whetstone: {baseDamage} -> {dagger.Combat.RuntimeDamage}");
         Check(ItemPresentationRules.BuildCompactSummary(dagger).Contains("(+"), "summary hides the boost: " + ItemPresentationRules.BuildCompactSummary(dagger));
+        // The tile shows the boosted number, its AP cost, and the two are linked.
+        ItemTileFace face = ItemPresentationRules.BuildTileFace(dagger);
+        Check(face.Boosted && face.Kind == ItemTileValueKind.Damage && face.Value == ((int)dagger.Combat.RuntimeDamage).ToString() && face.APCost == dagger.Combat.APCost,
+            $"tile face: {face.Value} {face.Kind} boosted={face.Boosted} ap={face.APCost}");
+        List<KeyValuePair<ItemEntity, ItemEntity>> links = GridSolver.AdjacencyLinks(grid);
+        Check(links.Exists(l => l.Key == whetstone && l.Value == dagger), "no link from the whetstone to the dagger");
+        Check(!links.Exists(l => l.Key == whetstone && l.Value.Combat?.DamageType != nameof(DamageType.Physical) && l.Value.Combat?.DamageType != nameof(DamageType.Energy)),
+            "the whetstone links to an item it cannot sharpen");
         grid.RemoveItem(whetstone);
 
         // Move the dagger one column right of a free cell for the lens.

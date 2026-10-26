@@ -32,6 +32,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private GridSlotUI[] _previewSlots;
     private GridSlotUI _previewSlot;
     private int _previewKey = int.MinValue;
+    private float _shownRuntimeDamage = float.NaN;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
     public int DragCellOffsetX { get; private set; }
@@ -53,6 +54,13 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     // Rotation: while dragging press R or right click; on an item lying in the backpack (or the loot tray) right click.
     private void Update() {
+        // Neighbours change its damage (GridSolver) without a new tile: its number follows.
+        if (ItemData?.Combat != null && !Mathf.Approximately(ItemData.Combat.RuntimeDamage, _shownRuntimeDamage)) {
+            _shownRuntimeDamage = ItemData.Combat.RuntimeDamage;
+            ItemTileFace face = ItemPresentationRules.BuildTileFace(ItemData);
+            ApplyValueBadge(face);
+        }
+
         if (!_isDragging) {
             return;
         }
@@ -166,13 +174,114 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
         }
 
-        Text label = GetComponentInChildren<Text>();
-        if (label != null && ItemData != null) {
-            string secondLine = ItemPresentationRules.BuildCompactSummary(ItemData);
+        // The tile is the icon: its AP cost top left, its key number bottom right; the name is on the hover card.
+        if (ItemData != null) {
+            ItemTileFace face = ItemPresentationRules.BuildTileFace(ItemData);
+            ApplyValueBadge(face);
+            ApplyCostPip(face.APCost);
+        }
+    }
 
-            label.text = string.IsNullOrEmpty(secondLine)
-                ? ItemData.Name
-                : $"{ItemData.Name}\n{secondLine}";
+    private void ApplyValueBadge(ItemTileFace face) {
+        Transform labelObj = transform.Find("Text");
+        Text label = labelObj != null ? labelObj.GetComponent<Text>() : null;
+        if (label == null) {
+            return;
+        }
+
+        label.text = face.Value ?? string.Empty;
+        label.fontSize = 26;
+        label.fontStyle = FontStyle.Bold;
+        label.alignment = TextAnchor.LowerRight;
+        label.horizontalOverflow = HorizontalWrapMode.Overflow;
+        label.verticalOverflow = VerticalWrapMode.Overflow;
+        label.raycastTarget = false;
+        label.color = face.Boosted ? new Color(0.62f, 1f, 0.5f) : ValueColor(face.Kind);
+        RectTransform rect = label.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = new Vector2(6f, 2f);
+        rect.offsetMax = new Vector2(-8f, -4f);
+        Outline outline = label.GetComponent<Outline>();
+        if (outline == null) {
+            outline = label.gameObject.AddComponent<Outline>();
+        }
+
+        outline.effectColor = new Color(0.08f, 0.05f, 0.04f, 0.95f);
+        outline.effectDistance = new Vector2(2f, -2f);
+        label.transform.SetAsLastSibling();
+    }
+
+    private void ApplyCostPip(int apCost) {
+        Transform existing = transform.Find("CostPip");
+        if (apCost <= 0) {
+            if (existing != null) {
+                existing.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+
+        Image pip;
+        Text number;
+        if (existing == null) {
+            GameObject pipObj = new GameObject("CostPip", typeof(RectTransform), typeof(Image));
+            pipObj.transform.SetParent(transform, false);
+            pip = pipObj.GetComponent<Image>();
+            GameObject numberObj = new GameObject("CostPip_Text", typeof(RectTransform), typeof(Text));
+            numberObj.transform.SetParent(pipObj.transform, false);
+            number = numberObj.GetComponent<Text>();
+            Transform templateObj = transform.Find("Text");
+            Text template = templateObj != null ? templateObj.GetComponent<Text>() : null;
+            number.font = template != null ? template.font : null;
+            Outline outline = numberObj.AddComponent<Outline>();
+            outline.effectColor = new Color(0.08f, 0.05f, 0.04f, 0.95f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+        } else {
+            existing.gameObject.SetActive(true);
+            pip = existing.GetComponent<Image>();
+            number = existing.GetComponentInChildren<Text>();
+        }
+
+        // A small lit lantern, like the AP lanterns by the satchel, with the cost beside it.
+        RectTransform pipRect = pip.rectTransform;
+        pipRect.anchorMin = new Vector2(0f, 1f);
+        pipRect.anchorMax = new Vector2(0f, 1f);
+        pipRect.pivot = new Vector2(0f, 1f);
+        pipRect.anchoredPosition = new Vector2(0f, 0f);
+        pipRect.sizeDelta = new Vector2(46f, 46f);
+        VisualUIHelper.ApplySimpleSprite(pip, VisualAssetService.UICombatApLanternLitID, Color.white, new Color(1f, 0.8f, 0.4f, 1f), false, true);
+
+        number.text = apCost.ToString();
+        number.fontSize = 22;
+        number.fontStyle = FontStyle.Bold;
+        number.color = new Color(1f, 0.9f, 0.62f);
+        number.alignment = TextAnchor.MiddleLeft;
+        number.horizontalOverflow = HorizontalWrapMode.Overflow;
+        number.verticalOverflow = VerticalWrapMode.Overflow;
+        number.raycastTarget = false;
+        RectTransform numberRect = number.rectTransform;
+        numberRect.anchorMin = new Vector2(1f, 0.5f);
+        numberRect.anchorMax = new Vector2(1f, 0.5f);
+        numberRect.pivot = new Vector2(0f, 0.5f);
+        numberRect.anchoredPosition = new Vector2(-12f, 0f);
+        numberRect.sizeDelta = new Vector2(24f, 28f);
+        pip.transform.SetAsLastSibling();
+    }
+
+    private static Color ValueColor(ItemTileValueKind kind) {
+        switch (kind) {
+            case ItemTileValueKind.Heal:
+                return new Color(0.62f, 0.95f, 0.6f);
+            case ItemTileValueKind.San:
+                return new Color(0.84f, 0.74f, 1f);
+            case ItemTileValueKind.Shield:
+                return new Color(0.72f, 0.86f, 1f);
+            case ItemTileValueKind.Boost:
+            case ItemTileValueKind.Gold:
+                return new Color(1f, 0.85f, 0.4f);
+            default:
+                return new Color(1f, 0.93f, 0.84f);
         }
     }
 
@@ -190,8 +299,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         iconRect.anchorMin = Vector2.zero;
         iconRect.anchorMax = Vector2.one;
-        iconRect.offsetMin = new Vector2(8f, 8f);
-        iconRect.offsetMax = new Vector2(-8f, -8f);
+        iconRect.offsetMin = new Vector2(2f, 2f);
+        iconRect.offsetMax = new Vector2(-2f, -2f);
         iconRect.localScale = Vector3.one;
 
         Image iconImage = iconObject.GetComponent<Image>();
@@ -204,19 +313,27 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     private Color ResolveItemTint(ItemEntity item, bool forIcon) {
-        float alpha = forIcon ? 0.95f : 0.82f;
+        Color tint;
         switch (item.ItemType) {
             case nameof(ItemType.Weapon):
-                return new Color(0.75f, 0.18f, 0.18f, alpha);
+                tint = new Color(0.75f, 0.18f, 0.18f);
+                break;
             case nameof(ItemType.Armor):
-                return new Color(0.35f, 0.45f, 0.7f, alpha);
+                tint = new Color(0.35f, 0.45f, 0.7f);
+                break;
             case nameof(ItemType.Consumable):
-                return new Color(0.22f, 0.65f, 0.3f, alpha);
+                tint = new Color(0.22f, 0.65f, 0.3f);
+                break;
             case nameof(ItemType.Loot):
-                return new Color(0.82f, 0.63f, 0.18f, alpha);
+                tint = new Color(0.82f, 0.63f, 0.18f);
+                break;
             default:
-                return new Color(0.45f, 0.45f, 0.45f, alpha);
+                tint = new Color(0.45f, 0.45f, 0.45f);
+                break;
         }
+
+        // The tile behind the icon is a dark wash of its type's colour, so the icon and its numbers read on top.
+        return forIcon ? new Color(tint.r, tint.g, tint.b, 0.95f) : new Color(tint.r * 0.5f, tint.g * 0.5f, tint.b * 0.5f, 0.9f);
     }
 
     private void ApplyGridFootprint() {

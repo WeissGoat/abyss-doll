@@ -84,6 +84,64 @@ public static class GridSolver {
         return GetTargetItems(provider, string.IsNullOrEmpty(direction) ? TargetDirection.AllAdjacent.ToString() : direction, grid);
     }
 
+    // Items that work on each other because they touch: an effect aimed at a side (Right, AllAdjacent...) reaching the
+    // neighbour there, or an item counting its tagged neighbours (PerAdjacentTag); a Tag on the effect limits it to
+    // neighbours carrying that tag. Each pair once, provider first. The combat screen draws a link for each.
+    public static List<KeyValuePair<ItemEntity, ItemEntity>> AdjacencyLinks(BackpackGrid grid) {
+        List<KeyValuePair<ItemEntity, ItemEntity>> links = new List<KeyValuePair<ItemEntity, ItemEntity>>();
+        if (grid?.ContainedItems == null) {
+            return links;
+        }
+
+        foreach (ItemEntity provider in grid.ContainedItems) {
+            if (provider?.Combat?.Effects == null) {
+                continue;
+            }
+
+            foreach (EffectData effect in provider.Combat.Effects) {
+                string direction = effect?.Target;
+                if (effect == null) {
+                    continue;
+                }
+
+                if (effect.EffectID == "PerAdjacentTag" || (string.IsNullOrEmpty(direction) && effect.EffectID == "ChargeNeighbor")) {
+                    direction = TargetDirection.AllAdjacent.ToString();
+                }
+
+                if (!Enum.TryParse(direction, out TargetDirection side) || side == TargetDirection.Self || side == TargetDirection.Global) {
+                    continue;
+                }
+
+                foreach (ItemEntity neighbour in Neighbors(provider, direction, grid)) {
+                    if (neighbour == provider || !Reaches(effect, neighbour)) {
+                        continue;
+                    }
+
+                    bool known = links.Exists(l => (l.Key == provider && l.Value == neighbour) || (l.Key == neighbour && l.Value == provider));
+                    if (!known) {
+                        links.Add(new KeyValuePair<ItemEntity, ItemEntity>(provider, neighbour));
+                    }
+                }
+            }
+        }
+
+        return links;
+    }
+
+    // A neighbour the effect does something to: one with combat stats and the effect's Tag; a damage multiplier only
+    // reaches neighbours that deal damage.
+    private static bool Reaches(EffectData effect, ItemEntity neighbour) {
+        if (neighbour?.Combat == null || !CombatItemEffects.HasTag(neighbour, effect.Tag)) {
+            return false;
+        }
+
+        if (effect.EffectID == "DamageMultiplier") {
+            return neighbour.Combat.DamageType == nameof(DamageType.Physical) || neighbour.Combat.DamageType == nameof(DamageType.Energy);
+        }
+
+        return true;
+    }
+
     private static List<ItemEntity> GetTargetItems(ItemEntity provider, string targetDirectionStr, BackpackGrid grid) {
         List<ItemEntity> targets = new List<ItemEntity>();
         
