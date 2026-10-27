@@ -24,7 +24,7 @@
   "MinRouteCount": 3,
   "MapBackgroundID": "bg_dungeon_layer_3",
   "CombatBackgroundID": "bg_combat_layer_3",
-  "CombatAmbientColor": "#CAD9E4",
+  "CombatAmbientColor": "#F0F3F6",
   "CombatRimColor": "#7FE8F0",
   "FogProfile": "corrosion_reveal_1_preview_1",
   "NodeRevealDepth": 1,

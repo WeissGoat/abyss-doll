@@ -23,7 +23,7 @@
   "MinRouteCount": 2,
   "MapBackgroundID": "bg_dungeon_layer_1",
   "CombatBackgroundID": "bg_combat_abyss",
-  "CombatAmbientColor": "#D6E6E4",
+  "CombatAmbientColor": "#F4F6F4",
   "CombatRimColor": "#8CF5DC",
   "FogProfile": "tutorial_reveal_1_preview_1",
   "NodeRevealDepth": 1,

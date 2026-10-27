@@ -1332,9 +1332,10 @@ public class HUDController : MonoBehaviour {
             return;
         }
 
-        Color ambient = ParseStageColor(layer?.CombatAmbientColor, new Color(0.84f, 0.9f, 0.9f));
+        Color ambient = ParseStageColor(layer?.CombatAmbientColor, new Color(0.96f, 0.96f, 0.96f));
         Color rim = ParseStageColor(layer?.CombatRimColor, new Color(0.55f, 0.96f, 0.86f));
-        rim.a = 0.55f;
+        // Faint: a strong teal rim (0.55) with a cool ambient read as a green film over Zero's cream clothes.
+        rim.a = 0.28f;
         _motion.SetStageLight(ambient, rim);
     }
 
