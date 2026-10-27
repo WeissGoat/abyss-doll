@@ -274,7 +274,6 @@ public class HUDController : MonoBehaviour {
 
         _motion = CombatMotionDirector.Ensure(gameObject);
         _motion.SetLayers(popupLayer, stageRect);
-        ApplyStageLight(GameRoot.Core?.Dungeon?.CurrentLayer);
 
         _stageRoot.SetAsLastSibling();
     }
@@ -1326,28 +1325,10 @@ public class HUDController : MonoBehaviour {
         SetActiveIfPresent(_cancelSelectionBtn, ItemUseService.HasPendingEnemyTargetSelection);
     }
 
-    // The layer's light on the fighters (config CombatAmbientColor / CombatRimColor), so they sit in its stage.
-    private void ApplyStageLight(DungeonLayer layer) {
-        if (_motion == null) {
-            return;
-        }
-
-        Color ambient = ParseStageColor(layer?.CombatAmbientColor, new Color(0.96f, 0.96f, 0.96f));
-        Color rim = ParseStageColor(layer?.CombatRimColor, new Color(0.55f, 0.96f, 0.86f));
-        // Faint: a strong teal rim (0.55) with a cool ambient read as a green film over Zero's cream clothes.
-        rim.a = 0.28f;
-        _motion.SetStageLight(ambient, rim);
-    }
-
-    private static Color ParseStageColor(string hex, Color fallback) {
-        return !string.IsNullOrEmpty(hex) && ColorUtility.TryParseHtmlString(hex, out Color color) ? color : fallback;
-    }
-
     private void EnsureCombatBackground() {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "CombatBackground_Image");
         DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
         string visualID = VisualAssetService.ResolveCombatBackgroundID(layer);
-        ApplyStageLight(layer);
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f));
     }
 

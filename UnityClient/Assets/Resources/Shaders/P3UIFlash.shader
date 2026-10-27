@@ -1,7 +1,5 @@
 // UI/Default plus a flash: _FlashAmount blends the sprite's colour toward _FlashColor, keeping its alpha, so a hit
 // can turn a fighter white or red for a moment (the default shader can only darken). Used by CombatMotionDirector.
-// It also sets a fighter into the stage's light: _AmbientColor multiplies the colours, and _RimColor lights the edges
-// that face _RimDir (where the light comes from), found from the sprite's alpha _RimWidth texels away.
 Shader "P3/UIFlash"
 {
     Properties
@@ -10,10 +8,6 @@ Shader "P3/UIFlash"
         _Color ("Tint", Color) = (1,1,1,1)
         _FlashColor ("Flash Color", Color) = (1,1,1,1)
         _FlashAmount ("Flash Amount", Range(0,1)) = 0
-        _AmbientColor ("Ambient", Color) = (1,1,1,1)
-        _RimColor ("Rim Color (alpha = strength)", Color) = (1,1,1,0)
-        _RimDir ("Rim Direction", Vector) = (-0.35,1,0,0)
-        _RimWidth ("Rim Width (texels)", Float) = 14
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -90,11 +84,6 @@ Shader "P3/UIFlash"
             float4 _MainTex_ST;
             fixed4 _FlashColor;
             float _FlashAmount;
-            fixed4 _AmbientColor;
-            fixed4 _RimColor;
-            float4 _RimDir;
-            float _RimWidth;
-            float4 _MainTex_TexelSize;
 
             v2f vert(appdata_t v)
             {
@@ -111,15 +100,6 @@ Shader "P3/UIFlash"
             fixed4 frag(v2f IN) : SV_Target
             {
                 half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
-                color.rgb *= _AmbientColor.rgb;
-
-                // Edge light: how much of the sprite is missing toward the light, near and a little further out.
-                float2 rimStep = normalize(_RimDir.xy + 1e-5) * _MainTex_TexelSize.xy * _RimWidth;
-                half towardNear = tex2D(_MainTex, IN.texcoord + rimStep * 0.5).a;
-                half towardFar = tex2D(_MainTex, IN.texcoord + rimStep).a;
-                half rim = saturate(color.a - (towardNear + towardFar) * 0.5);
-                color.rgb += _RimColor.rgb * rim * _RimColor.a;
-
                 color.rgb = lerp(color.rgb, _FlashColor.rgb, saturate(_FlashAmount));
 
                 #ifdef UNITY_UI_CLIP_RECT

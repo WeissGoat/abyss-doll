@@ -16,11 +16,8 @@ public class DungeonConfig {
     public int MaxWidth;
     public int MinRouteCount;
     public string MapBackgroundID;
-    // The fight screen on this layer: its stage background, and the light on the fighters standing in it (ambient
-    // multiplies their colours, rim is the cool edge light from behind). Colours as "#RRGGBB"; empty uses the defaults.
+    // The fight screen's stage background on this layer.
     public string CombatBackgroundID;
-    public string CombatAmbientColor;
-    public string CombatRimColor;
     public string FogProfile;
     public int NodeRevealDepth = 1;
     public int NodePreviewDepth = 1;

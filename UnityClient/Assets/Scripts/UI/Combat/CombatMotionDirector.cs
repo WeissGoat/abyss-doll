@@ -116,8 +116,6 @@ public class CombatMotionDirector : MonoBehaviour {
     private float _clock;
     private float _lastDollStrike = float.NegativeInfinity;
     private Material _flashTemplate;
-    private Color _ambient = Color.white;
-    private Color _rim = new Color(1f, 1f, 1f, 0f);
 
     private static Sprite _slashSprite;
     private static Sprite _burstSprite;
@@ -148,13 +146,6 @@ public class CombatMotionDirector : MonoBehaviour {
     public static bool HasPose(string poseSetID, string pose) {
         string id = PoseVisualID(poseSetID, pose);
         return id != null && VisualAssetService.TryGetSprite(id, out _);
-    }
-
-    // The stage's light on every fighter (the layer's CombatAmbientColor / CombatRimColor): ambient multiplies their
-    // colours, rim lights their top edges. A rim with alpha 0 is off.
-    public void SetStageLight(Color ambient, Color rim) {
-        _ambient = ambient;
-        _rim = rim;
     }
 
     public void SetLayers(RectTransform popupLayer, RectTransform shakeRoot) {
@@ -407,8 +398,6 @@ public class CombatMotionDirector : MonoBehaviour {
             float flash = 1f - (now - actor.FlashStart) / FlashSeconds;
             actor.Material.SetColor("_FlashColor", actor.FlashColor);
             actor.Material.SetFloat("_FlashAmount", Mathf.Clamp01(flash) * actor.FlashStrength);
-            actor.Material.SetColor("_AmbientColor", _ambient);
-            actor.Material.SetColor("_RimColor", _rim);
         }
     }
 

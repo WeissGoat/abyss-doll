@@ -85,8 +85,6 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `ValidationScenarioRefs` | array<string> | 关联验收场景 | 指向 `15`、`19/20/25` 的场景编号 |
 | `MapBackgroundID` | string | 地图背景 VisualID | 地图 UI / 美术验收引用 |
 | `CombatBackgroundID` | string | 这一层的战斗舞台背景 VisualID；没登记时用 `bg_combat_abyss` | 战斗界面 |
-| `CombatAmbientColor` | string | 战斗里人物和怪物身上的环境光（`#RRGGBB`，乘在颜色上；只能很淡，接近白色，否则零号的浅色衣服会发绿发灰） | 战斗界面 |
-| `CombatRimColor` | string | 战斗里人物和怪物边缘的轮廓光（`#RRGGBB`） | 战斗界面 |
 | `NodeIconSet` | string | 节点图标集合 | 节点类型到图标的映射 |
 | `RouteThemeVisuals` | object | 路线主题表现引用 | 例如安全路线、侵蚀路线、订单路线颜色 / 图标 |
 | `FogProfile` | string | 战争迷雾配置 | 支撑未知节点、预览范围和可见信息 |
