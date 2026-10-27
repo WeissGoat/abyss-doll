@@ -23,6 +23,10 @@ public class DungeonMapUIController : MonoBehaviour {
     private float mapPathMinX;
     private float mapPathMaxX;
     private Text mapHintText;
+    private Image runStatusPlate;
+    private Text runStatusText;
+    // The how-to lines (where you stand, how to open the bag) only stay up for the first dives.
+    private const int BeginnerDiveCount = 2;
     // Nodes the player can still get to from where they stand; everything else on the layer is behind them.
     private readonly HashSet<NodeBase> reachableNodes = new HashSet<NodeBase>();
 
@@ -44,6 +48,7 @@ public class DungeonMapUIController : MonoBehaviour {
         List<List<NodeBase>> rows = GetRenderableRows(layer);
         CollectReachableNodes(layer);
         ApplyMapHint(layer);
+        ApplyRunStatus(layer);
         Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows);
         ConfigureMapLayout(rows);
         CreateRouteLines(layer, rows, nodePositions);
@@ -139,7 +144,7 @@ public class DungeonMapUIController : MonoBehaviour {
         if (backpackHintText != null) {
             backpackHintText.text = isOpen
                 ? "整理背包中：右键旋转物品；拖出格子的物品会在关闭背包时丢弃"
-                : "点击右下角打开背包，整理局内物资";
+                : IsBeginner() ? "点击右下角打开背包，整理局内物资" : string.Empty;
         }
     }
 
@@ -559,9 +564,10 @@ public class DungeonMapUIController : MonoBehaviour {
             outline.effectDistance = new Vector2(1.5f, -1.5f);
         }
 
-        mapHintText.text = layer?.CurrentNode == null
-            ? "选择一个绿色的「可前往」节点出发"
-            : "金框是你现在的位置；点击绿色的「可前往」节点继续深入";
+        mapHintText.text = !IsBeginner() ? string.Empty
+            : layer?.CurrentNode == null
+                ? "选择一个绿色的「可前往」节点出发"
+                : "金框是你现在的位置；点击绿色的「可前往」节点继续深入";
         mapHintText.transform.SetAsLastSibling();
         ApplyPromiseLine();
     }
@@ -574,7 +580,7 @@ public class DungeonMapUIController : MonoBehaviour {
             promise = UITheme.CreateText(transform, "Promise_Text", string.Empty, UITheme.BodySize - 2, new Color(1f, 0.86f, 0.58f), TextAnchor.MiddleLeft);
             RectTransform rect = promise.rectTransform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
-            rect.anchoredPosition = new Vector2(40f, -132f);
+            rect.anchoredPosition = new Vector2(40f, -170f);
             rect.sizeDelta = new Vector2(760f, 40f);
             Outline outline = promise.gameObject.AddComponent<Outline>();
             outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
@@ -584,6 +590,80 @@ public class DungeonMapUIController : MonoBehaviour {
         promise.text = PromiseService.MapLine(GameRoot.Core?.CurrentPlayer);
         promise.gameObject.SetActive(!string.IsNullOrEmpty(promise.text));
         promise.transform.SetAsLastSibling();
+    }
+
+    private static bool IsBeginner() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        return player == null || player.DiveJournal == null || player.DiveJournal.Count < BeginnerDiveCount;
+    }
+
+    // Top-left plate: Zero's state and what the next step costs, the nearest exit in sight and what she carries out if
+    // she turns back now (DungeonRunStatusService), so pushing on or heading for an exit is decided on the map itself.
+    // The prologue's shallow run keeps its own guide in that corner instead.
+    private void ApplyRunStatus(DungeonLayer layer) {
+        if (runStatusPlate == null) {
+            Transform existing = transform.Find("RunStatus_Image");
+            runStatusPlate = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (runStatusPlate == null) {
+            GameObject plateObj = new GameObject("RunStatus_Image", typeof(RectTransform));
+            plateObj.transform.SetParent(transform, false);
+            runStatusPlate = plateObj.AddComponent<Image>();
+            runStatusPlate.raycastTarget = false;
+            RectTransform plateRect = runStatusPlate.rectTransform;
+            plateRect.anchorMin = plateRect.anchorMax = plateRect.pivot = new Vector2(0f, 1f);
+            plateRect.anchoredPosition = new Vector2(36f, -36f);
+            plateRect.sizeDelta = new Vector2(620f, 118f);
+            runStatusText = UITheme.CreateText(runStatusPlate.transform, "RunStatus_Text", string.Empty, UITheme.BodySize - 2, UITheme.TextOnDark, TextAnchor.MiddleLeft);
+            runStatusText.supportRichText = true;
+            runStatusText.lineSpacing = 1.1f;
+            runStatusText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            runStatusText.verticalOverflow = VerticalWrapMode.Truncate;
+            RectTransform textRect = runStatusText.rectTransform;
+            UITheme.Stretch(textRect);
+            textRect.offsetMin = new Vector2(22f, 8f);
+            textRect.offsetMax = new Vector2(-22f, -8f);
+        }
+
+        if (runStatusText == null) {
+            runStatusText = runStatusPlate.GetComponentInChildren<Text>(true);
+        }
+
+        bool visible = layer != null && !PrologueShallowRun.IsPrologueLayer(layer);
+        runStatusPlate.gameObject.SetActive(visible);
+        if (!visible) {
+            return;
+        }
+
+        VisualUIHelper.ApplySolidColor(runStatusPlate, new Color(0.004f, 0.018f, 0.026f, 0.66f), true);
+        runStatusPlate.transform.SetAsLastSibling();
+        runStatusText.text = BuildRunStatusText(DungeonRunStatusService.Build(GameRoot.Core.Dungeon, GameRoot.Core.CurrentPlayer));
+    }
+
+    private static string BuildRunStatusText(DungeonRunStatus status) {
+        string title = string.IsNullOrEmpty(status.LayerName) ? $"第 {status.LayerID} 层" : $"第 {status.LayerID} 层 · {status.LayerName}";
+        bool hpLow = status.HPMax > 0 && status.HP * 10 < status.HPMax * 3;
+        bool sanLow = status.StepsSanAllows >= 0 && status.StepsSanAllows <= 2;
+        string doll = $"{Tint($"HP {status.HP}/{status.HPMax}", hpLow)}    {Tint($"SAN {status.SAN}/{status.SANMax}", sanLow)}"
+            + $"    磨损 {Mathf.RoundToInt(status.Wear)}    侵蚀 {Mathf.RoundToInt(status.Corruption)}";
+
+        string step = status.NextStepSanMax <= 0
+            ? "下一步不耗 SAN"
+            : status.NextStepSanMin == status.NextStepSanMax
+                ? $"下一步 -{status.NextStepSanMin} SAN"
+                : $"下一步 -{status.NextStepSanMin}~{status.NextStepSanMax} SAN";
+        if (status.StepsSanAllows >= 0) {
+            step += Tint($"，还够走 {status.StepsSanAllows} 步", sanLow);
+        }
+
+        string exit = status.StepsToExit > 0 ? $"最近出口：{status.ExitLabel} {status.StepsToExit} 步" : "前方还没看到出口";
+        string loot = status.LootCount > 0 ? $"带出 {status.LootCount} 件 ≈ {status.LootValue}G" : "还没捡到东西";
+        return $"<b><color=#F2B864>{title}</color></b>      {loot}\n{doll}\n{step}  ·  {exit}";
+    }
+
+    private static string Tint(string text, bool warn) {
+        return warn ? $"<color=#FF8A6E>{text}</color>" : text;
     }
 
     private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
@@ -740,7 +820,8 @@ public class DungeonMapUIController : MonoBehaviour {
 
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
         DungeonLayer currentLayer = GameRoot.Core?.Dungeon?.CurrentLayer;
-        bool isT0FirstLayer = currentLayer != null && currentLayer.LayerID == NarrativeCommandBridge.T0FirstDiveLayerID;
+        // Only the prologue's shallow run sits in front of the workshop door; every later layer-1 dive shows the layer itself.
+        bool isT0FirstLayer = PrologueShallowRun.IsPrologueLayer(currentLayer);
         string visualID = isT0FirstLayer
             ? "cg_t0_01a_p04_panel02_shallow_gate_glow"
             : VisualAssetService.ResolveDungeonMapBackgroundID(currentLayer);

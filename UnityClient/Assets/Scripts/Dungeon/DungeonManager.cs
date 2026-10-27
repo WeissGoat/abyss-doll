@@ -531,6 +531,16 @@ public class DungeonManager {
         return false;
     }
 
+    // What stepping onto this node would cost Zero in SAN, for the map's preview (the same rule MoveToNode charges).
+    public int PreviewSanCost(NodeBase node) {
+        return node == null || CurrentLayer == null ? 0 : GetSanCostForNode(node);
+    }
+
+    // Loot picked up this run that is still in her backpack: what evacuating now would bring home.
+    public List<ItemEntity> CarriedRunLoot() {
+        return CollectAcceptedLootStillInBackpack(GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid);
+    }
+
     private int GetSanCostForNode(NodeBase node) {
         int baseCost = GetBaseSanCostForNode(node);
         EffectModifierResolution resolution = ResolveMovementSanCost(node, baseCost);
