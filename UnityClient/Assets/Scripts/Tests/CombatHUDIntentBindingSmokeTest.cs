@@ -32,12 +32,11 @@ public static class CombatHUDIntentBindingSmokeTest {
         InvokeLifecycle(hud, "OnEnable");
 
         string text = CollectText(canvasObj);
-        // The intent badge over the enemy shows the attack's number, and her HP bar previews the hit after the shield.
+        // The intent badge over the enemy shows the attack's number; her own side no longer previews the hit.
         Text badge = FindRectRecursive(canvasObj.transform, "EnemyIntentBadge_Text")?.GetComponent<Text>();
-        Text incoming = FindRectRecursive(canvasObj.transform, "IncomingDamage_Text")?.GetComponent<Text>();
         bool passed = badge != null && badge.text == "9"
             && text.Contains("拾荒虫")
-            && incoming != null && incoming.text == "-9";
+            && FindRectRecursive(canvasObj.transform, "IncomingDamage_Text") == null;
 
         if (passed) {
             Debug.Log("Combat HUD Intent Binding PASSED.");

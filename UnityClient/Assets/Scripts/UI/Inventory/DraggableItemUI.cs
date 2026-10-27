@@ -156,20 +156,25 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 iconSprite = VisualAssetService.GetSprite(iconID);
             }
 
-            VisualUIHelper.ApplySlicedSprite(
-                image,
-                VisualAssetService.UIPanelInfoID,
-                ResolveItemTint(ItemData, false),
-                ResolveItemTint(ItemData, false),
-                true);
+            // No backing: the icon lies straight on the cells. The clear image still catches the drag.
+            image.sprite = null;
+            image.color = Color.clear;
+            image.raycastTarget = true;
 
             Image iconImage = EnsureIconImage();
             if (iconImage != null) {
                 iconImage.sprite = iconSprite;
                 iconImage.type = Image.Type.Simple;
                 iconImage.preserveAspect = true;
-                iconImage.color = hasRegisteredIcon ? Color.white : ResolveItemTint(ItemData, true);
+                iconImage.color = hasRegisteredIcon ? Color.white : ResolveItemTint(ItemData);
                 iconImage.raycastTarget = false;
+                // A soft shadow down-right sets the icon on the cell.
+                Shadow shadow = iconImage.GetComponent<Shadow>();
+                if (shadow == null) {
+                    shadow = iconImage.gameObject.AddComponent<Shadow>();
+                }
+                shadow.effectColor = new Color(0.1f, 0.06f, 0.03f, 0.45f);
+                shadow.effectDistance = new Vector2(3f, -4f);
                 ApplyIconRotation(iconImage.rectTransform);
             }
         }
@@ -243,7 +248,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             number = existing.GetComponentInChildren<Text>();
         }
 
-        // A small lit lantern, like the AP lanterns by the satchel, with the cost beside it.
+        // A small AP pip, like the ones left of the chassis, with the cost beside it.
         RectTransform pipRect = pip.rectTransform;
         pipRect.anchorMin = new Vector2(0f, 1f);
         pipRect.anchorMax = new Vector2(0f, 1f);
@@ -312,7 +317,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         return iconImage;
     }
 
-    private Color ResolveItemTint(ItemEntity item, bool forIcon) {
+    // The stand-in colour for an item without a registered icon.
+    private Color ResolveItemTint(ItemEntity item) {
         Color tint;
         switch (item.ItemType) {
             case nameof(ItemType.Weapon):
@@ -332,13 +338,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 break;
         }
 
-        // The tile behind the icon is a dark wash of its type's colour, so the icon and its numbers read on top.
-        if (forIcon) {
-            return new Color(tint.r, tint.g, tint.b, 0.95f);
-        }
-
-        Color wash = Color.Lerp(new Color(0.16f, 0.12f, 0.1f), tint, 0.35f);
-        return new Color(wash.r, wash.g, wash.b, 0.94f);
+        return new Color(tint.r, tint.g, tint.b, 0.95f);
     }
 
     private void ApplyGridFootprint() {

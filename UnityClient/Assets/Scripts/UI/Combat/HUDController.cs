@@ -20,8 +20,6 @@ public class HUDController : MonoBehaviour {
     private Text _turnBannerLabel;
     private Image _targetHintPanel;
     private Image _actionStrip;
-    private Image _incomingPanel;
-    private Text _incomingLabel;
     private Coroutine _autoEndTurn;
     private readonly EndTurnClickGuard _endTurnGuard = new EndTurnClickGuard();
     private Button _cancelSelectionBtn;
@@ -33,7 +31,6 @@ public class HUDController : MonoBehaviour {
     private Image _hpBarTrack;
     private Image _hpBarFill;
     private Image _playerHpPlate;
-    private Image _hpLossFill;
     private Image _shieldBadge;
     private Image _sanBarTrack;
     private Image _sanBarFill;
@@ -52,6 +49,9 @@ public class HUDController : MonoBehaviour {
     private const float FeetY = 720f;
     private const float BenchTop = 798f;
     // A fighter's sprite stands this far above the bottom of its slot (bars and name go under it).
+    // Zero's opened chassis on the bench: centred under the grid frame (the combat tray profile is 60 px left of centre).
+    private const float ChassisCentreX = 900f;
+    private static readonly Vector2 ChassisWingsSize = new Vector2(1100f, 308f);
     private const float EnemyFeetOffset = 64f;
     private float _playerTurnShownAt = -10f;
     // The fight in which she has already acted (spent AP): the how-to-attack hint is gone from then on.
@@ -74,7 +74,6 @@ public class HUDController : MonoBehaviour {
         SetActiveIfPresent(_turnBannerImage, !active);
         SetActiveIfPresent(_targetHintPanel, !active);
         SetActiveIfPresent(_actionStrip, !active);
-        SetActiveIfPresent(_incomingPanel, !active);
         SetActiveIfPresent(_playerStatusPanel, !active);
         SetActiveIfPresent(_playerHpPlate, !active);
     }
@@ -226,7 +225,7 @@ public class HUDController : MonoBehaviour {
             Debug.LogWarning("[HUDController] Failed to create PlayerStageRoot. Combat stage widgets will be skipped.");
             return;
         }
-        // Zero in the left third, her feet on the stage floor (FeetY); the bench and the satchel are in front.
+        // Zero in the left third, her feet on the stage floor (FeetY); the bench and her chassis are in front.
         ConfigureTopLeftRect(EnsureRect(_playerStageRoot), 40f, FeetY + 54f - 620f, 440f, 620f);
 
         _enemyStageRoot = ResolveEnemyStageRoot();
@@ -238,7 +237,7 @@ public class HUDController : MonoBehaviour {
             return;
         }
         // From the middle of the stage to the right edge: up to three monsters side by side, feet on the same floor.
-        // Right of the satchel: the satchel sits a little left of centre on the bench, so nothing stands behind it.
+        // Right of the chassis frame: it stands a little left of centre on the bench, so nothing stands behind it.
         ConfigureTopLeftRect(EnsureRect(_enemyStageRoot), 1060f, 260f, 860f, 524f);
         enemyListParent = _enemyStageRoot;
         RemoveLayoutComponents(_enemyStageRoot.gameObject);
@@ -358,7 +357,7 @@ public class HUDController : MonoBehaviour {
             false);
         ClearImage(_targetHintPanel);
 
-        // On the bench right of the satchel: bare hands, cancel and the wax seal that ends the turn.
+        // On the bench right of the chassis: bare hands, cancel and the wind-up key that ends the turn.
         _actionStrip = EnsureSkinImage(
             transform,
             _actionStrip,
@@ -372,7 +371,7 @@ public class HUDController : MonoBehaviour {
             false);
         ClearImage(_actionStrip);
 
-        // Under her feet: HP in the bar, the shield badge on its left, and what the enemy turn will take flashing on it.
+        // Under her feet: HP in the bar, the shield badge on its left.
         _playerHpPlate = EnsureSkinImage(
             transform,
             _playerHpPlate,
@@ -395,37 +394,10 @@ public class HUDController : MonoBehaviour {
             new Vector2(330f, 48f),
             VisualAssetService.UICombatHpBarFrameID,
             new Color(0.86f, 0.16f, 0.12f, 0.95f));
-        _hpLossFill = EnsureBarFill(BarHollow(_hpBarTrack), _hpLossFill, "IncomingLoss", new Color(1f, 0.84f, 0.42f, 0.9f));
 
         _shieldBadge = EnsureSimpleImage(_playerHpPlate.transform, _shieldBadge, "ShieldBadge");
         ConfigureTopLeftRect(_shieldBadge.rectTransform, 0f, -1f, 60f, 66f);
         VisualUIHelper.ApplySimpleSprite(_shieldBadge, ShieldIconID, Color.white, new Color(0.52f, 0.68f, 0.95f, 0.92f), false, true);
-
-        _incomingPanel = EnsureSkinImage(
-            transform,
-            _incomingPanel,
-            "IncomingDamagePanel",
-            HpBarRight + 8f,
-            FeetY + 16f,
-            130f,
-            40f,
-            VisualAssetService.UIPanelInfoID,
-            new Color(0.08f, 0.06f, 0.05f, 0.7f),
-            false);
-        // The same red leather tag as a monster's attack, hanging under her bar.
-        VisualUIHelper.ApplySlicedSprite(_incomingPanel, VisualAssetService.UICombatIntentTagDangerID, Color.white, new Color(0.1f, 0.06f, 0.05f, 0.82f), false);
-        _incomingPanel.pixelsPerUnitMultiplier = 4f;
-        _incomingLabel = EnsureChildLabel(
-            _incomingPanel.transform,
-            _incomingLabel,
-            "IncomingDamage_Text",
-            string.Empty,
-            24,
-            UITheme.TextOnDark,
-            TextAnchor.MiddleCenter);
-        _incomingLabel.fontStyle = FontStyle.Bold;
-        _incomingLabel.verticalOverflow = VerticalWrapMode.Overflow;
-        StretchToParent(_incomingLabel.rectTransform, 8f, 2f);
 
         // Left of the tray: AP and SAN.
         _playerStatusPanel = EnsureSkinImage(
@@ -441,7 +413,7 @@ public class HUDController : MonoBehaviour {
             false);
         ClearImage(_playerStatusPanel);
 
-        // SAN: a candle, then the number and a thin bar.
+        // SAN: her ampoule, then the number and a thin bar.
         _sanCandle = EnsureSimpleImage(_playerStatusPanel.transform, _sanCandle, "SanCandle");
         ConfigureTopLeftRect(_sanCandle.rectTransform, 12f, 130f, 56f, 70f);
         VisualUIHelper.ApplySimpleSprite(_sanCandle, VisualAssetService.UICombatSanCandleID, Color.white, new Color(0.95f, 0.9f, 0.75f, 0.9f), false, true);
@@ -452,15 +424,15 @@ public class HUDController : MonoBehaviour {
             ref _sanBarFill,
             "SanBar",
             new Vector2(76f, -170f),
-            new Vector2(290f, 24f),
+            new Vector2(236f, 24f),
             VisualAssetService.UICombatStatusBarShieldID,
             new Color(0.56f, 0.46f, 0.86f, 0.95f));
 
         EnsureApPipParent();
     }
 
-    // A workbench across the bottom of the screen: the satchel, the lanterns, the candle and the seal stand on it.
-    // A soft shadow above its edge joins it to the stage floor.
+    // A dark workbench across the bottom of the screen with Zero's opened chassis on it (brass and porcelain wings
+    // around the grid frame); AP and SAN stand left of it, the buttons right. A soft shadow joins it to the stage floor.
     private void EnsureBench() {
         int above = backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() + 1 : 0;
         Image shade = EnsureSimpleImage(transform, null, "CombatBottomShade");
@@ -474,8 +446,14 @@ public class HUDController : MonoBehaviour {
 
         Image bench = EnsureSimpleImage(transform, null, "CombatBench");
         ConfigureTopLeftRect(bench.rectTransform, 0f, BenchTop, 1920f, 1080f - BenchTop);
-        VisualUIHelper.ApplySimpleSprite(bench, VisualAssetService.UICombatBenchID, Color.white, new Color(0.16f, 0.11f, 0.08f, 1f), false, false);
+        VisualUIHelper.ApplySimpleSprite(bench, VisualAssetService.UICombatBenchID, new Color(0.62f, 0.6f, 0.58f, 1f), new Color(0.16f, 0.11f, 0.08f, 1f), false, false);
         bench.transform.SetSiblingIndex(above + 1);
+
+        // Centred under the grid frame (x 900, the combat tray profile), its lower edge on the bottom of the screen.
+        Image wings = EnsureSimpleImage(transform, null, "CombatChassisWings");
+        ConfigureTopLeftRect(wings.rectTransform, ChassisCentreX - ChassisWingsSize.x * 0.5f, 1080f - ChassisWingsSize.y, ChassisWingsSize.x, ChassisWingsSize.y);
+        VisualUIHelper.ApplySimpleSprite(wings, VisualAssetService.UICombatChassisWingsID, Color.white, new Color(0.5f, 0.42f, 0.3f, 1f), false, false);
+        wings.transform.SetSiblingIndex(above + 2);
     }
 
     private static Sprite _bottomShade;
@@ -570,8 +548,16 @@ public class HUDController : MonoBehaviour {
             endTurnBtn.transform.SetParent(_actionStrip.transform, false);
         }
 
-        ConfigureTopLeftRect(endTurnBtn.GetComponent<RectTransform>(), 396f, 16f, 196f, 196f);
-        ConfigureButtonText(endTurnBtn, "结束回合", 28, UITheme.OnAccent);
+        ConfigureTopLeftRect(endTurnBtn.GetComponent<RectTransform>(), 384f, 6f, 214f, 214f);
+        ConfigureButtonText(endTurnBtn, "结束回合", 24, new Color(1f, 0.92f, 0.74f));
+        Text keyLabel = endTurnBtn.GetComponentInChildren<Text>();
+        if (keyLabel != null) {
+            RectTransform keyLabelRect = keyLabel.rectTransform;
+            keyLabelRect.anchorMin = new Vector2(0.12f, 0.06f);
+            keyLabelRect.anchorMax = new Vector2(0.88f, 0.26f);
+            keyLabelRect.offsetMin = Vector2.zero;
+            keyLabelRect.offsetMax = Vector2.zero;
+        }
 
         if (_cancelSelectionBtn == null) {
             Transform existing = _actionStrip.transform.Find("CancelSelection_Button");
@@ -584,7 +570,8 @@ public class HUDController : MonoBehaviour {
             _cancelSelectionBtn.transform.SetParent(_actionStrip.transform, false);
         }
 
-        ConfigureTopLeftRect(_cancelSelectionBtn.GetComponent<RectTransform>(), 40f, 120f, 170f, 54f);
+        // Under the bare-hands button, right of the chassis panel.
+        ConfigureTopLeftRect(_cancelSelectionBtn.GetComponent<RectTransform>(), 200f, 180f, 150f, 50f);
         ConfigureButtonText(_cancelSelectionBtn, "取消", 21, UITheme.TextOnDark);
 
         if (_unarmedStrikeBtn == null) {
@@ -657,61 +644,9 @@ public class HUDController : MonoBehaviour {
         RefreshEnemyButtons();
         RefreshTargetHint();
         RefreshActionButtons();
-        RefreshIncomingPreview();
-    }
-
-    // The damage the locked intents will deal when the turn ends, after the current shield.
-    private void RefreshIncomingPreview() {
-        if (_incomingPanel == null || _incomingLabel == null) {
-            return;
-        }
-
-        CombatSystem combat = GameRoot.Core?.Combat;
-        IncomingDamagePreview preview = combat != null && combat.CurrentState == CombatState.PlayerTurn
-            ? CombatReadabilityTextService.BuildIncomingDamagePreview(combat)
-            : null;
-        bool show = preview != null && preview.Total > 0;
-        _incomingPanel.gameObject.SetActive(show);
-        int maxHP = GetActivePlayerFighter()?.RuntimeMaxHP ?? 0;
-        if (!show || maxHP <= 0) {
-            SetBarSegment(_hpLossFill, 0f, 0f);
-            return;
-        }
-
-        _incomingLabel.text = preview.Lethal ? $"-{preview.HPLoss} 会倒下"
-            : preview.HPLoss > 0 ? $"-{preview.HPLoss}"
-            : "护盾挡住";
-        _incomingLabel.color = preview.Lethal
-            ? new Color(1f, 0.88f, 0.36f)
-            : preview.HPLoss > 0 ? UITheme.TextOnDark : UITheme.PositiveOnDark;
-        RectTransform tag = _incomingPanel.rectTransform;
-        float width = preview.Lethal ? 190f : 130f;
-        tag.sizeDelta = new Vector2(width, tag.sizeDelta.y);
-        tag.anchoredPosition = new Vector2(HpBarRight + 8f, tag.anchoredPosition.y);
-        SetBarSegment(_hpLossFill, (float)preview.HPAfter / maxHP, (float)preview.HPBefore / maxHP);
-    }
-
-    // The bar between two fractions (what the enemy turn will take off her HP).
-    private void SetBarSegment(Image fill, float from, float to) {
-        if (fill == null) {
-            return;
-        }
-
-        RectTransform rect = fill.rectTransform;
-        rect.anchorMin = new Vector2(Mathf.Clamp01(from), 0f);
-        rect.anchorMax = new Vector2(Mathf.Clamp01(to), 1f);
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
-        fill.gameObject.SetActive(to - from > 0.001f);
     }
 
     private void Update() {
-        if (_hpLossFill != null && _hpLossFill.gameObject.activeSelf) {
-            Color color = _hpLossFill.color;
-            color.a = 0.45f + 0.45f * Mathf.Abs(Mathf.Sin(Time.unscaledTime * 3.2f));
-            _hpLossFill.color = color;
-        }
-
         CanvasGroup banner = _turnBannerImage != null ? _turnBannerImage.GetComponent<CanvasGroup>() : null;
         if (banner != null) {
             banner.alpha = Mathf.MoveTowards(banner.alpha, TurnBannerWanted() ? 1f : 0f, Time.unscaledDeltaTime * 4f);
@@ -1089,37 +1024,38 @@ public class HUDController : MonoBehaviour {
         // Kept under the top edge of the screen for a tall monster.
         bottom = Mathf.Min(bottom, 440f);
         bool hasNumber = !string.IsNullOrEmpty(line.IntentBadge);
-        float width = hasNumber ? 120f + 22f * Mathf.Max(1, line.IntentBadge.Length) : 110f;
+        float width = hasNumber ? 84f + 22f * Mathf.Max(1, line.IntentBadge.Length) : 90f;
         GameObject badgeObj = CreateRectGameObject("EnemyIntentBadge");
         badgeObj.transform.SetParent(parent, false);
         Image backing = badgeObj.AddComponent<Image>();
-        // A leather tag: red for what hurts her this turn, brown for the rest.
+        // A plain plate: red for what hurts her this turn, slate for the rest; one white glyph and the number on it.
         bool harmful = line.IntentType == MonsterIntentType.Attack || line.IntentType == MonsterIntentType.SelfDestruct;
         VisualUIHelper.ApplySlicedSprite(
             backing,
             harmful ? VisualAssetService.UICombatIntentTagDangerID : VisualAssetService.UICombatIntentTagID,
             Color.white,
-            harmful ? new Color(0.55f, 0.12f, 0.1f, 0.92f) : new Color(0.26f, 0.16f, 0.1f, 0.92f),
+            harmful ? new Color(0.5f, 0.1f, 0.1f, 0.95f) : new Color(0.22f, 0.25f, 0.3f, 0.95f),
             false);
-        backing.pixelsPerUnitMultiplier = 2f;
+        backing.pixelsPerUnitMultiplier = 2.8f;
         RectTransform rect = backing.rectTransform;
         rect.anchorMin = new Vector2(0.5f, 0f);
         rect.anchorMax = new Vector2(0.5f, 0f);
         rect.pivot = new Vector2(0.5f, 0f);
         rect.anchoredPosition = new Vector2(0f, bottom);
-        rect.sizeDelta = new Vector2(width, 80f);
+        rect.sizeDelta = new Vector2(width, 60f);
 
         Image icon = CreateRectGameObject("EnemyIntentIcon").AddComponent<Image>();
         icon.transform.SetParent(badgeObj.transform, false);
-        ConfigureTopLeftRect(icon.rectTransform, 14f, 2f, 76f, 76f);
-        VisualUIHelper.ApplySimpleSprite(icon, IntentIconID(line.IntentType), Color.white, new Color(0.9f, 0.5f, 0.3f, 1f), false, true);
+        float iconX = hasNumber ? 18f : (width - 46f) * 0.5f;
+        ConfigureTopLeftRect(icon.rectTransform, iconX, 7f, 46f, 46f);
+        VisualUIHelper.ApplySimpleSprite(icon, IntentIconID(line.IntentType), Color.white, new Color(0.95f, 0.9f, 0.85f, 1f), false, true);
         if (!line.CanExecute) {
             icon.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
         if (hasNumber) {
-            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 38, UITheme.TextOnDark, TextAnchor.MiddleLeft);
-            PlaceLabel(number, backing, new Vector2(94f, -2f), new Vector2(width - 124f, 80f), 38, false);
+            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 34, UITheme.TextOnDark, TextAnchor.MiddleLeft);
+            PlaceLabel(number, backing, new Vector2(66f, -1f), new Vector2(width - 78f, 60f), 34, false);
             number.fontStyle = FontStyle.Bold;
         }
     }
@@ -1247,12 +1183,10 @@ public class HUDController : MonoBehaviour {
                 hpLabel.text = $"{current} / {max}";
             }
             SetBarFill(_hpBarFill, max > 0 ? (float)current / max : 0f);
-            RefreshIncomingPreview();
             return;
         }
 
         RefreshEnemyButtons();
-        RefreshIncomingPreview();
     }
 
     private void HandleSANChanged(string id, int current, int max) {
@@ -1285,7 +1219,6 @@ public class HUDController : MonoBehaviour {
                 shieldLabel.text = current.ToString();
             }
             SetActiveIfPresent(_shieldBadge, current > 0);
-            RefreshIncomingPreview();
             return;
         }
 
@@ -1314,7 +1247,6 @@ public class HUDController : MonoBehaviour {
         RefreshEnemyButtons();
         RefreshTargetHint();
         RefreshActionButtons();
-        RefreshIncomingPreview();
     }
 
     private void HandleTargetSelectionChanged(string message, bool isActive) {
@@ -1560,8 +1492,8 @@ public class HUDController : MonoBehaviour {
         layout.childControlHeight = false;
         layout.childForceExpandWidth = false;
         layout.childForceExpandHeight = false;
-        // The lantern pictures are narrow in their square, so they stand close.
-        layout.spacing = -22f;
+        // The spring barrels are narrow in their square, so they stand close.
+        layout.spacing = -16f;
         _apPipParent = pipRoot.transform;
     }
 
@@ -1569,7 +1501,7 @@ public class HUDController : MonoBehaviour {
         PlaceLabel(hpLabel, _hpBarTrack, Vector2.zero, Vector2.zero, 22, true);
         PlaceLabel(shieldLabel, _shieldBadge, Vector2.zero, Vector2.zero, 22, true);
         PlaceLabel(apLabel, _playerStatusPanel, new Vector2(24f, -14f), new Vector2(160f, 34f), 22, false);
-        PlaceLabel(sanLabel, _playerStatusPanel, new Vector2(76f, -132f), new Vector2(290f, 34f), 22, false);
+        PlaceLabel(sanLabel, _playerStatusPanel, new Vector2(76f, -132f), new Vector2(236f, 34f), 22, false);
 
         if (targetHintLabel != null && _targetHintPanel != null) {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);
@@ -1627,16 +1559,16 @@ public class HUDController : MonoBehaviour {
     }
 
     private void ApplyCombatButtonSkins() {
-        // End turn is a round red wax seal with the words pressed into it.
+        // End turn is the wind-up key from her back, the words on its brass plate.
         Image seal = endTurnBtn != null ? endTurnBtn.GetComponent<Image>() : null;
         if (seal != null) {
             VisualUIHelper.ApplySimpleSprite(seal, VisualAssetService.UICombatEndTurnSealID, Color.white, new Color(0.8f, 0.2f, 0.2f), true, true);
             endTurnBtn.targetGraphic = seal;
         }
-        VisualUIHelper.ApplyButtonSkin(_cancelSelectionBtn, VisualAssetService.UICombatIntentTagID, new Color(0.24f, 0.16f, 0.1f));
+        VisualUIHelper.ApplyButtonSkin(_cancelSelectionBtn, VisualAssetService.UICombatIntentTagID, new Color(0.24f, 0.26f, 0.3f));
         Image cancelImage = _cancelSelectionBtn != null ? _cancelSelectionBtn.GetComponent<Image>() : null;
         if (cancelImage != null) {
-            cancelImage.pixelsPerUnitMultiplier = 2.6f;
+            cancelImage.pixelsPerUnitMultiplier = 3f;
         }
 
         Image fist = _unarmedStrikeBtn != null ? _unarmedStrikeBtn.GetComponent<Image>() : null;
@@ -1667,13 +1599,13 @@ public class HUDController : MonoBehaviour {
             Image pip = pipObj.AddComponent<Image>();
             RectTransform rect = pip.rectTransform;
             rect.sizeDelta = new Vector2(78f, 78f);
-            // A lit lantern per AP left, a dark one per AP spent.
+            // A spring barrel with a lit crystal per AP left, a dull one per AP spent.
             bool lit = i < current;
             VisualUIHelper.ApplySimpleSprite(
                 pip,
                 lit ? VisualAssetService.UICombatApLanternLitID : VisualAssetService.UICombatApLanternUnlitID,
-                lit ? Color.white : new Color(0.78f, 0.78f, 0.78f, 0.9f),
-                lit ? new Color(1f, 0.82f, 0.4f, 1f) : new Color(0.25f, 0.25f, 0.25f, 0.8f),
+                Color.white,
+                lit ? new Color(0.4f, 0.95f, 0.85f, 1f) : new Color(0.25f, 0.25f, 0.25f, 0.8f),
                 false,
                 true);
         }

@@ -16,8 +16,8 @@ public static class InventoryDisplaySpecSmokeTest {
             Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -60f))
             && Approximately(new Vector2(safeRoomProfile.Scale, 0f), new Vector2(0.78f, 0f), 0.0001f)
             && Approximately(combatProfile.AnchoredPosition, new Vector2(-60f, -302f))
-            // The satchel around a full-height tray stays on a 1920×1080 screen and under the stage (top below y 560).
-            && SatchelOnScreen(combatProfile.AnchoredPosition, InventoryDisplaySpec.CombatTrayGridHeight)
+            // The chassis frame around a full-height tray stays on a 1920×1080 screen and under the stage (top below y 560).
+            && ChassisFrameOnScreen(combatProfile.AnchoredPosition, InventoryDisplaySpec.CombatTrayGridHeight)
             // The combat tray keeps 5 rows (7×5 cap) inside its height: a 4×4 grid at the full tray scale, 5 rows smaller.
             && Mathf.Abs(InventoryDisplaySpec.ResolveCombatScale(InventoryDisplaySpec.ResolveGridSize(4, 4)) - InventoryDisplaySpec.CombatTrayMaxScale) < 0.0001f
             && InventoryDisplaySpec.ResolveGridSize(7, 5).y * InventoryDisplaySpec.ResolveCombatScale(InventoryDisplaySpec.ResolveGridSize(7, 5)) <= InventoryDisplaySpec.CombatTrayGridHeight + 0.01f
@@ -43,8 +43,8 @@ public static class InventoryDisplaySpecSmokeTest {
     }
 
     // y measured from the screen's centre, up positive.
-    private static bool SatchelOnScreen(Vector2 trayCentre, float gridHeight) {
-        Vector2 size = InventoryDisplaySpec.ResolveSatchelSize(new Vector2(gridHeight, gridHeight), out Vector2 offset);
+    private static bool ChassisFrameOnScreen(Vector2 trayCentre, float gridHeight) {
+        Vector2 size = InventoryDisplaySpec.ResolveChassisFrameSize(new Vector2(gridHeight, gridHeight), out Vector2 offset);
         float centre = trayCentre.y + offset.y;
         float bottom = centre - size.y * 0.5f;
         float top = centre + size.y * 0.5f;

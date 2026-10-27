@@ -33,6 +33,7 @@ public static class VisualAssetService {
     public const string UIInventoryChassisPanelID = "ui_inventory_chassis_panel";
     public const string UIInventorySlotAvailableID = "ui_inventory_slot_available";
     public const string UIInventorySlotLockedID = "ui_inventory_slot_locked";
+    public const string UIInventorySlotPorcelainID = "ui_inventory_slot_porcelain";
     public const string UIInventorySlotHoverID = "ui_inventory_slot_hover";
     public const string UIInventorySlotValidID = "ui_inventory_slot_valid";
     public const string UIInventorySlotInvalidID = "ui_inventory_slot_invalid";
@@ -46,7 +47,9 @@ public static class VisualAssetService {
     public const string UICombatStatusBarShieldID = "ui_combat_status_bar_shield";
     public const string UICombatApPipID = "ui_combat_ap_pip";
     public const string UICombatTurnBannerID = "ui_combat_turn_banner";
-    public const string UICombatTraySatchelID = "ui_combat_tray_satchel";
+    public const string UICombatChassisFrameID = "ui_combat_chassis_frame";
+    public const string UICombatChassisWingsID = "ui_combat_chassis_wings";
+    public const string UICombatCoreCageID = "ui_combat_core_cage";
     public const string UICombatEndTurnSealID = "ui_combat_end_turn_seal";
     public const string UICombatApLanternLitID = "ui_combat_ap_lantern_lit";
     public const string UICombatApLanternUnlitID = "ui_combat_ap_lantern_unlit";
@@ -447,23 +450,22 @@ public static class VisualUIHelper {
         button.targetGraphic = image;
     }
 
-    // The tint on resting cells: the combat satchel darkens them to worn canvas so the items stand out
-    // (InventoryPresentationController sets it for each screen). Hover and drop previews keep their own colours.
-    public static Color InventorySlotRestTint = Color.white;
+    // The skin of resting cells: porcelain sockets in the combat chassis, the plain canvas elsewhere
+    // (InventoryPresentationController sets them for each screen). Hover and drop previews keep their own skins.
+    public static string InventorySlotRestSkinID;
 
     public static void ApplyInventorySlotSkin(Image image, bool isLocked, string stateVisualID = null) {
-        bool resting = string.IsNullOrEmpty(stateVisualID);
         string visualID = stateVisualID;
         if (string.IsNullOrEmpty(visualID)) {
             visualID = isLocked
                 ? VisualAssetService.UIInventorySlotLockedID
-                : VisualAssetService.UIInventorySlotAvailableID;
+                : InventorySlotRestSkinID ?? VisualAssetService.UIInventorySlotAvailableID;
         }
 
         Color missingColor = isLocked
             ? new Color(0.18f, 0.18f, 0.18f, 1f)
             : new Color(1f, 1f, 1f, 0.5f);
-        ApplySimpleSprite(image, visualID, resting ? InventorySlotRestTint : Color.white, missingColor, true, false);
+        ApplySimpleSprite(image, visualID, Color.white, missingColor, true, false);
     }
 
     public static bool ApplyContainSprite(Image image, string visualID, Vector2 containerSize, Color registeredColor, Color missingColor, bool bindLayoutElement = true) {

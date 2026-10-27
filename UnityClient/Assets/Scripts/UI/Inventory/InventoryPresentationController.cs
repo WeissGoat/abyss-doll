@@ -212,8 +212,8 @@ public class InventoryPresentationController : MonoBehaviour {
 
     public void ApplyCurrentPresentation() {
         bool shouldShowBackpack = ShouldShowBackpack();
-        // Resting cells are dark worn canvas in the satchel, the plain canvas elsewhere.
-        VisualUIHelper.InventorySlotRestTint = _mode == InventoryPresentationMode.Combat ? new Color(0.42f, 0.38f, 0.34f, 1f) : Color.white;
+        // Resting cells are porcelain sockets in the combat chassis, the plain canvas elsewhere.
+        VisualUIHelper.InventorySlotRestSkinID = _mode == InventoryPresentationMode.Combat ? VisualAssetService.UIInventorySlotPorcelainID : null;
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
         if (generator?.gridParent != null) {
@@ -354,16 +354,16 @@ public class InventoryPresentationController : MonoBehaviour {
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         if (_mode == InventoryPresentationMode.Combat) {
-            // In a fight the grid lies in an open satchel, drawn at screen scale so its rim and buckles keep their size
-            // whatever the chassis.
-            Vector2 size = InventoryDisplaySpec.ResolveSatchelSize(gridSize * scale, out Vector2 centreOffset);
+            // In a fight the grid is Zero's chassis: a brass frame drawn at screen scale so its rim and rivets keep
+            // their size whatever the chassis, with her core in its cage on top.
+            Vector2 size = InventoryDisplaySpec.ResolveChassisFrameSize(gridSize * scale, out Vector2 centreOffset);
             VisualUIHelper.ApplySlicedSprite(
                 _inventoryChassisPanel,
-                VisualAssetService.UICombatTraySatchelID,
+                VisualAssetService.UICombatChassisFrameID,
                 Color.white,
-                new Color(0.27f, 0.16f, 0.1f, 0.95f),
+                new Color(0.27f, 0.2f, 0.12f, 0.95f),
                 false);
-            _inventoryChassisPanel.pixelsPerUnitMultiplier = InventoryDisplaySpec.SatchelPixelsPerUnitMultiplier;
+            _inventoryChassisPanel.pixelsPerUnitMultiplier = InventoryDisplaySpec.ChassisFramePixelsPerUnitMultiplier;
             panelRect.anchoredPosition = position + centreOffset;
             panelRect.sizeDelta = size;
             panelRect.localScale = Vector3.one;
@@ -381,8 +381,39 @@ public class InventoryPresentationController : MonoBehaviour {
                 false);
         }
 
+        EnsureCoreCage(_mode == InventoryPresentationMode.Combat);
         _inventoryChassisPanel.gameObject.SetActive(generator.gridParent.gameObject.activeSelf);
         _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
+    }
+
+    // Her core glowing in a small brass cage, standing on the top edge of the chassis frame.
+    private void EnsureCoreCage(bool show) {
+        Transform existing = _inventoryChassisPanel.transform.Find("CoreCage");
+        if (!show) {
+            if (existing != null) {
+                existing.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+
+        Image cage = existing != null ? existing.GetComponent<Image>() : null;
+        if (cage == null) {
+            GameObject cageObj = new GameObject("CoreCage", typeof(RectTransform), typeof(Image));
+            cageObj.transform.SetParent(_inventoryChassisPanel.transform, false);
+            cage = cageObj.GetComponent<Image>();
+        }
+
+        cage.gameObject.SetActive(true);
+        RectTransform rect = cage.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 1f);
+        rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 0.12f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(92f, 92f);
+        rect.localScale = Vector3.one;
+        VisualUIHelper.ApplySimpleSprite(cage, VisualAssetService.UICombatCoreCageID, Color.white, new Color(0.4f, 0.9f, 0.8f, 0.9f), false, true);
+        cage.raycastTarget = false;
     }
 
     private void BringInventoryLayersToFront(GridGenerator generator) {
