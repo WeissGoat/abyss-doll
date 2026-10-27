@@ -150,6 +150,7 @@ public class P3BuildSmoke : MonoBehaviour {
         bool journalCaptured = false;
         int journalPages = 0;
         bool unpackCaptured = false;
+        bool mapCaptured = false;
         int unpacked = 0;
         int talks = 0;
         int replies = 0;
@@ -162,8 +163,15 @@ public class P3BuildSmoke : MonoBehaviour {
                 yield return Capture("03c_journal_page");
             }
 
-            string report = P3DevTools.RunDive(40, !combatCaptured);
+            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured);
             Note(report);
+            if (report.Contains("Map ready.")) {
+                // The route map mid-dive: terrain, paths, medallions, the arrow and the next steps (2026-10-28).
+                mapCaptured = true;
+                yield return new WaitForSecondsRealtime(1f);
+                yield return Capture("03a_dungeon_map");
+                continue;
+            }
             if (report.Contains("Combat ready.")) {
                 // The first player turn: enemy intents with numbers and the incoming-damage preview (M2 batch 6).
                 combatCaptured = true;

@@ -16,7 +16,7 @@ public class DungeonMapUIController : MonoBehaviour {
     private const float PadHeight = 92f;
     private const float ColumnSpacing = 280f;
     private const float MinColumnSpacing = 230f;
-    private const float RowSpacing = 160f;
+    private const float RowSpacing = 185f;
     private const float WorldPaddingX = 320f;
     private const float WorldPaddingY = 260f;
     private const float RouteLineHeight = 44f;

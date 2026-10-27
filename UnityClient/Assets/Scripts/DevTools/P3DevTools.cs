@@ -423,7 +423,8 @@ public static class P3DevTools {
     // From the workshop, plays one dive the way a player would (map nodes, combat, loot) until the first safe room
     // or stairs, evacuates, and returns to the workshop. Stops early on anything it does not recognise.
     // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
-    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false) {
+    // stopAtMap: stop on the route map once Zero has walked a node (reports "Map ready."), for the same reason.
+    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false) {
         StringBuilder log = new StringBuilder();
         if (FinishArrival(log)) {
             return log.ToString() + Describe();
@@ -505,6 +506,9 @@ public static class P3DevTools {
                 if (!ClickByLabel("返回小镇", log)) {
                     break;
                 }
+            } else if (stopAtMap && IsPanelActive("DungeonMapPanel") && GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode != null) {
+                log.AppendLine("Map ready.");
+                break;
             } else if (IsPanelActive("DungeonMapPanel")) {
                 if (!EnterNextMapNode(log)) {
                     break;
