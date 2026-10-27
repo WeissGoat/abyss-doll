@@ -42,3 +42,14 @@
 ## 检查
 
 `LayoutCheck()`、`Occlusion()` / `DragCheck()`、`RealDragPlayScenario`、`CombatMotionPlayScenario`、`CombatHUDIntentBindingSmokeTest`（跟着新布局改）、打包自检的战斗截图。都还是 UGUI，检查工具照常覆盖。
+
+## 第二轮：融进场景（2026-10-27）
+
+制作人看了第一轮（`bug/6`）：背景和人物位置比例融得不好，图标风格不统一，下面的背包、按钮、提示像 P 上去的。选了方案 B，并要求人物缩小、三层都重画、素材我自己判断。
+
+- **舞台**：每层一张有地面的战斗背景（第 1 层原地重画，第 2 / 3 层新增 `bg_combat_layer_2/3`），由层配置的 `CombatBackgroundID` 指定；所有人站在同一条脚底线（y 720）上，怪物按最低的不透明像素落地（`HUDController.EnemySpriteRestPosition`）。
+- **人物缩小**：零号 260×404，怪物 230×280（大型 270×330），参考同类游戏人物占屏高约三分之一。
+- **统一光照**：层配置给 `CombatAmbientColor`（整体染色）和 `CombatRimColor`（左上方的轮廓光），`P3UIFlash` 着色器对零号和怪物都加上，人物不再像贴纸。
+- **长凳**：底部整条木长凳（`ui_combat_bench`，1920×282），挎包、蜡封、徒手拳头按钮（`ui_combat_unarmed_button`）、SAN、提示都放在凳上；上沿一层暗色渐变过渡。战斗中格子压暗，挎包读成皮革而不是贴上去的面板。挎包往左挪（x -60），怪物都在挎包右边。
+- **图标重画**：62 个物品图标、10 个意图图标和战斗界面零件，按 5×2 一张的参考图用 Gemini 图生图整批重画（保留原形状，统一线条、光源和色板；gpt 太亮太塑料，没用）。回合横幅换成木牌（`ui_combat_banner_plate`）。
+- 已知：7 列底盘时挎包会碰到左边怪物的血条和零号的「-9」小签，做到那时再挪。
