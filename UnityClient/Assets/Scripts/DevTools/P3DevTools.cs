@@ -783,10 +783,20 @@ public static class P3DevTools {
     private static void PrepareDay(StringBuilder log) {
         ResolveDayDialogs(log);
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
-        if (player != null && !DayCycleService.CanDive(player, out string reason) && DayCycleService.CanStartDay(player, out _)) {
+        if (player == null || !DayCycleService.CanStartDay(player, out _)) {
+            return;
+        }
+
+        // A day that cannot dive, or Zero herself too worn, corroded or broken for the chosen layer: rest, as a
+        // player would (resting is what the readiness hint asks for).
+        bool dayBlocked = !DayCycleService.CanDive(player, out string reason);
+        DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, Mathf.Max(1, player.LastSelectedDungeonStartLayer));
+        bool dollBlocked = readiness.Issues.Exists(issue => issue.Severity == DiveReadinessIssueSeverity.Blocker
+            && (issue.Code == DiveReadinessIssueCode.NoHP || issue.Code == DiveReadinessIssueCode.ExtremeWear || issue.Code == DiveReadinessIssueCode.ExtremeCorruption));
+        if (dayBlocked || dollBlocked) {
             ClickByLabel(TownDayHUD.RestLabel, log);
             ClickByLabel("休息一天", log);
-            log.AppendLine("Rested: " + reason);
+            log.AppendLine("Rested: " + (dayBlocked ? reason : readiness.BuildSummary()));
             ResolveDayDialogs(log);
         }
     }
