@@ -21,7 +21,7 @@
   "MinWidth": 2,
   "MaxWidth": 3,
   "MinRouteCount": 2,
-  "MapBackgroundID": "bg_dungeon_layer_1",
+  "MapBackgroundID": "map_terrain_layer_1",
   "CombatBackgroundID": "bg_combat_abyss",
   "FogProfile": "tutorial_reveal_1_preview_1",
   "NodeRevealDepth": 1,

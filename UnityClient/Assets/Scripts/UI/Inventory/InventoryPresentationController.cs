@@ -212,8 +212,8 @@ public class InventoryPresentationController : MonoBehaviour {
 
     public void ApplyCurrentPresentation() {
         bool shouldShowBackpack = ShouldShowBackpack();
-        // Resting cells are porcelain sockets in the combat chassis, the plain canvas elsewhere.
-        VisualUIHelper.InventorySlotRestSkinID = _mode == InventoryPresentationMode.Combat ? VisualAssetService.UIInventorySlotPorcelainID : null;
+        // Resting cells are porcelain sockets in Zero's chassis (in a fight and on the route map), the plain canvas elsewhere.
+        VisualUIHelper.InventorySlotRestSkinID = ShowsChassis() ? VisualAssetService.UIInventorySlotPorcelainID : null;
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
         if (generator?.gridParent != null) {
@@ -243,6 +243,11 @@ public class InventoryPresentationController : MonoBehaviour {
             BringInventoryLayersToFront(generator);
             GridSlotUI.ClearPreview();
         }
+    }
+
+    // The bag drawn as Zero's opened chassis: in a fight, and when she opens it on the route map.
+    private bool ShowsChassis() {
+        return _mode == InventoryPresentationMode.Combat || _mode == InventoryPresentationMode.DungeonMap;
     }
 
     private bool ShouldShowBackpack() {
@@ -298,7 +303,7 @@ public class InventoryPresentationController : MonoBehaviour {
         Vector2 gridSize = ResolveInventoryGridSize(grid);
         InventoryLayoutProfile profile = InventoryDisplaySpec.ResolveLayoutProfile(_mode);
         Vector2 position = profile.AnchoredPosition;
-        float inventoryScale = _mode == InventoryPresentationMode.Combat ? InventoryDisplaySpec.ResolveCombatScale(gridSize) : profile.Scale;
+        float inventoryScale = ShowsChassis() ? InventoryDisplaySpec.ResolveCombatScale(gridSize) : profile.Scale;
 
         RectTransform gridRect = generator.gridParent as RectTransform;
         if (gridRect != null) {
@@ -353,8 +358,8 @@ public class InventoryPresentationController : MonoBehaviour {
         panelRect.anchorMin = new Vector2(0.5f, 0.5f);
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
-        if (_mode == InventoryPresentationMode.Combat) {
-            // In a fight the grid is Zero's chassis: a brass frame drawn at screen scale so its rim and rivets keep
+        if (ShowsChassis()) {
+            // In a fight (and on the map) the grid is Zero's chassis: a brass frame drawn at screen scale so its rim and rivets keep
             // their size whatever the chassis, with her core in its cage on top.
             Vector2 size = InventoryDisplaySpec.ResolveChassisFrameSize(gridSize * scale, out Vector2 centreOffset);
             VisualUIHelper.ApplySlicedSprite(
@@ -381,7 +386,7 @@ public class InventoryPresentationController : MonoBehaviour {
                 false);
         }
 
-        EnsureCoreCage(_mode == InventoryPresentationMode.Combat);
+        EnsureCoreCage(ShowsChassis());
         _inventoryChassisPanel.gameObject.SetActive(generator.gridParent.gameObject.activeSelf);
         _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
     }
@@ -427,6 +432,15 @@ public class InventoryPresentationController : MonoBehaviour {
 
         if (inventoryItemLayer != null) {
             inventoryItemLayer.SetAsLastSibling();
+        }
+
+        // On the route map the chassis opens over the whole map panel, so its frame goes right under the grid.
+        if (_mode == InventoryPresentationMode.DungeonMap && _inventoryChassisPanel != null && generator?.gridParent != null) {
+            _inventoryChassisPanel.transform.SetAsLastSibling();
+            generator.gridParent.SetAsLastSibling();
+            if (inventoryItemLayer != null) {
+                inventoryItemLayer.SetAsLastSibling();
+            }
         }
     }
 

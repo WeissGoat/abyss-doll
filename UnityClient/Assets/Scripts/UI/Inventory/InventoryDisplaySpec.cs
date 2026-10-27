@@ -103,7 +103,7 @@ public static class InventoryDisplaySpec {
             case InventoryPresentationMode.Loadout:
                 return new InventoryLayoutProfile(new Vector2(-420f, 20f), 1f);
             case InventoryPresentationMode.DungeonMap:
-                return new InventoryLayoutProfile(new Vector2(0f, -250f), 1f);
+                return new InventoryLayoutProfile(new Vector2(0f, -302f), 1f);
             default:
                 return new InventoryLayoutProfile(Vector2.zero, 1f);
         }

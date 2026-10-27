@@ -841,6 +841,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: map_terrain_layer_1
+    Sprite: {fileID: 21300000, guid: f0dca9d143fabb24d8178f6a0e7f05b9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: map_terrain_layer_2
+    Sprite: {fileID: 21300000, guid: 75871ad529fc69f4c81001c295310dde, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: map_terrain_layer_3
+    Sprite: {fileID: 21300000, guid: 7ffe6ee7ca1c85f47b6a727ab896fc45, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_blackmarket_letter
     Sprite: {fileID: 21300000, guid: c6e78e2a57ab1d9153e942b158268f8d, type: 3}
     Prefab: {fileID: 0}
@@ -2547,6 +2565,114 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: ui_loot_pickup_panel
     Sprite: {fileID: 21300000, guid: 97cd1482546c4901b1ab767e501c3829, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_backpack_button
+    Sprite: {fileID: 21300000, guid: 5a57829bbb48ad14888047a9c62cd01a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_current_arrow
+    Sprite: {fileID: 21300000, guid: 74f1dd6e0c965c5429351b0b487d4961, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_fog
+    Sprite: {fileID: 21300000, guid: f33155d845f7eca499ee273af26785e2, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_boss
+    Sprite: {fileID: 21300000, guid: a4de38eb58ac23349b98bba844afd2ff, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_combat
+    Sprite: {fileID: 21300000, guid: ba4c6d7e3906dbe4183603a4334c9bce, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_event
+    Sprite: {fileID: 21300000, guid: 6d50995d3a3aabf499b346cb463c087f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_hazard
+    Sprite: {fileID: 21300000, guid: ac0d0c2480c4f10439973efac95060c8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_reststop
+    Sprite: {fileID: 21300000, guid: f2eff7547b60fe2448f353595cd196d3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_safe_room
+    Sprite: {fileID: 21300000, guid: c74e96ae20d89714eb5c004ca3b310eb, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_stairs
+    Sprite: {fileID: 21300000, guid: 4076b908faeddaf4c8579c4db4a0c5df, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_glyph_treasure
+    Sprite: {fileID: 21300000, guid: 91735a62e90693b4886076c5952e4c89, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_medallion
+    Sprite: {fileID: 21300000, guid: 3fbeb7720e5654b46a9e4fc8f5740792, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_node_glow
+    Sprite: {fileID: 21300000, guid: a8cd71001fdad0a4c8547d4878e6bd80, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_node_pad
+    Sprite: {fileID: 21300000, guid: 32faf01f546952147a3e2c4934cb6a8f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_path_layer_1
+    Sprite: {fileID: 21300000, guid: 24525f3f27dde9c4a84916d5c914e69a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_path_layer_2
+    Sprite: {fileID: 21300000, guid: a1746882e8c7b99438a67ff8d4f01f00, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_path_layer_3
+    Sprite: {fileID: 21300000, guid: 3b1b70a83379ba240a28615cfae72602, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_map_status_plate
+    Sprite: {fileID: 21300000, guid: 42e3b92c456726a4bb429e58d82c6d77, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

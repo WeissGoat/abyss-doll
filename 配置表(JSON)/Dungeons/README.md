@@ -83,7 +83,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `FixedSeedSamples` | array<object> | 固定 seed 验收样例 | 详见 `FixedSeedSamples` 字段组 |
 | `ExpectedRouteSummary` | object | 预期路线摘要 | 用于验收有效路线数、精英可绕、节点覆盖 |
 | `ValidationScenarioRefs` | array<string> | 关联验收场景 | 指向 `15`、`19/20/25` 的场景编号 |
-| `MapBackgroundID` | string | 地图背景 VisualID | 地图 UI / 美术验收引用 |
+| `MapBackgroundID` | string | 路线地图的地貌底图 VisualID（`map_terrain_layer_N`，比屏幕大、可卷动，只画地貌不画路） | 地图 UI / 美术验收引用 |
 | `CombatBackgroundID` | string | 这一层的战斗舞台背景 VisualID；没登记时用 `bg_combat_abyss` | 战斗界面 |
 | `NodeIconSet` | string | 节点图标集合 | 节点类型到图标的映射 |
 | `RouteThemeVisuals` | object | 路线主题表现引用 | 例如安全路线、侵蚀路线、订单路线颜色 / 图标 |

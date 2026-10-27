@@ -262,6 +262,11 @@ public static class VisualAssetRegistryEditorTools {
     private static ApprovedSpriteSpec ResolveApprovedSpriteSpec(string assetPath) {
         string normalized = assetPath.Replace('\\', '/');
 
+        // A layer's route-map terrain is bigger than the screen (the map scrolls), so it keeps its 2K size.
+        if (normalized.Contains("/Backgrounds/Dungeon/map_terrain_")) {
+            return new ApprovedSpriteSpec("map terrain", 2752, 1536, false, 4096);
+        }
+
         if (normalized.Contains("/Backgrounds/")) {
             return new ApprovedSpriteSpec("background", 1920, 1080, false, 2048);
         }
@@ -384,6 +389,18 @@ public static class VisualAssetRegistryEditorTools {
                 return new ApprovedSpriteSpec("ui strip", 1024, 128, true, 1024);
             case VisualAssetService.UIDungeonRouteLineID:
                 return new ApprovedSpriteSpec("ui route line", 512, 128, true, 512);
+            case VisualAssetService.UIMapMedallionID:
+            case VisualAssetService.UIMapNodeGlowID:
+            case VisualAssetService.UIMapBackpackButtonID:
+                return new ApprovedSpriteSpec("ui map icon", 256, 256, true, 256);
+            case VisualAssetService.UIMapCurrentArrowID:
+                return new ApprovedSpriteSpec("ui small icon", 128, 128, true, 128);
+            case VisualAssetService.UIMapNodePadID:
+                return new ApprovedSpriteSpec("ui map pad", 384, 256, true, 512);
+            case VisualAssetService.UIMapFogID:
+                return new ApprovedSpriteSpec("ui map fog", 1024, 1024, true, 1024);
+            case VisualAssetService.UIMapStatusPlateID:
+                return new ApprovedSpriteSpec("ui plate", 1024, 256, true, 1024);
             case VisualAssetService.UIDungeonNodePlateID:
             case VisualAssetService.UIIconLockedID:
             case VisualAssetService.UIIconEquippedID:
@@ -391,6 +408,14 @@ public static class VisualAssetRegistryEditorTools {
             case VisualAssetService.MissingSpriteVisualID:
                 return new ApprovedSpriteSpec("ui icon", 512, 512, true, 512);
             default:
+                if (visualID.StartsWith("ui_map_glyph_")) {
+                    return new ApprovedSpriteSpec("ui map icon", 256, 256, true, 256);
+                }
+
+                if (visualID.StartsWith("ui_map_path_layer_")) {
+                    return new ApprovedSpriteSpec("ui route line", 1024, 128, true, 1024, false, true);
+                }
+
                 return new ApprovedSpriteSpec("ui", 512, 512, true, 512);
         }
     }

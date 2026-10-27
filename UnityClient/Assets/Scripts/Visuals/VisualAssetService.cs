@@ -27,6 +27,17 @@ public static class VisualAssetService {
     public const string UISettlementDefeatPanelID = "ui_settlement_defeat_panel";
     public const string UIDungeonNodePlateID = "ui_dungeon_node_plate";
     public const string UIDungeonRouteLineID = "ui_dungeon_route_line";
+    // The route map (DungeonMapUIController): brass medallion and stone pad for each node, the glow of the next steps,
+    // the arrow over Zero's node, the mist over what is still unknown, the status plate and the backpack button.
+    public const string UIMapMedallionID = "ui_map_medallion";
+    public const string UIMapNodePadID = "ui_map_node_pad";
+    public const string UIMapNodeGlowID = "ui_map_node_glow";
+    public const string UIMapCurrentArrowID = "ui_map_current_arrow";
+    public const string UIMapFogID = "ui_map_fog";
+    public const string UIMapStatusPlateID = "ui_map_status_plate";
+    public const string UIMapBackpackButtonID = "ui_map_backpack_button";
+    private const string MapGlyphPrefix = "ui_map_glyph_";
+    private const string MapPathPrefix = "ui_map_path_layer_";
     public const string UIIconLockedID = "ui_icon_locked";
     public const string UIIconEquippedID = "ui_icon_equipped";
     public const string UITitleDividerID = "ui_title_divider";
@@ -246,6 +257,23 @@ public static class VisualAssetService {
         }
 
         return MissingSpriteVisualID;
+    }
+
+    // The light glyph a node shows inside its map medallion (ui_map_glyph_combat, _boss, ...), named after the node's
+    // icon; nodes without one (the prologue's beats) keep their own icon.
+    public static string ResolveMapGlyphID(NodeBase node) {
+        string iconID = ResolveNodeIconID(node);
+        string key = iconID != null && iconID.StartsWith("node_") && iconID.EndsWith("_icon")
+            ? iconID.Substring(5, iconID.Length - 10).Replace("node", string.Empty)
+            : null;
+        string glyphID = string.IsNullOrEmpty(key) ? null : MapGlyphPrefix + key;
+        return glyphID != null && TryGetSprite(glyphID, out _) ? glyphID : iconID;
+    }
+
+    // The path strip the map lays between this layer's nodes, else the plain route line.
+    public static string ResolveMapPathID(DungeonLayer layer) {
+        string pathID = layer != null ? MapPathPrefix + layer.LayerID : null;
+        return pathID != null && TryGetSprite(pathID, out _) ? pathID : UIDungeonRouteLineID;
     }
 
     public static string ResolveDungeonMapBackgroundID(DungeonLayer layer) {

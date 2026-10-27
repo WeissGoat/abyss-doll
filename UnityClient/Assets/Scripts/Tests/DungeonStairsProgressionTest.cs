@@ -150,22 +150,28 @@ public static class DungeonStairsProgressionTest {
         int expectedRouteLineCount = CountRenderableEdges(layer);
         int nodeButtonCount = 0;
         int routeLineCount = 0;
-        int fogMarkerCount = 0;
-        int labelPlateCount = 0;
+        int fogHiddenCount = 0;
+        int medallionCount = 0;
+        int visibleLabels = 0;
         int interactableNodeButtons = 0;
         bool routeLinesHaveFormalWeight = true;
-        // Columns 230 apart, closing up so the whole map stays within 1760 (DungeonMapUIController).
-        float expectedLayoutWidth = Mathf.Max(720f, Mathf.Min(1760f, 160f + Mathf.Max(0, layer.NodeRows.Count - 1) * 230f));
         foreach (Transform child in contentObj.transform) {
             Button button = child.GetComponent<Button>();
             if (button != null) {
                 nodeButtonCount++;
-                if (child.Find("NodeFogVeil_Image") != null) {
-                    fogMarkerCount++;
+                // A node the fog hides keeps its medallion but shows no glyph.
+                Transform icon = child.Find("NodeIcon_Image");
+                if (icon != null && !icon.gameObject.activeSelf) {
+                    fogHiddenCount++;
                 }
 
-                if (child.Find("NodeLabelPlate_Image") != null) {
-                    labelPlateCount++;
+                if (child.Find("NodeMedallion_Image") != null && child.Find("NodePad_Image") != null) {
+                    medallionCount++;
+                }
+
+                Text label = child.GetComponentInChildren<Text>();
+                if (label != null && label.enabled) {
+                    visibleLabels++;
                 }
 
                 if (button.interactable) {
@@ -174,32 +180,36 @@ public static class DungeonStairsProgressionTest {
             } else if (child.name == "DungeonRouteLine_Image") {
                 routeLineCount++;
                 RectTransform routeRect = child as RectTransform;
-                routeLinesHaveFormalWeight &= routeRect != null && routeRect.sizeDelta.y >= 18.5f && routeRect.sizeDelta.y <= 21.5f;
+                routeLinesHaveFormalWeight &= routeRect != null && routeRect.sizeDelta.y >= 40f && routeRect.sizeDelta.y <= 48f;
             }
         }
 
+        // The map is the layer's painting, scrolled inside a clipped full-screen viewport; MapLayout lies on top of it.
+        RectTransform world = contentObj.transform.parent as RectTransform;
+        bool scrolls = world != null && world.name == "MapWorld" && world.parent != null
+            && world.parent.GetComponent<ScrollRect>() != null && world.parent.GetComponent<RectMask2D>() != null;
+        float columnSpan = float.MinValue;
+        float columnStart = float.MaxValue;
+        foreach (Transform child in contentObj.transform) {
+            if (child.GetComponent<Button>() != null) {
+                float x = ((RectTransform)child).anchoredPosition.x;
+                columnSpan = Mathf.Max(columnSpan, x);
+                columnStart = Mathf.Min(columnStart, x);
+            }
+        }
+
+        bool fitsTheWorld = world != null && columnSpan - columnStart <= world.sizeDelta.x - 400f;
         bool childCountMatches = nodeButtonCount == expectedNodeCount
             && routeLineCount == expectedRouteLineCount
             && contentObj.transform.childCount == expectedNodeCount + expectedRouteLineCount;
-        bool layoutWidthExpanded = contentRect.sizeDelta.x >= expectedLayoutWidth;
         bool layoutNoLongerCompresses = !layout.enabled && !layout.childControlWidth && !layout.childForceExpandWidth;
         bool onlyEntryNodesInteractable = interactableNodeButtons == layer.EntryNodes.Count;
-        bool hiddenNodesUseFogMarkers = fogMarkerCount > 0;
-        bool nodeLabelsHaveBackplates = labelPlateCount == expectedNodeCount;
-        bool buttonsHavePreferredWidth = true;
-        foreach (Transform child in contentObj.transform) {
-            if (child.GetComponent<Button>() == null) {
-                continue;
-            }
 
-            LayoutElement element = child.GetComponent<LayoutElement>();
-            buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 160f;
-        }
-
-        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && onlyEntryNodesInteractable && hiddenNodesUseFogMarkers && nodeLabelsHaveBackplates && routeLinesHaveFormalWeight && buttonsHavePreferredWidth) {
+        if (childCountMatches && scrolls && fitsTheWorld && layoutNoLongerCompresses && onlyEntryNodesInteractable && fogHiddenCount > 0
+            && medallionCount == expectedNodeCount && visibleLabels == 0 && routeLinesHaveFormalWeight) {
             Debug.Log("Dungeon Map Layer 2 Layout PASSED.");
         } else {
-            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, FogMarkers={fogMarkerCount}, LabelPlates={labelPlateCount}, RouteWeight={routeLinesHaveFormalWeight}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, LayoutEnabled={layout.enabled}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, Interactable={interactableNodeButtons}/{layer.EntryNodes.Count}, PreferredWidth={buttonsHavePreferredWidth}");
+            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, FogHidden={fogHiddenCount}, Medallions={medallionCount}, VisibleLabels={visibleLabels}, RouteWeight={routeLinesHaveFormalWeight}, ChildCount={contentObj.transform.childCount}, Scrolls={scrolls}, Span={columnSpan - columnStart}/{world?.sizeDelta.x}, LayoutEnabled={layout.enabled}, Interactable={interactableNodeButtons}/{layer.EntryNodes.Count}");
         }
 
         Object.DestroyImmediate(canvasObj);

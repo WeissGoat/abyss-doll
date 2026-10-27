@@ -1,15 +1,28 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+// The layer's route map (docs/specs/2026-10-28-dungeon-map-redesign.md): the layer's painted terrain, bigger than the
+// screen and scrolled by dragging or by following Zero, with the run's node network laid on it by code - trodden paths
+// between nodes, and each node a brass medallion on a stone pad. What lies more than the fog allows ahead sinks into mist.
 public class DungeonMapUIController : MonoBehaviour {
-    private const float NodeButtonWidth = 160f;
-    private const float NodeButtonHeight = 122f;
-    private const float NodeColumnSpacing = 230f;
-    // The whole map stays on a 1920-wide screen: a deep layer's many columns close up instead of running off the edge.
-    private const float MapMaxWidth = 1760f;
-    private const float NodeRowSpacing = 150f;
-    private const float RouteLineHeight = 20f;
+    // Map space, in canvas units (the screen is 1920x1080).
+    private const float NodeButtonSize = 128f;
+    private const float MedallionSize = 92f;
+    private const float GlyphSize = 50f;
+    private const float GlowSize = 138f;
+    private const float PadWidth = 150f;
+    private const float PadHeight = 92f;
+    private const float ColumnSpacing = 280f;
+    private const float MinColumnSpacing = 230f;
+    private const float RowSpacing = 160f;
+    private const float WorldPaddingX = 320f;
+    private const float WorldPaddingY = 260f;
+    private const float RouteLineHeight = 44f;
+    private const float RouteGlowHeight = 5f;
+    private const float FollowSeconds = 0.45f;
+    private const string PrologueMapVisualID = "cg_t0_01a_p04_panel02_shallow_gate_glow";
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -17,14 +30,22 @@ public class DungeonMapUIController : MonoBehaviour {
     public Button closeBackpackBtn;
     public Text backpackHintText;
     public Image backgroundImage;
-    private Image mapDepthVeilImage;
     private Image firstDiveGuideImage;
     private Text firstDiveGuideText;
-    private float mapPathMinX;
-    private float mapPathMaxX;
     private Text mapHintText;
     private Image runStatusPlate;
     private Text runStatusText;
+    private ScrollRect mapScroll;
+    private RectTransform mapWorld;
+    private Image terrainImage;
+    private Image fogImage;
+    private RectTransform tooltip;
+    private Text tooltipText;
+    private Vector2 followFrom;
+    private Vector2 followTo;
+    private float followTime = -1f;
+    private int shownLayerID = -1;
+    private int shownRunSeed;
     // The how-to lines (where you stand, how to open the bag) only stay up for the first dives.
     private const int BeginnerDiveCount = 2;
     // Nodes the player can still get to from where they stand; everything else on the layer is behind them.
@@ -38,7 +59,9 @@ public class DungeonMapUIController : MonoBehaviour {
             return;
         }
 
+        EnsureMapWorld();
         ClearNodeButtons();
+        HideTooltip();
 
         DungeonLayer layer = GameRoot.Core.Dungeon.CurrentLayer;
         if (layer == null || layer.RootNode == null) {
@@ -49,8 +72,9 @@ public class DungeonMapUIController : MonoBehaviour {
         CollectReachableNodes(layer);
         ApplyMapHint(layer);
         ApplyRunStatus(layer);
-        Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows);
-        ConfigureMapLayout(rows);
+        Vector2 worldSize = ResolveWorldSize(layer, rows);
+        Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows, worldSize);
+        ConfigureWorld(layer, rows, nodePositions, worldSize);
         CreateRouteLines(layer, rows, nodePositions);
 
         foreach (List<NodeBase> row in rows) {
@@ -59,7 +83,20 @@ public class DungeonMapUIController : MonoBehaviour {
             }
         }
 
-        RebuildMapLayout();
+        FocusOnCurrentPosition(layer, nodePositions);
+    }
+
+    private void Update() {
+        if (followTime < 0f || mapWorld == null) {
+            return;
+        }
+
+        followTime += Time.unscaledDeltaTime;
+        float t = Mathf.Clamp01(followTime / FollowSeconds);
+        mapWorld.anchoredPosition = Vector2.Lerp(followFrom, followTo, 1f - (1f - t) * (1f - t));
+        if (t >= 1f) {
+            followTime = -1f;
+        }
     }
 
     private List<List<NodeBase>> GetRenderableRows(DungeonLayer layer) {
@@ -77,6 +114,221 @@ public class DungeonMapUIController : MonoBehaviour {
         return fallbackRows;
     }
 
+    // ---- The scrolling map ----
+
+    // Full-screen viewport (clipped, so the map beyond the screen counts as hidden, not off screen) holding the map:
+    // terrain, the mist, then MapLayout with the routes and node buttons.
+    private void EnsureMapWorld() {
+        if (mapScroll == null) {
+            Transform existing = transform.Find("MapViewport");
+            mapScroll = existing != null ? existing.GetComponent<ScrollRect>() : null;
+        }
+
+        if (mapScroll == null) {
+            GameObject viewportObj = new GameObject("MapViewport", typeof(RectTransform), typeof(RectMask2D), typeof(ScrollRect));
+            viewportObj.transform.SetParent(transform, false);
+            UITheme.Stretch((RectTransform)viewportObj.transform);
+            mapScroll = viewportObj.GetComponent<ScrollRect>();
+
+            GameObject worldObj = new GameObject("MapWorld", typeof(RectTransform));
+            worldObj.transform.SetParent(viewportObj.transform, false);
+            mapWorld = (RectTransform)worldObj.transform;
+            mapWorld.anchorMin = mapWorld.anchorMax = mapWorld.pivot = new Vector2(0.5f, 0.5f);
+
+            terrainImage = new GameObject("MapTerrain_Image", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            terrainImage.transform.SetParent(mapWorld, false);
+            UITheme.Stretch(terrainImage.rectTransform);
+            fogImage = new GameObject("MapFog_Image", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            fogImage.transform.SetParent(mapWorld, false);
+            fogImage.raycastTarget = false;
+
+            mapScroll.viewport = (RectTransform)viewportObj.transform;
+            mapScroll.content = mapWorld;
+            mapScroll.horizontal = true;
+            mapScroll.vertical = true;
+            mapScroll.movementType = ScrollRect.MovementType.Clamped;
+            mapScroll.inertia = true;
+            mapScroll.decelerationRate = 0.08f;
+            mapScroll.scrollSensitivity = 40f;
+        }
+
+        mapWorld = mapScroll.content;
+        terrainImage = mapWorld.Find("MapTerrain_Image")?.GetComponent<Image>();
+        fogImage = mapWorld.Find("MapFog_Image")?.GetComponent<Image>();
+
+        // The scene's MapLayout becomes the layer above terrain and mist; buttons stay its direct children (P3DevTools).
+        if (contentParent.parent != mapWorld) {
+            contentParent.SetParent(mapWorld, false);
+        }
+
+        RectTransform layoutRect = contentParent as RectTransform;
+        if (layoutRect != null) {
+            UITheme.Stretch(layoutRect);
+            layoutRect.localScale = Vector3.one;
+        }
+
+        HorizontalLayoutGroup layout = contentParent.GetComponent<HorizontalLayoutGroup>();
+        if (layout != null) {
+            layout.enabled = false;
+            layout.childControlWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+        }
+
+        terrainImage.transform.SetSiblingIndex(0);
+        fogImage.transform.SetSiblingIndex(1);
+        contentParent.SetSiblingIndex(2);
+        mapScroll.transform.SetSiblingIndex(Mathf.Min(1, transform.childCount - 1));
+    }
+
+    private string ResolveTerrainVisualID(DungeonLayer layer) {
+        return PrologueShallowRun.IsPrologueLayer(layer) ? PrologueMapVisualID : VisualAssetService.ResolveDungeonMapBackgroundID(layer);
+    }
+
+    // The painting's own shape, grown when the network needs more room; never smaller than the screen.
+    private Vector2 ResolveWorldSize(DungeonLayer layer, List<List<NodeBase>> rows) {
+        Vector2 painting = VisualAssetService.TryGetSprite(ResolveTerrainVisualID(layer), out Sprite sprite)
+            ? sprite.rect.size
+            : new Vector2(1920f, 1080f);
+        int maxNodesInColumn = 1;
+        foreach (List<NodeBase> row in rows) {
+            maxNodesInColumn = Mathf.Max(maxNodesInColumn, row?.Count ?? 0);
+        }
+
+        float neededWidth = WorldPaddingX * 2f + Mathf.Max(0, rows.Count - 1) * MinColumnSpacing;
+        float neededHeight = WorldPaddingY * 2f + Mathf.Max(0, maxNodesInColumn - 1) * RowSpacing;
+        float scale = Mathf.Max(1f, neededWidth / painting.x, neededHeight / painting.y, 1920f / painting.x, 1080f / painting.y);
+        return painting * scale;
+    }
+
+    // Depth runs left to right, one column per row of the network. Columns spread over the painting up to
+    // ColumnSpacing apart; each column sways a little, and every node is nudged by its own ID so the routes look walked
+    // rather than ruled.
+    private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows, Vector2 worldSize) {
+        Dictionary<NodeBase, Vector2> positions = new Dictionary<NodeBase, Vector2>();
+        if (rows == null || rows.Count == 0) {
+            return positions;
+        }
+
+        float spacing = rows.Count <= 1 ? 0f : Mathf.Min(ColumnSpacing, (worldSize.x - WorldPaddingX * 2f) / (rows.Count - 1));
+        float startX = -(rows.Count - 1) * spacing * 0.5f;
+        for (int column = 0; column < rows.Count; column++) {
+            List<NodeBase> row = rows[column];
+            if (row == null) {
+                continue;
+            }
+
+            float sway = Mathf.Sin(column * 0.85f + 0.6f) * 70f;
+            float top = (row.Count - 1) * RowSpacing * 0.5f;
+            for (int index = 0; index < row.Count; index++) {
+                NodeBase node = row[index];
+                if (node == null) {
+                    continue;
+                }
+
+                int hash = StableHash(node.NodeID);
+                Vector2 jitter = new Vector2((hash % 61) - 30f, ((hash / 61) % 45) - 22f);
+                positions[node] = new Vector2(startX + column * spacing, sway + top - index * RowSpacing) + jitter;
+            }
+        }
+
+        return positions;
+    }
+
+    private static int StableHash(string text) {
+        unchecked {
+            int hash = 17;
+            foreach (char c in text ?? string.Empty) {
+                hash = hash * 31 + c;
+            }
+
+            return hash & 0x7fffffff;
+        }
+    }
+
+    // Terrain at the map's size; the mist covers everything from the first column the fog still hides to the far end.
+    private void ConfigureWorld(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> positions, Vector2 worldSize) {
+        mapWorld.sizeDelta = worldSize;
+        VisualUIHelper.ApplySimpleSprite(terrainImage, ResolveTerrainVisualID(layer), Color.white, new Color(0.05f, 0.08f, 0.1f, 1f), true, false);
+
+        float fogStartX = float.MaxValue;
+        for (int column = 0; column < rows.Count; column++) {
+            bool allHidden = rows[column] != null && rows[column].Count > 0;
+            float columnX = float.MaxValue;
+            foreach (NodeBase node in rows[column]) {
+                allHidden &= DungeonMapVisibilityService.ResolveVisibility(layer, node) == DungeonNodeVisibilityState.Hidden;
+                if (positions.TryGetValue(node, out Vector2 position)) {
+                    columnX = Mathf.Min(columnX, position.x);
+                }
+            }
+
+            if (allHidden && columnX < float.MaxValue) {
+                fogStartX = columnX - ColumnSpacing * 0.6f;
+                break;
+            }
+        }
+
+        bool fogged = fogStartX < float.MaxValue;
+        fogImage.gameObject.SetActive(fogged);
+        if (fogged) {
+            RectTransform fogRect = fogImage.rectTransform;
+            fogRect.anchorMin = new Vector2(0f, 0f);
+            fogRect.anchorMax = new Vector2(0f, 1f);
+            fogRect.pivot = new Vector2(0f, 0.5f);
+            float left = fogStartX + worldSize.x * 0.5f;
+            fogRect.anchoredPosition = new Vector2(left, 0f);
+            fogRect.sizeDelta = new Vector2(Mathf.Max(0f, worldSize.x - left), 0f);
+            VisualUIHelper.ApplySimpleSprite(fogImage, VisualAssetService.UIMapFogID, Color.white, new Color(0.03f, 0.05f, 0.07f, 0.72f), false, false);
+        }
+
+        RebuildMapLayout();
+    }
+
+    // Brings Zero's node (or the entrances before her first step) to the middle of the screen: at once for a new map,
+    // gliding there when she has just moved.
+    private void FocusOnCurrentPosition(DungeonLayer layer, Dictionary<NodeBase, Vector2> positions) {
+        Vector2 focus = Vector2.zero;
+        int count = 0;
+        if (layer.CurrentNode != null && positions.TryGetValue(layer.CurrentNode, out Vector2 current)) {
+            focus = current + new Vector2(ColumnSpacing * 0.9f, 0f);
+            count = 1;
+        } else if (layer.EntryNodes != null) {
+            foreach (NodeBase entry in layer.EntryNodes) {
+                if (entry != null && positions.TryGetValue(entry, out Vector2 position)) {
+                    focus += position;
+                    count++;
+                }
+            }
+
+            focus = count > 0 ? focus / count + new Vector2(ColumnSpacing * 0.9f, 0f) : focus;
+        }
+
+        Vector2 target = ClampWorldPosition(-focus);
+        bool sameMap = shownLayerID == layer.LayerID && shownRunSeed == layer.RunSeed;
+        shownLayerID = layer.LayerID;
+        shownRunSeed = layer.RunSeed;
+        mapScroll.StopMovement();
+        if (!sameMap || !Application.isPlaying) {
+            mapWorld.anchoredPosition = target;
+            followTime = -1f;
+            return;
+        }
+
+        followFrom = ClampWorldPosition(mapWorld.anchoredPosition);
+        followTo = target;
+        followTime = 0f;
+    }
+
+    private Vector2 ClampWorldPosition(Vector2 position) {
+        RectTransform viewport = mapScroll.viewport;
+        Vector2 view = viewport != null && viewport.rect.width > 1f ? viewport.rect.size : new Vector2(1920f, 1080f);
+        Vector2 slack = Vector2.Max(Vector2.zero, (mapWorld.sizeDelta - view) * 0.5f);
+        return new Vector2(Mathf.Clamp(position.x, -slack.x, slack.x), Mathf.Clamp(position.y, -slack.y, slack.y));
+    }
+
+    // ---- Nodes ----
+
     private void CreateNodeButton(DungeonLayer layer, NodeBase node, Dictionary<NodeBase, Vector2> nodePositions) {
         if (node == null || nodePositions == null || !nodePositions.TryGetValue(node, out Vector2 anchoredPosition)) {
             return;
@@ -90,20 +342,38 @@ public class DungeonMapUIController : MonoBehaviour {
         bool isSelectable = IsNodeSelectable(layer, node);
         bool isCurrent = node == layer.CurrentNode;
         bool isUnreachable = IsNodeUnreachable(layer, node);
-        ApplyNodeButtonSkin(btn, node, presentation, !(isSelectable || isCurrent));
 
+        // The label stays on the button for tools and tests (P3DevTools reads it); on screen the medallion says it all.
         if (txt != null) {
             txt.text = BuildNodeLabel(node, presentation);
+            txt.enabled = false;
+            txt.raycastTarget = false;
         }
 
-        ApplyNodeIcon(btnGo.transform, node, presentation);
-        ApplyNodeStateMarker(btnGo.transform, isCurrent, isSelectable, node.IsVisited, isUnreachable);
+        ApplyNodeMedallion(btnGo.transform, node, presentation, isCurrent, isSelectable, isUnreachable);
+        BindNodeTooltip(btnGo, layer, node, presentation, isSelectable);
 
         Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
         if (btn == null) {
             return;
         }
+
+        Image hitArea = btn.GetComponent<Image>();
+        if (hitArea == null) {
+            hitArea = btn.gameObject.AddComponent<Image>();
+        }
+
+        VisualUIHelper.ApplySolidColor(hitArea, new Color(1f, 1f, 1f, 0f), true);
+        btn.targetGraphic = btnGo.transform.Find("NodeMedallion_Image")?.GetComponent<Image>() ?? hitArea;
+        btn.transition = Selectable.Transition.ColorTint;
+        ColorBlock colors = btn.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(1.12f, 1.08f, 0.98f, 1f);
+        colors.pressedColor = new Color(0.82f, 0.78f, 0.7f, 1f);
+        colors.disabledColor = Color.white;
+        colors.colorMultiplier = 1f;
+        btn.colors = colors;
 
         if (!isSelectable || node.IsVisited) {
             btn.interactable = false;
@@ -112,40 +382,90 @@ public class DungeonMapUIController : MonoBehaviour {
 
         btn.interactable = true;
         btn.onClick.AddListener(() => {
+            HideTooltip();
             GameRoot.Core.Dungeon.MoveToNode(node);
         });
     }
 
-    public void BindBackpackControls(GameFlowController flow, bool isOpen) {
-        EnsureInventoryControls();
-
-        if (openBackpackBtn != null) {
-            openBackpackBtn.onClick.RemoveAllListeners();
-            openBackpackBtn.onClick.AddListener(() => flow?.OpenDungeonMapInventory());
+    private void ConfigureNodeButtonLayout(GameObject buttonObject, Vector2 anchoredPosition) {
+        RectTransform rect = buttonObject.GetComponent<RectTransform>();
+        if (rect != null) {
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = anchoredPosition;
+            rect.sizeDelta = new Vector2(NodeButtonSize, NodeButtonSize);
+            rect.localScale = Vector3.one;
         }
 
-        if (closeBackpackBtn != null) {
-            closeBackpackBtn.onClick.RemoveAllListeners();
-            closeBackpackBtn.onClick.AddListener(() => flow?.CloseDungeonMapInventory());
+        LayoutElement layoutElement = buttonObject.GetComponent<LayoutElement>();
+        if (layoutElement != null) {
+            layoutElement.ignoreLayout = true;
         }
-
-        RefreshInventoryControls(isOpen);
     }
 
-    public void RefreshInventoryControls(bool isOpen) {
-        if (openBackpackBtn != null) {
-            openBackpackBtn.gameObject.SetActive(!isOpen);
+    // Stone pad, glow ring (the next steps), brass medallion, the node's glyph and, over Zero's node, a gold arrow.
+    // Fog-hidden nodes are dark empty medallions; nodes passed are dulled; branches she can no longer reach fade out.
+    private void ApplyNodeMedallion(Transform button, NodeBase node, DungeonMapNodePresentation presentation, bool isCurrent, bool isSelectable, bool isUnreachable) {
+        bool isHidden = presentation != null && presentation.IsHidden;
+        bool isPreview = presentation != null && presentation.IsPreview;
+        bool isPassed = node.IsVisited && !isCurrent;
+
+        Image pad = EnsureNodeChildImage(button, "NodePad_Image");
+        Place(pad.rectTransform, new Vector2(0f, -30f), new Vector2(PadWidth, PadHeight));
+        VisualUIHelper.ApplySimpleSprite(pad, VisualAssetService.UIMapNodePadID, new Color(1f, 1f, 1f, isHidden ? 0.45f : 1f), new Color(0.32f, 0.3f, 0.26f, 0.8f), false, true);
+
+        Image glow = EnsureNodeChildImage(button, "NodeGlow_Image");
+        Place(glow.rectTransform, Vector2.zero, new Vector2(GlowSize, GlowSize));
+        glow.gameObject.SetActive(isSelectable);
+        if (isSelectable) {
+            VisualUIHelper.ApplySimpleSprite(glow, VisualAssetService.UIMapNodeGlowID, new Color(0.55f, 1f, 0.95f, 1f), new Color(0.45f, 0.95f, 0.9f, 0.6f), false, true);
+            UIPulse.Attach(glow.gameObject, 0.45f, 1f, 0.05f, 2.8f);
         }
 
-        if (closeBackpackBtn != null) {
-            closeBackpackBtn.gameObject.SetActive(isOpen);
+        Image medallion = EnsureNodeChildImage(button, "NodeMedallion_Image");
+        float medallionScale = isCurrent ? 1.1f : 1f;
+        Place(medallion.rectTransform, Vector2.zero, Vector2.one * MedallionSize * medallionScale);
+        Color medallionTint = isHidden ? new Color(0.36f, 0.4f, 0.44f, 0.82f)
+            : isPassed ? new Color(0.62f, 0.58f, 0.52f, 1f)
+            : isPreview ? new Color(0.82f, 0.82f, 0.8f, 1f)
+            : Color.white;
+        VisualUIHelper.ApplySimpleSprite(medallion, VisualAssetService.UIMapMedallionID, medallionTint, new Color(0.4f, 0.28f, 0.14f, 1f), false, true);
+
+        Image glyph = EnsureNodeChildImage(button, "NodeIcon_Image");
+        Place(glyph.rectTransform, Vector2.zero, Vector2.one * GlyphSize * medallionScale);
+        glyph.gameObject.SetActive(!isHidden);
+        if (!isHidden) {
+            float glyphAlpha = isPassed ? 0.55f : isPreview ? 0.7f : 1f;
+            VisualUIHelper.ApplySimpleSprite(glyph, VisualAssetService.ResolveMapGlyphID(node), new Color(1f, 1f, 1f, glyphAlpha), ResolveNodeFallbackTint(node), false, true);
         }
 
-        if (backpackHintText != null) {
-            backpackHintText.text = isOpen
-                ? "整理背包中：右键旋转物品；拖出格子的物品会在关闭背包时丢弃"
-                : IsBeginner() ? "点击右下角打开背包，整理局内物资" : string.Empty;
+        Image arrow = EnsureNodeChildImage(button, "NodeCurrentArrow_Image");
+        Place(arrow.rectTransform, new Vector2(0f, MedallionSize * 0.5f + 38f), new Vector2(54f, 54f));
+        arrow.gameObject.SetActive(isCurrent);
+        if (isCurrent) {
+            VisualUIHelper.ApplySimpleSprite(arrow, VisualAssetService.UIMapCurrentArrowID, Color.white, UITheme.AccentOnDark, false, true);
+            UIPulse.Attach(arrow.gameObject, 0.75f, 1f, 0.1f, 3f);
         }
+
+        // Children paint in order: pad, glow, medallion, glyph, arrow; the hidden label last.
+        pad.transform.SetSiblingIndex(0);
+        glow.transform.SetSiblingIndex(1);
+        medallion.transform.SetSiblingIndex(2);
+        glyph.transform.SetSiblingIndex(3);
+        arrow.transform.SetSiblingIndex(4);
+
+        CanvasGroup group = button.GetComponent<CanvasGroup>();
+        if (group == null) {
+            group = button.gameObject.AddComponent<CanvasGroup>();
+        }
+
+        group.alpha = isUnreachable ? 0.4f : 1f;
+    }
+
+    private static void Place(RectTransform rect, Vector2 position, Vector2 size) {
+        rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        rect.localScale = Vector3.one;
     }
 
     private string BuildNodeLabel(NodeBase node, DungeonMapNodePresentation presentation) {
@@ -155,10 +475,6 @@ public class DungeonMapUIController : MonoBehaviour {
 
         string riskLabel = CompactRiskLabel(presentation?.RiskLabel);
         string nodeLabel = BuildNodeTypeLabel(node);
-        if (presentation != null && presentation.IsPreview) {
-            return string.IsNullOrEmpty(riskLabel) ? $"{nodeLabel}\n预览" : $"{nodeLabel}\n{riskLabel}";
-        }
-
         return string.IsNullOrEmpty(riskLabel) ? nodeLabel : $"{nodeLabel}\n{riskLabel}";
     }
 
@@ -222,106 +538,7 @@ public class DungeonMapUIController : MonoBehaviour {
         return "未知";
     }
 
-    private void ApplyNodeIcon(Transform buttonTransform, NodeBase node, DungeonMapNodePresentation presentation) {
-        if (buttonTransform == null) {
-            return;
-        }
-
-        Transform existing = buttonTransform.Find("NodeIcon_Image");
-        Image icon = existing != null ? existing.GetComponent<Image>() : null;
-        if (icon == null) {
-            icon = CreateNodeChildImage(buttonTransform, "NodeIcon_Image");
-        }
-
-        Image fogVeil = EnsureNodeChildImage(buttonTransform, "NodeFogVeil_Image");
-        Image labelPlate = EnsureNodeChildImage(buttonTransform, "NodeLabelPlate_Image");
-        RectTransform fogRect = fogVeil.rectTransform;
-        fogRect.anchorMin = new Vector2(0.5f, 1f);
-        fogRect.anchorMax = new Vector2(0.5f, 1f);
-        fogRect.pivot = new Vector2(0.5f, 1f);
-        fogRect.anchoredPosition = new Vector2(0f, -7f);
-        fogRect.sizeDelta = new Vector2(98f, 88f);
-
-        RectTransform iconRect = icon.rectTransform;
-        iconRect.anchorMin = new Vector2(0.5f, 1f);
-        iconRect.anchorMax = new Vector2(0.5f, 1f);
-        iconRect.pivot = new Vector2(0.5f, 1f);
-        iconRect.anchoredPosition = new Vector2(0f, -18f);
-
-        RectTransform labelPlateRect = labelPlate.rectTransform;
-        labelPlateRect.anchorMin = new Vector2(0.5f, 0f);
-        labelPlateRect.anchorMax = new Vector2(0.5f, 0f);
-        labelPlateRect.pivot = new Vector2(0.5f, 0f);
-        labelPlateRect.anchoredPosition = new Vector2(0f, 7f);
-        labelPlateRect.sizeDelta = new Vector2(112f, 38f);
-
-        bool isHidden = presentation != null && presentation.IsHidden;
-        bool isPreview = presentation != null && presentation.IsPreview;
-        if (isHidden) {
-            fogVeil.gameObject.SetActive(true);
-            VisualUIHelper.ApplySlicedSprite(
-                fogVeil,
-                VisualAssetService.UIDungeonNodePlateID,
-                new Color(1f, 1f, 1f, 0.32f),
-                new Color(0.18f, 0.22f, 0.25f, 0.28f),
-                false);
-            fogVeil.transform.SetAsFirstSibling();
-            VisualUIHelper.ApplyContainSprite(
-                icon,
-                VisualAssetService.UIIconLockedID,
-                new Vector2(62f, 62f),
-                new Color(0.78f, 0.82f, 0.86f, 0.62f),
-                new Color(0.38f, 0.44f, 0.5f, 0.72f),
-                false);
-        } else {
-            fogVeil.gameObject.SetActive(false);
-            string visualID = VisualAssetService.ResolveNodeIconID(node);
-            Color registeredColor = isPreview ? new Color(1f, 1f, 1f, 0.58f) : new Color(1f, 1f, 1f, 0.86f);
-            VisualUIHelper.ApplyContainSprite(icon, visualID, new Vector2(68f, 68f), registeredColor, ResolveNodeFallbackTint(node, presentation), false);
-        }
-
-        Color labelPlateColor = isHidden
-            ? new Color(0.07f, 0.1f, 0.12f, 0.56f)
-            : isPreview ? new Color(0.1f, 0.14f, 0.14f, 0.58f) : new Color(0.08f, 0.12f, 0.11f, 0.66f);
-        VisualUIHelper.ApplySlicedSprite(
-            labelPlate,
-            VisualAssetService.UIListRowNormalID,
-            labelPlateColor,
-            labelPlateColor,
-            false);
-        labelPlate.transform.SetAsLastSibling();
-
-        Text label = buttonTransform.GetComponentInChildren<Text>();
-        if (label != null) {
-            RectTransform textRect = label.GetComponent<RectTransform>();
-            textRect.anchorMin = new Vector2(0f, 0f);
-            textRect.anchorMax = new Vector2(1f, 0f);
-            textRect.offsetMin = new Vector2(9f, 8f);
-            textRect.offsetMax = new Vector2(-9f, 42f);
-            label.alignment = TextAnchor.MiddleCenter;
-            label.fontSize = 15;
-            label.resizeTextForBestFit = true;
-            label.resizeTextMinSize = 10;
-            label.resizeTextMaxSize = 15;
-            label.horizontalOverflow = HorizontalWrapMode.Wrap;
-            label.verticalOverflow = VerticalWrapMode.Truncate;
-            label.raycastTarget = false;
-            label.color = isHidden
-                ? new Color(0.72f, 0.78f, 0.84f, 0.82f)
-                : isPreview ? new Color(0.86f, 0.88f, 0.9f, 0.88f) : Color.white;
-            label.transform.SetAsLastSibling();
-        }
-    }
-
-    private Color ResolveNodeFallbackTint(NodeBase node, DungeonMapNodePresentation presentation = null) {
-        if (presentation != null && presentation.IsHidden) {
-            return new Color(0.18f, 0.22f, 0.25f, 0.52f);
-        }
-
-        if (presentation != null && presentation.IsPreview) {
-            return new Color(0.32f, 0.34f, 0.38f, 0.7f);
-        }
-
+    private Color ResolveNodeFallbackTint(NodeBase node) {
         if (node is CombatNode) {
             return new Color(0.75f, 0.22f, 0.18f, 1f);
         }
@@ -353,127 +570,180 @@ public class DungeonMapUIController : MonoBehaviour {
         return Color.white;
     }
 
-    private void ClearNodeButtons() {
-        List<GameObject> children = new List<GameObject>();
-        foreach (Transform child in contentParent) {
-            children.Add(child.gameObject);
+    // ---- Tooltip: what a node is, how risky, and what stepping there costs ----
+
+    private void BindNodeTooltip(GameObject button, DungeonLayer layer, NodeBase node, DungeonMapNodePresentation presentation, bool isSelectable) {
+        EventTrigger trigger = button.GetComponent<EventTrigger>();
+        if (trigger == null) {
+            trigger = button.AddComponent<EventTrigger>();
         }
 
-        foreach (GameObject child in children) {
-            child.SetActive(false);
-            DestroyRuntimeObject(child);
-        }
+        trigger.triggers.Clear();
+        EventTrigger.Entry enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+        enter.callback.AddListener(_ => ShowTooltip(button.transform as RectTransform, BuildTooltip(layer, node, presentation, isSelectable)));
+        trigger.triggers.Add(enter);
+        EventTrigger.Entry exit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+        exit.callback.AddListener(_ => HideTooltip());
+        trigger.triggers.Add(exit);
     }
 
-    private void ConfigureMapLayout(List<List<NodeBase>> rows) {
-        int rowCount = rows?.Count ?? 0;
-        int maxNodesInRow = 1;
-        if (rows != null) {
-            foreach (List<NodeBase> row in rows) {
-                maxNodesInRow = Mathf.Max(maxNodesInRow, row?.Count ?? 0);
-            }
+    private string BuildTooltip(DungeonLayer layer, NodeBase node, DungeonMapNodePresentation presentation, bool isSelectable) {
+        if (presentation != null && presentation.IsHidden) {
+            return "雾里看不清";
         }
 
-        RectTransform contentRect = contentParent as RectTransform;
-        if (contentRect != null) {
-            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * ColumnSpacing(rowCount));
-            float height = Mathf.Max(540f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing + 220f);
-            contentRect.anchorMin = new Vector2(0.5f, 0.5f);
-            contentRect.anchorMax = new Vector2(0.5f, 0.5f);
-            contentRect.pivot = new Vector2(0.5f, 0.5f);
-            contentRect.anchoredPosition = new Vector2(0f, -150f);
-            contentRect.localScale = Vector3.one;
-            contentRect.sizeDelta = new Vector2(width, height);
+        string title = BuildNodeTypeLabel(node);
+        string risk = CompactRiskLabel(presentation?.RiskLabel);
+        string text = string.IsNullOrEmpty(risk) ? $"<b>{title}</b>" : $"<b>{title}</b> · {risk}";
+        if (!string.IsNullOrEmpty(presentation?.RiskHint)) {
+            text += $"\n{presentation.RiskHint}";
         }
 
-        HorizontalLayoutGroup layout = contentParent.GetComponent<HorizontalLayoutGroup>();
-        if (layout != null) {
-            layout.enabled = false;
-            layout.spacing = 0f;
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = false;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
+        if (node == layer.CurrentNode) {
+            text += "\n零号在这里";
+        } else if (node.IsVisited) {
+            text += "\n已经走过";
+        } else if (isSelectable) {
+            int cost = GameRoot.Core.Dungeon.PreviewSanCost(node);
+            text += cost > 0 ? $"\n走过去 -{cost} SAN" : "\n走过去不耗 SAN";
+        } else if (IsNodeUnreachable(layer, node)) {
+            text += "\n从这里已经走不到";
         }
+
+        return text;
     }
 
-    private static float ColumnSpacing(int columns) {
-        return columns <= 1 ? NodeColumnSpacing : Mathf.Min(NodeColumnSpacing, (MapMaxWidth - NodeButtonWidth) / (columns - 1));
-    }
-
-    private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows) {
-        Dictionary<NodeBase, Vector2> positions = new Dictionary<NodeBase, Vector2>();
-        if (rows == null || rows.Count == 0) {
-            return positions;
-        }
-
-        float columnSpacing = ColumnSpacing(rows.Count);
-        float totalWidth = Mathf.Max(0, rows.Count - 1) * columnSpacing;
-        float startX = -totalWidth * 0.5f;
-        mapPathMinX = startX;
-        mapPathMaxX = startX + totalWidth;
-        for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++) {
-            List<NodeBase> row = rows[rowIndex];
-            if (row == null || row.Count == 0) {
-                continue;
-            }
-
-            float depth01 = rows.Count <= 1 ? 0f : rowIndex / (float)(rows.Count - 1);
-            float rowSpacing = NodeRowSpacing * Mathf.Lerp(1f, 0.56f, depth01);
-            float rowHeight = Mathf.Max(0, row.Count - 1) * rowSpacing;
-            float startY = rowHeight * 0.5f;
-            float centerY = Mathf.Lerp(42f, -86f, depth01) + Mathf.Sin(depth01 * Mathf.PI * 1.25f) * 34f;
-            float curveX = Mathf.Sin(depth01 * Mathf.PI) * 34f;
-            for (int columnIndex = 0; columnIndex < row.Count; columnIndex++) {
-                NodeBase node = row[columnIndex];
-                if (node == null) {
-                    continue;
-                }
-
-                positions[node] = new Vector2(startX + rowIndex * columnSpacing + curveX, centerY + startY - columnIndex * rowSpacing);
-            }
-        }
-
-        return positions;
-    }
-
-    private void ConfigureNodeButtonLayout(GameObject buttonObject, Vector2 anchoredPosition) {
-        if (buttonObject == null) {
+    private void ShowTooltip(RectTransform node, string text) {
+        if (node == null || string.IsNullOrEmpty(text)) {
             return;
         }
 
-        RectTransform rect = buttonObject.GetComponent<RectTransform>();
-        if (rect != null) {
-            rect.anchorMin = new Vector2(0.5f, 0.5f);
-            rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = anchoredPosition;
-            rect.sizeDelta = new Vector2(NodeButtonWidth, NodeButtonHeight);
-            float depthScale = Mathf.Lerp(1.02f, 0.76f, ResolveNodeDepth01(anchoredPosition.x));
-            rect.localScale = new Vector3(depthScale, depthScale, 1f);
+        if (tooltip == null) {
+            Image plate = new GameObject("MapNodeTooltip_Image", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            plate.transform.SetParent(mapWorld, false);
+            VisualUIHelper.ApplySlicedSprite(plate, VisualAssetService.UIMapStatusPlateID, Color.white, new Color(0.08f, 0.06f, 0.04f, 0.92f), false);
+            tooltip = plate.rectTransform;
+            tooltip.pivot = new Vector2(0.5f, 0f);
+            tooltipText = UITheme.CreateText(plate.transform, "MapNodeTooltip_Text", string.Empty, UITheme.CaptionSize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
+            tooltipText.supportRichText = true;
+            tooltipText.raycastTarget = false;
+            UITheme.Stretch(tooltipText.rectTransform);
+            tooltipText.rectTransform.offsetMin = new Vector2(26f, 12f);
+            tooltipText.rectTransform.offsetMax = new Vector2(-26f, -12f);
         }
 
-        LayoutElement layoutElement = buttonObject.GetComponent<LayoutElement>();
-        if (layoutElement == null) {
-            layoutElement = buttonObject.AddComponent<LayoutElement>();
-        }
-
-        layoutElement.minWidth = NodeButtonWidth;
-        layoutElement.preferredWidth = NodeButtonWidth;
-        layoutElement.flexibleWidth = 0f;
-        layoutElement.minHeight = NodeButtonHeight;
-        layoutElement.preferredHeight = NodeButtonHeight;
-        layoutElement.flexibleHeight = 0f;
+        tooltip.gameObject.SetActive(true);
+        tooltipText.text = text;
+        float width = Mathf.Clamp(tooltipText.preferredWidth + 56f, 160f, 420f);
+        tooltip.sizeDelta = new Vector2(width, tooltipText.preferredHeight + 28f);
+        tooltip.anchorMin = tooltip.anchorMax = new Vector2(0.5f, 0.5f);
+        tooltip.anchoredPosition = node.anchoredPosition + new Vector2(0f, NodeButtonSize * 0.5f + 18f);
+        tooltip.SetAsLastSibling();
     }
 
-    private float ResolveNodeDepth01(float x) {
-        if (Mathf.Abs(mapPathMaxX - mapPathMinX) < 0.01f) {
-            return 0f;
+    private void HideTooltip() {
+        if (tooltip != null) {
+            tooltip.gameObject.SetActive(false);
+        }
+    }
+
+    // ---- Routes: trodden paths between nodes ----
+
+    private void CreateRouteLines(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
+        if (rows == null || nodePositions == null || contentParent == null) {
+            return;
         }
 
-        return Mathf.Clamp01((x - mapPathMinX) / (mapPathMaxX - mapPathMinX));
+        foreach (List<NodeBase> row in rows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node?.NextNodes == null || !nodePositions.TryGetValue(node, out Vector2 fromPosition)) {
+                    continue;
+                }
+
+                foreach (NodeBase next in node.NextNodes) {
+                    if (next == null || !nodePositions.TryGetValue(next, out Vector2 toPosition)) {
+                        continue;
+                    }
+
+                    if (!DungeonMapVisibilityService.ShouldRenderRouteLine(layer, node, next)) {
+                        continue;
+                    }
+
+                    CreateRouteLine(layer, node, next, fromPosition, toPosition);
+                }
+            }
+        }
     }
+
+    // One path strip from node to node, tiled along its length; the steps open from Zero's node also get a thin glowing
+    // thread on top.
+    private void CreateRouteLine(DungeonLayer layer, NodeBase fromNode, NodeBase toNode, Vector2 fromPosition, Vector2 toPosition) {
+        GameObject routeObj = new GameObject("DungeonRouteLine_Image", typeof(RectTransform));
+        routeObj.transform.SetParent(contentParent, false);
+        Image routeImage = routeObj.AddComponent<Image>();
+
+        Vector2 delta = toPosition - fromPosition;
+        RectTransform routeRect = (RectTransform)routeObj.transform;
+        routeRect.anchorMin = routeRect.anchorMax = routeRect.pivot = new Vector2(0.5f, 0.5f);
+        routeRect.anchoredPosition = (fromPosition + toPosition) * 0.5f;
+        routeRect.sizeDelta = new Vector2(Mathf.Max(16f, delta.magnitude), RouteLineHeight);
+        routeRect.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+
+        string pathID = VisualAssetService.ResolveMapPathID(layer);
+        Color routeColor = ResolveRouteColor(layer, fromNode, toNode);
+        bool hasPath = VisualUIHelper.ApplySimpleSprite(routeImage, pathID, routeColor, new Color(0.58f, 0.5f, 0.38f, routeColor.a * 0.7f), false, false);
+        if (hasPath && routeImage.sprite != null) {
+            routeImage.type = Image.Type.Tiled;
+            routeImage.pixelsPerUnitMultiplier = routeImage.sprite.rect.height / RouteLineHeight * (100f / routeImage.sprite.pixelsPerUnit);
+        }
+
+        if (fromNode == layer?.CurrentNode && IsNodeSelectable(layer, toNode)
+            || layer?.CurrentNode == null && IsNodeSelectable(layer, toNode) && fromNode != null && fromNode.IsVisited) {
+            Image thread = new GameObject("RouteThread_Image", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            thread.transform.SetParent(routeObj.transform, false);
+            RectTransform threadRect = thread.rectTransform;
+            threadRect.anchorMin = new Vector2(0f, 0.5f);
+            threadRect.anchorMax = new Vector2(1f, 0.5f);
+            threadRect.sizeDelta = new Vector2(-NodeButtonSize * 0.7f, RouteGlowHeight);
+            VisualUIHelper.ApplySolidColor(thread, new Color(0.55f, 1f, 0.95f, 0.8f));
+            UIPulse.Attach(thread.gameObject, 0.5f, 1f, 0f, 2.8f);
+        }
+
+        routeObj.transform.SetAsFirstSibling();
+    }
+
+    // The walked path stays bright, routes still open read normally, what is behind or out of reach goes dark.
+    private Color ResolveRouteColor(DungeonLayer layer, NodeBase fromNode, NodeBase toNode) {
+        if (fromNode != null && toNode != null && fromNode.IsVisited && (toNode.IsVisited || toNode == layer?.CurrentNode)) {
+            return new Color(1f, 0.92f, 0.76f, 1f);
+        }
+
+        if (fromNode == layer?.CurrentNode && IsNodeSelectable(layer, toNode)) {
+            return Color.white;
+        }
+
+        if (IsNodeUnreachable(layer, fromNode) || IsNodeUnreachable(layer, toNode) || (fromNode != null && fromNode.IsVisited && fromNode != layer?.CurrentNode)) {
+            return new Color(0.55f, 0.55f, 0.55f, 0.38f);
+        }
+
+        DungeonNodeVisibilityState fromVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, fromNode);
+        DungeonNodeVisibilityState toVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, toNode);
+        if (fromVisibility == DungeonNodeVisibilityState.Hidden || toVisibility == DungeonNodeVisibilityState.Hidden) {
+            return new Color(0.6f, 0.62f, 0.66f, 0.35f);
+        }
+
+        if (fromVisibility == DungeonNodeVisibilityState.Preview || toVisibility == DungeonNodeVisibilityState.Preview) {
+            return new Color(0.85f, 0.85f, 0.85f, 0.7f);
+        }
+
+        return new Color(0.92f, 0.92f, 0.92f, 0.92f);
+    }
+
+    // ---- Reachability ----
 
     private void CollectReachableNodes(DungeonLayer layer) {
         reachableNodes.Clear();
@@ -504,46 +774,20 @@ public class DungeonMapUIController : MonoBehaviour {
         return node != null && !node.IsVisited && node != layer?.CurrentNode && !reachableNodes.Contains(node);
     }
 
-    // Marks where Zero stands ("当前位置", solid gold ring), where she can go next ("可前往", pulsing green ring) and
-    // what is behind her. Unreachable branches fade out so the remaining routes read at a glance.
-    private void ApplyNodeStateMarker(Transform buttonTransform, bool isCurrent, bool isSelectable, bool isVisited, bool isUnreachable) {
-        Transform ring = buttonTransform.Find("NodeStateRing");
-        if (ring == null) {
-            ring = UIFrame.Create(buttonTransform, "NodeStateRing", 4f, new Vector2(-8f, -8f), new Vector2(8f, 8f)).transform;
-        }
-        ring.SetAsLastSibling();
-        ring.gameObject.SetActive(isCurrent || isSelectable);
-        if (isCurrent) {
-            UIFrame.SetColor(ring, UITheme.AccentOnDark);
-        } else if (isSelectable) {
-            UIFrame.SetColor(ring, UITheme.PositiveOnDark);
-            UIPulse.Attach(ring.gameObject, 0.3f, 1f, 0.04f, 3.2f);
+    private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
+        if (layer == null || node == null || node.IsVisited) {
+            return false;
         }
 
-        Text tag = buttonTransform.Find("NodeStateTag_Text")?.GetComponent<Text>();
-        if (tag == null) {
-            tag = UITheme.CreateText(buttonTransform, "NodeStateTag_Text", string.Empty, UITheme.CaptionSize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
-            RectTransform tagRect = tag.rectTransform;
-            tagRect.anchorMin = new Vector2(0.5f, 1f);
-            tagRect.anchorMax = new Vector2(0.5f, 1f);
-            tagRect.pivot = new Vector2(0.5f, 0f);
-            tagRect.anchoredPosition = new Vector2(0f, 12f);
-            tagRect.sizeDelta = new Vector2(150f, 28f);
-            Outline outline = tag.gameObject.AddComponent<Outline>();
-            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
-            outline.effectDistance = new Vector2(1.5f, -1.5f);
+        if (layer.CurrentNode == null) {
+            return (layer.EntryNodes != null && layer.EntryNodes.Contains(node))
+                || (layer.EntryNodes == null || layer.EntryNodes.Count == 0) && node == layer.RootNode;
         }
 
-        tag.text = isCurrent ? "当前位置" : isSelectable ? "可前往" : isVisited ? "已走过" : string.Empty;
-        tag.color = isCurrent ? UITheme.AccentOnDark : isSelectable ? UITheme.PositiveOnDark : UITheme.TextOnDarkMuted;
-        tag.fontStyle = isCurrent || isSelectable ? FontStyle.Bold : FontStyle.Normal;
-
-        CanvasGroup group = buttonTransform.GetComponent<CanvasGroup>();
-        if (group == null) {
-            group = buttonTransform.gameObject.AddComponent<CanvasGroup>();
-        }
-        group.alpha = isUnreachable ? 0.35f : isVisited && !isCurrent ? 0.7f : 1f;
+        return layer.CurrentNode.NextNodes != null && layer.CurrentNode.NextNodes.Contains(node);
     }
+
+    // ---- Screen furniture: hint, promise, status plate, backpack ----
 
     private void ApplyMapHint(DungeonLayer layer) {
         if (mapHintText == null) {
@@ -558,7 +802,7 @@ public class DungeonMapUIController : MonoBehaviour {
             hintRect.anchorMax = new Vector2(0.5f, 1f);
             hintRect.pivot = new Vector2(0.5f, 1f);
             hintRect.anchoredPosition = new Vector2(0f, -28f);
-            hintRect.sizeDelta = new Vector2(900f, 40f);
+            hintRect.sizeDelta = new Vector2(760f, 40f);
             Outline outline = mapHintText.gameObject.AddComponent<Outline>();
             outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
             outline.effectDistance = new Vector2(1.5f, -1.5f);
@@ -566,8 +810,8 @@ public class DungeonMapUIController : MonoBehaviour {
 
         mapHintText.text = !IsBeginner() ? string.Empty
             : layer?.CurrentNode == null
-                ? "选择一个绿色的「可前往」节点出发"
-                : "金框是你现在的位置；点击绿色的「可前往」节点继续深入";
+                ? "点一个发光的节点出发；拖动地图可以看更远"
+                : "金色箭头是零号的位置；点发光的节点继续深入";
         mapHintText.transform.SetAsLastSibling();
         ApplyPromiseLine();
     }
@@ -580,7 +824,7 @@ public class DungeonMapUIController : MonoBehaviour {
             promise = UITheme.CreateText(transform, "Promise_Text", string.Empty, UITheme.BodySize - 2, new Color(1f, 0.86f, 0.58f), TextAnchor.MiddleLeft);
             RectTransform rect = promise.rectTransform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
-            rect.anchoredPosition = new Vector2(40f, -170f);
+            rect.anchoredPosition = new Vector2(44f, -176f);
             rect.sizeDelta = new Vector2(760f, 40f);
             Outline outline = promise.gameObject.AddComponent<Outline>();
             outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
@@ -610,11 +854,10 @@ public class DungeonMapUIController : MonoBehaviour {
             GameObject plateObj = new GameObject("RunStatus_Image", typeof(RectTransform));
             plateObj.transform.SetParent(transform, false);
             runStatusPlate = plateObj.AddComponent<Image>();
-            runStatusPlate.raycastTarget = false;
             RectTransform plateRect = runStatusPlate.rectTransform;
             plateRect.anchorMin = plateRect.anchorMax = plateRect.pivot = new Vector2(0f, 1f);
-            plateRect.anchoredPosition = new Vector2(36f, -36f);
-            plateRect.sizeDelta = new Vector2(620f, 118f);
+            plateRect.anchoredPosition = new Vector2(28f, -28f);
+            plateRect.sizeDelta = new Vector2(640f, 136f);
             runStatusText = UITheme.CreateText(runStatusPlate.transform, "RunStatus_Text", string.Empty, UITheme.BodySize - 2, UITheme.TextOnDark, TextAnchor.MiddleLeft);
             runStatusText.supportRichText = true;
             runStatusText.lineSpacing = 1.1f;
@@ -622,8 +865,8 @@ public class DungeonMapUIController : MonoBehaviour {
             runStatusText.verticalOverflow = VerticalWrapMode.Truncate;
             RectTransform textRect = runStatusText.rectTransform;
             UITheme.Stretch(textRect);
-            textRect.offsetMin = new Vector2(22f, 8f);
-            textRect.offsetMax = new Vector2(-22f, -8f);
+            textRect.offsetMin = new Vector2(34f, 14f);
+            textRect.offsetMax = new Vector2(-30f, -14f);
         }
 
         if (runStatusText == null) {
@@ -636,7 +879,7 @@ public class DungeonMapUIController : MonoBehaviour {
             return;
         }
 
-        VisualUIHelper.ApplySolidColor(runStatusPlate, new Color(0.004f, 0.018f, 0.026f, 0.66f), true);
+        VisualUIHelper.ApplySlicedSprite(runStatusPlate, VisualAssetService.UIMapStatusPlateID, Color.white, new Color(0.08f, 0.06f, 0.04f, 0.88f), false);
         runStatusPlate.transform.SetAsLastSibling();
         runStatusText.text = BuildRunStatusText(DungeonRunStatusService.Build(GameRoot.Core.Dungeon, GameRoot.Core.CurrentPlayer));
     }
@@ -666,149 +909,95 @@ public class DungeonMapUIController : MonoBehaviour {
         return warn ? $"<color=#FF8A6E>{text}</color>" : text;
     }
 
-    private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
-        if (layer == null || node == null || node.IsVisited) {
-            return false;
+    public void BindBackpackControls(GameFlowController flow, bool isOpen) {
+        EnsureInventoryControls();
+
+        if (openBackpackBtn != null) {
+            openBackpackBtn.onClick.RemoveAllListeners();
+            openBackpackBtn.onClick.AddListener(() => flow?.OpenDungeonMapInventory());
         }
 
-        if (layer.CurrentNode == null) {
-            return (layer.EntryNodes != null && layer.EntryNodes.Contains(node))
-                || (layer.EntryNodes == null || layer.EntryNodes.Count == 0) && node == layer.RootNode;
+        if (closeBackpackBtn != null) {
+            closeBackpackBtn.onClick.RemoveAllListeners();
+            closeBackpackBtn.onClick.AddListener(() => flow?.CloseDungeonMapInventory());
         }
 
-        return layer.CurrentNode.NextNodes != null && layer.CurrentNode.NextNodes.Contains(node);
+        RefreshInventoryControls(isOpen);
     }
 
-    private void RebuildMapLayout() {
-        RectTransform contentRect = contentParent as RectTransform;
-        if (contentRect == null) {
-            return;
+    public void RefreshInventoryControls(bool isOpen) {
+        if (openBackpackBtn != null) {
+            openBackpackBtn.gameObject.SetActive(!isOpen);
         }
 
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
-    }
-
-    private void DestroyRuntimeObject(GameObject target) {
-        if (target == null) {
-            return;
+        if (closeBackpackBtn != null) {
+            closeBackpackBtn.gameObject.SetActive(isOpen);
         }
 
-        if (Application.isPlaying) {
-            Destroy(target);
-        } else {
-            DestroyImmediate(target);
+        if (backpackHintText != null) {
+            backpackHintText.text = isOpen
+                ? "整理背包中：右键旋转物品；拖出格子的物品会在关闭背包时丢弃"
+                : IsBeginner() ? "右下角打开背包，整理局内物资" : string.Empty;
         }
     }
 
     private void EnsureInventoryControls() {
-        Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-
         if (backpackHintText == null) {
-            GameObject hintObj = new GameObject("BackpackHint_Text");
-            hintObj.transform.SetParent(transform, false);
-            Text hintText = hintObj.AddComponent<Text>();
-            hintText.font = defaultFont;
-            hintText.fontSize = 26;
-            hintText.color = new Color(0.95f, 0.95f, 0.95f);
-            hintText.alignment = TextAnchor.MiddleRight;
-            hintText.raycastTarget = false;
-            RectTransform hintRect = hintObj.GetComponent<RectTransform>();
-            hintRect.anchorMin = new Vector2(1f, 0f);
-            hintRect.anchorMax = new Vector2(1f, 0f);
-            hintRect.pivot = new Vector2(1f, 0f);
-            hintRect.anchoredPosition = new Vector2(-30f, 120f);
-            hintRect.sizeDelta = new Vector2(620f, 70f);
-            backpackHintText = hintText;
+            backpackHintText = UITheme.CreateText(transform, "BackpackHint_Text", string.Empty, UITheme.BodySize, UITheme.TextOnDark, TextAnchor.MiddleRight);
+            backpackHintText.raycastTarget = false;
+            backpackHintText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            RectTransform hintRect = backpackHintText.rectTransform;
+            hintRect.anchorMin = hintRect.anchorMax = hintRect.pivot = new Vector2(1f, 0f);
+            // Clear of the chassis, which opens at the bottom centre.
+            hintRect.anchoredPosition = new Vector2(-180f, 46f);
+            hintRect.sizeDelta = new Vector2(500f, 72f);
+            Outline outline = backpackHintText.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
         }
 
         if (openBackpackBtn == null) {
-            openBackpackBtn = CreateActionButton("OpenBackpack_Button", "整理背包", new Vector2(-30f, 25f), defaultFont);
+            openBackpackBtn = CreateRoundButton("OpenBackpack_Button", "整理背包");
         }
 
         if (closeBackpackBtn == null) {
-            closeBackpackBtn = CreateActionButton("CloseBackpack_Button", "关闭背包", new Vector2(-30f, 25f), defaultFont);
-            Image buttonImage = closeBackpackBtn.GetComponent<Image>();
-            if (buttonImage != null) {
-                buttonImage.color = new Color(0.82f, 0.36f, 0.2f);
-            }
+            closeBackpackBtn = CreateRoundButton("CloseBackpack_Button", "收起背包");
         }
 
-        UITheme.StyleButton(openBackpackBtn, false);
-        UITheme.StyleButton(closeBackpackBtn, false);
+        openBackpackBtn.transform.SetAsLastSibling();
+        closeBackpackBtn.transform.SetAsLastSibling();
+        backpackHintText.transform.SetAsLastSibling();
     }
 
-    private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Font font) {
-        GameObject buttonObj = new GameObject(objectName);
-        buttonObj.transform.SetParent(transform, false);
-        Image buttonImage = buttonObj.AddComponent<Image>();
-        buttonImage.color = new Color(0.2f, 0.52f, 0.86f);
-        Button button = buttonObj.AddComponent<Button>();
-        RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
-        buttonRect.anchorMin = new Vector2(1f, 0f);
-        buttonRect.anchorMax = new Vector2(1f, 0f);
-        buttonRect.pivot = new Vector2(1f, 0f);
-        buttonRect.anchoredPosition = anchoredPosition;
-        buttonRect.sizeDelta = new Vector2(220f, 72f);
+    // A round brass backpack button in the bottom-right corner, its name in small type underneath.
+    private Button CreateRoundButton(string objectName, string label) {
+        Image image = new GameObject(objectName, typeof(RectTransform), typeof(Image), typeof(Button)).GetComponent<Image>();
+        image.transform.SetParent(transform, false);
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(1f, 0f);
+        rect.anchoredPosition = new Vector2(-40f, 44f);
+        rect.sizeDelta = new Vector2(124f, 124f);
+        VisualUIHelper.ApplySimpleSprite(image, VisualAssetService.UIMapBackpackButtonID, Color.white, new Color(0.55f, 0.4f, 0.2f, 1f), true, true);
+        Button button = image.GetComponent<Button>();
+        button.targetGraphic = image;
 
-        GameObject textObj = new GameObject("Text");
-        textObj.transform.SetParent(buttonObj.transform, false);
-        Text buttonText = textObj.AddComponent<Text>();
-        buttonText.font = font;
-        buttonText.fontSize = 28;
-        buttonText.color = Color.white;
-        buttonText.alignment = TextAnchor.MiddleCenter;
-        buttonText.text = label;
-        buttonText.raycastTarget = false;
-        RectTransform textRect = textObj.GetComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
-        textRect.anchorMax = Vector2.one;
-        textRect.sizeDelta = Vector2.zero;
-
+        Text text = UITheme.CreateText(image.transform, "Text", label, UITheme.CaptionSize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
+        text.raycastTarget = false;
+        RectTransform textRect = text.rectTransform;
+        textRect.anchorMin = new Vector2(0f, 0f);
+        textRect.anchorMax = new Vector2(1f, 0f);
+        textRect.pivot = new Vector2(0.5f, 1f);
+        textRect.anchoredPosition = new Vector2(0f, 4f);
+        textRect.sizeDelta = new Vector2(40f, 28f);
+        Outline outline = text.gameObject.AddComponent<Outline>();
+        outline.effectColor = new Color(0f, 0f, 0f, 0.9f);
+        outline.effectDistance = new Vector2(1.5f, -1.5f);
         return button;
     }
 
-    private void ApplyNodeButtonSkin(Button button, NodeBase node, DungeonMapNodePresentation presentation, bool dimmed) {
-        if (button == null) {
-            return;
-        }
+    // ---- Background and the prologue's guide ----
 
-        Image image = button.GetComponent<Image>();
-        if (image == null) {
-            image = button.gameObject.AddComponent<Image>();
-        }
-
-        Color fallback = ResolveNodeFallbackTint(node, presentation);
-        Color plateColor = BuildNodePlateColor(fallback, 0.5f);
-        if (dimmed) {
-            fallback = new Color(fallback.r * 0.45f, fallback.g * 0.45f, fallback.b * 0.45f, 0.48f);
-            plateColor = BuildNodePlateColor(fallback, 0.42f);
-        }
-
-        if (presentation != null && presentation.IsHidden) {
-            plateColor = new Color(0.08f, 0.12f, 0.14f, 0.34f);
-        } else if (presentation != null && presentation.IsPreview) {
-            plateColor = new Color(0.18f, 0.24f, 0.26f, 0.44f);
-        }
-
-        VisualUIHelper.ApplySimpleSprite(
-            image,
-            VisualAssetService.UIDungeonNodePlateID,
-            plateColor,
-            fallback,
-            true,
-            false);
-        button.targetGraphic = image;
-    }
-
-    private Color BuildNodePlateColor(Color fallback, float alpha) {
-        return new Color(
-            Mathf.Clamp01(fallback.r * 0.52f + 0.08f),
-            Mathf.Clamp01(fallback.g * 0.52f + 0.1f),
-            Mathf.Clamp01(fallback.b * 0.52f + 0.1f),
-            alpha);
-    }
-
+    // A dark fill behind the map (the painting always covers the screen); the prologue's shallow run keeps its guide.
     private void ApplyMapBackground() {
         RectTransform rootRect = transform as RectTransform;
         if (rootRect != null) {
@@ -819,19 +1008,20 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
-        DungeonLayer currentLayer = GameRoot.Core?.Dungeon?.CurrentLayer;
-        // Only the prologue's shallow run sits in front of the workshop door; every later layer-1 dive shows the layer itself.
-        bool isT0FirstLayer = PrologueShallowRun.IsPrologueLayer(currentLayer);
-        string visualID = isT0FirstLayer
-            ? "cg_t0_01a_p04_panel02_shallow_gate_glow"
-            : VisualAssetService.ResolveDungeonMapBackgroundID(currentLayer);
-        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, new Color(0.9f, 0.94f, 0.88f, 1f), new Color(0.05f, 0.08f, 0.1f, 0.92f));
+        AspectRatioFitter fitter = backgroundImage.GetComponent<AspectRatioFitter>();
+        if (fitter != null) {
+            fitter.enabled = false;
+        }
 
-        mapDepthVeilImage = VisualUIHelper.EnsurePanelBackground(transform, mapDepthVeilImage, "DungeonMapDepthVeil_Image");
-        VisualUIHelper.ApplySolidColor(mapDepthVeilImage, new Color(0.006f, 0.022f, 0.032f, isT0FirstLayer ? 0.20f : 0.18f));
+        VisualUIHelper.ApplySolidColor(backgroundImage, new Color(0.02f, 0.03f, 0.035f, 1f));
         backgroundImage.transform.SetAsFirstSibling();
-        mapDepthVeilImage.transform.SetSiblingIndex(Mathf.Min(1, transform.childCount - 1));
-        ApplyFirstDiveMapGuide(isT0FirstLayer);
+        Transform oldVeil = transform.Find("DungeonMapDepthVeil_Image");
+        if (oldVeil != null) {
+            oldVeil.gameObject.SetActive(false);
+        }
+
+        // Only the prologue's shallow run sits in front of the workshop door; every later layer-1 dive shows the layer itself.
+        ApplyFirstDiveMapGuide(PrologueShallowRun.IsPrologueLayer(GameRoot.Core?.Dungeon?.CurrentLayer));
     }
 
     private void ApplyFirstDiveMapGuide(bool visible) {
@@ -883,7 +1073,7 @@ public class DungeonMapUIController : MonoBehaviour {
         firstDiveGuideText.horizontalOverflow = HorizontalWrapMode.Wrap;
         firstDiveGuideText.verticalOverflow = VerticalWrapMode.Truncate;
         firstDiveGuideText.raycastTarget = false;
-        firstDiveGuideText.text = "\u9996\u6b21\u4e0b\u6f5c\uff1a\u65e7\u77ff\u4e95\u6d45\u7f1d\n\u53ea\u8d70\u5230\u7b2c\u4e00\u5904\u8def\u6807\uff0c\u96f6\u53f7\u5f02\u5e38\u5c31\u64a4\u56de\u3002";
+        firstDiveGuideText.text = "首次下潜：旧矿井浅缝\n只走到第一处路标，零号异常就撤回。";
         RectTransform textRect = firstDiveGuideText.rectTransform;
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
@@ -891,109 +1081,52 @@ public class DungeonMapUIController : MonoBehaviour {
         textRect.offsetMax = new Vector2(-24f, -10f);
     }
 
-    private void CreateRouteLines(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
-        if (rows == null || nodePositions == null || contentParent == null) {
+    // ---- Helpers ----
+
+    private void ClearNodeButtons() {
+        List<GameObject> children = new List<GameObject>();
+        foreach (Transform child in contentParent) {
+            children.Add(child.gameObject);
+        }
+
+        foreach (GameObject child in children) {
+            child.SetActive(false);
+            DestroyRuntimeObject(child);
+        }
+    }
+
+    private void RebuildMapLayout() {
+        RectTransform contentRect = contentParent as RectTransform;
+        if (contentRect == null) {
             return;
         }
 
-        foreach (List<NodeBase> row in rows) {
-            if (row == null) {
-                continue;
-            }
-
-            foreach (NodeBase node in row) {
-                if (node?.NextNodes == null || !nodePositions.TryGetValue(node, out Vector2 fromPosition)) {
-                    continue;
-                }
-
-                foreach (NodeBase next in node.NextNodes) {
-                    if (next == null || !nodePositions.TryGetValue(next, out Vector2 toPosition)) {
-                        continue;
-                    }
-
-                    if (!DungeonMapVisibilityService.ShouldRenderRouteLine(layer, node, next)) {
-                        continue;
-                    }
-
-                    CreateRouteLine(layer, node, next, fromPosition, toPosition);
-                }
-            }
-        }
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
     }
 
-    private void CreateRouteLine(DungeonLayer layer, NodeBase fromNode, NodeBase toNode, Vector2 fromPosition, Vector2 toPosition) {
-        GameObject routeObj = new GameObject("DungeonRouteLine_Image");
-        routeObj.transform.SetParent(contentParent, false);
-        Image routeImage = routeObj.AddComponent<Image>();
-
-        Vector2 delta = toPosition - fromPosition;
-        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
-        routeRect.anchorMin = new Vector2(0.5f, 0.5f);
-        routeRect.anchorMax = new Vector2(0.5f, 0.5f);
-        routeRect.pivot = new Vector2(0.5f, 0.5f);
-        routeRect.anchoredPosition = (fromPosition + toPosition) * 0.5f;
-        routeRect.sizeDelta = new Vector2(Mathf.Max(16f, delta.magnitude), RouteLineHeight);
-        routeRect.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
-
-        Color routeColor = ResolveRouteLineFallbackColor(layer, fromNode, toNode);
-        VisualUIHelper.ApplySimpleSprite(
-            routeImage,
-            VisualAssetService.UIDungeonRouteLineID,
-            routeColor,
-            routeColor,
-            false,
-            false);
-        routeObj.transform.SetAsFirstSibling();
-
-        LayoutElement layoutElement = routeObj.GetComponent<LayoutElement>();
-        if (layoutElement == null) {
-            layoutElement = routeObj.AddComponent<LayoutElement>();
+    private void DestroyRuntimeObject(GameObject target) {
+        if (target == null) {
+            return;
         }
 
-        layoutElement.minWidth = routeRect.sizeDelta.x;
-        layoutElement.preferredWidth = routeRect.sizeDelta.x;
-        layoutElement.flexibleWidth = 0f;
-        layoutElement.minHeight = RouteLineHeight;
-        layoutElement.preferredHeight = RouteLineHeight;
-        layoutElement.flexibleHeight = 0f;
-    }
-
-    private Color ResolveRouteLineFallbackColor(DungeonLayer layer, NodeBase fromNode, NodeBase toNode) {
-        if (fromNode == layer?.CurrentNode && IsNodeSelectable(layer, toNode)) {
-            return new Color(UITheme.PositiveOnDark.r, UITheme.PositiveOnDark.g, UITheme.PositiveOnDark.b, 0.95f);
+        if (Application.isPlaying) {
+            Destroy(target);
+        } else {
+            DestroyImmediate(target);
         }
-
-        if (fromNode != null && toNode != null && fromNode.IsVisited && (toNode.IsVisited || toNode == layer?.CurrentNode)) {
-            return new Color(UITheme.AccentOnDark.r, UITheme.AccentOnDark.g, UITheme.AccentOnDark.b, 0.7f);
-        }
-
-        if (IsNodeUnreachable(layer, fromNode) || IsNodeUnreachable(layer, toNode) || (fromNode != null && fromNode.IsVisited && fromNode != layer?.CurrentNode)) {
-            return new Color(0.18f, 0.22f, 0.25f, 0.14f);
-        }
-
-        DungeonNodeVisibilityState fromVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, fromNode);
-        DungeonNodeVisibilityState toVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, toNode);
-        if (fromVisibility == DungeonNodeVisibilityState.Hidden || toVisibility == DungeonNodeVisibilityState.Hidden) {
-            return new Color(0.18f, 0.22f, 0.25f, 0.22f);
-        }
-
-        if (fromVisibility == DungeonNodeVisibilityState.Preview || toVisibility == DungeonNodeVisibilityState.Preview) {
-            return new Color(0.42f, 0.5f, 0.48f, 0.34f);
-        }
-
-        return new Color(0.58f, 0.68f, 0.56f, 0.48f);
     }
 
     private Image EnsureNodeChildImage(Transform parent, string objectName) {
         Transform existing = parent.Find(objectName);
         Image image = existing != null ? existing.GetComponent<Image>() : null;
-        return image != null ? image : CreateNodeChildImage(parent, objectName);
-    }
+        if (image != null) {
+            return image;
+        }
 
-    private Image CreateNodeChildImage(Transform parent, string objectName) {
         GameObject imageObj = new GameObject(objectName, typeof(RectTransform));
         imageObj.transform.SetParent(parent, false);
-        Image image = imageObj.AddComponent<Image>();
+        image = imageObj.AddComponent<Image>();
         image.raycastTarget = false;
         return image;
     }
