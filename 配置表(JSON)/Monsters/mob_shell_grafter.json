@@ -26,6 +26,7 @@
   "HP": 132,
   "PortraitID": "monster_mob_shell_grafter_portrait",
   "CombatVisualID": "monster_mob_shell_grafter_combat",
+  "CombatScale": 1.1,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

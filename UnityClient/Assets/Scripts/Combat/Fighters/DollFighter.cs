@@ -116,7 +116,8 @@ public class DollFighter : FighterEntity {
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
             // A neighbour's charge raises this strike once; 迟缓 on Zero and 破甲 on the target change it too.
             int dmg = CombatStatusService.ModifyDamage(this, target, CombatItemEffects.StrikeDamage(weaponSource));
-            GameEventBus.PublishAttackAction(this, target, weaponSource.Name, weaponSource.IconID);
+            string pose = weaponSource.ConfigID == ItemUseService.UnarmedStrikeConfigID ? CombatPose.Punch : null;
+            GameEventBus.PublishAttackAction(this, target, weaponSource.Name, weaponSource.IconID, pose);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
             int targetHPBefore = target.RuntimeHP;

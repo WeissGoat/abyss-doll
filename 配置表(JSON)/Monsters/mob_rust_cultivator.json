@@ -26,6 +26,7 @@
   "HP": 108,
   "PortraitID": "monster_mob_rust_cultivator_portrait",
   "CombatVisualID": "monster_mob_rust_cultivator_combat",
+  "CombatScale": 1.0,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

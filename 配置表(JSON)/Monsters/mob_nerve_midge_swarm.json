@@ -26,6 +26,7 @@
   "HP": 86,
   "PortraitID": "monster_mob_nerve_midge_swarm_portrait",
   "CombatVisualID": "monster_mob_nerve_midge_swarm_combat",
+  "CombatScale": 0.9,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

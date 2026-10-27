@@ -26,6 +26,7 @@
   "HP": 98,
   "PortraitID": "monster_mob_echo_pilgrim_portrait",
   "CombatVisualID": "monster_mob_echo_pilgrim_combat",
+  "CombatScale": 1.05,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

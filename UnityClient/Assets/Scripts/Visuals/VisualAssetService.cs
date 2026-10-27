@@ -53,6 +53,7 @@ public static class VisualAssetService {
     public const string UICombatEndTurnSealID = "ui_combat_end_turn_seal";
     public const string UICombatApLanternLitID = "ui_combat_ap_lantern_lit";
     public const string UICombatApLanternUnlitID = "ui_combat_ap_lantern_unlit";
+    public const string UICombatApCrystalID = "ui_combat_ap_crystal";
     public const string UICombatSanCandleID = "ui_combat_san_candle";
     public const string UICombatShieldBadgeID = "ui_combat_shield_badge";
     public const string UICombatIntentTagID = "ui_combat_intent_tag";

@@ -348,6 +348,7 @@ public static class VisualAssetRegistryEditorTools {
             case VisualAssetService.UICombatShieldBadgeID:
             case VisualAssetService.UICombatUnarmedButtonID:
             case VisualAssetService.UICombatCoreCageID:
+            case VisualAssetService.UICombatApCrystalID:
             case VisualAssetService.UIInventorySlotPorcelainID:
             case VisualAssetService.UICombatApPipID:
             case VisualAssetService.UIInventorySlotAvailableID:

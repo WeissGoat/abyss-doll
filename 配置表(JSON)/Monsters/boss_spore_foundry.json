@@ -28,6 +28,7 @@
   "HP": 170,
   "PortraitID": "monster_boss_spore_foundry_portrait",
   "CombatVisualID": "monster_boss_spore_foundry_combat",
+  "CombatScale": 1.5,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

@@ -26,6 +26,7 @@
   "HP": 104,
   "PortraitID": "monster_mob_spore_archer_portrait",
   "CombatVisualID": "monster_mob_spore_archer_combat",
+  "CombatScale": 1.0,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

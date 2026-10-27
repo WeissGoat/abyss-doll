@@ -13,6 +13,7 @@
   "HP": 48,
   "PortraitID": "monster_mob_lost_miner_echo_portrait",
   "CombatVisualID": "monster_mob_lost_miner_echo_combat",
+  "CombatScale": 0.95,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

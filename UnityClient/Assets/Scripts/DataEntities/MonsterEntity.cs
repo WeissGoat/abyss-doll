@@ -12,6 +12,8 @@ public class MonsterEntity {
     public int Armor;
     public string PortraitID;
     public string CombatVisualID;
+    // Its size on the combat stage against the standard monster (1): bosses bigger, small critters smaller.
+    public float CombatScale = 1f;
     public string HitVFXID;
     public string DeathVFXID;
     public string RewardID;

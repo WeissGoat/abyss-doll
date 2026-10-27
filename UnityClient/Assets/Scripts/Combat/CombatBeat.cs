@@ -15,6 +15,8 @@ public static class CombatPose {
     public const string Idle = "idle";
     public const string Windup = "windup";
     public const string Attack = "attack";
+    // Bare hands: Zero throws a punch instead of pushing the weapon out of her palm.
+    public const string Punch = "punch";
     public const string Guard = "guard";
     public const string Hurt = "hurt";
     public const string Item = "item";

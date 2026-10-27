@@ -248,14 +248,15 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             number = existing.GetComponentInChildren<Text>();
         }
 
-        // A small AP pip, like the ones left of the chassis, with the cost beside it.
+        // A small teal crystal (the one on top of the AP barrels left of the chassis), with the cost beside it.
         RectTransform pipRect = pip.rectTransform;
         pipRect.anchorMin = new Vector2(0f, 1f);
         pipRect.anchorMax = new Vector2(0f, 1f);
         pipRect.pivot = new Vector2(0f, 1f);
         pipRect.anchoredPosition = new Vector2(0f, 0f);
-        pipRect.sizeDelta = new Vector2(46f, 46f);
-        VisualUIHelper.ApplySimpleSprite(pip, VisualAssetService.UICombatApLanternLitID, Color.white, new Color(1f, 0.8f, 0.4f, 1f), false, true);
+        pipRect.anchoredPosition = new Vector2(2f, -2f);
+        pipRect.sizeDelta = new Vector2(34f, 34f);
+        VisualUIHelper.ApplySimpleSprite(pip, VisualAssetService.UICombatApCrystalID, Color.white, new Color(0.4f, 0.95f, 0.85f, 1f), false, true);
 
         number.text = apCost.ToString();
         number.fontSize = 22;
@@ -269,7 +270,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         numberRect.anchorMin = new Vector2(1f, 0.5f);
         numberRect.anchorMax = new Vector2(1f, 0.5f);
         numberRect.pivot = new Vector2(0f, 0.5f);
-        numberRect.anchoredPosition = new Vector2(-12f, 0f);
+        numberRect.anchoredPosition = new Vector2(-4f, 0f);
         numberRect.sizeDelta = new Vector2(24f, 28f);
         pip.transform.SetAsLastSibling();
     }

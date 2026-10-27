@@ -13,6 +13,7 @@
   "HP": 160,
   "PortraitID": "monster_boss_gatekeeper_mk1_portrait",
   "CombatVisualID": "monster_boss_gatekeeper_mk1_combat",
+  "CombatScale": 1.5,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

@@ -28,6 +28,7 @@
   "HP": 150,
   "PortraitID": "monster_elite_mutant_amalgam_portrait",
   "CombatVisualID": "monster_elite_mutant_amalgam_combat",
+  "CombatScale": 1.2,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

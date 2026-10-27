@@ -271,6 +271,9 @@ public class CombatMotionDirector : MonoBehaviour {
                         _hitstopUntil = Time.unscaledTime + HeavyHitstopSeconds * 2f;
                     } else if (beat.Kind == CombatBeatKind.Strike && selfUse) {
                         SetPose(striker, CombatPose.Guard, now + ActPoseSeconds);
+                    } else if (beat.Kind == CombatBeatKind.Strike && beat.Pose == CombatPose.Punch && HasPose(striker.PoseSetID, CombatPose.Punch)) {
+                        // Bare hands: a plain punch, no core flare and nothing thrown.
+                        SetPose(striker, CombatPose.Punch, now + AttackPoseSeconds);
                     } else if (beat.Kind == CombatBeatKind.Strike) {
                         if (HasPose(striker.PoseSetID, CombatPose.Windup)) {
                             striker.WindupUntil = now + WindupSeconds;

@@ -13,6 +13,7 @@
   "HP": 52,
   "PortraitID": "monster_mob_rust_hound_portrait",
   "CombatVisualID": "monster_mob_rust_hound_combat",
+  "CombatScale": 0.9,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

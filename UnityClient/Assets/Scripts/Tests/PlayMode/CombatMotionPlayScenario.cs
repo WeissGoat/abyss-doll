@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 // The enemy turn on the real combat screen: each enemy lunges and its hit lands (flash, shake, floating number)
 // before the next one acts, and once the turn is over every fighter image is back at the place the HUD laid it out.
-// Zero's own strike first: with her pose set registered she snaps to the attack pose, the hit freezes the stage for
+// Zero's own strike first (bare hands): with her pose set registered she snaps to the punch pose, the hit freezes the stage for
 // a few frames and leaves a slash; hit by the enemies she shows hurt or guard, and ends back in her stance.
 public static class CombatMotionPlayScenario {
     public static IEnumerator Run() {
@@ -27,15 +27,15 @@ public static class CombatMotionPlayScenario {
         yield return PlayScenarioSupport.Until(() => combat.CurrentState == CombatState.PlayerTurn && VisualQueue.Count == 0, 10f,
             "the two-enemy fight did not start");
         int enemies = combat.EnemyFaction.Fighters.Count;
-        bool dollPoses = CombatMotionDirector.HasPose("doll_zero_combat", CombatPose.Attack);
+        bool dollPoses = CombatMotionDirector.HasPose("doll_zero_combat", CombatPose.Punch);
         director.ResetRecording();
         if (ItemUseService.TryBeginUnarmedStrike(out string strikeFailure)) {
             ItemUseService.TryConfirmPendingTarget(combat.EnemyFaction.Fighters[0], out strikeFailure);
         }
 
         yield return PlayScenarioSupport.Until(() => VisualQueue.Count == 0, 10f, "Zero's strike did not finish playing");
-        if (dollPoses && !director.PosesShown.Contains(CombatPose.Attack)) {
-            Debug.LogError("[CombatMotion] Zero struck but never showed her attack pose.");
+        if (dollPoses && !director.PosesShown.Contains(CombatPose.Punch)) {
+            Debug.LogError("[CombatMotion] Zero struck bare-handed but never showed her punch pose.");
         }
 
         if (director.HitstopsPlayed == 0 || director.VfxSpawned == 0) {

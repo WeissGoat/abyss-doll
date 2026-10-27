@@ -49,6 +49,8 @@ public class HUDController : MonoBehaviour {
     private const float FeetY = 720f;
     private const float BenchTop = 798f;
     // A fighter's sprite stands this far above the bottom of its slot (bars and name go under it).
+    // The highest an intent badge goes in a monster's slot, so a big monster's badge stays under the top of the screen.
+    private const float IntentBadgeMaxBottom = 470f;
     // Zero's opened chassis on the bench: centred under the grid frame (the combat tray profile is 60 px left of centre).
     private const float ChassisCentreX = 900f;
     private static readonly Vector2 ChassisWingsSize = new Vector2(1100f, 308f);
@@ -907,7 +909,10 @@ public class HUDController : MonoBehaviour {
             visualID = CombatMotionDirector.PoseVisualID(visualID, CombatPose.Idle);
         }
 
+        // A lone monster stands a little larger; each monster has its own build on top (CombatScale in its config).
         Vector2 size = count <= 1 ? VisualDisplaySpecs.MonsterCombatEntityLarge : VisualDisplaySpecs.MonsterCombatEntity;
+        float scale = fighter is MonsterFighter monster && monster.DataRef != null && monster.DataRef.CombatScale > 0f ? monster.DataRef.CombatScale : 1f;
+        size *= scale;
         Color registeredColor = isAlive ? Color.white : new Color(0.45f, 0.45f, 0.45f, 0.9f);
         VisualUIHelper.ApplyContainSprite(
             sprite,
@@ -1022,13 +1027,11 @@ public class HUDController : MonoBehaviour {
 
     private void CreateEnemyIntentBadge(Transform parent, CombatIntentReadabilityLine line, float bottom) {
         // Kept under the top edge of the screen for a tall monster.
-        bottom = Mathf.Min(bottom, 440f);
-        bool hasNumber = !string.IsNullOrEmpty(line.IntentBadge);
-        float width = hasNumber ? 84f + 22f * Mathf.Max(1, line.IntentBadge.Length) : 90f;
+        bottom = Mathf.Min(bottom, IntentBadgeMaxBottom);
         GameObject badgeObj = CreateRectGameObject("EnemyIntentBadge");
         badgeObj.transform.SetParent(parent, false);
         Image backing = badgeObj.AddComponent<Image>();
-        // A plain plate: red for what hurts her this turn, slate for the rest; one white glyph and the number on it.
+        // A plain plate: red for what hurts her this turn, slate for the rest; one glyph and the number on it.
         bool harmful = line.IntentType == MonsterIntentType.Attack || line.IntentType == MonsterIntentType.SelfDestruct;
         VisualUIHelper.ApplySlicedSprite(
             backing,
@@ -1042,21 +1045,35 @@ public class HUDController : MonoBehaviour {
         rect.anchorMax = new Vector2(0.5f, 0f);
         rect.pivot = new Vector2(0.5f, 0f);
         rect.anchoredPosition = new Vector2(0f, bottom);
-        rect.sizeDelta = new Vector2(width, 60f);
 
         Image icon = CreateRectGameObject("EnemyIntentIcon").AddComponent<Image>();
         icon.transform.SetParent(badgeObj.transform, false);
-        float iconX = hasNumber ? 18f : (width - 46f) * 0.5f;
-        ConfigureTopLeftRect(icon.rectTransform, iconX, 7f, 46f, 46f);
         VisualUIHelper.ApplySimpleSprite(icon, IntentIconID(line.IntentType), Color.white, new Color(0.95f, 0.9f, 0.85f, 1f), false, true);
         if (!line.CanExecute) {
             icon.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
-        if (hasNumber) {
-            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 34, UITheme.TextOnDark, TextAnchor.MiddleLeft);
-            PlaceLabel(number, backing, new Vector2(66f, -1f), new Vector2(width - 78f, 60f), 34, false);
+        // Glyph and number side by side, centred as a pair between the plate's pointed ends.
+        const float plateHeight = 62f;
+        const float iconSize = 52f;
+        const float gap = 4f;
+        const float endPadding = 26f;
+        Text number = null;
+        float numberWidth = 0f;
+        if (!string.IsNullOrEmpty(line.IntentBadge)) {
+            number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 34, UITheme.TextOnDark, TextAnchor.MiddleLeft);
             number.fontStyle = FontStyle.Bold;
+            number.fontSize = 34;
+            numberWidth = Mathf.Ceil(number.preferredWidth);
+        }
+
+        float content = iconSize + (number != null ? gap + numberWidth : 0f);
+        float width = content + endPadding * 2f;
+        rect.sizeDelta = new Vector2(width, plateHeight);
+        ConfigureTopLeftRect(icon.rectTransform, endPadding, (plateHeight - iconSize) * 0.5f, iconSize, iconSize);
+        if (number != null) {
+            // The font's line box sits low on digits; lift it a couple of pixels so it centres on the glyph.
+            PlaceLabel(number, backing, new Vector2(endPadding + iconSize + gap, 2f), new Vector2(numberWidth + 4f, plateHeight), 34, false);
         }
     }
 

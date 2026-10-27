@@ -13,6 +13,7 @@
   "HP": 120,
   "PortraitID": "monster_elite_scrap_guard_portrait",
   "CombatVisualID": "monster_elite_scrap_guard_combat",
+  "CombatScale": 1.2,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

@@ -26,6 +26,7 @@
   "HP": 82,
   "PortraitID": "monster_mob_acid_slime_mature_portrait",
   "CombatVisualID": "monster_mob_acid_slime_mature_combat",
+  "CombatScale": 1.0,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

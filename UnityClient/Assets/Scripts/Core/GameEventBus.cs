@@ -47,8 +47,8 @@ public static class GameEventBus {
     }
 
     // The attacker's strike: the screen plays it (lunge) and the queue holds briefly before the hit lands.
-    public static void PublishAttackAction(FighterEntity attacker, FighterEntity target, string weaponName, string weaponVisualID = null) {
-        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Strike, Actor = attacker, Target = target, Label = weaponName, SourceVisualID = weaponVisualID });
+    public static void PublishAttackAction(FighterEntity attacker, FighterEntity target, string weaponName, string weaponVisualID = null, string pose = null) {
+        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Strike, Actor = attacker, Target = target, Label = weaponName, SourceVisualID = weaponVisualID, Pose = pose });
         string attackerName = attacker?.Name;
         string targetName = target?.Name;
         VisualQueue.Enqueue(new ActionCommand(() => OnAttackAction?.Invoke(attackerName, targetName, weaponName)));

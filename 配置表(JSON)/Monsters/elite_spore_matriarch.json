@@ -26,6 +26,7 @@
   "HP": 178,
   "PortraitID": "monster_elite_spore_matriarch_portrait",
   "CombatVisualID": "monster_elite_spore_matriarch_combat",
+  "CombatScale": 1.25,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

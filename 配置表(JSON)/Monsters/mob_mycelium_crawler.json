@@ -26,6 +26,7 @@
   "HP": 92,
   "PortraitID": "monster_mob_mycelium_crawler_portrait",
   "CombatVisualID": "monster_mob_mycelium_crawler_combat",
+  "CombatScale": 0.95,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

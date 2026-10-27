@@ -26,6 +26,7 @@
   "HP": 190,
   "PortraitID": "monster_elite_vein_knight_portrait",
   "CombatVisualID": "monster_elite_vein_knight_combat",
+  "CombatScale": 1.25,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

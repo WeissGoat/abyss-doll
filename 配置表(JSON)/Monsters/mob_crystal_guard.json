@@ -26,6 +26,7 @@
   "HP": 96,
   "PortraitID": "monster_mob_crystal_guard_portrait",
   "CombatVisualID": "monster_mob_crystal_guard_combat",
+  "CombatScale": 1.05,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

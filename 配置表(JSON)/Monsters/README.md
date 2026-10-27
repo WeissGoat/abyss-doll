@@ -69,6 +69,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `MemoryRewardRefs` | array<string> | 击败后可产生的房间记忆 / 日记引用 | 精英、Boss、剧情怪优先填写 |
 | `PortraitID` | string | 怪物头像 VisualID | 用于战斗 HUD / 图鉴 / 结算 |
 | `CombatVisualID` | string | 战斗实体 VisualID | 正式战斗表现和 ArtAcceptance 依赖 |
+| `CombatScale` | float | 战斗中的体型倍数 | 默认 1；Boss 1.5，精英 1.2–1.25，小虫和史莱姆 0.8–0.9。乘在战斗立绘的基准尺寸上 |
 | `IntentIconSet` | string | 意图图标集合 | 映射 `IntentType` 到 UI 表现 |
 | `ActionVfxRef` | string 或 object | 行动 VFX 引用 | 可按 ActionID 分配 |
 | `HitFeedbackRef` | string | 受击反馈引用 | 可选 |

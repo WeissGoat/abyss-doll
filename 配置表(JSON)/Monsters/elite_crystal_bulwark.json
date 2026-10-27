@@ -28,6 +28,7 @@
   "HP": 165,
   "PortraitID": "monster_elite_crystal_bulwark_portrait",
   "CombatVisualID": "monster_elite_crystal_bulwark_combat",
+  "CombatScale": 1.25,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

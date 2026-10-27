@@ -14,6 +14,7 @@
   "Armor": 0,
   "PortraitID": "monster_mob_scavenger_bug_portrait",
   "CombatVisualID": "monster_mob_scavenger_bug_combat",
+  "CombatScale": 0.8,
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {
