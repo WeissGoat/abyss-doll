@@ -55,6 +55,9 @@ public static class VisualAssetService {
     public const string UICombatIntentTagID = "ui_combat_intent_tag";
     public const string UICombatIntentTagDangerID = "ui_combat_intent_tag_danger";
     public const string UICombatHpBarFrameID = "ui_combat_hp_bar_frame";
+    public const string UICombatBenchID = "ui_combat_bench";
+    public const string UICombatBannerPlateID = "ui_combat_banner_plate";
+    public const string UICombatUnarmedButtonID = "ui_combat_unarmed_button";
     public const string UIIconMoneyID = "ui_icon_money";
     public const string UIIconMaintenanceID = "ui_icon_maintenance";
     public const string UIIconBillID = "ui_icon_bill";
@@ -256,7 +259,12 @@ public static class VisualAssetService {
         return DefaultDungeonMapBackgroundID;
     }
 
+    // The layer's own stage when it has one registered (layer config CombatBackgroundID), else the shared one.
     public static string ResolveCombatBackgroundID(DungeonLayer layer = null) {
+        if (layer != null && !string.IsNullOrEmpty(layer.CombatBackgroundID) && TryGetSprite(layer.CombatBackgroundID, out _)) {
+            return layer.CombatBackgroundID;
+        }
+
         return CombatBackgroundID;
     }
 
@@ -326,11 +334,12 @@ public static class VisualDisplaySpecs {
     public static readonly Vector2 ProstheticIcon = new Vector2(80f, 80f);
     public static readonly Vector2 MissingSprite = new Vector2(64f, 64f);
     public static readonly Vector2 MonsterPortrait = new Vector2(320f, 320f);
-    public static readonly Vector2 MonsterCombatEntity = new Vector2(300f, 360f);
-    public static readonly Vector2 MonsterCombatEntityLarge = new Vector2(360f, 420f);
-    public static readonly Vector2 CombatEntityShadow = new Vector2(260f, 78f);
+    // Fighters are about a third of the screen tall, standing on the stage floor (2026-10-27, after similar games).
+    public static readonly Vector2 MonsterCombatEntity = new Vector2(230f, 280f);
+    public static readonly Vector2 MonsterCombatEntityLarge = new Vector2(270f, 330f);
+    public static readonly Vector2 CombatEntityShadow = new Vector2(210f, 64f);
     public static readonly Vector2 CombatTargetRing = new Vector2(240f, 96f);
-    public static readonly Vector2 CombatDoll = new Vector2(360f, 560f);
+    public static readonly Vector2 CombatDoll = new Vector2(260f, 404f);
     public static readonly Vector2 DollStand = new Vector2(420f, 720f);
     public static readonly Vector2 ChassisFrame = new Vector2(512f, 512f);
     public static readonly Vector2 BackgroundReferenceViewport = new Vector2(1920f, 1080f);
@@ -438,7 +447,12 @@ public static class VisualUIHelper {
         button.targetGraphic = image;
     }
 
+    // The tint on resting cells: the combat satchel darkens them to worn canvas so the items stand out
+    // (InventoryPresentationController sets it for each screen). Hover and drop previews keep their own colours.
+    public static Color InventorySlotRestTint = Color.white;
+
     public static void ApplyInventorySlotSkin(Image image, bool isLocked, string stateVisualID = null) {
+        bool resting = string.IsNullOrEmpty(stateVisualID);
         string visualID = stateVisualID;
         if (string.IsNullOrEmpty(visualID)) {
             visualID = isLocked
@@ -449,7 +463,7 @@ public static class VisualUIHelper {
         Color missingColor = isLocked
             ? new Color(0.18f, 0.18f, 0.18f, 1f)
             : new Color(1f, 1f, 1f, 0.5f);
-        ApplySimpleSprite(image, visualID, Color.white, missingColor, true, false);
+        ApplySimpleSprite(image, visualID, resting ? InventorySlotRestTint : Color.white, missingColor, true, false);
     }
 
     public static bool ApplyContainSprite(Image image, string visualID, Vector2 containerSize, Color registeredColor, Color missingColor, bool bindLayoutElement = true) {

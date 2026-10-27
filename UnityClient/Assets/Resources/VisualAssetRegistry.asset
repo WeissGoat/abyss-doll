@@ -19,6 +19,18 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: bg_combat_layer_2
+    Sprite: {fileID: 21300000, guid: b32d4fabbe95473ba6761d2a037691d3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: bg_combat_layer_3
+    Sprite: {fileID: 21300000, guid: 6a91b3253f9f4228a8cc387287649df8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_daily_bill
     Sprite: {fileID: 21300000, guid: 6c8589ddf8d7b6afd9f90298e146cc33, type: 3}
     Prefab: {fileID: 0}
@@ -1999,6 +2011,18 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: ui_combat_banner_plate
+    Sprite: {fileID: 21300000, guid: 6563eea3b28c42bfbffb34b73196fbce, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_combat_bench
+    Sprite: {fileID: 21300000, guid: d3bed98fbddf4e4f8f64a31746ca53d0, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_end_turn_seal
     Sprite: {fileID: 21300000, guid: a9bb5ed60d8041748874fd9f24750038, type: 3}
     Prefab: {fileID: 0}
@@ -2199,6 +2223,12 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: ui_combat_turn_banner
     Sprite: {fileID: 21300000, guid: 74df9a558f5f4caead64bb95dc2403bf, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: ui_combat_unarmed_button
+    Sprite: {fileID: 21300000, guid: 334996f1f1df494ebc7eea3ece3cde3c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

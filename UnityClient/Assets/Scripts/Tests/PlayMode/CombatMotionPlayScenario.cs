@@ -94,7 +94,7 @@ public static class CombatMotionPlayScenario {
             if (image.name == "PlayerDoll_Image") {
                 expected = new Vector2(0f, 54f);
             } else if (image.name == "EnemySprite_Image") {
-                expected = new Vector2(0f, 72f);
+                expected = HUDController.EnemySpriteRestPosition(image);
             } else {
                 continue;
             }

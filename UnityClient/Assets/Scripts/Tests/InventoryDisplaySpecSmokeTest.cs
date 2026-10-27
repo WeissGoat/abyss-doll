@@ -15,7 +15,7 @@ public static class InventoryDisplaySpecSmokeTest {
         bool profileOk =
             Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -60f))
             && Approximately(new Vector2(safeRoomProfile.Scale, 0f), new Vector2(0.78f, 0f), 0.0001f)
-            && Approximately(combatProfile.AnchoredPosition, new Vector2(0f, -304f))
+            && Approximately(combatProfile.AnchoredPosition, new Vector2(-60f, -302f))
             // The satchel around a full-height tray stays on a 1920×1080 screen and under the stage (top below y 560).
             && SatchelOnScreen(combatProfile.AnchoredPosition, InventoryDisplaySpec.CombatTrayGridHeight)
             // The combat tray keeps 5 rows (7×5 cap) inside its height: a 4×4 grid at the full tray scale, 5 rows smaller.

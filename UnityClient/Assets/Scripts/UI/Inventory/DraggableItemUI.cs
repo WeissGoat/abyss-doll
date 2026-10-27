@@ -333,7 +333,12 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // The tile behind the icon is a dark wash of its type's colour, so the icon and its numbers read on top.
-        return forIcon ? new Color(tint.r, tint.g, tint.b, 0.95f) : new Color(tint.r * 0.5f, tint.g * 0.5f, tint.b * 0.5f, 0.9f);
+        if (forIcon) {
+            return new Color(tint.r, tint.g, tint.b, 0.95f);
+        }
+
+        Color wash = Color.Lerp(new Color(0.16f, 0.12f, 0.1f), tint, 0.35f);
+        return new Color(wash.r, wash.g, wash.b, 0.94f);
     }
 
     private void ApplyGridFootprint() {

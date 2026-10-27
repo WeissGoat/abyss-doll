@@ -1122,6 +1122,11 @@ public static class ConfigValidator {
             if (!VisualAssetService.TryGetSprite(layerBackgroundID, out _)) {
                 report.AddWarning($"Dungeon layer [{kvp.Key}] background VisualID [{layerBackgroundID}] is not registered. Falling back to [{VisualAssetService.DefaultDungeonMapBackgroundID}].");
             }
+
+            string combatBackgroundID = kvp.Value?.CombatBackgroundID;
+            if (!string.IsNullOrEmpty(combatBackgroundID) && !VisualAssetService.TryGetSprite(combatBackgroundID, out _)) {
+                report.AddWarning($"Dungeon layer [{kvp.Key}] combat background [{combatBackgroundID}] is not registered. Falling back to [{VisualAssetService.CombatBackgroundID}].");
+            }
         }
     }
 

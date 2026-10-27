@@ -37,6 +37,9 @@ public static class PrologueShallowRun {
         DungeonLayer layer = new DungeonLayer {
             LayerID = 1,
             MapBackgroundID = config?.MapBackgroundID,
+            CombatBackgroundID = config?.CombatBackgroundID,
+            CombatAmbientColor = config?.CombatAmbientColor,
+            CombatRimColor = config?.CombatRimColor,
             MapProfileID = MapProfileID
         };
 

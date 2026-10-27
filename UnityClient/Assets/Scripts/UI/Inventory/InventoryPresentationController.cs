@@ -212,6 +212,8 @@ public class InventoryPresentationController : MonoBehaviour {
 
     public void ApplyCurrentPresentation() {
         bool shouldShowBackpack = ShouldShowBackpack();
+        // Resting cells are dark worn canvas in the satchel, the plain canvas elsewhere.
+        VisualUIHelper.InventorySlotRestTint = _mode == InventoryPresentationMode.Combat ? new Color(0.42f, 0.38f, 0.34f, 1f) : Color.white;
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
         if (generator?.gridParent != null) {
@@ -239,6 +241,7 @@ public class InventoryPresentationController : MonoBehaviour {
         if (shouldShowBackpack) {
             PositionInventoryForCurrentScreen(generator);
             BringInventoryLayersToFront(generator);
+            GridSlotUI.ClearPreview();
         }
     }
 

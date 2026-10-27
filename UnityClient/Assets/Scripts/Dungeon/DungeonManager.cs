@@ -6,6 +6,9 @@ using System.Collections.Generic;
 public class DungeonLayer {
     public int LayerID;
     public string MapBackgroundID;
+    public string CombatBackgroundID;
+    public string CombatAmbientColor;
+    public string CombatRimColor;
     public string MapProfileID;
     public int RunSeed;
     public NodeBase RootNode;
@@ -18,6 +21,9 @@ public class DungeonLayer {
         if (config != null) {
             LayerID = config.LayerID;
             MapBackgroundID = config.MapBackgroundID;
+            CombatBackgroundID = config.CombatBackgroundID;
+            CombatAmbientColor = config.CombatAmbientColor;
+            CombatRimColor = config.CombatRimColor;
             MapProfileID = string.IsNullOrEmpty(config.MapProfileID) ? $"layer_{config.LayerID}_default" : config.MapProfileID;
         }
 
