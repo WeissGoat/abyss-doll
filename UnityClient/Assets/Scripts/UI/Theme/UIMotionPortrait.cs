@@ -5,7 +5,7 @@ using UnityEngine.Video;
 // A portrait that lives: when a still has a registered "<visualID>_idle" clip (a transparent, seamless loop made from
 // that still with tools/美术工具/make_alpha_loop.py, in Approved, imported with Keep Alpha), a video layer over the image
 // loops it, and the still is hidden once the first frame is decoded, so there is never a gap. Only screens that ask
-// for it get one (the hall and the title), not every image that shows the portrait.
+// for it get one (the hall), not every image that shows the portrait.
 // V toggles video portraits on and off everywhere (sample comparison against the still with its mesh sway).
 [RequireComponent(typeof(Image))]
 public class UIMotionPortrait : MonoBehaviour {

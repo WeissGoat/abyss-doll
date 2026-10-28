@@ -56,8 +56,9 @@ public class TitleScreen : MonoBehaviour {
         Image doll = UITheme.CreatePanel(transform, "TitleDoll_Image", Color.white);
         doll.raycastTarget = false;
         UITheme.Place(doll.rectTransform, new Vector2(0.72f, 0f), new Vector2(0f, -40f), new Vector2(680f, 1020f));
+        // She sways as the paper puppet, as in the studio, not with the idle video clip (producer 2026-10-28: the clip
+        // looked odd on the title).
         VisualUIHelper.ApplyContainSprite(doll, DollVisualID, new Vector2(680f, 1020f), Color.white, Color.clear, false);
-        UIMotionPortrait.Attach(doll, DollVisualID);
 
         Text title = UITheme.CreateText(transform, "Title_Text", "Project P3", 72, UITheme.AccentOnDark, TextAnchor.MiddleLeft);
         UITheme.Place(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 250f), new Vector2(900f, 116f));

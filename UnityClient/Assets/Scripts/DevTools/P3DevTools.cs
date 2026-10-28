@@ -308,6 +308,63 @@ public static class P3DevTools {
         return P3FrameRecorder.Begin(folder, seconds, fps);
     }
 
+    // A scripted mouse for recordings (see P3DemoPointer for targets: "x,y", node:N, item:名字, cell:x,y, enemy:N,
+    // zero:head, a button label). Each call returns at once and runs after the previous one.
+    public static string Pointer(string target, float seconds = 0.8f) {
+        return P3DemoPointer.MoveTo(target, seconds);
+    }
+
+    public static string PointerClick(string target = null, float seconds = 0.6f) {
+        return P3DemoPointer.Click(target, seconds);
+    }
+
+    public static string PointerDrag(string from, string to, float seconds = 1f) {
+        return P3DemoPointer.Drag(from, to, seconds);
+    }
+
+    public static string PointerScrub(string target, float seconds = 1.6f, float width = 50f) {
+        return P3DemoPointer.Scrub(target, seconds, width);
+    }
+
+    public static string PointerHold(string target, float seconds = 1.5f) {
+        return P3DemoPointer.HoldOn(target, seconds);
+    }
+
+    public static string PointerOff() {
+        return P3DemoPointer.Off();
+    }
+
+    // Starts a dive straight on the given layer (unlocking it, Zero healed) and opens its route map.
+    public static string Dive(int layerID) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player == null || GameFlowController.Instance == null) {
+            return "Game is not running.";
+        }
+
+        player.HighestUnlockedDungeonLayer = Mathf.Max(player.HighestUnlockedDungeonLayer, layerID);
+        Heal();
+        if (!GameRoot.Core.Dungeon.StartRunAtLayer(layerID)) {
+            return $"Could not start a run on layer {layerID}.\n" + Describe();
+        }
+
+        GameFlowController.Instance.EnterDungeonMap();
+        return $"Diving on layer {layerID}.\n" + Describe();
+    }
+
+    // Sets Zero's HP (in and out of combat), e.g. low before a fight to record a defeat.
+    public static string SetHP(int hp) {
+        DollEntity doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        doll.Status.HP_Current = Mathf.Clamp(hp, 1, doll.Status.HP_Max);
+        CombatSystem combat = GameRoot.Core.Combat;
+        if (combat?.PlayerFaction?.Fighters != null && combat.CurrentState != CombatState.End) {
+            foreach (FighterEntity fighter in combat.PlayerFaction.Fighters) {
+                fighter.RuntimeHP = doll.Status.HP_Current;
+            }
+        }
+
+        return $"HP {doll.Status.HP_Current}.\n" + Describe();
+    }
+
     // Debug fight against the given monsters, comma-separated (e.g. Fight("boss_gatekeeper_mk1") for the boss entrance
     // clip, Fight("mob_rust_hound,mob_rust_hound")).
     public static string Fight(string monsters) {

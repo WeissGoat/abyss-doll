@@ -366,9 +366,10 @@ public static class VisualDisplaySpecs {
     public static readonly Vector2 ProstheticIcon = new Vector2(80f, 80f);
     public static readonly Vector2 MissingSprite = new Vector2(64f, 64f);
     public static readonly Vector2 MonsterPortrait = new Vector2(320f, 320f);
-    // Fighters are about a third of the screen tall, standing on the stage floor (2026-10-27, after similar games).
-    public static readonly Vector2 MonsterCombatEntity = new Vector2(230f, 280f);
-    public static readonly Vector2 MonsterCombatEntityLarge = new Vector2(270f, 330f);
+    // Fighters are about a third of the screen tall, standing on the stage floor (2026-10-27, after similar games);
+    // monsters a fifth larger than that since 2026-10-28 (producer: they read small next to Zero).
+    public static readonly Vector2 MonsterCombatEntity = new Vector2(280f, 340f);
+    public static readonly Vector2 MonsterCombatEntityLarge = new Vector2(330f, 400f);
     public static readonly Vector2 CombatEntityShadow = new Vector2(210f, 64f);
     public static readonly Vector2 CombatTargetRing = new Vector2(240f, 96f);
     public static readonly Vector2 CombatDoll = new Vector2(260f, 404f);

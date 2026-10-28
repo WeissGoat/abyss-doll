@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// A mouse the Play Mode scenarios move by script. It feeds the real StandaloneInputModule (raycasts, pointer enter,
-// begin drag, drop, end drag in Unity's own order) instead of calling the handlers directly, so a scenario sees what
-// a player's mouse would.
+// A mouse moved by script (Play Mode scenarios, and P3DemoPointer for recordings). It feeds the real
+// StandaloneInputModule (raycasts, pointer enter, begin drag, drop, end drag in Unity's own order) instead of calling
+// the handlers directly, so a scenario sees what a player's mouse would.
 public class ScriptedPointer : BaseInput {
     private Vector2 _position;
     private bool _held;
