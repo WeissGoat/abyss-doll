@@ -330,6 +330,19 @@ public static class P3DevTools {
         return P3DemoPointer.HoldOn(target, seconds);
     }
 
+    // A drag in steps, to turn the held item on the way: PointerDown, Pointer moves, PointerRotate, PointerUp.
+    public static string PointerDown(string target, float seconds = 0.6f) {
+        return P3DemoPointer.Down(target, seconds);
+    }
+
+    public static string PointerUp() {
+        return P3DemoPointer.Up();
+    }
+
+    public static string PointerRotate() {
+        return P3DemoPointer.Rotate();
+    }
+
     public static string PointerOff() {
         return P3DemoPointer.Off();
     }
@@ -363,6 +376,22 @@ public static class P3DevTools {
         }
 
         return $"HP {doll.Status.HP_Current}.\n" + Describe();
+    }
+
+    // Sets every standing enemy's HP (at least 1), e.g. low so a recorded fight ends on the next blows.
+    public static string SetEnemyHP(int hp) {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat?.EnemyFaction?.Fighters == null || combat.CurrentState == CombatState.End) {
+            return "No fight.\n" + Describe();
+        }
+
+        foreach (FighterEntity fighter in combat.EnemyFaction.Fighters) {
+            if (fighter.RuntimeHP > 0) {
+                fighter.RuntimeHP = Mathf.Max(1, hp);
+            }
+        }
+
+        return $"Enemies at {Mathf.Max(1, hp)} HP.\n" + Describe();
     }
 
     // Debug fight against the given monsters, comma-separated (e.g. Fight("boss_gatekeeper_mk1") for the boss entrance

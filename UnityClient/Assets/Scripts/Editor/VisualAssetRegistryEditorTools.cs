@@ -222,6 +222,13 @@ public static class VisualAssetRegistryEditorTools {
                 changed = true;
             }
 
+            // Only turned on: the puppet rigs are made readable by hand.
+            if (spec != null && spec.Readable && !importer.isReadable) {
+                importer.isReadable = true;
+                importer.textureCompression = TextureImporterCompression.Uncompressed;
+                changed = true;
+            }
+
             if (spec != null && spec.FullRect) {
                 TextureImporterSettings settings = new TextureImporterSettings();
                 importer.ReadTextureSettings(settings);
@@ -261,6 +268,11 @@ public static class VisualAssetRegistryEditorTools {
 
     private static ApprovedSpriteSpec ResolveApprovedSpriteSpec(string assetPath) {
         string normalized = assetPath.Replace('\\', '/');
+
+        // Where nodes may stand on a terrain (MapGround): read pixel by pixel at runtime, never drawn.
+        if (normalized.Contains("/Backgrounds/Dungeon/map_terrain_") && normalized.EndsWith("_ground.png")) {
+            return new ApprovedSpriteSpec("map ground", 688, 384, false, 1024, readable: true);
+        }
 
         // A layer's route-map terrain is bigger than the screen (the map scrolls), so it keeps its 2K size.
         if (normalized.Contains("/Backgrounds/Dungeon/map_terrain_")) {
@@ -428,8 +440,9 @@ public static class VisualAssetRegistryEditorTools {
         public readonly int MaxTextureSize;
         public readonly bool Mipmaps;
         public readonly bool FullRect;
+        public readonly bool Readable;
 
-        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false, bool fullRect = false) {
+        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false, bool fullRect = false, bool readable = false) {
             Category = category;
             SourceWidth = sourceWidth;
             SourceHeight = sourceHeight;
@@ -437,6 +450,7 @@ public static class VisualAssetRegistryEditorTools {
             MaxTextureSize = maxTextureSize;
             Mipmaps = mipmaps;
             FullRect = fullRect;
+            Readable = readable;
         }
     }
 }

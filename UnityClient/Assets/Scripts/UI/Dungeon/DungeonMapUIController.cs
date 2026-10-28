@@ -23,6 +23,9 @@ public class DungeonMapUIController : MonoBehaviour {
     private const float RouteGlowHeight = 5f;
     private const float FollowSeconds = 0.45f;
     private const string PrologueMapVisualID = "cg_t0_01a_p04_panel02_shallow_gate_glow";
+    // The terrain's ground mask (see MapGround) is registered as the terrain's ID plus this.
+    private const string GroundSuffix = "_ground";
+    private const float GroundMarginY = 90f;
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -38,6 +41,8 @@ public class DungeonMapUIController : MonoBehaviour {
     private ScrollRect mapScroll;
     private RectTransform mapWorld;
     private Image terrainImage;
+    private string cachedGroundID;
+    private MapGround cachedGround;
     private Image fogImage;
     private RectTransform tooltip;
     private Text tooltipText;
@@ -72,8 +77,9 @@ public class DungeonMapUIController : MonoBehaviour {
         CollectReachableNodes(layer);
         ApplyMapHint(layer);
         ApplyRunStatus(layer);
-        Vector2 worldSize = ResolveWorldSize(layer, rows);
-        Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows, worldSize);
+        MapGround ground = ResolveGround(layer);
+        Vector2 worldSize = ResolveWorldSize(layer, rows, ground);
+        Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows, worldSize, ground);
         ConfigureWorld(layer, rows, nodePositions, worldSize);
         CreateRouteLines(layer, rows, nodePositions);
 
@@ -186,8 +192,24 @@ public class DungeonMapUIController : MonoBehaviour {
         return PrologueShallowRun.IsPrologueLayer(layer) ? PrologueMapVisualID : VisualAssetService.ResolveDungeonMapBackgroundID(layer);
     }
 
-    // The painting's own shape, grown when the network needs more room; never smaller than the screen.
-    private Vector2 ResolveWorldSize(DungeonLayer layer, List<List<NodeBase>> rows) {
+    private MapGround ResolveGround(DungeonLayer layer) {
+        string id = ResolveTerrainVisualID(layer) + GroundSuffix;
+        if (id == cachedGroundID) {
+            return cachedGround;
+        }
+
+        cachedGroundID = id;
+        cachedGround = VisualAssetService.TryGetSprite(id, out Sprite mask) ? MapGround.FromTexture(mask.texture) : null;
+        if (cachedGround != null && !cachedGround.HasGround) {
+            cachedGround = null;
+        }
+
+        return cachedGround;
+    }
+
+    // The painting's own shape, grown when the network needs more room (on a terrain with a ground mask, room within
+    // the ground's span); never smaller than the screen.
+    private Vector2 ResolveWorldSize(DungeonLayer layer, List<List<NodeBase>> rows, MapGround ground) {
         Vector2 painting = VisualAssetService.TryGetSprite(ResolveTerrainVisualID(layer), out Sprite sprite)
             ? sprite.rect.size
             : new Vector2(1920f, 1080f);
@@ -196,7 +218,9 @@ public class DungeonMapUIController : MonoBehaviour {
             maxNodesInColumn = Mathf.Max(maxNodesInColumn, row?.Count ?? 0);
         }
 
-        float neededWidth = WorldPaddingX * 2f + Mathf.Max(0, rows.Count - 1) * MinColumnSpacing;
+        float neededWidth = ground != null
+            ? (Mathf.Max(0, rows.Count - 1) * MinColumnSpacing + NodeButtonSize) / (ground.MaxU - ground.MinU)
+            : WorldPaddingX * 2f + Mathf.Max(0, rows.Count - 1) * MinColumnSpacing;
         float neededHeight = WorldPaddingY * 2f + Mathf.Max(0, maxNodesInColumn - 1) * RowSpacing;
         float scale = Mathf.Max(1f, neededWidth / painting.x, neededHeight / painting.y, 1920f / painting.x, 1080f / painting.y);
         return painting * scale;
@@ -204,22 +228,28 @@ public class DungeonMapUIController : MonoBehaviour {
 
     // Depth runs left to right, one column per row of the network. Columns spread over the painting up to
     // ColumnSpacing apart; each column sways a little, and every node is nudged by its own ID so the routes look walked
-    // rather than ruled.
-    private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows, Vector2 worldSize) {
+    // rather than ruled. With a ground mask the columns spread over the ground's span instead, each centred on the
+    // ground under it, and nodes still off the ground step onto the nearest ground (MapGround.Settle).
+    private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows, Vector2 worldSize, MapGround ground) {
         Dictionary<NodeBase, Vector2> positions = new Dictionary<NodeBase, Vector2>();
         if (rows == null || rows.Count == 0) {
             return positions;
         }
 
-        float spacing = rows.Count <= 1 ? 0f : Mathf.Min(ColumnSpacing, (worldSize.x - WorldPaddingX * 2f) / (rows.Count - 1));
-        float startX = -(rows.Count - 1) * spacing * 0.5f;
+        float spanStart = ground != null ? (ground.MinU - 0.5f) * worldSize.x + NodeButtonSize * 0.5f : -worldSize.x * 0.5f + WorldPaddingX;
+        float span = ground != null ? (ground.MaxU - ground.MinU) * worldSize.x - NodeButtonSize : worldSize.x - WorldPaddingX * 2f;
+        float spacing = rows.Count <= 1 ? 0f : Mathf.Min(ColumnSpacing, span / (rows.Count - 1));
+        float startX = spanStart + (span - (rows.Count - 1) * spacing) * 0.5f;
         for (int column = 0; column < rows.Count; column++) {
             List<NodeBase> row = rows[column];
             if (row == null) {
                 continue;
             }
 
-            float sway = Mathf.Sin(column * 0.85f + 0.6f) * 70f;
+            float columnX = startX + column * spacing;
+            float sway = ground != null
+                ? (ground.CenterV(columnX / worldSize.x + 0.5f) - 0.5f) * worldSize.y
+                : Mathf.Sin(column * 0.85f + 0.6f) * 70f;
             float top = (row.Count - 1) * RowSpacing * 0.5f;
             for (int index = 0; index < row.Count; index++) {
                 NodeBase node = row[index];
@@ -229,10 +259,11 @@ public class DungeonMapUIController : MonoBehaviour {
 
                 int hash = StableHash(node.NodeID);
                 Vector2 jitter = new Vector2((hash % 61) - 30f, ((hash / 61) % 45) - 22f);
-                positions[node] = new Vector2(startX + column * spacing, sway + top - index * RowSpacing) + jitter;
+                positions[node] = new Vector2(columnX, sway + top - index * RowSpacing) + jitter;
             }
         }
 
+        ground?.Settle(positions, worldSize, spacing * 0.4f, NodeButtonSize * 1.05f, GroundMarginY);
         return positions;
     }
 
@@ -280,6 +311,9 @@ public class DungeonMapUIController : MonoBehaviour {
             fogRect.anchoredPosition = new Vector2(left, 0f);
             fogRect.sizeDelta = new Vector2(Mathf.Max(0f, worldSize.x - left), 0f);
             VisualUIHelper.ApplySimpleSprite(fogImage, VisualAssetService.UIMapFogID, Color.white, new Color(0.03f, 0.05f, 0.07f, 0.72f), false, false);
+            // A soft gradient meant to stretch over whatever the fog covers; a borderless sliced image draws the same
+            // and tells LayoutCheck the stretch is wanted.
+            fogImage.type = Image.Type.Sliced;
         }
 
         RebuildMapLayout();

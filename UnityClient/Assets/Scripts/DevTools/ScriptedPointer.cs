@@ -11,13 +11,18 @@ public class ScriptedPointer : BaseInput {
     private bool _pressedThisFrame;
     private bool _releasedThisFrame;
     private int _changedFrame = -1;
+    private int _rightDownFrame = -1;
 
     public override Vector2 mousePosition => _position;
     public override bool mousePresent => true;
     public override Vector2 mouseScrollDelta => Vector2.zero;
-    public override bool GetMouseButton(int button) => button == 0 && _held;
-    public override bool GetMouseButtonDown(int button) => button == 0 && _pressedThisFrame && Time.frameCount == _changedFrame;
-    public override bool GetMouseButtonUp(int button) => button == 0 && _releasedThisFrame && Time.frameCount == _changedFrame;
+    public override bool GetMouseButton(int button) => button == 0 ? _held : button == 1 && Time.frameCount == _rightDownFrame;
+    public override bool GetMouseButtonDown(int button) => button == 0
+        ? _pressedThisFrame && Time.frameCount == _changedFrame
+        : button == 1 && Time.frameCount == _rightDownFrame;
+    public override bool GetMouseButtonUp(int button) => button == 0
+        ? _releasedThisFrame && Time.frameCount == _changedFrame
+        : button == 1 && Time.frameCount == _rightDownFrame + 1;
     public override int touchCount => 0;
     public override bool touchSupported => false;
 
@@ -69,6 +74,11 @@ public class ScriptedPointer : BaseInput {
     public void MoveTo(Vector2 position) {
         _position = position;
         Position = position;
+    }
+
+    // A right click: down next frame, up the frame after (rotates an item held in a drag, or one in the backpack).
+    public void TapRight() {
+        _rightDownFrame = Time.frameCount + 1;
     }
 
     public void Press(bool down) {

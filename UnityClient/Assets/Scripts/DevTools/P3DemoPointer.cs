@@ -10,7 +10,7 @@ using UnityEngine.UI;
 // mouse is ignored; P3DevTools.PointerOff() gives the mouse back.
 // Targets: "x,y" (1920x1080, top-left origin), "node:N" (Nth map node, left to right), "item:名字" (an item on
 // screen), "cell:x,y" (a backpack cell), "enemy:N", "pat:head|hand" (where Zero is touched), "grime:N" (a smudge on her),
-// or a button label / object name.
+// or the label of a button that can be clicked, or an object name.
 public class P3DemoPointer : MonoBehaviour {
     private const float CursorSize = 36f;
     private static P3DemoPointer _instance;
@@ -86,6 +86,38 @@ public class P3DemoPointer : MonoBehaviour {
         pointer.Enqueue(pointer.Wait(seconds));
         pointer.Enqueue(pointer.Hold(false));
         return $"Pointer holds {target} for {seconds:0.##}s.";
+    }
+
+    // Press on the target and keep holding (a drag in steps: Down, Pointer moves, Rotate, Up).
+    public static string Down(string target, float seconds) {
+        P3DemoPointer pointer = Ensure();
+        if (pointer == null) {
+            return "No EventSystem with a StandaloneInputModule.";
+        }
+
+        pointer.Enqueue(pointer.Glide(target, seconds, false));
+        pointer.Enqueue(pointer.Hold(true));
+        return $"Pointer presses {target}.";
+    }
+
+    public static string Up() {
+        if (_instance == null) {
+            return "Pointer is off.";
+        }
+
+        _instance.Enqueue(_instance.Hold(false));
+        return "Pointer lets go.";
+    }
+
+    // A right click where the pointer is: turns the item being dragged, or the backpack item under it.
+    public static string Rotate() {
+        P3DemoPointer pointer = Ensure();
+        if (pointer == null) {
+            return "No EventSystem with a StandaloneInputModule.";
+        }
+
+        pointer.Enqueue(pointer.RightClick());
+        return "Pointer right-clicks.";
     }
 
     public static string Off() {
@@ -248,6 +280,13 @@ public class P3DemoPointer : MonoBehaviour {
         yield return null;
     }
 
+    private IEnumerator RightClick() {
+        _pointer.TapRight();
+        yield return null;
+        yield return null;
+        yield return null;
+    }
+
     private IEnumerator Wait(float seconds) {
         yield return new WaitForSecondsRealtime(seconds);
     }
@@ -354,7 +393,7 @@ public class P3DemoPointer : MonoBehaviour {
 
         foreach (Button button in Object.FindObjectsOfType<Button>()) {
             Text text = button.GetComponentInChildren<Text>();
-            if (button.isActiveAndEnabled && text != null && text.text.Replace("\n", " ").Contains(target)) {
+            if (button.isActiveAndEnabled && button.interactable && text != null && text.text.Replace("\n", " ").Contains(target)) {
                 return TryCenter(button.transform as RectTransform, out screen);
             }
         }
