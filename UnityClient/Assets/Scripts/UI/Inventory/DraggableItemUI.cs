@@ -372,6 +372,21 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         int rotation = BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation);
         iconRect.localRotation = Quaternion.Euler(0f, 0f, -rotation);
+        // Turned a quarter, the icon is laid out in the unturned footprint (width and height swapped) and then
+        // turned, so a long blade still spans its cells instead of shrinking to fit across them.
+        RectTransform parent = iconRect.parent as RectTransform;
+        if (rotation % 180 != 0 && parent != null) {
+            Vector2 size = parent.rect.size;
+            iconRect.anchorMin = new Vector2(0.5f, 0.5f);
+            iconRect.anchorMax = new Vector2(0.5f, 0.5f);
+            iconRect.sizeDelta = new Vector2(Mathf.Max(0f, size.y - 4f), Mathf.Max(0f, size.x - 4f));
+            iconRect.anchoredPosition = Vector2.zero;
+        } else {
+            iconRect.anchorMin = Vector2.zero;
+            iconRect.anchorMax = Vector2.one;
+            iconRect.offsetMin = new Vector2(2f, 2f);
+            iconRect.offsetMax = new Vector2(-2f, -2f);
+        }
     }
 
     private void UpdateDragCellOffset(Vector2 screenPosition, Camera eventCamera) {

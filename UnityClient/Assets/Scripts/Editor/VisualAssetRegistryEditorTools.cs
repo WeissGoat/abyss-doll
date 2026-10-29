@@ -118,8 +118,13 @@ public static class VisualAssetRegistryEditorTools {
             Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
             string visualID = Path.GetFileNameWithoutExtension(assetPath);
 
-            if (texture != null && (texture.width != spec.SourceWidth || texture.height != spec.SourceHeight)) {
-                warningCount += LogValidationWarning(assetPath, $"source size is {texture.width}x{texture.height}, expected {spec.SourceWidth}x{spec.SourceHeight} for {spec.Category}.");
+            // Item icons of multi-cell items are cropped to their drawing (tools/美术工具/item_icon_footprint.py) so
+            // they span their cells: they only have to fit in the square.
+            bool sizeOk = spec.FitWithin
+                ? texture == null || (texture.width <= spec.SourceWidth && texture.height <= spec.SourceHeight)
+                : texture == null || (texture.width == spec.SourceWidth && texture.height == spec.SourceHeight);
+            if (!sizeOk) {
+                warningCount += LogValidationWarning(assetPath, $"source size is {texture.width}x{texture.height}, expected {(spec.FitWithin ? "at most " : "")}{spec.SourceWidth}x{spec.SourceHeight} for {spec.Category}.");
             }
 
             if (importer == null) {
@@ -311,7 +316,7 @@ public static class VisualAssetRegistryEditorTools {
         }
 
         if (normalized.Contains("/Items/Icons/")) {
-            return new ApprovedSpriteSpec("item icon", 512, 512, true, 512);
+            return new ApprovedSpriteSpec("item icon", 512, 512, true, 512, fitWithin: true);
         }
 
         if (normalized.Contains("/Monsters/Portraits/")) {
@@ -441,8 +446,9 @@ public static class VisualAssetRegistryEditorTools {
         public readonly bool Mipmaps;
         public readonly bool FullRect;
         public readonly bool Readable;
+        public readonly bool FitWithin;
 
-        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false, bool fullRect = false, bool readable = false) {
+        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false, bool fullRect = false, bool readable = false, bool fitWithin = false) {
             Category = category;
             SourceWidth = sourceWidth;
             SourceHeight = sourceHeight;
@@ -451,6 +457,7 @@ public static class VisualAssetRegistryEditorTools {
             Mipmaps = mipmaps;
             FullRect = fullRect;
             Readable = readable;
+            FitWithin = fitWithin;
         }
     }
 }
