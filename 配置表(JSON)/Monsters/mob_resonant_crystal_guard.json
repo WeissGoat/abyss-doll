@@ -38,6 +38,7 @@
   "PortraitID": "monster_mob_crystal_guard_portrait",
   "CombatVisualID": "monster_mob_crystal_guard_combat",
   "CombatScale": 1.05,
+  "AttackMotion": "Charge",
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

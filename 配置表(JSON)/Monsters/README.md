@@ -70,6 +70,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `PortraitID` | string | 怪物头像 VisualID | 用于战斗 HUD / 图鉴 / 结算 |
 | `CombatVisualID` | string | 战斗实体 VisualID | 正式战斗表现和 ArtAcceptance 依赖 |
 | `CombatScale` | float | 战斗中的体型倍数 | 默认 1；Boss 1.5，精英 1.2–1.25，小虫和史莱姆 0.8–0.9。乘在战斗立绘的基准尺寸上 |
+| `AttackMotion` | string | 出手时怎么动 | `Lunge`（默认，短促前冲）、`Charge`（后撤蓄力后冲过大半个舞台）、`Leap`（蹲下后弧线扑过去、落地压扁）、`Shoot`（后仰、开火后坐，一发光弹飞向目标）、`Swing`（大幅后撤再跨一大步挥过去）。命中在动作落地时才结算，见 `CombatAttackMotion` |
 | `IntentIconSet` | string | 意图图标集合 | 映射 `IntentType` 到 UI 表现 |
 | `ActionVfxRef` | string 或 object | 行动 VFX 引用 | 可按 ActionID 分配 |
 | `HitFeedbackRef` | string | 受击反馈引用 | 可选 |

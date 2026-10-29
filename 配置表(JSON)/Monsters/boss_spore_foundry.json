@@ -29,6 +29,7 @@
   "PortraitID": "monster_boss_spore_foundry_portrait",
   "CombatVisualID": "monster_boss_spore_foundry_combat",
   "CombatScale": 1.5,
+  "AttackMotion": "Shoot",
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

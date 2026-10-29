@@ -15,6 +15,7 @@
   "PortraitID": "monster_mob_acid_slime_portrait",
   "CombatVisualID": "monster_mob_acid_slime_combat",
   "CombatScale": 0.85,
+  "AttackMotion": "Leap",
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

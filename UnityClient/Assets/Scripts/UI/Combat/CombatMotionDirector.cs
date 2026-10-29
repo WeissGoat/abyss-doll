@@ -42,6 +42,7 @@ public class CombatMotionDirector : MonoBehaviour {
     private static readonly Color SlashColor = new Color(1f, 0.97f, 0.86f, 1f);
     private static readonly Color BurstOnZero = new Color(1f, 0.55f, 0.3f, 1f);
     private static readonly Color CoreLight = new Color(0.66f, 0.88f, 1f, 1f);
+    private static readonly Color ShotColor = new Color(1f, 0.78f, 0.38f, 1f);
     // Where her open palm and the core under her other hand are on her attack pose (doll_zero_combat_attack, facing
     // right), as (u, v) of the image from the bottom-left.
     private static readonly Vector2 PalmPoint = new Vector2(0.92f, 0.71f);
@@ -59,6 +60,11 @@ public class CombatMotionDirector : MonoBehaviour {
         public Vector2 AppliedScale = Vector2.one;
         public float LungeStart = float.NegativeInfinity;
         public float LungeSign = 1f;
+        // The monster's own way to strike (CombatAttackMotion) and the one the current move uses.
+        public string Motion = CombatAttackMotion.Lunge;
+        public string LungeMotion = CombatAttackMotion.Lunge;
+        public Actor ShotTarget;
+        public bool ShotPending;
         public float ShakeStart = float.NegativeInfinity;
         public float ShakeStrength;
         public float FlashStart = float.NegativeInfinity;
@@ -189,6 +195,7 @@ public class CombatMotionDirector : MonoBehaviour {
 
         actor.PoseSetID = poseSetID;
         actor.FacesRight = facesRight;
+        actor.Motion = CombatAttackMotion.Resolve(fighter);
         UIStillMotion still = image.GetComponent<UIStillMotion>();
         actor.BreathesItself = still != null && still.enabled;
     }
@@ -252,6 +259,8 @@ public class CombatMotionDirector : MonoBehaviour {
                     bool selfUse = beat.Target != null && beat.Target == beat.Actor;
                     striker.LungeStart = now;
                     striker.LungeSign = selfUse ? 0f : (striker.FacesRight ? 1f : -1f);
+                    striker.LungeMotion = beat.Kind == CombatBeatKind.Strike && !selfUse ? striker.Motion : CombatAttackMotion.Lunge;
+                    striker.ShotPending = false;
                     if (beat.Kind == CombatBeatKind.Interfere) {
                         SpawnPopup(striker, beat.Label, UITheme.AccentOnDark, 22);
                     }
@@ -266,12 +275,21 @@ public class CombatMotionDirector : MonoBehaviour {
                         // Bare hands: a plain punch, no core flare and nothing thrown.
                         SetPose(striker, CombatPose.Punch, now + AttackPoseSeconds);
                     } else if (beat.Kind == CombatBeatKind.Strike) {
+                        // A bigger move holds the attack pose until it has landed and turned back.
+                        string motion = striker.LungeMotion;
+                        float windup = motion == CombatAttackMotion.Lunge ? WindupSeconds : CombatAttackMotion.WindupSeconds(motion);
+                        float attackPose = Mathf.Max(AttackPoseSeconds, CombatAttackMotion.ImpactSeconds(motion) - windup + 0.22f);
                         if (HasPose(striker.PoseSetID, CombatPose.Windup)) {
-                            striker.WindupUntil = now + WindupSeconds;
+                            striker.WindupUntil = now + windup;
                             striker.WindupUntilPose = CombatPose.Windup;
-                            SetPose(striker, CombatPose.Attack, now + WindupSeconds + AttackPoseSeconds);
+                            SetPose(striker, CombatPose.Attack, now + windup + attackPose);
                         } else {
-                            SetPose(striker, CombatPose.Attack, now + AttackPoseSeconds);
+                            SetPose(striker, CombatPose.Attack, now + attackPose);
+                        }
+
+                        if (motion == CombatAttackMotion.Shoot) {
+                            TryGetActor(beat.Target, out striker.ShotTarget);
+                            striker.ShotPending = true;
                         }
 
                         if (striker.Fighter is DollFighter) {
@@ -375,11 +393,24 @@ public class CombatMotionDirector : MonoBehaviour {
         float breath = alive && !actor.BreathesItself ? Mathf.Sin((now + actor.Phase) * BreathHz * Mathf.PI * 2f) : 0f;
         Vector2 scale = new Vector2(1f - 0.006f * breath, 1f + 0.016f * breath);
 
-        float lunge = LungeCurve((now - actor.LungeStart) / LungeSeconds);
-        Vector2 offset = new Vector2(actor.LungeSign * LungeDistance * lunge, actor.LungeSign == 0f ? 10f * lunge : 0f);
-        if (lunge > 0f) {
-            scale *= 1f + 0.05f * lunge;
+        Vector2 offset;
+        if (actor.LungeMotion != CombatAttackMotion.Lunge) {
+            float t = now - actor.LungeStart;
+            Vector2 move = CombatAttackMotion.Offset(actor.LungeMotion, t, out Vector2 moveScale);
+            offset = new Vector2(actor.LungeSign * move.x, move.y);
+            scale = Vector2.Scale(scale, moveScale);
             MaxLungeOffset = Mathf.Max(MaxLungeOffset, Mathf.Abs(offset.x) + Mathf.Abs(offset.y));
+            if (actor.ShotPending && t >= CombatAttackMotion.WindupSeconds(actor.LungeMotion)) {
+                actor.ShotPending = false;
+                SpawnShot(actor, actor.ShotTarget, now);
+            }
+        } else {
+            float lunge = LungeCurve((now - actor.LungeStart) / LungeSeconds);
+            offset = new Vector2(actor.LungeSign * LungeDistance * lunge, actor.LungeSign == 0f ? 10f * lunge : 0f);
+            if (lunge > 0f) {
+                scale *= 1f + 0.05f * lunge;
+                MaxLungeOffset = Mathf.Max(MaxLungeOffset, Mathf.Abs(offset.x) + Mathf.Abs(offset.y));
+            }
         }
 
         float shakeT = (now - actor.ShakeStart) / ShakeSeconds;
@@ -524,6 +555,26 @@ public class CombatMotionDirector : MonoBehaviour {
             ? StagePoint(target, 0.5f, 0.5f)
             : origin + new Vector2(sign * LaunchDistance, 0f);
         _vfx.Add(new Vfx { Kind = VfxKind.Swing, Rect = image.rectTransform, Graphic = image, Trail = trail, Origin = origin, Destination = destination, Sign = sign, Start = now, Duration = SwingSeconds });
+        VfxSpawned++;
+    }
+
+    // A monster's shot: a glowing bolt with a trail from its front to the target, landing as the hit does.
+    private void SpawnShot(Actor actor, Actor target, float now) {
+        if (_popupLayer == null || actor.Rect == null) {
+            return;
+        }
+
+        float sign = actor.FacesRight ? 1f : -1f;
+        Image trail = CreateVfxImage("CombatShotTrail_Image", TrailSprite(), new Vector2(40f, 40f), new Vector2(1f, 0.5f));
+        trail.preserveAspect = false;
+        trail.color = ShotColor;
+        Image image = CreateVfxImage("CombatShot_Image", BurstSprite(), new Vector2(90f, 90f), new Vector2(0.5f, 0.5f));
+        image.color = ShotColor;
+        Vector2 origin = StagePoint(actor, Mirror(actor, new Vector2(0.82f, 0.55f)).x, 0.55f);
+        Vector2 destination = target != null && target.Rect != null && target != actor
+            ? StagePoint(target, 0.5f, 0.55f)
+            : origin + new Vector2(sign * LaunchDistance, 0f);
+        _vfx.Add(new Vfx { Kind = VfxKind.Swing, Rect = image.rectTransform, Graphic = image, Trail = trail, Origin = origin, Destination = destination, Sign = sign, Start = now, Duration = CombatAttackMotion.ShotSeconds });
         VfxSpawned++;
     }
 

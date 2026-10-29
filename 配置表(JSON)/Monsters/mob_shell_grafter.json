@@ -27,6 +27,7 @@
   "PortraitID": "monster_mob_shell_grafter_portrait",
   "CombatVisualID": "monster_mob_shell_grafter_combat",
   "CombatScale": 1.1,
+  "AttackMotion": "Leap",
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {

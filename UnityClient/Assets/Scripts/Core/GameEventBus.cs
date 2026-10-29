@@ -48,7 +48,8 @@ public static class GameEventBus {
 
     // The attacker's strike: the screen plays it (lunge) and the queue holds briefly before the hit lands.
     public static void PublishAttackAction(FighterEntity attacker, FighterEntity target, string weaponName, string weaponVisualID = null, string pose = null) {
-        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Strike, Actor = attacker, Target = target, Label = weaponName, SourceVisualID = weaponVisualID, Pose = pose });
+        float hold = attacker is MonsterFighter ? CombatAttackMotion.ImpactSeconds(CombatAttackMotion.Resolve(attacker)) : 0f;
+        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Strike, Actor = attacker, Target = target, Label = weaponName, SourceVisualID = weaponVisualID, Pose = pose, Hold = hold });
         string attackerName = attacker?.Name;
         string targetName = target?.Name;
         VisualQueue.Enqueue(new ActionCommand(() => OnAttackAction?.Invoke(attackerName, targetName, weaponName)));
@@ -67,7 +68,7 @@ public static class GameEventBus {
         }
 
         VisualQueue.Enqueue(new ActionCommand(() => OnCombatBeat?.Invoke(beat)));
-        VisualQueue.Enqueue(new LogWaitCommand(null, CombatBeat.HoldSeconds(beat.Kind)));
+        VisualQueue.Enqueue(new LogWaitCommand(null, beat.Hold > 0f ? beat.Hold : CombatBeat.HoldSeconds(beat.Kind)));
     }
     
     public static void PublishTurnStarted(FactionType factionType) {

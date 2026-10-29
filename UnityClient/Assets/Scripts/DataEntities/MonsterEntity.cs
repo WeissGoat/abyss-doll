@@ -14,6 +14,8 @@ public class MonsterEntity {
     public string CombatVisualID;
     // Its size on the combat stage against the standard monster (1): bosses bigger, small critters smaller.
     public float CombatScale = 1f;
+    // How it moves when it strikes: Lunge (default), Charge, Leap, Shoot or Swing (CombatAttackMotion).
+    public string AttackMotion;
     public string HitVFXID;
     public string DeathVFXID;
     public string RewardID;

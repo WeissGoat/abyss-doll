@@ -36,6 +36,9 @@ public class CombatBeat {
     // CombatPose.Kneel when Zero holds on at 1 HP; empty means the screen picks the pose from the beat kind.
     public string SourceVisualID;
     public string Pose;
+    // How long the queue holds after this beat; 0 takes the kind's default (a monster's strike holds until its move
+    // lands, CombatAttackMotion.ImpactSeconds).
+    public float Hold;
 
     // How long the queue holds after each kind, so enemies act one after another instead of all at once.
     public static float HoldSeconds(CombatBeatKind kind) {
