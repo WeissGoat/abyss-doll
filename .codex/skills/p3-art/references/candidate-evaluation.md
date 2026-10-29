@@ -40,6 +40,15 @@ Adjust weights by asset type:
 - comic panel: increase narrative semantics, identity continuity, and reading composition;
 - UI skin: increase stretchability, empty content area, and engineering usability.
 
+## Game-fit checks (from the 2026-10-29 trailer review)
+
+Things that only show once the art is in the game. Check them when making or replacing these assets:
+
+- **Item icons follow the item's grid footprint.** The bag fits the icon into its footprint keeping its aspect, so draw the object in the footprint's shape: a 1×2 item tall and upright, a 2×1 item lying flat, a 1×4 lance long and straight (not on the diagonal of a square). After selecting, run `python tools/美术工具/item_icon_footprint.py`: it crops multi-cell icons to the drawing with `--apply` and lists icons that still reach too little of their cells. The 17 items in PROJECT_STATUS's known issues are waiting for redraws like this.
+- **Monster combat poses read at stage size and suit the move.** Idle, windup and attack must differ clearly when small; the monster's config `AttackMotion` moves the image (`Charge` dashes across, `Leap` jumps in an arc, `Shoot` recoils and fires a shot from its front, `Swing` steps in with a sweep), so the attack pose should match: a lunging body, a pounce, a muzzle or bow pointing forward, a weapon mid-swing. Pick the move for new monsters by the art.
+- **Nothing cut by the canvas edge.** Smoke, spore clouds and slashes on attack poses were cut by straight edges (oracle, rust cultivator, vein knight; fixed with fades). Leave margin, or fade effects out before the edge.
+- **Every layer has its own combat stage and map ground.** A layer config names its `CombatBackgroundID` (a stage with a clear ground line, like `bg_combat_layer_1/2`), and a map terrain `map_terrain_layer_N` needs its ground mask `map_terrain_layer_N_ground` (white where nodes may stand; see the dungeon map spec).
+
 ## Character set consistency
 
 For related `character_portrait_set` members, do not stop at isolated candidate scores. Compare the selected candidates against active character facts, design-layer anchors, their declared source relationships, and one another. Check at least:
