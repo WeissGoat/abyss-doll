@@ -22,7 +22,7 @@
   "MaxWidth": 3,
   "MinRouteCount": 2,
   "MapBackgroundID": "map_terrain_layer_1",
-  "CombatBackgroundID": "bg_combat_abyss",
+  "CombatBackgroundID": "bg_combat_layer_1",
   "FogProfile": "tutorial_reveal_1_preview_1",
   "NodeRevealDepth": 1,
   "NodePreviewDepth": 1,

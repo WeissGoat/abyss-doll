@@ -378,6 +378,85 @@ public static class P3DevTools {
         return $"HP {doll.Status.HP_Current}.\n" + Describe();
     }
 
+    // Puts a new item into the backpack at (x, y), turned by rotation (0 / 90 / 180 / 270), e.g. to fill it up before
+    // a recording. Shows on the next screen change.
+    public static string PackItem(string configID, int x, int y, int rotation = 0) {
+        ItemEntity item = ConfigManager.CreateItem(configID);
+        if (item == null) {
+            return $"Unknown item '{configID}'.";
+        }
+
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DevTools");
+        if (!InventoryInteractionService.RequestPlace(item, x, y, rotation, context, out string reason)) {
+            return $"{item.Name} does not fit at ({x},{y}): {reason}\n" + Describe();
+        }
+
+        ItemLifecycleService.MarkBackpackItem(item, ItemOwnerScope.Run);
+        return $"Packed {item.Name} at ({x},{y}).\n" + Describe();
+    }
+
+    // The next fight won offers exactly these items (comma-separated config IDs) instead of its rolled loot, once.
+    public static string NextLoot(string configIDs) {
+        CombatNode.DebugNextLoot = new List<string>();
+        foreach (string id in (configIDs ?? string.Empty).Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)) {
+            CombatNode.DebugNextLoot.Add(id.Trim());
+        }
+
+        return $"Next loot: {string.Join(", ", CombatNode.DebugNextLoot.ToArray())}.";
+    }
+
+    // Walks Zero along a route to the layer's boss, stopping stopBefore nodes short of it: the nodes on the way are
+    // walked, and the map (already open) glides there.
+    public static string WalkToBoss(int stopBefore = 1) {
+        DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
+        if (layer == null) {
+            return "No run.\n" + Describe();
+        }
+
+        Dictionary<NodeBase, NodeBase> cameFrom = new Dictionary<NodeBase, NodeBase>();
+        Queue<NodeBase> queue = new Queue<NodeBase>();
+        foreach (NodeBase entry in layer.EntryNodes) {
+            cameFrom[entry] = null;
+            queue.Enqueue(entry);
+        }
+
+        NodeBase boss = null;
+        while (queue.Count > 0 && boss == null) {
+            NodeBase node = queue.Dequeue();
+            bool isBoss = node is CombatNode && (string.Equals(node.NodeIconID, VisualAssetService.BossNodeIconID, System.StringComparison.OrdinalIgnoreCase)
+                || (node.NodeID ?? string.Empty).IndexOf("boss", System.StringComparison.OrdinalIgnoreCase) >= 0);
+            if (isBoss) {
+                boss = node;
+                break;
+            }
+
+            foreach (NodeBase next in node.NextNodes) {
+                if (next != null && !cameFrom.ContainsKey(next)) {
+                    cameFrom[next] = node;
+                    queue.Enqueue(next);
+                }
+            }
+        }
+
+        if (boss == null) {
+            return "No boss reachable on this layer.\n" + Describe();
+        }
+
+        List<NodeBase> path = new List<NodeBase>();
+        for (NodeBase node = boss; node != null; node = cameFrom[node]) {
+            path.Insert(0, node);
+        }
+
+        int stop = Mathf.Clamp(path.Count - 1 - Mathf.Max(1, stopBefore), 0, path.Count - 2);
+        for (int i = 0; i <= stop; i++) {
+            path[i].IsVisited = true;
+        }
+
+        layer.CurrentNode = path[stop];
+        GameFlowController.Instance?.EnterDungeonMap();
+        return $"Walked {stop + 1} node(s); the boss is {path.Count - 1 - stop} step(s) away.\n" + Describe();
+    }
+
     // Sets every standing enemy's HP (at least 1), e.g. low so a recorded fight ends on the next blows.
     public static string SetEnemyHP(int hp) {
         CombatSystem combat = GameRoot.Core?.Combat;

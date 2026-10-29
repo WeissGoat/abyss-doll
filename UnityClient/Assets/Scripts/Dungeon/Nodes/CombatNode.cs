@@ -6,6 +6,8 @@ public class CombatNode : NodeBase, ILootPickupNode {
     // The prologue's first fight drops nothing; the bring-back choice comes right after it.
     public bool NoLoot { get; set; }
     private CombatLootPickupResult _pendingLootResult;
+    // Dev tools only (P3DevTools.NextLoot, for recordings): the next won fight offers exactly these items, once.
+    public static List<string> DebugNextLoot;
     
     public override void Init(NodePoolEntry entry) {
         base.Init(entry);
@@ -84,6 +86,20 @@ public class CombatNode : NodeBase, ILootPickupNode {
         CombatLootPickupResult result = new CombatLootPickupResult {
             NodeID = NodeID
         };
+
+        if (DebugNextLoot != null) {
+            foreach (string itemID in DebugNextLoot) {
+                ItemEntity item = ConfigManager.CreateItem(itemID);
+                if (item != null) {
+                    ItemLifecycleService.MarkGeneratedToInbox(item, "DevNextLoot");
+                    result.OfferedItems.Add(item);
+                    result.TotalEstimatedValue += item.BaseValue;
+                }
+            }
+
+            DebugNextLoot = null;
+            return result;
+        }
 
         RewardSystem rewardSystem = new RewardSystem();
 

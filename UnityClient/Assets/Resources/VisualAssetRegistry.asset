@@ -19,6 +19,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: bg_combat_layer_1
+    Sprite: {fileID: 21300000, guid: 7dbe10dc670c553438fb406f62499bf3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_combat_layer_2
     Sprite: {fileID: 21300000, guid: b32d4fabbe95473ba6761d2a037691d3, type: 3}
     Prefab: {fileID: 0}
