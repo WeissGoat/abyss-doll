@@ -8,7 +8,7 @@
 
 主循环：工坊 / 小镇 → 下潜（节点地图）→ 战斗（背包格子、AP、怪物意图）→ 战利品取舍 → 撤离或深入 → 回城出售、维修、成长 → 再下潜。
 
-当前目标是 1–2 小时的 Demo。范围、里程碑、下一步和已知问题都在 `PROJECT_STATUS.md`。
+Demo 已封板（tag `demo-v1`，2026-11-01）。现在是阶段 2：前 8 小时的完整体验（第 1–3 层，全游戏 5 层）。范围、里程碑、下一步和已知问题都在 `PROJECT_STATUS.md`，规划和理由在 `docs/specs/2026-11-01-phase2-plan.md`、`docs/specs/2026-11-01-game-pacing-and-layers.md`。
 
 ## 开工
 
@@ -35,6 +35,7 @@
 - 领域逻辑是纯 C#，由 `CoreBackend` 统一提供（`Combat`、`Dungeon`、`Inventory`、`Items`、`Workshop`、`Narrative` 等目录），不依赖 MonoBehaviour。
 - UI Controller 只显示状态、转发玩家请求；规则不写进 UI。后端通过事件总线（`GameEventBus`、`CombatEventBus`、`DungeonEventBus`）和视觉队列（`VisualQueue`）通知界面。
 - 内容和数值走配置，不在代码里写死。
+- 界面主要用 UGUI：`LayoutCheck()`、遮挡检查和拖拽测试都按 UGUI 写。RenderTexture、UI Toolkit、Spine / Live2D 运行时等别的渲染方式不禁止（制作人 2026-10-25 放开），哪种好用用哪种；新加的部分要让检查工具能覆盖到，或者写明覆盖不到。UI Toolkit 早期在背包拖拽和射线穿透上出过问题（`开发文档/rules/02_…`），背包这类交互用之前先验证。
 - 详细架构：`开发文档/rules/01_客户端分层与领域架构规范.md`。
 
 ## 去哪找
@@ -57,7 +58,7 @@
 下面七条防的是真实损坏，任何情况下都不偏离：
 
 1. `配置表(JSON)/` 是配置源；`UnityClient/Assets/StreamingAssets/Configs` 是同步副本，不手改。原因：每次同步都会覆盖它。
-2. 运行时 UI 只用 UGUI，不引入 UI Toolkit、UXML、USS 或 `UIDocument`；游戏规则不写进 UI Controller。原因：界面和测试都按 UGUI 搭建，写在 UI 里的规则测不到、也没法复用。
+2. 游戏规则不写进 UI Controller。原因：写在 UI 里的规则测不到、也没法复用。
 3. 运行时只引用 `UnityClient/Assets/Art/Approved`；`_IncomingAI` 是不进 git 的工作区。原因：引用 `_IncomingAI` 的东西在别的机器和构建里会丢。
 4. `_generated` 目录由脚本生成；除非任务就是修复生成物，否则通过对应脚本刷新。原因：手改会在下次生成时被覆盖，也会和源数据对不上。
 5. `tools/ai-image-gateway` 是 submodule，别的项目也在用；除非任务就是它，否则不在父仓库提交它内部的改动。
@@ -75,11 +76,11 @@
 - 一组批次用一个分支，每批一到几个提交；整组做完、自检通过、制作人确认后再 fast-forward 合并到 `main`。不主动 push。批次之间不停下来等确认，除非遇到需要制作人拍板的设计问题。
 - 状态只记在 `PROJECT_STATUS.md` 一处：做完或发现问题时更新对应的行，历史交给 git log。
 - 需要先设计的功能，写一页 spec 放进 `docs/specs/`；不再新增规划层或第二份进度表。
-- 设计文档是参考，不是合同。实现中发现设计不合理，直接提出来，并修改设计文档本身。
+- 设计文档（GDD、规则卡、细案）是参考，不是合同。有更好的设计可以重新设计、自由发挥（制作人 2026-11-01）；改了就修改设计文档本身，或在对应章节写明以哪份 spec 为准，不留两套口径。系统按正式版设计，不做临时方案。
 - 制作人预先给的权限（2026-10-20）：
   - 启动 Unity Editor 不用问。
   - 出图（NovelAI、Gemini、gpt-image-2 等）不用问，按需出候选；入库和替换游戏里已在用的图仍按 `p3-art`。
-  - H3 视频（Modal 云端按 GPU 时间计费）一次提交的预估费用低于 1 美元，直接提交；超过的先报条数、时间和费用，等同意。
+  - Modal 云端任务（H3 视频、See-through 拆层等，按 GPU 时间计费）一次提交的预估费用低于 1 美元，直接提交；超过的先报条数、时间和费用，等同意（2026-10-25 从 H3 扩到所有 Modal 任务）。
 - 本页之外的做法都是默认做法，可以按情况偏离，但要在最终回复里说明偏离了什么、为什么。
 
 ## Skill
