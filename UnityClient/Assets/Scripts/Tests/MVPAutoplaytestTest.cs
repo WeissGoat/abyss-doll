@@ -9,6 +9,10 @@ using UnityEngine;
 // M1 threshold (PROJECT_STATUS.md): at least 80% of campaigns dive 3+ times and both sell and upgrade.
 // Each campaign starts on day 2 (the prologue takes day 1) and plays through day 15, so it meets the first two rent
 // bills; the tuning targets it reports against are in docs/specs/2026-10-05-demo-tuning-targets.md.
+// Bots of different styles play the same seeds (phase 2 M0, MVPAutoplayStyle): the careful one is the regression gate;
+// the builder plays the same but rearranges its build after every pickup (LoadoutArranger), the strongest kit the bot
+// can make; the greedy one also goes for elites and fights while it has 70% HP. Run writes the careful and builder
+// reports, RunStyles all three (Logs/MVPAutoplaytest<Style>Report.json); only the careful one is a gate.
 public static class MVPAutoplaytestTest {
     private const int CampaignCount = 30;
     private const int MaxExpeditionsPerCampaign = 14;
@@ -26,6 +30,7 @@ public static class MVPAutoplaytestTest {
         MVPAutoplaytestReport report = BuildReport(BaseSeed);
         WriteReport(report, "MVPAutoplaytestReport.json");
         LogSummary(report);
+        WriteStyleReport(MVPAutoplayStyle.Builder);
 
         if (report.LoopCampaignRate < LoopTargetCampaignRate) {
             Debug.LogError($"[MVPAutoplaytest] Loop threshold FAILED: {report.LoopCampaignRate:P0} of campaigns dived {LoopTargetDives}+ times with a sale and an upgrade (need {LoopTargetCampaignRate:P0}). See Logs/MVPAutoplaytestReport.json.");
@@ -36,6 +41,26 @@ public static class MVPAutoplaytestTest {
         }
 
         Debug.Log("=== MVP Autoplaytest Finished ===");
+    }
+
+    // For comparing play styles: every style but the careful one, on the same seeds as Run.
+    public static string RunStyles() {
+        List<string> lines = new List<string>();
+        foreach (MVPAutoplayStyle style in Enum.GetValues(typeof(MVPAutoplayStyle))) {
+            if (style != MVPAutoplayStyle.Careful) {
+                lines.Add(WriteStyleReport(style));
+            }
+        }
+
+        return string.Join("\n", lines);
+    }
+
+    private static string WriteStyleReport(MVPAutoplayStyle style) {
+        MVPAutoplaytestReport report = BuildReport(BaseSeed, style);
+        WriteReport(report, $"MVPAutoplaytest{style}Report.json");
+        string line = $"[MVPAutoplaytest] {style} bot: L1Clear={report.Layer1ClearRate:P0}, L2Entry={report.Layer2EntryRate:P0}, Defeats={report.TotalDefeats}, AvgMoney={report.AverageFinalMoney:0.0}";
+        Debug.Log(line);
+        return line;
     }
 
     public static void RunStability() {
@@ -86,11 +111,12 @@ public static class MVPAutoplaytestTest {
         return $"{merged.Campaigns.Count} campaigns written to Logs/MVPAutoplaytestTuningReport.json";
     }
 
-    private static MVPAutoplaytestReport BuildReport(int baseSeed) {
+    private static MVPAutoplaytestReport BuildReport(int baseSeed, MVPAutoplayStyle style = MVPAutoplayStyle.Careful) {
         MVPAutoplaytestReport report = new MVPAutoplaytestReport {
             CampaignCount = CampaignCount,
             MaxExpeditionsPerCampaign = MaxExpeditionsPerCampaign,
-            BaseSeed = baseSeed
+            BaseSeed = baseSeed,
+            Style = style.ToString()
         };
 
         // Thousands of combat log lines per run fill the Editor log (it reached gigabytes); keep warnings and errors,
@@ -101,7 +127,7 @@ public static class MVPAutoplaytestTest {
             for (int i = 0; i < CampaignCount; i++) {
                 int seed = baseSeed + i;
                 GameRandom.Seed(seed);
-                MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign).Run();
+                MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign, style).Run();
                 campaign.ReachedLoopTarget = campaign.Expeditions >= LoopTargetDives
                     && campaign.SoldItems > 0
                     && campaign.ChassisUpgrades + campaign.ProstheticsCrafted > 0;
@@ -258,10 +284,17 @@ public class MVPAutoplaytestStabilityReport {
     }
 }
 
+public enum MVPAutoplayStyle {
+    Careful,
+    Builder,
+    Greedy
+}
+
 public class MVPAutoplaytestReport {
     public int CampaignCount;
     public int MaxExpeditionsPerCampaign;
     public int BaseSeed;
+    public string Style;
     public List<MVPAutoplayCampaignReport> Campaigns = new List<MVPAutoplayCampaignReport>();
     public List<string> Warnings = new List<string>();
 
@@ -434,6 +467,7 @@ public class MVPAutoplayRentRecord {
 internal class MVPAutoplayCampaign {
     private readonly int _seed;
     private readonly int _maxExpeditions;
+    private readonly MVPAutoplayStyle _style;
     private readonly MVPAutoplayCampaignReport _report;
     private CoreBackend _core;
     private MVPAutoplayExpeditionReport _currentExpedition;
@@ -441,9 +475,10 @@ internal class MVPAutoplayCampaign {
     private bool _settled;
     private bool _settledVictory;
 
-    public MVPAutoplayCampaign(int seed, int maxExpeditions) {
+    public MVPAutoplayCampaign(int seed, int maxExpeditions, MVPAutoplayStyle style = MVPAutoplayStyle.Careful) {
         _seed = seed;
         _maxExpeditions = maxExpeditions;
+        _style = style;
         _report = new MVPAutoplayCampaignReport {
             Seed = seed
         };
@@ -517,6 +552,9 @@ internal class MVPAutoplayCampaign {
         return _report;
     }
 
+    private bool Rearranges => _style != MVPAutoplayStyle.Careful;
+    private bool Greedy => _style == MVPAutoplayStyle.Greedy;
+
     // Going on from layer 2 to layer 3 in the same dive needs this much HP left.
     private const int DeeperHPPercent = 60;
     // A careful player walks home from a safe room once the haul is worth this much on that layer (base value of what
@@ -532,6 +570,7 @@ internal class MVPAutoplayCampaign {
         if (expeditionIndex <= 1 || (last != null && last.EnteredLayer2 && last.Defeated)) {
             return false;
         }
+
 
         DollEntity doll = _core.CurrentPlayer.ActiveDoll;
         bool hasArm = doll.EquippedProsthetics.Contains("pros_power_arm");
@@ -665,7 +704,8 @@ internal class MVPAutoplayCampaign {
     }
 
     // Like a careful player reading the map: skip the bypassable elite, head for a rest or safe room when hurt,
-    // otherwise prefer treasure and events over fights. Ties keep the first route.
+    // otherwise prefer treasure and events over fights. Ties keep the first route. The greedy bot takes elites and
+    // fights (more loot) while it has 70% HP.
     private NodeBase ChooseNextNode(NodeBase node) {
         if (node?.NextNodes == null || node.NextNodes.Count == 0) {
             return null;
@@ -673,7 +713,24 @@ internal class MVPAutoplayCampaign {
 
         DollEntity doll = _core.CurrentPlayer.ActiveDoll;
         bool hurt = doll.Status.HP_Current * 100 < doll.Status.HP_Max * 60;
-        return node.NextNodes.OrderByDescending(next => ScoreRoute(next, hurt)).First();
+        bool strong = doll.Status.HP_Current * 100 >= doll.Status.HP_Max * 70;
+        return node.NextNodes.OrderByDescending(next => Greedy && strong ? ScoreGreedyRoute(next) : ScoreRoute(next, hurt)).First();
+    }
+
+    private static int ScoreGreedyRoute(NodeBase node) {
+        switch (node) {
+            case CombatNode combat when combat.MonsterIDs.Any(id => id.StartsWith("elite_", StringComparison.Ordinal)):
+                return 15;
+            case CombatNode _:
+                return 12;
+            case TreasureNode _:
+            case EventNode _:
+                return 10;
+            case HazardNode _:
+                return -5;
+            default:
+                return 0;
+        }
     }
 
     private static int ScoreRoute(NodeBase node, bool hurt) {
@@ -877,6 +934,11 @@ internal class MVPAutoplayCampaign {
                 _report.BackpackRejects++;
                 _report.DiscardedItems.Add(item.Name);
             }
+        }
+
+        // A new find goes to work straight away: the build is rearranged on the map after each pickup.
+        if (Rearranges) {
+            _report.LoadoutMoves += LoadoutArranger.Arrange(_core.CurrentPlayer.ActiveDoll, 2);
         }
 
         node.ConfirmLootCollection();

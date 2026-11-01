@@ -6,6 +6,9 @@ runs of the same configs give the same numbers).
 
     python tools/agent/sim_metrics.py            # one line, for the results table
     python tools/agent/sim_metrics.py --detail   # plus defeats by monster and HP before each boss
+    python tools/agent/sim_metrics.py --report UnityClient/Logs/MVPAutoplaytestBuilderReport.json
+                                                 # the bot that rearranges its build after every pickup (also Greedy,
+                                                 # written by MVPAutoplaytestTest.RunStyles)
 """
 import argparse
 import collections
