@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/数据与实体定义/03_物品与网格实体.md
-  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 设计文档/数值/00_基准价值与空间本位模型.md
   - 配置表(JSON)/Items/README.md
   - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
   - 设计文档/GDD/GDD_06_物品系统与物品生命周期.md

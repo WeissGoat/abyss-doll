@@ -50,7 +50,7 @@ update_rule: 修改运行时 UGUI、Prefab/场景/Editor 构建、表现层交�
 由于“背包网格系统”涉及复杂的不规则物理空间碰撞、脱离文档流的绝对定位交互与跨画布拖拽，项目表现层技术栈已在早期迭代中被彻底收束。
 
 *   **全面采用纯 UGUI 架构**：
-    *   为避免射线检测（Raycast）被不可预见的事件拦截面板遮挡，项目**已明确废弃 UI Toolkit 方案**。
+    *   为避免射线检测（Raycast）被不可预见的事件拦截面板遮挡，项目早期**废弃了 UI Toolkit 方案**。2026-10-25 起不再禁止 UI Toolkit、RenderTexture 或第三方运行时（见 `AGENTS.md`「代码约定」），背包拖拽这类交互要用时先验证射线和拖拽。
     *   无论是复杂的战斗 HUD、深渊探索面板还是网格交互，均采用 UGUI 开发。
     *   动态魔偶立绘接入时仍不得改变运行时 UI 技术栈；首版 `DollPuppet` 优先使用独立角色相机渲染到 `RenderTexture`，再由 UGUI `RawImage` 展示，具体边界见 `美术文档/17_Agent原生动态立绘资产接入规格.md`，Cubism / Spine 外部导出兼容边界见 `美术文档/16_Live2D角色动画资产接入规格.md`。
 *   **数据驱动的动态实例化 (Data-Driven Instantiation)**：

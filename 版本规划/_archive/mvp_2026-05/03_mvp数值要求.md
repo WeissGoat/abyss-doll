@@ -7,7 +7,7 @@ domain: mvp_planning
 status: historical
 source_of_truth: false
 related:
-  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 设计文档/数值/00_基准价值与空间本位模型.md
   - 配置表(JSON)/README.md
   - 版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md
 last_verified: 2026-05-23

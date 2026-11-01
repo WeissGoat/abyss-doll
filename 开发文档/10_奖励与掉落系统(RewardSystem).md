@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
-  - 数值模型设计/03_深渊产出与掉落期望.md
+  - 设计文档/数值/03_深渊产出与掉落期望.md
   - 配置表(JSON)/Dungeons/README.md
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md

@@ -15,15 +15,15 @@ related:
   - 设计文档/GDD/GDD_09_标签与特质系统.md
   - 设计文档/规则卡/06_标签与特质规则卡.md
   - 设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md
-  - 设计文档/config/audits/36_局外成长正式配置承接审计.md
-  - 设计文档/config/designs/37_局外成长正式配置落地设计.md
-  - 设计文档/config/tasks/38_局外成长正式配置实现任务拆分.md
-  - 设计文档/config/gates/39_局外成长正式配置ID锁定与冲突检查.md
-  - 设计文档/config/designs/41_局外成长效果特质正式配置落地设计.md
-  - 设计文档/config/designs/42_局外成长义体正式配置落地设计.md
-  - 设计文档/config/designs/43_局外成长制造维护正式配置落地设计.md
-  - 设计文档/config/designs/44_局外成长人偶特质房间正式配置落地设计.md
-  - 设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md
+  - 设计文档/_archive/config/audits/36_局外成长正式配置承接审计.md
+  - 设计文档/_archive/config/designs/37_局外成长正式配置落地设计.md
+  - 设计文档/_archive/config/tasks/38_局外成长正式配置实现任务拆分.md
+  - 设计文档/_archive/config/gates/39_局外成长正式配置ID锁定与冲突检查.md
+  - 设计文档/_archive/config/designs/41_局外成长效果特质正式配置落地设计.md
+  - 设计文档/_archive/config/designs/42_局外成长义体正式配置落地设计.md
+  - 设计文档/_archive/config/designs/43_局外成长制造维护正式配置落地设计.md
+  - 设计文档/_archive/config/designs/44_局外成长人偶特质房间正式配置落地设计.md
+  - 设计文档/_archive/config/validation/45_局外成长正式配置Validator与固定验收样例.md
 last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
@@ -120,4 +120,4 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 
 ## 完成口径
 
-README 字段口径完成只代表 `GROWTH-README` 的文档侧完成，不代表效果、标签、特质或反馈 JSON 已完成。`设计文档/config/designs/41_局外成长效果特质正式配置落地设计.md` 是 `GROWTH-EFFECTS-TRAITS` 的 JSON 修改前字段级设计，`设计文档/config/designs/44_局外成长人偶特质房间正式配置落地设计.md` 是 `GROWTH-DOLL-TRAIT-ROOM` 的反馈 / 特质引用字段级设计，二者都不代表 JSON 已完成。JSON 修改后必须回写 `agent_status/design.md` 的配置状态和证据入口；如影响长期节点门禁，再通知 PM 更新 `版本规划/09_正式版核心纵切开发路线.md`。
+README 字段口径完成只代表 `GROWTH-README` 的文档侧完成，不代表效果、标签、特质或反馈 JSON 已完成。`设计文档/_archive/config/designs/41_局外成长效果特质正式配置落地设计.md` 是 `GROWTH-EFFECTS-TRAITS` 的 JSON 修改前字段级设计，`设计文档/_archive/config/designs/44_局外成长人偶特质房间正式配置落地设计.md` 是 `GROWTH-DOLL-TRAIT-ROOM` 的反馈 / 特质引用字段级设计，二者都不代表 JSON 已完成。JSON 修改后必须回写 `agent_status/design.md` 的配置状态和证据入口；如影响长期节点门禁，再通知 PM 更新 `版本规划/_archive/09_正式版核心纵切开发路线.md`。

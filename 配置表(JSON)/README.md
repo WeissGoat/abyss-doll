@@ -10,7 +10,7 @@ related:
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - tools/config/README.md
-  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 设计文档/数值/00_基准价值与空间本位模型.md
   - 配置表(JSON)/Chassis/README.md
   - 配置表(JSON)/CraftingRecipes/README.md
   - 配置表(JSON)/Dolls/README.md
@@ -37,7 +37,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 # 配置表数据总览说明 (Configuration Overview)
 
 > 本目录存放了游戏最小可玩版本（MVP）所需的全部 JSON 格式实体配置文件。
-> 所有的数值投放严格遵循《数值模型设计》中的“1格(CV) = 100金币 = 10DPS”基准。
+> 所有的数值投放严格遵循《设计文档/数值》中的“1格(CV) = 100金币 = 10DPS”基准。
 
 ## 目录结构与模块划分
 
