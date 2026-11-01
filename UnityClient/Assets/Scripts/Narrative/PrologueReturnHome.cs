@@ -7,10 +7,10 @@ public static class PrologueReturnHome {
     public const string CareChoice = "care";
     public const string NoticeChoice = "notice";
 
-    // True right after the prologue's first dive settles, until Finish runs.
-    public static bool IsPending(DungeonManager dungeon) {
+    // True right after the prologue's first dive settles (or when a save made then is continued), until Finish runs.
+    public static bool IsPending(PlayerProfile player) {
         PrologueRunState run = PrologueShallowRun.Current;
-        return run != null && !run.ReturnHomeDone && dungeon != null && dungeon.IsPrologueRun;
+        return run != null && !run.ReturnHomeDone && PrologueProgress.IsAt(player, PrologueProgress.ReturnHome);
     }
 
     public static string BuildRecap(PlayerProfile player) {
@@ -81,5 +81,7 @@ public static class PrologueReturnHome {
             DayCycleService.FinishNight(player);
             DayCycleService.TakePendingReport();
         }
+
+        PrologueProgress.Finish(player);
     }
 }

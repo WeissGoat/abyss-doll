@@ -72,6 +72,10 @@ public class PlayerProfile {
     // Rotation hold the showcase cell). They sell when the business opens and go back to the stash when taken out.
     public List<ItemEntity> DumpBox = new List<ItemEntity>();
     public List<ItemEntity> Showcase = new List<ItemEntity>();
+    // The prologue (PrologueProgress): where a save made during it continues from, and the prologue's narrative flags.
+    // Empty once the normal day loop has opened, and in saves made before it existed.
+    public string PrologueStage;
+    public NarrativeStateSnapshot PrologueNarrative;
 }
 
 [Serializable]

@@ -87,12 +87,14 @@ public class PauseMenu : MonoBehaviour {
         button.onClick.AddListener(onClick);
     }
 
-    // The town autosaves, so only a dive or the prologue in progress is lost.
+    // The town autosaves; a dive and the prologue keep their last save point; only the prologue's opening is lost.
     private void AskBackToTitle() {
-        bool inTown = GameFlowController.Instance != null && GameFlowController.Instance.IsInTownLoop;
-        _confirmText.text = inTown
+        GameFlowController flow = GameFlowController.Instance;
+        _confirmText.text = flow != null && flow.IsInTownLoop
             ? "回到标题画面？\n小镇的进度已经自动保存。"
-            : "回到标题画面？\n这次下潜（或序章）的进度会丢失，\n回到上一次在小镇的存档。";
+            : flow != null && flow.IsInPrologueOpening
+                ? "回到标题画面？\n开场还没有存档，\n下次会从头开始。"
+                : "回到标题画面？\n继续游戏会从上一个存档点接着走，\n正在进行的战斗或事件会重来。";
         _confirm.SetActive(true);
         _confirm.transform.SetAsLastSibling();
     }

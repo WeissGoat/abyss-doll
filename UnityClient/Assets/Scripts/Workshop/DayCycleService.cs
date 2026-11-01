@@ -177,6 +177,29 @@ public static class DayCycleService {
         _diveLayerID = layerID;
     }
 
+    // A dive in the save keeps the state she set out in, so the night card after a resumed dive still compares to it.
+    public static DiveDayStart CaptureDiveStart() {
+        return new DiveDayStart {
+            HP = _diveStartHP,
+            SAN = _diveStartSAN,
+            Wear = _diveStartWear,
+            Corruption = _diveStartCorruption,
+            LayerID = _diveLayerID
+        };
+    }
+
+    public static void ResumeDiveDay(DiveDayStart start) {
+        if (start == null) {
+            return;
+        }
+
+        _diveStartHP = start.HP;
+        _diveStartSAN = start.SAN;
+        _diveStartWear = start.Wear;
+        _diveStartCorruption = start.Corruption;
+        _diveLayerID = start.LayerID;
+    }
+
     // A dive takes the whole day (rule card 01 §3). HP and SAN come back as they are (GDD_02 §5.1); recovery is rest
     // or maintenance, not a free refill.
     public static DayEndReport EndDiveDay(PlayerProfile player, bool defeated) {

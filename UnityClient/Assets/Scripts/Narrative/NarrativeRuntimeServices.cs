@@ -47,11 +47,57 @@ public sealed class NarrativeSeenRecord {
     public string LastContext;
 }
 
+// What a save keeps of the narrative state: the flags that are set and what has been seen (counts by ID). The pending
+// queue and the input lock belong to the scene playing at the moment and are not kept.
+[Serializable]
+public sealed class NarrativeStateSnapshot {
+    public List<string> Flags = new List<string>();
+    public Dictionary<string, int> SeenTriggers = new Dictionary<string, int>();
+    public Dictionary<string, int> SeenNodes = new Dictionary<string, int>();
+}
+
 public sealed class NarrativeStateStore {
     private readonly Dictionary<string, bool> _flags = new Dictionary<string, bool>(StringComparer.Ordinal);
     private readonly Dictionary<string, NarrativeSeenRecord> _seenTriggers = new Dictionary<string, NarrativeSeenRecord>(StringComparer.Ordinal);
     private readonly Dictionary<string, NarrativeSeenRecord> _seenNodes = new Dictionary<string, NarrativeSeenRecord>(StringComparer.Ordinal);
     private readonly Queue<NarrativeRequest> _pendingQueue = new Queue<NarrativeRequest>();
+
+    public NarrativeStateSnapshot Export() {
+        NarrativeStateSnapshot snapshot = new NarrativeStateSnapshot();
+        foreach (KeyValuePair<string, bool> flag in _flags) {
+            if (flag.Value) {
+                snapshot.Flags.Add(flag.Key);
+            }
+        }
+
+        foreach (KeyValuePair<string, NarrativeSeenRecord> seen in _seenTriggers) {
+            snapshot.SeenTriggers[seen.Key] = seen.Value.Count;
+        }
+
+        foreach (KeyValuePair<string, NarrativeSeenRecord> seen in _seenNodes) {
+            snapshot.SeenNodes[seen.Key] = seen.Value.Count;
+        }
+
+        return snapshot;
+    }
+
+    public void Import(NarrativeStateSnapshot snapshot) {
+        if (snapshot == null) {
+            return;
+        }
+
+        foreach (string flag in snapshot.Flags ?? new List<string>()) {
+            SetFlag(flag);
+        }
+
+        foreach (KeyValuePair<string, int> seen in snapshot.SeenTriggers ?? new Dictionary<string, int>()) {
+            _seenTriggers[seen.Key] = new NarrativeSeenRecord { Count = seen.Value, LastContext = "Save" };
+        }
+
+        foreach (KeyValuePair<string, int> seen in snapshot.SeenNodes ?? new Dictionary<string, int>()) {
+            _seenNodes[seen.Key] = new NarrativeSeenRecord { Count = seen.Value, LastContext = "Save" };
+        }
+    }
 
     public bool IsInputLocked { get; private set; }
     public string LockedContext { get; private set; } = string.Empty;

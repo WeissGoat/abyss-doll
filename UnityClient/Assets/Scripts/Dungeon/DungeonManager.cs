@@ -311,6 +311,8 @@ public class DungeonManager {
     // Set once a run has been settled, so a second evacuate/defeat event (a double click on 返回小镇) cannot
     // settle it again and skip a day. Cleared when the next run starts.
     private bool _runSettled;
+    // The node she has stepped onto and not finished yet; a save made now enters it again on resume.
+    private string _pendingNodeID;
 
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
@@ -375,6 +377,7 @@ public class DungeonManager {
             PrologueShallowRun.Begin(player);
             CurrentLayer = PrologueShallowRun.BuildLayer();
             DungeonEventBus.PublishLayerLoaded();
+            ReachMapCheckpoint();
         } else {
             PrologueShallowRun.Reset();
             LoadLayerInternal(layerID, false);
@@ -423,6 +426,7 @@ public class DungeonManager {
         CurrentLayer.GenerateMapTree(config, _currentRunSeed);
 
         DungeonEventBus.PublishLayerLoaded();
+        ReachMapCheckpoint();
     }
 
     // From GameRandom rather than the clock: random in play, repeatable when a test seeds it (the balance
@@ -460,6 +464,11 @@ public class DungeonManager {
             Debug.LogWarning($"[DungeonManager] Rejected invalid map move. Target={targetNode?.NodeID ?? "null"}, Current={CurrentLayer?.CurrentNode?.NodeID ?? "null"}");
             return;
         }
+
+        // Saved before anything changes: quitting inside this node comes back to this moment and enters it again.
+        _pendingNodeID = targetNode.NodeID;
+        DungeonEventBus.PublishRunCheckpoint();
+        GameRandom.Seed(NodeSeed(targetNode));
 
         CurrentLayer.CurrentNode = targetNode;
         targetNode.IsVisited = true;
@@ -604,6 +613,7 @@ public class DungeonManager {
             DungeonEventBus.PublishDungeonEvacuated();
         } else {
             Debug.Log("[DungeonManager] Awaiting player to select the next node on the map...");
+            ReachMapCheckpoint();
             DungeonEventBus.PublishNodeResolutionFinished();
         }
     }
@@ -691,7 +701,163 @@ public class DungeonManager {
         }
 
         _runSettled = true;
+        _pendingNodeID = null;
+        // The prologue's first dive leads into the return home, which is its own save point.
+        if (IsPrologueRun) {
+            PrologueProgress.Reach(GameRoot.Core?.CurrentPlayer, PrologueProgress.ReturnHome);
+        }
+
         return true;
+    }
+
+    // On the map, between nodes: nothing is half done.
+    private void ReachMapCheckpoint() {
+        _pendingNodeID = null;
+        DungeonEventBus.PublishRunCheckpoint();
+    }
+
+    // Each node rolls from the run seed and its own ID, so entering it again (a resumed save) gives the same loot and,
+    // for the same moves, the same fight: quitting cannot reroll a node.
+    private int NodeSeed(NodeBase node) {
+        unchecked {
+            int hash = 17;
+            string key = (CurrentLayer?.LayerID ?? 0) + "/" + (node?.NodeID ?? string.Empty);
+            for (int i = 0; i < key.Length; i++) {
+                hash = hash * 31 + key[i];
+            }
+
+            return _currentRunSeed ^ hash;
+        }
+    }
+
+    // The run as the save keeps it (DungeonRunSnapshot). Null when no run is in progress.
+    public DungeonRunSnapshot CaptureRun() {
+        if (!IsRunInProgress) {
+            return null;
+        }
+
+        DungeonRunSnapshot snapshot = new DungeonRunSnapshot {
+            LayerID = CurrentLayer.LayerID,
+            RunSeed = _currentRunSeed,
+            Prologue = IsPrologueRun,
+            CurrentNodeID = CurrentLayer.CurrentNode?.NodeID,
+            PendingNodeID = _pendingNodeID,
+            Log = DiveLogService.Current,
+            LogHPBeforeStep = DiveLogService.HPBeforeStep,
+            DayStart = DayCycleService.CaptureDiveStart()
+        };
+
+        foreach (List<NodeBase> row in CurrentLayer.NodeRows) {
+            foreach (NodeBase node in row) {
+                if (node != null && node.IsVisited && node.NodeID != _pendingNodeID) {
+                    snapshot.VisitedNodeIDs.Add(node.NodeID);
+                }
+            }
+        }
+
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        foreach (ItemEntity item in _runAcceptedLoot) {
+            if (item == null) {
+                continue;
+            }
+
+            if (grid != null && grid.ContainedItems.Contains(item)) {
+                snapshot.AcceptedLootIDs.Add(item.InstanceID);
+            } else {
+                snapshot.AcceptedLootGone.Add(item);
+            }
+        }
+
+        return snapshot;
+    }
+
+    // Puts a saved run back (the player and backpack are already restored). Raises no events, since the screens are
+    // not up yet; ResumeRestoredRun shows the map once they are.
+    public bool RestoreRun(DungeonRunSnapshot snapshot) {
+        if (snapshot == null) {
+            return false;
+        }
+
+        if (snapshot.Prologue) {
+            CurrentLayer = PrologueShallowRun.BuildLayer();
+        } else {
+            if (!ConfigManager.Dungeons.TryGetValue(snapshot.LayerID, out DungeonConfig config)) {
+                Debug.LogWarning($"[DungeonManager] The saved dive is on Layer {snapshot.LayerID}, which no longer exists.");
+                CurrentLayer = null;
+                return false;
+            }
+
+            PrologueShallowRun.Reset();
+            CurrentLayer = new DungeonLayer();
+            CurrentLayer.GenerateMapTree(config, snapshot.RunSeed);
+        }
+
+        _runSettled = false;
+        _currentRunSeed = snapshot.RunSeed;
+        _pendingNodeID = snapshot.PendingNodeID;
+        HashSet<string> visited = new HashSet<string>(snapshot.VisitedNodeIDs ?? new List<string>());
+        foreach (List<NodeBase> row in CurrentLayer.NodeRows) {
+            foreach (NodeBase node in row) {
+                if (node == null) {
+                    continue;
+                }
+
+                node.IsVisited = visited.Contains(node.NodeID);
+                if (node.NodeID == snapshot.CurrentNodeID && node.IsVisited) {
+                    CurrentLayer.CurrentNode = node;
+                }
+            }
+        }
+
+        ResetRunLootLedger();
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        foreach (string id in snapshot.AcceptedLootIDs ?? new List<string>()) {
+            ItemEntity item = grid?.ContainedItems.Find(candidate => candidate != null && candidate.InstanceID == id);
+            if (item != null) {
+                _runAcceptedLoot.Add(item);
+            }
+        }
+
+        foreach (ItemEntity item in snapshot.AcceptedLootGone ?? new List<ItemEntity>()) {
+            if (item != null) {
+                _runAcceptedLoot.Add(item);
+            }
+        }
+
+        DiveLogService.Resume(snapshot.Log, snapshot.LogHPBeforeStep);
+        DayCycleService.ResumeDiveDay(snapshot.DayStart);
+        Debug.Log($"[DungeonManager] Restored a dive on Layer {CurrentLayer.LayerID}: {visited.Count} node(s) walked, pending {_pendingNodeID ?? "none"}.");
+        return true;
+    }
+
+    // After RestoreRun, with the screens up: shows the map, and steps onto the node she was entering when it saved.
+    public void ResumeRestoredRun() {
+        if (!IsRunInProgress) {
+            return;
+        }
+
+        NodeBase pending = FindNode(_pendingNodeID);
+        DungeonEventBus.PublishLayerLoaded();
+        if (pending != null && CanMoveToNode(pending)) {
+            MoveToNode(pending);
+        } else {
+            ReachMapCheckpoint();
+        }
+    }
+
+    public NodeBase FindNode(string nodeID) {
+        if (string.IsNullOrEmpty(nodeID) || CurrentLayer?.NodeRows == null) {
+            return null;
+        }
+
+        foreach (List<NodeBase> row in CurrentLayer.NodeRows) {
+            NodeBase node = row?.Find(candidate => candidate != null && candidate.NodeID == nodeID);
+            if (node != null) {
+                return node;
+            }
+        }
+
+        return null;
     }
 
     private void PopulateRunLootSummary(DungeonSettlementResult result, IEnumerable<ItemEntity> preservedItems) {

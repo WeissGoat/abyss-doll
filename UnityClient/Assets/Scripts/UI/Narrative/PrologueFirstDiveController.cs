@@ -157,6 +157,24 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
         EnsureWorkshopBinding();
         workshopController?.EnterPrologueHalfOpen();
+
+        // The prologue's first save point (PrologueProgress): continuing comes back to this workshop.
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        PrologueProgress.Reach(player, PrologueProgress.HalfOpen, _state.Export());
+        SaveService.SaveCheckpoint(player);
+    }
+
+    // 继续游戏 from a save made in the half-open workshop: its narrative state back, and the workshop as it was.
+    public void ResumeHalfOpen(NarrativeStateSnapshot narrative) {
+        EnsureRuntimeBindings();
+        _state.Import(narrative);
+        if (workshopController == null) {
+            workshopController = FindObjectOfType<WorkshopUIController>();
+        }
+
+        EnsureWorkshopBinding();
+        workshopController?.EnterPrologueHalfOpen();
+        LastAppliedReentryStage = PrologueFirstDiveReentryStage.HalfOpenWorkshop;
     }
 
     public void RequestLayerConfirm(NarrativeLayerConfirmCommandRequest request) {

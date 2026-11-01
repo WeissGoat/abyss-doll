@@ -82,8 +82,9 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
-        // Title screen: 继续游戏 restores the save and skips the prologue; 新游戏 starts with the prologue. Editor Play
-        // Mode skips the title unless the prologue is switched on or a save exists (P3DevSettings).
+        // Title screen: 继续游戏 restores the save and goes back to where it was made (town, a dive's map, or a prologue
+        // stage); 新游戏 starts with the prologue. Editor Play Mode skips the title unless the prologue is switched on or a
+        // save exists (P3DevSettings).
         SaveFile save = SaveService.HasSave ? SaveService.ReadSave(out _) : null;
         if (save != null || P3DevSettings.ShowTitleOnStartup) {
             GameAudio.PlayBgm("title");
@@ -98,6 +99,13 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void FinishInitGame(bool playPrologue) {
+        PlayerProfile player = GameRoot.Core.CurrentPlayer;
+        // A new game starts in the prologue's opening, which is not saved: marked before the workshop's first refresh,
+        // so that refresh cannot write the fresh profile over the old save as a town day.
+        if (playPrologue && !PrologueProgress.InPrologue(player)) {
+            PrologueProgress.Reach(player, PrologueProgress.Opening);
+        }
+
         // From here the running player is the one to keep (restored or new); autosaves may write.
         SaveService.BeginSession();
 
@@ -129,23 +137,43 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered += HandlePrologueBeatEntered;
+        DungeonEventBus.OnRunCheckpoint += HandleRunCheckpoint;
         GameAudio.BindGameEvents();
 
         if (GetComponent<PauseMenu>() == null) {
             gameObject.AddComponent<PauseMenu>();
         }
 
+        // A save made mid-dive goes straight back to the map (and into the node she was stepping onto).
+        if (GameRoot.Core.Dungeon != null && GameRoot.Core.Dungeon.IsRunInProgress) {
+            GameRoot.Core.Dungeon.ResumeRestoredRun();
+            return;
+        }
+
         EnterWorkshop();
+        if (PrologueProgress.IsAt(player, PrologueProgress.HalfOpen)) {
+            EnsurePrologueFirstDiveController()?.ResumeHalfOpen(player.PrologueNarrative);
+            return;
+        }
+
         StartPrologueOpeningIfNeeded(playPrologue);
+    }
+
+    private void HandleRunCheckpoint() {
+        SaveService.SaveCheckpoint(GameRoot.Core?.CurrentPlayer);
     }
 
     // In the workshop after the prologue: the town state is autosaved, leaving loses nothing.
     public bool IsInTownLoop {
         get {
             WorkshopUIController workshop = workshopPanel != null ? workshopPanel.GetComponent<WorkshopUIController>() : null;
-            return _currentScreen == GameScreenState.Workshop && workshop != null && !workshop.IsPrologueHalfOpen;
+            return _currentScreen == GameScreenState.Workshop && workshop != null && !workshop.IsPrologueHalfOpen
+                && !PrologueProgress.InPrologue(GameRoot.Core?.CurrentPlayer);
         }
     }
+
+    // In the prologue's opening scenes, which are not saved: leaving starts the prologue again.
+    public bool IsInPrologueOpening => PrologueProgress.IsAt(GameRoot.Core?.CurrentPlayer, PrologueProgress.Opening);
 
     public void EnterWorkshop() {
         GameAudio.PlayBgm("town");
@@ -251,6 +279,7 @@ public class GameFlowController : MonoBehaviour {
         PrologueFirstDiveReentryStage reentryStage = controller.ApplyReentryState();
         Debug.Log($"[GameFlow] Prologue startup controller ready. reentry={reentryStage}, object={controller.gameObject.name}");
         if (reentryStage == PrologueFirstDiveReentryStage.OpeningBlackScreen) {
+            PrologueProgress.Reach(GameRoot.Core?.CurrentPlayer, PrologueProgress.Opening);
             controller.PlayOpeningToNo0Found();
         }
     }
@@ -284,9 +313,11 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void HandleDungeonSettled(bool isVictory) {
-        // The prologue's first dive goes straight back to the workshop, where the return-home scene plays.
+        // The prologue's first dive goes straight back to the workshop, where the return-home scene plays (a save
+        // point: continuing plays it again).
         if (GameRoot.Core?.Dungeon != null && GameRoot.Core.Dungeon.IsPrologueRun) {
             _pendingSettlementResult = null;
+            SaveService.SaveCheckpoint(GameRoot.Core.CurrentPlayer);
             EnterWorkshop();
             return;
         }
@@ -477,7 +508,7 @@ public class GameFlowController : MonoBehaviour {
             wsCtrl.RefreshUI();
             // Coming home (or starting the day) is always through the hall; after a dive the journal page is open.
             wsCtrl.Rooms?.Show(HomeRoom.Hall);
-            if (PrologueReturnHome.IsPending(GameRoot.Core?.Dungeon)) {
+            if (PrologueReturnHome.IsPending(GameRoot.Core?.CurrentPlayer)) {
                 PlayPrologueReturnHome(wsCtrl);
             } else {
                 DiveLog arrival = DiveLogService.PendingArrival(GameRoot.Core?.CurrentPlayer);
@@ -1107,11 +1138,10 @@ public class GameFlowController : MonoBehaviour {
         Debug.Log("[GameFlow] Runtime fallback SettlementPanel created.");
     }
 
-    // Closing the window in town keeps what changed since the last autosave. Mid-dive the last town save stands.
+    // Closing the window in town keeps what changed since the last autosave. Mid-dive and mid-prologue the last
+    // checkpoint stands (AutoSave waits).
     void OnApplicationQuit() {
-        if (GameRoot.Core?.Dungeon == null || !GameRoot.Core.Dungeon.IsRunInProgress) {
-            SaveService.AutoSave(GameRoot.Core?.CurrentPlayer);
-        }
+        SaveService.AutoSave(GameRoot.Core?.CurrentPlayer);
     }
 
     void OnDestroy() {
@@ -1133,5 +1163,6 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered -= HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered -= HandlePrologueBeatEntered;
+        DungeonEventBus.OnRunCheckpoint -= HandleRunCheckpoint;
     }
 }

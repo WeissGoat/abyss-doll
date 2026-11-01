@@ -51,7 +51,7 @@ public static class PrologueFirstLoopTest {
             Check(beats.Contains(cart), "the cart beat did not reach the UI");
             Check(cart.Choose(PrologueShallowRun.CoreDustID), "the core dust was not brought back");
             Check(player.IsNight && player.StashInventory.Exists(item => item.ConfigID == PrologueShallowRun.CoreDustID), "the run did not end in the night with the dust in the stash");
-            Check(PrologueReturnHome.IsPending(core.Dungeon), "the return home is not pending");
+            Check(PrologueReturnHome.IsPending(player), "the return home is not pending");
             string recap = PrologueReturnHome.BuildRecap(player);
             Check(recap.Contains("带回：稳定核心碎屑") && recap.Contains("HP"), "recap: " + recap);
 
@@ -59,7 +59,7 @@ public static class PrologueFirstLoopTest {
             Check(doll.Status.HP_Current == doll.Status.HP_Max && doll.Status.WearAndTear == 0f && !player.StashInventory.Exists(item => item.ConfigID == PrologueShallowRun.CoreDustID), "care did not restore her or keep the dust");
             int day = player.CurrentDay;
             PrologueReturnHome.Finish(player);
-            Check(!player.IsNight && player.CurrentDay == day + 1 && !PrologueReturnHome.IsPending(core.Dungeon), "the night did not close into the next day");
+            Check(!player.IsNight && player.CurrentDay == day + 1 && !PrologueReturnHome.IsPending(player), "the night did not close into the next day");
             Check(DayCycleService.CanDive(player, out string reason), "day 2 cannot dive: " + reason);
         } finally {
             DungeonEventBus.OnPrologueBeatEntered -= onBeat;

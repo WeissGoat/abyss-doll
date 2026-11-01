@@ -98,6 +98,14 @@ public static class DiveLogService {
         _current.Spirited = !prologue && HomeEveningService.IsSpirited(player);
     }
 
+    public static int HPBeforeStep => _hpBeforeStep;
+
+    // A dive continued from the save picks its page up where it was.
+    public static void Resume(DiveLog log, int hpBeforeStep) {
+        _current = log;
+        _hpBeforeStep = hpBeforeStep;
+    }
+
     public static void RecordNode(NodeBase node, string iconID) {
         if (_current == null || node == null) {
             return;

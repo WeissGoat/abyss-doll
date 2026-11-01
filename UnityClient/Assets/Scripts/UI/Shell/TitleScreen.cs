@@ -71,8 +71,11 @@ public class TitleScreen : MonoBehaviour {
         if (_save != null) {
             Button continueButton = AddMenuButton(ContinueLabel, y, true, Continue);
             PlayerProfile player = _save.Player;
+            string where = PrologueProgress.InPrologue(player) ? "序章 · "
+                : _save.Run != null ? $"第 {player.CurrentDay} 天 · 第 {_save.Run.LayerID} 层下潜中 · "
+                : $"第 {player.CurrentDay} 天 · 资金 {player.Money}G · ";
             Text summary = UITheme.CreateText(continueButton.transform, "SaveSummary_Text",
-                $"第 {player.CurrentDay} 天 · 资金 {player.Money}G · 保存于 {_save.SavedAt}", UITheme.CaptionSize - 2, UITheme.TextOnDarkMuted, TextAnchor.MiddleLeft);
+                $"{where}保存于 {_save.SavedAt}", UITheme.CaptionSize - 2, UITheme.TextOnDarkMuted, TextAnchor.MiddleLeft);
             UITheme.Place(summary.rectTransform, new Vector2(1f, 0.5f), new Vector2(20f, 0f), new Vector2(560f, 30f));
             summary.rectTransform.pivot = new Vector2(0f, 0.5f);
             y -= 84f;

@@ -32,6 +32,11 @@ public static class PrologueShallowRun {
         Current = null;
     }
 
+    // From the save: the prologue's first dive, or the return home after it, continues with what she did on the way.
+    public static void Resume(PrologueRunState state) {
+        Current = state;
+    }
+
     public static DungeonLayer BuildLayer() {
         DungeonConfig config = ConfigManager.Dungeons != null && ConfigManager.Dungeons.ContainsKey(1) ? ConfigManager.Dungeons[1] : null;
         DungeonLayer layer = new DungeonLayer {

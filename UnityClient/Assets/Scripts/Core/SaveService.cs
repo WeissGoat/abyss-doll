@@ -11,18 +11,28 @@ public class SaveFile {
     public PlayerProfile Player;
     // The backpack lives in the doll's runtime grid, which is not serialized; its items are stored here with their cells.
     public List<ItemEntity> Backpack = new List<ItemEntity>();
+    // A dive in progress (GDD_02 §5.3); null for a save made in town.
+    public DungeonRunSnapshot Run;
+    // The prologue's first dive and the return home after it (PrologueShallowRun).
+    public PrologueRunState PrologueRun;
 }
 
-// One autosave slot (M2 batch 5). The game saves only in town: entering the workshop, after the night, and whenever
-// the town state changed (AutoSave skips identical writes). A dive in progress is not saved; quitting mid-dive
-// continues from the last town save. Off in the Editor unless switched on (Tools/P3), and off for the build
-// self-check (-p3smoke) or with -p3nosave, so tests never touch the producer's save.
+// One autosave slot (M2 batch 5, dives and the prologue added in phase 2 M0). Rules in GDD_02 §5.3:
+// - In town the state is saved whenever it changed (AutoSave skips identical writes): entering the workshop, after
+//   the night, on quitting.
+// - On a dive it is saved at the map's checkpoints (DungeonEventBus.OnRunCheckpoint): between nodes, and the moment
+//   she steps onto one. Quitting inside a node comes back to just before it. Town autosaves wait while a run is on.
+// - In the prologue it is saved at its stages (PrologueProgress); the opening is not saved.
+// Off in the Editor unless switched on (Tools/P3), and off for the build self-check (-p3smoke) or with -p3nosave, so
+// tests never touch the producer's save.
 // Nothing is written before the session has its player (BeginSession: after 继续游戏 restored the save, or a new
 // game started). The workshop refreshes its status bar while the title is still up, and before this gate that
 // refresh wrote the fresh day-1 profile over the real save, so 继续游戏 came back on day 1 (2026-11-01). Each write
 // keeps the previous file as save_1.prev.json, and a save that can't be read falls back to it.
+// Items are stored as config ID plus their own state and rebuilt from the config on load (SaveItemConverter).
+// Version 1 saves (whole items, town only) load through the same path.
 public static class SaveService {
-    public const int Version = 1;
+    public const int Version = 2;
     public const string FileName = "save_1.json";
     public const string PreviousFileName = "save_1.prev.json";
 
@@ -75,31 +85,40 @@ public static class SaveService {
 
     public static bool HasSave => Enabled && (File.Exists(SavePath) || File.Exists(PreviousSavePath));
 
-    public static string Serialize(PlayerProfile player) {
+    // run: the dive in progress to keep with the player (CaptureRun), or null in town.
+    public static string Serialize(PlayerProfile player, DungeonRunSnapshot run = null) {
         SaveFile file = new SaveFile {
             SavedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-            Player = player
+            Player = player,
+            Run = run
         };
         BackpackGrid grid = player?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         if (grid != null) {
             file.Backpack.AddRange(grid.ContainedItems);
         }
 
-        return JsonConvert.SerializeObject(file, Formatting.Indented, new JsonSerializerSettings {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        });
+        if (run?.Prologue == true || PrologueProgress.IsAt(player, PrologueProgress.ReturnHome)) {
+            file.PrologueRun = PrologueShallowRun.Current;
+        }
+
+        return JsonConvert.SerializeObject(file, Formatting.Indented, Settings(new SaveItemConverter()));
     }
 
     public static SaveFile Deserialize(string json) {
-        SaveFile file = JsonConvert.DeserializeObject<SaveFile>(json);
+        SaveItemConverter items = new SaveItemConverter();
+        SaveFile file = JsonConvert.DeserializeObject<SaveFile>(json, Settings(items));
         if (file?.Player == null) {
             throw new InvalidDataException("The save has no player data.");
         }
 
+        if (items.DroppedCount > 0) {
+            Debug.LogWarning($"[SaveService] {items.DroppedCount} saved item(s) are no longer in the config and were dropped.");
+        }
+
         PlayerProfile player = file.Player;
-        player.StashInventory = player.StashInventory ?? new List<ItemEntity>();
-        player.DumpBox = player.DumpBox ?? new List<ItemEntity>();
-        player.Showcase = player.Showcase ?? new List<ItemEntity>();
+        player.StashInventory = Present(player.StashInventory);
+        player.DumpBox = Present(player.DumpBox);
+        player.Showcase = Present(player.Showcase);
         player.LastDiveLoadout = player.LastDiveLoadout ?? new List<LoadoutSlotRecord>();
         player.DiveJournal = player.DiveJournal ?? new List<DiveLog>();
         player.DoneWishes = player.DoneWishes ?? new List<string>();
@@ -107,18 +126,55 @@ public static class SaveService {
         player.Milestones = player.Milestones ?? new List<string>();
         player.HomeUpgrades = player.HomeUpgrades ?? new List<string>();
         player.TonightHaul = player.TonightHaul ?? new List<string>();
-        file.Backpack = file.Backpack ?? new List<ItemEntity>();
+        file.Backpack = Present(file.Backpack);
+        if (file.Run != null) {
+            file.Run.AcceptedLootGone = Present(file.Run.AcceptedLootGone);
+        }
+
         return file;
     }
 
-    // Writes the save when the state differs from the last write. Returns whether a file was written.
+    private static JsonSerializerSettings Settings(SaveItemConverter items) {
+        return new JsonSerializerSettings {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Converters = new List<JsonConverter> { items }
+        };
+    }
+
+    // Lists without the items the converter dropped.
+    private static List<ItemEntity> Present(List<ItemEntity> items) {
+        List<ItemEntity> present = items ?? new List<ItemEntity>();
+        present.RemoveAll(item => item == null);
+        return present;
+    }
+
+    // The town save: writes when the state differs from the last write. Waits while a dive is on (its checkpoints
+    // save it) and during the prologue (its stages do). Returns whether a file was written.
     public static bool AutoSave(PlayerProfile player) {
+        if (GameRoot.Core?.Dungeon != null && GameRoot.Core.Dungeon.IsRunInProgress || PrologueProgress.InPrologue(player)) {
+            return false;
+        }
+
+        return Write(player, null);
+    }
+
+    // A dive checkpoint or a prologue stage: saves the player with the run in progress, if there is one. The prologue
+    // opening is not a save point.
+    public static bool SaveCheckpoint(PlayerProfile player) {
+        if (PrologueProgress.IsAt(player, PrologueProgress.Opening)) {
+            return false;
+        }
+
+        return Write(player, GameRoot.Core?.Dungeon?.CaptureRun());
+    }
+
+    private static bool Write(PlayerProfile player, DungeonRunSnapshot run) {
         if (!Enabled || !_sessionStarted || player?.ActiveDoll == null) {
             return false;
         }
 
         try {
-            string json = Serialize(player);
+            string json = Serialize(player, run);
             if (json == _lastWritten) {
                 return false;
             }
@@ -197,8 +253,18 @@ public static class SaveService {
             GridSolver.RecalculateAllEffects(doll);
         }
 
+        if (file.PrologueRun != null) {
+            PrologueShallowRun.Resume(file.PrologueRun);
+        }
+
+        // The map comes back once the screens are up (DungeonManager.ResumeRestoredRun).
+        if (file.Run != null && core.Dungeon != null && !core.Dungeon.RestoreRun(file.Run)) {
+            Debug.LogWarning("[SaveService] The saved dive could not be rebuilt; continuing in town with what she carried.");
+            ItemLifecycleService.ExtractBackpackItemsToGroundInventory(file.Player, "SaveRestore");
+        }
+
         _lastWritten = null;
-        Debug.Log($"[SaveService] Restored day {file.Player.CurrentDay}, money {file.Player.Money}, saved {file.SavedAt}.");
+        Debug.Log($"[SaveService] Restored day {file.Player.CurrentDay}, money {file.Player.Money}, saved {file.SavedAt}{(file.Run != null ? $", mid-dive on Layer {file.Run.LayerID}" : string.Empty)}{(PrologueProgress.InPrologue(file.Player) ? $", prologue {file.Player.PrologueStage}" : string.Empty)}.");
     }
 
     public static void Delete() {

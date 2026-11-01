@@ -9,6 +9,8 @@ public static class DungeonEventBus {
 
     public static event Action OnNodeSettlementCompleted;
     public static event Action OnNodeResolutionFinished;
+    // The dive is at a save point: on the map between nodes, or stepping onto one (GDD_02 §5.3).
+    public static event Action OnRunCheckpoint;
     public static event Action<DungeonNodeResolutionResult> OnDungeonNodeResolutionPrepared;
     public static event Action<CombatLootPickupResult> OnCombatLootPrepared;
     public static event Action<CombatLootCollectionResult> OnCombatLootCollected;
@@ -47,6 +49,10 @@ public static class DungeonEventBus {
 
     public static void PublishNodeResolutionFinished() {
         OnNodeResolutionFinished?.Invoke();
+    }
+
+    public static void PublishRunCheckpoint() {
+        OnRunCheckpoint?.Invoke();
     }
 
     public static void PublishDungeonNodeResolutionPrepared(DungeonNodeResolutionResult result) {
@@ -96,6 +102,7 @@ public static class DungeonEventBus {
         OnStairsEntered = null;
         OnNodeSettlementCompleted = null;
         OnNodeResolutionFinished = null;
+        OnRunCheckpoint = null;
         OnDungeonNodeResolutionPrepared = null;
         OnCombatLootPrepared = null;
         OnCombatLootCollected = null;
