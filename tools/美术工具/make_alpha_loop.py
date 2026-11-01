@@ -1,6 +1,6 @@
 """Turns a green-screen idle video (H3 image-to-video on a flat #00FF00 background) into a seamless, transparent loop.
 
-  python tools/美术工具/make_alpha_loop.py <in.mp4> <out.webm> [--fade 12] [--grey-edges] [--preview out_sheet.png]
+  python tools/美术工具/make_alpha_loop.py <in.mp4> <out.webm> [--fade 12] [--grey-edges] [--alpha matte.webm] [--preview out_sheet.png]
 
 - Loop: the first `fade` frames are cut off and blended into the tail, so the last frame flows into the first.
   Works when the clip ends near its starting pose (prompt it to return to the first-frame pose).
@@ -8,6 +8,9 @@
   --grey-edges: thin see-through parts (fine hair strands) lose their colour in proportion to how see-through they
   are, and no pixel keeps more green than its red or blue. The video's halved colour resolution smears green into a
   2-3 px strand, and unmixing leaves it olive.
+- --alpha: take alpha from a matte of the same clip instead of keying (the cloud BiRefNet workflow's VP9 WebM with
+  alpha), so the background can be any flat colour (mid-grey keeps H3 from tinting the figure green). The colour is
+  still unmixed against the background measured in the corners; no green clamp. The fade blends alpha too.
 - Output: VP8 WebM with alpha (yuva420p), no audio. Import it in Unity with "Keep Alpha" on.
 Needs numpy, OpenCV, Pillow and an ffmpeg with libvpx (imageio-ffmpeg's bundled one works).
 """
@@ -41,6 +44,15 @@ def read_frames(path):
     return frames, fps
 
 
+def read_alpha(path, size):
+    # libvpx-vp9 decodes the alpha plane; ffmpeg's native vp9 decoder drops it.
+    w, h = size
+    cmd = [find_ffmpeg(), '-loglevel', 'error', '-c:v', 'libvpx-vp9', '-i', path, '-vf', f'scale={w}:{h}',
+           '-f', 'rawvideo', '-pix_fmt', 'rgba', '-']
+    raw = subprocess.run(cmd, check=True, capture_output=True).stdout
+    return list(np.frombuffer(raw, np.uint8).reshape(-1, h, w, 4)[..., 3].astype(np.float32))
+
+
 def loop(frames, fade):
     n = len(frames)
     if fade <= 0 or fade * 2 >= n:
@@ -61,6 +73,19 @@ def background_colour(rgb):
     return np.median(np.concatenate([p.reshape(-1, 3) for p in patches]), axis=0)
 
 
+def unmix(rgb, alpha, bg, grey_edges=False, green_slack=None):
+    # A pixel is alpha * foreground + (1 - alpha) * bg; solve the foreground back out. Below alpha 0.05 the pixel is
+    # almost all background and dividing only blows up its noise. green_slack clamps green spill to max(red, blue).
+    a = np.maximum(alpha, 0.05)[..., None]
+    fg = (rgb - (1.0 - a) * bg) / a
+    if green_slack is not None:
+        fg[..., 1] = np.minimum(fg[..., 1], np.maximum(fg[..., 0], fg[..., 2]) + green_slack)
+    if grey_edges:
+        keep = a ** 8
+        fg = fg * keep + fg.mean(axis=2, keepdims=True) * (1.0 - keep)
+    return np.dstack([fg, alpha[..., None] * 255.0]).clip(0, 255).astype(np.uint8)
+
+
 def key(rgb, bg, noise=12.0, grey_edges=False):
     # Unmix against the known background: a pixel is alpha * foreground + (1 - alpha) * bg. Alpha comes from how
     # much of the background's green excess the pixel still has, and the foreground colour is solved back out, so
@@ -69,13 +94,7 @@ def key(rgb, bg, noise=12.0, grey_edges=False):
     spill = g - np.maximum(r, b)
     bg_spill = max(1.0, bg[1] - max(bg[0], bg[2]))
     alpha = 1.0 - np.clip((spill - noise) / (bg_spill - 2 * noise), 0, 1)
-    a = np.maximum(alpha, 0.05)[..., None]
-    fg = (rgb - (1.0 - a) * bg) / a
-    fg[..., 1] = np.minimum(fg[..., 1], np.maximum(fg[..., 0], fg[..., 2]) + (0.0 if grey_edges else 6.0))
-    if grey_edges:
-        keep = a ** 8
-        fg = fg * keep + fg.mean(axis=2, keepdims=True) * (1.0 - keep)
-    return np.dstack([fg, alpha[..., None] * 255.0]).clip(0, 255).astype(np.uint8)
+    return unmix(rgb, alpha, bg, grey_edges, green_slack=0.0 if grey_edges else 6.0)
 
 
 def main():
@@ -86,16 +105,26 @@ def main():
     parser.add_argument('--bitrate', default='3M')
     parser.add_argument('--preview')
     parser.add_argument('--grey-edges', action='store_true', help='take the colour out of see-through strands')
+    parser.add_argument('--alpha', help='matte WebM of the same clip (VP9 with alpha) to take alpha from instead of keying')
     args = parser.parse_args()
 
     frames, fps = read_frames(args.src)
+    if args.alpha:
+        h, w = frames[0].shape[:2]
+        mattes = read_alpha(args.alpha, (w, h))
+        if len(mattes) != len(frames):
+            print(f'matte has {len(mattes)} frames, clip {len(frames)}; using the first {min(len(mattes), len(frames))}')
+        frames = [np.dstack([f, m]) for f, m in zip(frames, mattes)]
     frames = loop(frames, args.fade)
     tmp = tempfile.mkdtemp(prefix='alpha_loop_')
     try:
         keyed = []
-        bg = background_colour(frames[0])
+        bg = background_colour(frames[0][..., :3])
         for i, frame in enumerate(frames):
-            rgba = key(frame, bg, grey_edges=args.grey_edges)
+            if args.alpha:
+                rgba = unmix(frame[..., :3], frame[..., 3] / 255.0, bg, args.grey_edges)
+            else:
+                rgba = key(frame, bg, grey_edges=args.grey_edges)
             Image.fromarray(rgba, 'RGBA').save(os.path.join(tmp, f'{i:05d}.png'))
             if args.preview and i in (0, len(frames) // 3, 2 * len(frames) // 3, len(frames) - 1):
                 keyed.append(rgba)
