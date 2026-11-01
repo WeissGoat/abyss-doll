@@ -28,7 +28,7 @@
         "EffectID": "AddRuntimeShieldOnTurnStart",
         "Level": 0,
         "Target": "Self",
-        "Params": [18.0]
+        "Params": [6.0]
       }
     ]
   },

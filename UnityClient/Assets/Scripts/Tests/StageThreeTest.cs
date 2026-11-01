@@ -25,7 +25,7 @@ public static class StageThreeTest {
         BackpackGrid grid = new BackpackGrid(mockChassis);
         player.ActiveDoll.RuntimeGrid = grid;
 
-        // 3. Give Player a Sword (1 AP cost, 15 Damage) and a Shield (0 AP Passive, 15 Shield)
+        // 3. Give Player a Sword (1 AP cost, 15 Damage) and a Shield (0 AP Passive, 5 Shield)
         ItemEntity sword = ConfigManager.CreateItem("gear_rusty_dagger");
         grid.PlaceItem(sword, 0, 0);
 
@@ -54,8 +54,8 @@ public static class StageThreeTest {
         MonsterFighter monsterFighter = combat.EnemyFaction.Fighters[0] as MonsterFighter;
 
         // Turn Start happened automatically inside LoadLayer->StartCombat.
-        // Let's verify passive shield was applied by the Iron Armor (15 base + 2 from Level 1 = 17)
-        Debug.Log($"[Test Check] Player Shield: {dollFighter.RuntimeShield} (Expected: 17 from passive armor)");
+        // Let's verify passive shield was applied by the Iron Armor (5 base + 2 per level)
+        Debug.Log($"[Test Check] Player Shield: {dollFighter.RuntimeShield} (Expected: 5 from passive armor)");
 
         // Player attacks monster twice (costs 2 AP out of 3, 15 dmg each -> 30 total dmg)
         dollFighter.Attack(monsterFighter, sword);
@@ -70,7 +70,7 @@ public static class StageThreeTest {
         // The player had 17 shield, took 10 damage -> 7 shield left.
         // But Player Turn 2 started immediately, clearing shield and re-applying 17 shield.
         Debug.Log($"[Test Check] Player HP: {dollFighter.RuntimeHP} (Expected: 100)");
-        Debug.Log($"[Test Check] Player Shield after clear & re-passive: {dollFighter.RuntimeShield} (Expected: 17)");
+        Debug.Log($"[Test Check] Player Shield after clear & re-passive: {dollFighter.RuntimeShield} (Expected: 5)");
         Debug.Log($"[Test Check] Player AP restored: {dollFighter.CurrentAP} (Expected: 3)");
 
         // 7. Player Turn 2 (Finish Him!)

@@ -22,8 +22,15 @@
     "TriggerType": "Passive",
     "APCost": 0,
     "DamageType": "Shield",
-    "BaseValue": 10,
-    "Effects": []
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShieldOnTurnStart",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [9.0]
+      }
+    ]
   },
   "Tags": ["Armor", "Heavy", "Corroded", "Layer2"],
   "Lifecycle": {

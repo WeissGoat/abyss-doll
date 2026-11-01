@@ -41,7 +41,7 @@ public static class ItemTooltipTest {
 
         // Passive armour and a dive-cost item.
         string armour = ItemPresentationRules.BuildTooltip(ConfigManager.CreateItem("gear_iron_armor")).Body;
-        Check(armour.Contains("每回合开始获得 15 护盾"), "armour: " + armour);
+        Check(armour.Contains("每回合开始获得 5 护盾"), "armour: " + armour);
         string cloak = ItemPresentationRules.BuildTooltip(ConfigManager.CreateItem("gear_mycelium_cloak")).Body;
         Check(cloak.Contains("SAN 消耗 -10%"), "cloak: " + cloak);
 

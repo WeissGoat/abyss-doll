@@ -1,0 +1,32 @@
+{
+  "Version": 0,
+  "Note": "数值尺子 v0（阶段 2 里程碑 0）。规则和每个数的来历见 设计文档/数值/04_回合与AP尺子.md；检查脚本 tools/balance/check_budget.py。游戏运行时不读这个文件。",
+  "APPerTurn": 3,
+  "DollHP": 100,
+  "SelfDamageWeight": 1.5,
+  "RarityAllowance": { "Common": 1.0, "Uncommon": 1.1, "Rare": 1.2, "Epic": 1.35 },
+  "Weapon": {
+    "BaselineCells": 2,
+    "AllowancePerExtraCell": 0.1,
+    "Over": 1.3,
+    "Under": 0.6,
+    "BurstUsesPerCombat": 2,
+    "BurstAllowance": 1.5
+  },
+  "PassiveShield": {
+    "ShareOfMobHit": { "1": 0.25, "2": 0.35, "3": 0.45, "4": 0.5 },
+    "Over": 1.2
+  },
+  "Fights": {
+    "Normal": { "Turns": [3, 4], "HitMultiplier": 1.0 },
+    "Elite": { "Turns": [5, 6], "HitMultiplier": 1.8 },
+    "Boss": { "Turns": [7, 9], "HitMultiplier": 1.6 },
+    "PlayerOutputShare": 0.8,
+    "Tolerance": 0.3
+  },
+  "Layers": [
+    { "Layer": 1, "DamagePerAP": 15, "MobHitPerTurn": 10 },
+    { "Layer": 2, "DamagePerAP": 20, "MobHitPerTurn": 13 },
+    { "Layer": 3, "DamagePerAP": 26, "MobHitPerTurn": 17 }
+  ]
+}
