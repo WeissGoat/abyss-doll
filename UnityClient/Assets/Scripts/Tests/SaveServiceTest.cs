@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 // M2 batch 5: a town save round-trips the player (calendar, money, debt, Zero's state, backpack cells, stash, the
@@ -58,6 +59,7 @@ public static class SaveServiceTest {
         Check(loaded.Showcase.Count == 1 && loaded.Showcase[0].Grid.CurrentPos != null, "showcase lost");
         Check(loaded.ActiveDoll.Chassis != null && loaded.ActiveDoll.Chassis.ChassisID == doll.Chassis.ChassisID, "chassis lost");
         Check(json.Contains("\"Version\": 1"), "save has no version");
+        TestWritesOnlyAfterSessionBegins(loaded, Check);
 
         if (failures.Count == 0) {
             Debug.Log("Save Service PASSED.");
@@ -66,5 +68,40 @@ public static class SaveServiceTest {
         }
 
         Debug.Log("=== Save Service Test Finished ===");
+    }
+
+    // On disk, in a scratch folder: the title-time refresh must not write over the save (the 2026-11-01 lost
+    // progress), each write keeps the previous save, and a broken save falls back to it.
+    private static void TestWritesOnlyAfterSessionBegins(PlayerProfile player, System.Action<bool, string> check) {
+        string folder = Path.Combine(Path.GetTempPath(), "p3_save_test_" + System.Guid.NewGuid().ToString("N"));
+        bool sessionWas = SaveService.SessionStarted;
+        SaveService.DirectoryOverride = folder;
+        SaveService.Enabled = true;
+        try {
+            SaveService.EndSession();
+            check(!SaveService.AutoSave(player) && !File.Exists(SaveService.SavePath), "autosave wrote before the session began");
+
+            SaveService.BeginSession();
+            player.Money = 500;
+            check(SaveService.AutoSave(player) && File.Exists(SaveService.SavePath), "autosave did not write after the session began");
+            player.Money = 600;
+            check(SaveService.AutoSave(player) && File.Exists(SaveService.PreviousSavePath), "the previous save was not kept");
+            check(SaveService.ReadSave(out _)?.Player.Money == 600, "the latest save was not read back");
+
+            File.WriteAllText(SaveService.SavePath, "{ broken");
+            SaveFile fallback = SaveService.ReadSave(out string reason);
+            check(fallback?.Player.Money == 500 && !string.IsNullOrEmpty(reason), "a broken save did not fall back to the previous one");
+        } finally {
+            SaveService.EndSession();
+            if (sessionWas) {
+                SaveService.BeginSession();
+            }
+
+            SaveService.ClearEnabledOverride();
+            SaveService.DirectoryOverride = null;
+            if (Directory.Exists(folder)) {
+                Directory.Delete(folder, true);
+            }
+        }
     }
 }

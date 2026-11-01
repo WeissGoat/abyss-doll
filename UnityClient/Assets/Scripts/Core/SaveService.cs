@@ -17,12 +17,35 @@ public class SaveFile {
 // the town state changed (AutoSave skips identical writes). A dive in progress is not saved; quitting mid-dive
 // continues from the last town save. Off in the Editor unless switched on (Tools/P3), and off for the build
 // self-check (-p3smoke) or with -p3nosave, so tests never touch the producer's save.
+// Nothing is written before the session has its player (BeginSession: after 继续游戏 restored the save, or a new
+// game started). The workshop refreshes its status bar while the title is still up, and before this gate that
+// refresh wrote the fresh day-1 profile over the real save, so 继续游戏 came back on day 1 (2026-11-01). Each write
+// keeps the previous file as save_1.prev.json, and a save that can't be read falls back to it.
 public static class SaveService {
     public const int Version = 1;
     public const string FileName = "save_1.json";
+    public const string PreviousFileName = "save_1.prev.json";
 
     private static string _lastWritten;
     private static bool? _enabledOverride;
+    private static bool _sessionStarted;
+
+    // Tests point the save at a scratch folder.
+    public static string DirectoryOverride { get; set; }
+
+    public static bool SessionStarted => _sessionStarted;
+
+    // The running player is the one to keep: called once the title's choice is made (or the title was skipped).
+    public static void BeginSession() {
+        _sessionStarted = true;
+        _lastWritten = null;
+    }
+
+    // The player is being replaced (restart, bankruptcy): stop writing until the next session begins.
+    public static void EndSession() {
+        _sessionStarted = false;
+        _lastWritten = null;
+    }
 
     public static bool Enabled {
         get {
@@ -40,9 +63,17 @@ public static class SaveService {
         set { _enabledOverride = value; }
     }
 
-    public static string SavePath => Path.Combine(Application.persistentDataPath, FileName);
+    public static void ClearEnabledOverride() {
+        _enabledOverride = null;
+    }
 
-    public static bool HasSave => Enabled && File.Exists(SavePath);
+    public static string SaveDirectory => string.IsNullOrEmpty(DirectoryOverride) ? Application.persistentDataPath : DirectoryOverride;
+
+    public static string SavePath => Path.Combine(SaveDirectory, FileName);
+
+    public static string PreviousSavePath => Path.Combine(SaveDirectory, PreviousFileName);
+
+    public static bool HasSave => Enabled && (File.Exists(SavePath) || File.Exists(PreviousSavePath));
 
     public static string Serialize(PlayerProfile player) {
         SaveFile file = new SaveFile {
@@ -82,7 +113,7 @@ public static class SaveService {
 
     // Writes the save when the state differs from the last write. Returns whether a file was written.
     public static bool AutoSave(PlayerProfile player) {
-        if (!Enabled || player?.ActiveDoll == null) {
+        if (!Enabled || !_sessionStarted || player?.ActiveDoll == null) {
             return false;
         }
 
@@ -98,13 +129,14 @@ public static class SaveService {
                 return false;
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
+            Directory.CreateDirectory(SaveDirectory);
             string temp = SavePath + ".tmp";
             File.WriteAllText(temp, json);
             if (File.Exists(SavePath)) {
-                File.Delete(SavePath);
+                File.Replace(temp, SavePath, PreviousSavePath);
+            } else {
+                File.Move(temp, SavePath);
             }
-            File.Move(temp, SavePath);
             _lastWritten = json;
             return true;
         } catch (Exception e) {
@@ -120,10 +152,22 @@ public static class SaveService {
             return null;
         }
 
+        string mainError = null;
+        if (File.Exists(SavePath)) {
+            try {
+                return Deserialize(File.ReadAllText(SavePath));
+            } catch (Exception e) {
+                mainError = e.Message;
+                Debug.LogWarning("[SaveService] The save can't be read, trying the previous one: " + e.Message);
+            }
+        }
+
         try {
-            return Deserialize(File.ReadAllText(SavePath));
+            SaveFile previous = Deserialize(File.ReadAllText(PreviousSavePath));
+            reason = "最新的存档读不出来，用的是上一次的存档。";
+            return previous;
         } catch (Exception e) {
-            reason = "存档读不出来：" + e.Message;
+            reason = "存档读不出来：" + (mainError ?? e.Message);
             Debug.LogWarning("[SaveService] " + reason);
             return null;
         }
@@ -159,8 +203,14 @@ public static class SaveService {
 
     public static void Delete() {
         _lastWritten = null;
-        if (Enabled && File.Exists(SavePath)) {
-            File.Delete(SavePath);
+        if (!Enabled) {
+            return;
+        }
+
+        foreach (string path in new[] { SavePath, PreviousSavePath }) {
+            if (File.Exists(path)) {
+                File.Delete(path);
+            }
         }
     }
 

@@ -58,6 +58,7 @@ public class GameRoot : MonoBehaviour {
     // 回到标题 / a new game after bankruptcy: GameRoot survives scene loads, so the backend is rebuilt here (which also
     // drops the old systems' event listeners) before the scene reloads into the title screen.
     public static void RestartGame() {
+        SaveService.EndSession();
         PrologueShallowRun.Reset();
         DayCycleService.ResetRuntimeState();
         Core = new CoreBackend();

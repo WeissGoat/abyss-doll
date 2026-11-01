@@ -346,6 +346,9 @@ public class DungeonManager {
 
     public bool IsPrologueRun => PrologueShallowRun.IsPrologueLayer(CurrentLayer);
 
+    // A run has started and not been settled yet (the save keeps the last town state until it is).
+    public bool IsRunInProgress => CurrentLayer != null && !_runSettled;
+
     private bool StartRun(int layerID, bool prologue) {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, layerID, true);

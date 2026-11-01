@@ -98,6 +98,8 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void FinishInitGame(bool playPrologue) {
+        // From here the running player is the one to keep (restored or new); autosaves may write.
+        SaveService.BeginSession();
 
         if (grantDebugStartResources) {
             GameRoot.Core.CurrentPlayer.Money = debugStartMoney;
@@ -1103,6 +1105,13 @@ public class GameFlowController : MonoBehaviour {
         continueTextRect.sizeDelta = Vector2.zero;
 
         Debug.Log("[GameFlow] Runtime fallback SettlementPanel created.");
+    }
+
+    // Closing the window in town keeps what changed since the last autosave. Mid-dive the last town save stands.
+    void OnApplicationQuit() {
+        if (GameRoot.Core?.Dungeon == null || !GameRoot.Core.Dungeon.IsRunInProgress) {
+            SaveService.AutoSave(GameRoot.Core?.CurrentPlayer);
+        }
     }
 
     void OnDestroy() {
