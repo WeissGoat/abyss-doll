@@ -8,7 +8,8 @@ using UnityEngine;
 // prologue like a player (dialogue, the shallow-edge first dive, the return home; P3DevTools.PlayPrologue), plays three
 // dives through P3DevTools the way a player would (layer select, pre-dive loadout, map, combat, loot, back to town,
 // selling loot in the ledger), screenshots the key screens, then writes P3Smoke.txt next to the screenshots and
-// quits (exit code 0 = PASS).
+// quits (exit code 0 = PASS). Saves go to a scratch folder next to the screenshots (never the player's save), and in
+// the first dive it goes back to the title from the map and continues, to check the mid-dive save (GDD_02 §5.3).
 // Without the flag it does nothing. tools/build/Test-WindowsBuild.ps1 runs it.
 public class P3BuildSmoke : MonoBehaviour {
     private const string Flag = "-p3smoke";
@@ -27,6 +28,15 @@ public class P3BuildSmoke : MonoBehaviour {
         if (Array.IndexOf(Environment.GetCommandLineArgs(), Flag) < 0) {
             return;
         }
+
+        // Before the title reads the save: an empty scratch folder, so the run starts with 新游戏 as before.
+        string saveDir = Path.Combine(ResolveOutputDir(), "save");
+        if (Directory.Exists(saveDir)) {
+            Directory.Delete(saveDir, true);
+        }
+
+        SaveService.DirectoryOverride = saveDir;
+        SaveService.Enabled = true;
 
         GameObject root = new GameObject("P3BuildSmoke_Runtime");
         DontDestroyOnLoad(root);
@@ -151,6 +161,7 @@ public class P3BuildSmoke : MonoBehaviour {
         int journalPages = 0;
         bool unpackCaptured = false;
         bool mapCaptured = false;
+        bool continueChecked = false;
         int unpacked = 0;
         int talks = 0;
         int replies = 0;
@@ -170,6 +181,7 @@ public class P3BuildSmoke : MonoBehaviour {
                 mapCaptured = true;
                 yield return new WaitForSecondsRealtime(1f);
                 yield return Capture("03a_dungeon_map");
+                yield return ContinueMidDive();
                 continue;
             }
             if (report.Contains("Combat ready.")) {
@@ -301,13 +313,55 @@ public class P3BuildSmoke : MonoBehaviour {
         // Her large night-talk portrait answers with a face whenever there is a reply.
         bool portraitShown = portraits == replies;
         bool layoutOK = _layout.Count == 0;
-        bool passed = layoutOK && prologueDone && motionPlayed && journalKept && portraitShown && endingDone && introPlayed && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
+        bool continued = _continueResult.StartsWith("back on", StringComparison.Ordinal);
+        bool passed = continued && layoutOK && prologueDone && motionPlayed && journalKept && portraitShown && endingDone && introPlayed && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, boss intro {(introPlayed ? "plays" : $"DID NOT PLAY (last {CombatIntroCutscene.LastClip ?? "none"})")}, layout {(layoutOK ? "OK" : $"{_layout.Count} PROBLEM(S)")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, boss intro {(introPlayed ? "plays" : $"DID NOT PLAY (last {CombatIntroCutscene.LastClip ?? "none"})")}, continue mid-dive {_continueResult}, layout {(layoutOK ? "OK" : $"{_layout.Count} PROBLEM(S)")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         string layout = layoutOK ? string.Empty : "Layout problems (UILayoutCheck, first screenshot that shows each):\n" + string.Join("\n", _layout.ToArray()) + "\n\n";
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + layout + _log);
         Application.Quit(passed ? 0 : 1);
+    }
+
+    private string _continueResult = "NOT CHECKED";
+
+    // 回到标题 on the map, then 继续游戏: the dive comes back on the same layer and seed, at the same node, with the
+    // same nodes walked.
+    private IEnumerator ContinueMidDive() {
+        DungeonLayer layer = GameRoot.Core.Dungeon.CurrentLayer;
+        int layerID = layer.LayerID;
+        int seed = layer.RunSeed;
+        string nodeID = layer.CurrentNode?.NodeID;
+        int walked = Walked(layer);
+        bool saved = SaveService.ReadSave(out string reason)?.Run != null;
+        GameRoot.RestartGame();
+        float startedAt = Time.realtimeSinceStartup;
+        yield return new WaitUntil(() => TitleScreen.IsShowing || Time.realtimeSinceStartup - startedAt > 30f);
+        yield return new WaitForSecondsRealtime(1f);
+        yield return Capture("03e_title_mid_dive");
+        Note(P3DevTools.Click(TitleScreen.ContinueLabel));
+        startedAt = Time.realtimeSinceStartup;
+        yield return new WaitUntil(() => GameRoot.Core?.Dungeon?.IsRunInProgress == true || Time.realtimeSinceStartup - startedAt > 10f);
+        yield return new WaitForSecondsRealtime(1f);
+        DungeonLayer back = GameRoot.Core?.Dungeon?.CurrentLayer;
+        bool same = back != null && GameRoot.Core.Dungeon.IsRunInProgress && back.LayerID == layerID && back.RunSeed == seed
+            && back.CurrentNode?.NodeID == nodeID && Walked(back) == walked;
+        _continueResult = !saved ? $"NO MID-DIVE SAVE ({reason})"
+            : same ? $"back on layer {layerID} at {nodeID ?? "the entry"}, {walked} node(s) walked"
+            : $"WRONG: layer {back?.LayerID} seed {back?.RunSeed} at {back?.CurrentNode?.NodeID} ({(back != null ? Walked(back) : 0)} walked), expected layer {layerID} seed {seed} at {nodeID} ({walked})";
+        Note("[continue] " + _continueResult + Environment.NewLine + P3DevTools.Describe());
+        yield return Capture("03f_continued_map");
+    }
+
+    private static int Walked(DungeonLayer layer) {
+        int count = 0;
+        foreach (System.Collections.Generic.List<NodeBase> row in layer.NodeRows) {
+            foreach (NodeBase node in row) {
+                count += node != null && node.IsVisited ? 1 : 0;
+            }
+        }
+
+        return count;
     }
 
     private IEnumerator Capture(string name) {
