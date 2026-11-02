@@ -2,6 +2,9 @@
 in the clip (optical flow from each frame back to the first) and the crisp portrait is moved with it, instead of keying
 the clip's own pixels. H3 redraws thin lineart soft and makes thin hair strands shimmer; this keeps only its motion.
 
+Deprecated 2026-11-03: in the game the warped portrait's body bends unnaturally (producer). Kept for reference; the
+current idle loop still comes from it until it is replaced (美术文档/21 section 2).
+
   python tools/美术工具/make_flow_loop.py <in.mp4> <portrait.png> <out.webm> [--fade 12] [--smooth 12] [--max-move 16] [--steady 2.5] [--preview out.png]
 
 - The clip must start on the portrait itself (image-to-video with the portrait on green as the first frame).
