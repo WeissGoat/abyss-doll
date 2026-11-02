@@ -34,7 +34,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 战斗姿势和动态素材的后处理，用法和整套流程见 `美术文档/21_战斗姿势与动态素材工作流.md`。
 
 - `fit_pose_set.py`：绿底姿势候选 → 抠图，按可见面积和脚底对齐到基础图的画布，输出 `<姿势集>_<姿势>.png` 和预览。
-- `make_alpha_loop.py`：H3 视频 → 交叉淡化成无缝循环，输出带透明的 VP8 WebM。现在的做法是灰底视频加 `--alpha <云端 BiRefNet 抠像.webm>`；不加就按绿底色键。`make_flow_loop.py`（只取动作、拿立绘变形）已废弃。
+- `make_alpha_loop.py`：H3 视频 → 交叉淡化成无缝循环，输出带透明的 VP8 WebM。待机用绿底色键（`--grey-edges`）；大动作用灰底视频加 `--alpha <云端 BiRefNet 抠像.webm>`。`make_flow_loop.py`（只取动作、拿立绘变形）已废弃。
 - `build_puppet_rig.py`：纸偶立绘的权重图（R 头、G 脸、B 手），给 `UIPortraitPuppet` 用，附歪头、低头、转头、抬手预览（现在代码只用 R 和 B）。
 - `split_hair_layer.py`：把垂在身侧的长发切成身体后面的一层（`_hair`、`_body`），同时出这层头发的摆动权重图 `_rig`。
 - `cut_face_patch.py`：图生图改过嘴的候选 → 对齐回原立绘、校色，切成叠在脸上的小块（表情换件；房间里的立绘太小不用，留给以后的大立绘）。
