@@ -324,7 +324,19 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: cf013e8c03f3e7e4b82560de3febe996, type: 3}
+  - VisualID: doll_proto_0_stand_idle_c
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
     VideoClip: {fileID: 32900000, guid: 2027e78dc827c0f4280a7272048b06d5, type: 3}
+  - VisualID: doll_proto_0_stand_idle_d
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: a9cb73e39f83fe9448f97bdea0da5c39, type: 3}
   - VisualID: doll_proto_0_stand_puppet
     Sprite: {fileID: 21300000, guid: 9cbaef15c75a4cac85b73e3dd22a5dd5, type: 3}
     Prefab: {fileID: 0}

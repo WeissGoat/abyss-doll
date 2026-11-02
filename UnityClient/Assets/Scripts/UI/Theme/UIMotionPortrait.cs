@@ -29,6 +29,7 @@ public class UIMotionPortrait : MonoBehaviour {
 
     public VideoClip Clip => _clip;
     public int TakeCount => _takes != null ? _takes.Length : 0;
+    public int MipCount => _texture != null ? _texture.mipmapCount : 0;
     public bool FrameShown => _frameShown && _screen != null && _screen.isActiveAndEnabled && _screen.color.a > 0f;
     public long Frame => _player != null ? _player.frame : -1;
 
@@ -81,7 +82,11 @@ public class UIMotionPortrait : MonoBehaviour {
             Destroy(_texture);
         }
 
-        _texture = new RenderTexture((int)clip.width, (int)clip.height, 0, RenderTextureFormat.ARGB32) { name = clip.name };
+        // Mipmapped like the portrait stills: the hall shows the clip at under half size, and without mips thin strands
+        // break into dots that move from frame to frame.
+        _texture = new RenderTexture((int)clip.width, (int)clip.height, 0, RenderTextureFormat.ARGB32) {
+            name = clip.name, useMipMap = true, autoGenerateMips = true, filterMode = FilterMode.Trilinear
+        };
         _screen.texture = _texture;
         _player.targetTexture = _texture;
         _player.clip = clip;

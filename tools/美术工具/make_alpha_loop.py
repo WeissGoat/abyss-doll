@@ -1,6 +1,6 @@
 """Turns a green-screen idle video (H3 image-to-video on a flat #00FF00 background) into a seamless, transparent loop.
 
-  python tools/美术工具/make_alpha_loop.py <in.mp4> <out.webm> [--fade 12] [--grey-edges] [--alpha matte.webm] [--preview out_sheet.png]
+  python tools/美术工具/make_alpha_loop.py <in.mp4> <out.webm> [--fade 12] [--grey-edges] [--alpha matte.webm] [--bleed] [--preview out_sheet.png]
 
 - Loop: the first `fade` frames are cut off and blended into the tail, so the last frame flows into the first.
   Works when the clip ends near its starting pose (prompt it to return to the first-frame pose).
@@ -11,6 +11,8 @@
 - --alpha: take alpha from a matte of the same clip instead of keying (the cloud BiRefNet workflow's VP9 WebM with
   alpha), so the background can be any flat colour (mid-grey keeps H3 from tinting the figure green). The colour is
   still unmixed against the background measured in the corners; no green clamp. The fade blends alpha too.
+- --bleed: see-through pixels take the colour of the nearest solid ones. The game shows the clip scaled down, and
+  filtering mixes a pixel's colour in whatever its alpha; the background grey left in them shows as a fringe.
 - Output: VP8 WebM with alpha (yuva420p), no audio. Import it in Unity with "Keep Alpha" on.
 Needs numpy, OpenCV, Pillow and an ffmpeg with libvpx (imageio-ffmpeg's bundled one works).
 """
@@ -86,6 +88,21 @@ def unmix(rgb, alpha, bg, grey_edges=False, green_slack=None):
     return np.dstack([fg, alpha[..., None] * 255.0]).clip(0, 255).astype(np.uint8)
 
 
+def bleed(rgba, solid=200):
+    # Fill outwards from the solid pixels with growing box averages, nearest ring first.
+    out = rgba.astype(np.float32)
+    weight = (out[..., 3] >= solid).astype(np.float32)
+    todo = weight == 0
+    colour = out[..., :3] * weight[..., None]
+    for size in (3, 7, 15, 31, 63):
+        num = cv2.blur(colour, (size, size))
+        den = cv2.blur(weight, (size, size))
+        hit = todo & (den > 1e-3)
+        out[..., :3][hit] = num[hit] / den[hit][:, None]
+        todo &= ~hit
+    return out.clip(0, 255).astype(np.uint8)
+
+
 def key(rgb, bg, noise=12.0, grey_edges=False):
     # Unmix against the known background: a pixel is alpha * foreground + (1 - alpha) * bg. Alpha comes from how
     # much of the background's green excess the pixel still has, and the foreground colour is solved back out, so
@@ -106,6 +123,7 @@ def main():
     parser.add_argument('--preview')
     parser.add_argument('--grey-edges', action='store_true', help='take the colour out of see-through strands')
     parser.add_argument('--alpha', help='matte WebM of the same clip (VP9 with alpha) to take alpha from instead of keying')
+    parser.add_argument('--bleed', action='store_true', help='give see-through pixels the colour of the nearest solid ones')
     args = parser.parse_args()
 
     frames, fps = read_frames(args.src)
@@ -125,6 +143,8 @@ def main():
                 rgba = unmix(frame[..., :3], frame[..., 3] / 255.0, bg, args.grey_edges)
             else:
                 rgba = key(frame, bg, grey_edges=args.grey_edges)
+            if args.bleed:
+                rgba = bleed(rgba)
             Image.fromarray(rgba, 'RGBA').save(os.path.join(tmp, f'{i:05d}.png'))
             if args.preview and i in (0, len(frames) // 3, 2 * len(frames) // 3, len(frames) - 1):
                 keyed.append(rgba)

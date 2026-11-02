@@ -1100,7 +1100,7 @@ public static class P3DevTools {
 
         StringBuilder text = new StringBuilder();
         foreach (UIMotionPortrait motion in UnityEngine.Object.FindObjectsOfType<UIMotionPortrait>()) {
-            text.AppendLine($"{motion.name}: {(motion.Clip != null ? motion.Clip.name : "none")} (take {(char)('A' + UIMotionPortrait.Take)} of {motion.TakeCount}), frame {motion.Frame}, shown {motion.FrameShown}");
+            text.AppendLine($"{motion.name}: {(motion.Clip != null ? motion.Clip.name : "none")} (take {(char)('A' + UIMotionPortrait.Take)} of {motion.TakeCount}), frame {motion.Frame}, shown {motion.FrameShown}, mips {motion.MipCount}");
         }
 
         return text.Length > 0 ? text.ToString() : "No video portraits on screen.";
