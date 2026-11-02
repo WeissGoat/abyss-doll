@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -7,20 +8,27 @@ using UnityEngine.Video;
 // loops it, and the still is hidden once the first frame is decoded, so there is never a gap. Only screens that ask
 // for it get one (the hall), not every image that shows the portrait.
 // V toggles video portraits on and off everywhere (sample comparison against the still with its mesh sway).
+// B cycles through alternative takes registered beside the main one ("<visualID>_idle_b", "_c", "_d"), so candidate
+// loops can be compared in the game; without alternatives B does nothing, and players see the main take.
 [RequireComponent(typeof(Image))]
 public class UIMotionPortrait : MonoBehaviour {
     public const string IdleSuffix = "_idle";
     public static bool Enabled = true;
+    public static int Take;
+    private static readonly string[] TakeSuffixes = { "", "_b", "_c", "_d" };
     private static int _toggledFrame = -1;
+    private static int _takeFrame = -1;
 
     private VideoPlayer _player;
     private RawImage _screen;
     private RenderTexture _texture;
     private VideoClip _clip;
+    private VideoClip[] _takes;
     private Image _still;
     private bool _frameShown;
 
     public VideoClip Clip => _clip;
+    public int TakeCount => _takes != null ? _takes.Length : 0;
     public bool FrameShown => _frameShown && _screen != null && _screen.isActiveAndEnabled && _screen.color.a > 0f;
     public long Frame => _player != null ? _player.frame : -1;
 
@@ -30,13 +38,18 @@ public class UIMotionPortrait : MonoBehaviour {
             return null;
         }
 
-        VideoClip clip = null;
-        if (!string.IsNullOrEmpty(visualID)) {
-            VisualAssetService.TryGetVideo(visualID + IdleSuffix, out clip);
+        var takes = new List<VideoClip>();
+        if (!string.IsNullOrEmpty(visualID) && VisualAssetService.TryGetVideo(visualID + IdleSuffix, out VideoClip clip)) {
+            takes.Add(clip);
+            for (int i = 1; i < TakeSuffixes.Length; i++) {
+                if (VisualAssetService.TryGetVideo(visualID + IdleSuffix + TakeSuffixes[i], out VideoClip take)) {
+                    takes.Add(take);
+                }
+            }
         }
 
         UIMotionPortrait motion = image.GetComponent<UIMotionPortrait>();
-        if (clip == null) {
+        if (takes.Count == 0) {
             if (motion != null) {
                 motion.Stop();
             }
@@ -48,7 +61,8 @@ public class UIMotionPortrait : MonoBehaviour {
             motion = image.gameObject.AddComponent<UIMotionPortrait>();
         }
 
-        motion.Play(clip);
+        motion._takes = takes.ToArray();
+        motion.Play(motion.CurrentTake);
         return motion;
     }
 
@@ -77,12 +91,15 @@ public class UIMotionPortrait : MonoBehaviour {
         }
     }
 
+    private VideoClip CurrentTake => _takes[Take % _takes.Length];
+
     public void Stop() {
         if (_player != null) {
             _player.Stop();
         }
 
         _clip = null;
+        _takes = null;
         _frameShown = false;
         ShowStill(true);
     }
@@ -93,8 +110,18 @@ public class UIMotionPortrait : MonoBehaviour {
             Enabled = !Enabled;
         }
 
+        if (Input.GetKeyDown(KeyCode.B) && _takeFrame != Time.frameCount && _takes != null && _takes.Length > 1) {
+            _takeFrame = Time.frameCount;
+            Take = (Take + 1) % _takes.Length;
+            PlayerToast.Show($"待机视频 {(char)('A' + Take)}：{CurrentTake.name}");
+        }
+
         if (_player == null || _clip == null) {
             return;
+        }
+
+        if (_takes != null && CurrentTake != _clip) {
+            Play(CurrentTake);
         }
 
         if (!Enabled && _player.isPlaying) {

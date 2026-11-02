@@ -1092,6 +1092,20 @@ public static class P3DevTools {
         return text.Length > 0 ? text.ToString() : "No CG motion clips on screen.";
     }
 
+    // Video portraits on screen; with a take letter (A = main, B = "_idle_b", ...) switches to it, like pressing B.
+    public static string MotionPortrait(string take = null) {
+        if (!string.IsNullOrEmpty(take)) {
+            UIMotionPortrait.Take = Mathf.Max(0, char.ToUpperInvariant(take[0]) - 'A');
+        }
+
+        StringBuilder text = new StringBuilder();
+        foreach (UIMotionPortrait motion in UnityEngine.Object.FindObjectsOfType<UIMotionPortrait>()) {
+            text.AppendLine($"{motion.name}: {(motion.Clip != null ? motion.Clip.name : "none")} (take {(char)('A' + UIMotionPortrait.Take)} of {motion.TakeCount}), frame {motion.Frame}, shown {motion.FrameShown}");
+        }
+
+        return text.Length > 0 ? text.ToString() : "No video portraits on screen.";
+    }
+
     public static string Heal() {
         DollEntity doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
         doll.Status.HP_Current = doll.Status.HP_Max;
