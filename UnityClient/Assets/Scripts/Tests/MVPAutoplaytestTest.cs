@@ -766,108 +766,15 @@ internal class MVPAutoplayCampaign {
 
             player.DataRef.Status.HP_Current = player.RuntimeHP;
             UseConsumablesInCombat(player);
-            AttackWithBestWeapons(player);
+            CombatBot.PlayTurn(_core.Combat, player);
+            if (_core.Combat.CurrentState != CombatState.PlayerTurn) {
+                break;
+            }
 
             int curseBefore = CountItemsWithTag("Cursed");
             _core.Combat.EndPlayerTurn();
             DetectPressureAfterEnemyTurn(curseBefore);
         }
-    }
-
-    private void AttackWithBestWeapons(DollFighter player) {
-        int attackGuard = 0;
-        ItemEntity reservedShield = PickShieldToReserve(player);
-        while (_core.Combat.CurrentState == CombatState.PlayerTurn && attackGuard++ < 8) {
-            FighterEntity target = _core.Combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
-            if (target == null) {
-                return;
-            }
-
-            ItemEntity weapon = PickBestUsableWeapon(player.CurrentAP);
-            if (weapon == null) {
-                break;
-            }
-
-            if (reservedShield != null && player.CurrentAP - weapon.Combat.APCost < reservedShield.Combat.APCost) {
-                break;
-            }
-
-            player.Attack(target, weapon);
-            if (_core.Combat.EnemyFaction.IsWipedOut()) {
-                return;
-            }
-        }
-
-        if (reservedShield != null && player.CurrentAP >= reservedShield.Combat.APCost) {
-            player.Attack(player, reservedShield);
-        }
-    }
-
-    // Keeps AP for the shield when hurt or when the enemy shows a big hit (the intent numbers the player sees).
-    private ItemEntity PickShieldToReserve(DollFighter player) {
-        if (player == null) {
-            return null;
-        }
-
-        IncomingDamagePreview incoming = CombatReadabilityTextService.BuildIncomingDamagePreview(_core.Combat);
-        bool bigHit = incoming != null && (incoming.Lethal || incoming.Total >= 20);
-        if (!bigHit && player.RuntimeHP > Mathf.CeilToInt(player.RuntimeMaxHP * 0.7f)) {
-            return null;
-        }
-
-        if (CanLikelyKillThisTurn(player.CurrentAP)) {
-            return null;
-        }
-
-        BackpackGrid grid = GetGrid();
-        return grid?.ContainedItems
-            .Where(item => item?.Combat != null
-                && item.Combat.TriggerType == TriggerType.Manual.ToString()
-                && item.Combat.DamageType == DamageType.Shield.ToString()
-                && item.Combat.APCost <= player.CurrentAP)
-            .OrderBy(item => item.Combat.APCost)
-            .FirstOrDefault();
-    }
-
-    private bool CanLikelyKillThisTurn(int currentAP) {
-        int enemyHP = _core.Combat.EnemyFaction.Fighters
-            .Where(fighter => fighter.RuntimeHP > 0)
-            .Sum(fighter => fighter.RuntimeHP);
-        if (enemyHP <= 0) {
-            return true;
-        }
-
-        int remainingAP = currentAP;
-        int possibleDamage = 0;
-        int guard = 0;
-        while (remainingAP > 0 && guard++ < 8) {
-            ItemEntity weapon = PickBestUsableWeapon(remainingAP);
-            if (weapon == null) {
-                break;
-            }
-
-            possibleDamage += Mathf.RoundToInt(weapon.Combat.RuntimeDamage);
-            if (!CombatItemEffects.CanUse(weapon, out _)) {
-                break;
-            }
-            remainingAP -= weapon.Combat.APCost;
-        }
-
-        return possibleDamage >= enemyHP;
-    }
-
-    private ItemEntity PickBestUsableWeapon(int currentAP) {
-        BackpackGrid grid = GetGrid();
-        if (grid == null) {
-            return null;
-        }
-
-        // Spent items (uses per fight) are skipped; statuses count as the damage they will do.
-        return grid.ContainedItems
-            .Where(item => IsWeapon(item) && item.Combat.APCost <= currentAP && CombatItemEffects.CanUse(item, out _))
-            .OrderByDescending(item => EffectiveDamage(item) / Mathf.Max(1f, item.Combat.APCost))
-            .ThenByDescending(EffectiveDamage)
-            .FirstOrDefault();
     }
 
     private void UseConsumablesInCombat(DollFighter player) {
@@ -1347,12 +1254,7 @@ internal class MVPAutoplayCampaign {
         return grid.ContainedItems.Count(item => item?.Tags != null && item.Tags.Contains(tag));
     }
 
-    private bool IsWeapon(ItemEntity item) {
-        return item?.Combat != null
-            && item.ItemType == nameof(ItemType.Weapon)
-            && item.Combat.TriggerType == TriggerType.Manual.ToString()
-            && (item.Combat.DamageType == DamageType.Physical.ToString() || item.Combat.DamageType == DamageType.Energy.ToString());
-    }
+    private static bool IsWeapon(ItemEntity item) => CombatBot.IsWeapon(item);
 
     private bool IsSellableLoot(ItemEntity item) {
         if (item == null || item.ItemType != nameof(ItemType.Loot)) {
@@ -1380,24 +1282,7 @@ internal class MVPAutoplayCampaign {
         return item?.Tags != null && item.Tags.Exists(value => string.Equals(value, tag, StringComparison.OrdinalIgnoreCase));
     }
 
-    // A strike's worth to the bot: its damage, plus poison as the HP it takes over the next turns and 破甲 as half a
-    // strike more; with only a few uses per fight it is worth less as a mainstay.
-    private static float EffectiveDamage(ItemEntity item) {
-        if (item?.Combat == null) {
-            return 0f;
-        }
-
-        float damage = item.Combat.RuntimeDamage > 0f ? item.Combat.RuntimeDamage : item.Combat.BaseValue;
-        foreach (EffectData effect in item.Combat.Effects ?? new List<EffectData>()) {
-            float value = effect?.Params != null && effect.Params.Length > 0 ? effect.Params[0] : 0f;
-            if (effect?.EffectID == "ApplyStatus" && effect.Trigger != "TurnStart") {
-                if (effect.Status == "Poison") damage += value * 2f;
-                if (effect.Status == "Vulnerable") damage += 8f * value;
-            }
-        }
-
-        return damage;
-    }
+    private static float EffectiveDamage(ItemEntity item) => CombatBot.EffectiveDamage(item);
 
     private int ScoreItem(ItemEntity item) {
         if (item == null) {

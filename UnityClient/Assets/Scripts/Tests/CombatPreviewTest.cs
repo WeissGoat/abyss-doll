@@ -28,18 +28,19 @@ public static class CombatPreviewTest {
         core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
         DollFighter player = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
         MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(core.Combat);
-        Check(report.Monsters.Count == 1 && report.Monsters[0].SelectedIntent?.ShortText == "攻击 9", "intent short text: " + report.Monsters[0].SelectedIntent?.ShortText);
-        Check(report.Monsters[0].SelectedIntent?.Badge == "9", "intent badge: " + report.Monsters[0].SelectedIntent?.Badge);
+        int bite = (int)ConfigManager.Monsters["mob_scavenger_bug"].AI.Actions[0].Params["Damage"];
+        Check(report.Monsters.Count == 1 && report.Monsters[0].SelectedIntent?.ShortText == $"攻击 {bite}", "intent short text: " + report.Monsters[0].SelectedIntent?.ShortText);
+        Check(report.Monsters[0].SelectedIntent?.Badge == bite.ToString(), "intent badge: " + report.Monsters[0].SelectedIntent?.Badge);
 
         int hp = player.RuntimeHP;
         IncomingDamagePreview none = CombatReadabilityTextService.BuildIncomingDamagePreview(core.Combat);
-        Check(none.Total == 9 && none.Blocked == 0 && none.HPLoss == 9 && none.HPAfter == hp - 9 && none.Text.Contains("没有护盾"), "no shield: " + none.Text);
+        Check(none.Total == bite && none.Blocked == 0 && none.HPLoss == bite && none.HPAfter == hp - bite && none.Text.Contains("没有护盾"), "no shield: " + none.Text);
         player.AddShield(5);
         IncomingDamagePreview partial = CombatReadabilityTextService.BuildIncomingDamagePreview(core.Combat);
-        Check(partial.Blocked == 5 && partial.HPLoss == 4 && partial.Text.Contains("护盾挡 5"), "partial shield: " + partial.Text);
+        Check(partial.Blocked == 5 && partial.HPLoss == bite - 5 && partial.Text.Contains("护盾挡 5"), "partial shield: " + partial.Text);
         player.AddShield(20);
         IncomingDamagePreview full = CombatReadabilityTextService.BuildIncomingDamagePreview(core.Combat);
-        Check(full.Blocked == 9 && full.HPLoss == 0 && !full.Lethal, "full shield: " + full.Text);
+        Check(full.Blocked == bite && full.HPLoss == 0 && !full.Lethal, "full shield: " + full.Text);
         player.RuntimeShield = 0;
         player.RuntimeHP = 3;
         IncomingDamagePreview lethal = CombatReadabilityTextService.BuildIncomingDamagePreview(core.Combat);

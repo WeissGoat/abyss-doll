@@ -23,7 +23,7 @@
     "Base": 108,
     "Variance": 10
   },
-  "HP": 108,
+  "HP": 120,
   "PortraitID": "monster_mob_rust_cultivator_portrait",
   "CombatVisualID": "monster_mob_rust_cultivator_combat",
   "CombatScale": 1.0,
@@ -33,7 +33,7 @@
     {
       "IntentID": "rust_strike",
       "IntentType": "Attack",
-      "PowerPreview": 20,
+      "PowerPreview": 16,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.basic_attack",
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 17,
+          "Damage": 16,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "rust_cultivator_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
           "RepeatCount": 1
         }
       },

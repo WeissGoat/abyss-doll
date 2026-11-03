@@ -25,7 +25,7 @@
     "Base": 150,
     "Variance": 10
   },
-  "HP": 150,
+  "HP": 160,
   "PortraitID": "monster_elite_mutant_amalgam_portrait",
   "CombatVisualID": "monster_elite_mutant_amalgam_combat",
   "CombatScale": 1.2,
@@ -35,7 +35,7 @@
     {
       "IntentID": "mutant_charge",
       "IntentType": "Charge",
-      "PowerPreview": 45,
+      "PowerPreview": 35,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.boss_charge_window",
@@ -53,7 +53,7 @@
     {
       "IntentID": "mutant_heavy",
       "IntentType": "Attack",
-      "PowerPreview": 45,
+      "PowerPreview": 18,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.heavy_attack",
@@ -77,7 +77,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 45,
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "mutant_amalgam_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 35,
           "RepeatCount": 1
         }
       },

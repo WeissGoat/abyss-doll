@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Layer1", "PackPressure", "LowRisk"],
   "DifficultyBudget": { "Base": 48, "Variance": 10 },
   "SpawnWeightTags": ["Layer1Common", "PackPressureIntro", "EventBranch"],
-  "HP": 55,
+  "HP": 110,
   "PortraitID": "monster_mob_acid_slime_portrait",
   "CombatVisualID": "monster_mob_acid_slime_combat",
   "CombatScale": 0.85,
@@ -20,7 +20,7 @@
     {
       "IntentID": "acid_attack_small",
       "IntentType": "Attack",
-      "PowerPreview": 12,
+      "PowerPreview": 9,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.block_or_finish",
@@ -60,7 +60,8 @@
   "MemoryRewardRefs": [],
   "ActionVfxRef": {
     "acid_basic_attack": "vfx_monster_acid_splash_small",
-    "acid_add_scrap": "vfx_monster_pack_junk"
+    "acid_add_scrap": "vfx_monster_pack_junk",
+    "acid_slime_heavy_windup": "vfx_monster_acid_splash_small"
   },
   "HitFeedbackRef": "ui_combat_feedback_hit",
   "DefeatFeedbackRef": "ui_combat_feedback_slime_pop",
@@ -76,7 +77,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 12,
+          "Damage": 9,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "acid_slime_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 23,
           "RepeatCount": 1
         }
       },

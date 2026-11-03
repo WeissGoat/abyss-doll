@@ -23,7 +23,7 @@
     "Base": 82,
     "Variance": 10
   },
-  "HP": 82,
+  "HP": 105,
   "PortraitID": "monster_mob_acid_slime_mature_portrait",
   "CombatVisualID": "monster_mob_acid_slime_mature_combat",
   "CombatScale": 1.0,
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 14,
+          "Damage": 16,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "acid_slime_mature_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
           "RepeatCount": 1
         }
       },

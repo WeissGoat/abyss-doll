@@ -23,7 +23,7 @@
     "Base": 68,
     "Variance": 10
   },
-  "HP": 68,
+  "HP": 90,
   "PortraitID": "monster_mob_soul_midge_swarm_portrait",
   "CombatVisualID": "monster_mob_soul_midge_swarm_combat",
   "CombatScale": 0.9,
@@ -33,7 +33,7 @@
     {
       "IntentID": "midge_bite",
       "IntentType": "Attack",
-      "PowerPreview": 12,
+      "PowerPreview": 16,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.basic_attack",
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 10,
+          "Damage": 16,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "soul_midge_swarm_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
           "RepeatCount": 1
         }
       },

@@ -25,7 +25,7 @@
     "Base": 165,
     "Variance": 10
   },
-  "HP": 165,
+  "HP": 175,
   "PortraitID": "monster_elite_crystal_bulwark_portrait",
   "CombatVisualID": "monster_elite_crystal_bulwark_combat",
   "CombatScale": 1.25,
@@ -53,7 +53,7 @@
     {
       "IntentID": "bulwark_heavy",
       "IntentType": "Attack",
-      "PowerPreview": 38,
+      "PowerPreview": 19,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.heavy_attack",
@@ -77,7 +77,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 38,
+          "Damage": 19,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "crystal_bulwark_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 37,
           "RepeatCount": 1
         }
       },

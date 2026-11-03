@@ -23,7 +23,7 @@
     "Base": 96,
     "Variance": 10
   },
-  "HP": 96,
+  "HP": 105,
   "PortraitID": "monster_mob_crystal_guard_portrait",
   "CombatVisualID": "monster_mob_crystal_guard_combat",
   "CombatScale": 1.05,
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 15,
+          "Damage": 16,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "crystal_guard_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
           "RepeatCount": 1
         }
       },

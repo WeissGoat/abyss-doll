@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Layer1", "SanPressure", "EventBranch"],
   "DifficultyBudget": { "Base": 42, "Variance": 8 },
   "SpawnWeightTags": ["Layer1Common", "NarrativeBranch", "LowSanPressure"],
-  "HP": 48,
+  "HP": 95,
   "PortraitID": "monster_mob_lost_miner_echo_portrait",
   "CombatVisualID": "monster_mob_lost_miner_echo_combat",
   "CombatScale": 0.95,
@@ -29,7 +29,7 @@
     {
       "IntentID": "lost_miner_attack_small",
       "IntentType": "Attack",
-      "PowerPreview": 10,
+      "PowerPreview": 9,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.block_or_finish",
@@ -54,7 +54,8 @@
   "MemoryRewardRefs": ["room_memory_lost_miner_lamp"],
   "ActionVfxRef": {
     "lost_miner_echo_strike": "vfx_monster_echo_hit",
-    "lost_miner_whisper": "vfx_monster_san_hint"
+    "lost_miner_whisper": "vfx_monster_san_hint",
+    "lost_miner_echo_heavy_windup": "vfx_monster_echo_hit"
   },
   "HitFeedbackRef": "ui_combat_feedback_hit",
   "DefeatFeedbackRef": "ui_combat_feedback_echo_fade",
@@ -70,7 +71,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 10,
+          "Damage": 9,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "lost_miner_echo_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "LowestHpPlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 23,
           "RepeatCount": 1
         }
       },

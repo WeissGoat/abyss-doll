@@ -23,7 +23,7 @@
     "Base": 190,
     "Variance": 12
   },
-  "HP": 190,
+  "HP": 235,
   "PortraitID": "monster_elite_vein_knight_portrait",
   "CombatVisualID": "monster_elite_vein_knight_combat",
   "CombatScale": 1.25,
@@ -75,7 +75,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 30,
+          "Damage": 26,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "vein_knight_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 50,
           "RepeatCount": 1
         }
       },

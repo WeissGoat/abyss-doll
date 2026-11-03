@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Elite", "Layer1", "HighRisk", "Bypassable", "CounterCheck"],
   "DifficultyBudget": { "Base": 105, "Variance": 15 },
   "SpawnWeightTags": ["Layer1Elite", "RiskReward", "BypassBranch", "ArmorShieldCounter"],
-  "HP": 120,
+  "HP": 110,
   "Armor": 4,
   "PortraitID": "monster_elite_scrap_guard_portrait",
   "CombatVisualID": "monster_elite_scrap_guard_combat",
@@ -21,7 +21,7 @@
     {
       "IntentID": "ironclad_guard_heavy_strike",
       "IntentType": "Attack",
-      "PowerPreview": 34,
+      "PowerPreview": 14,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.elite_heavy_attack",
@@ -61,7 +61,8 @@
   "MemoryRewardRefs": ["room_memory_first_scrap_guard_plate"],
   "ActionVfxRef": {
     "ironclad_guard_heavy_strike": "vfx_monster_heavy_hit",
-    "ironclad_guard_bulwark": "vfx_monster_grid_lock_warning"
+    "ironclad_guard_bulwark": "vfx_monster_grid_lock_warning",
+    "ironclad_guard_heavy_windup": "vfx_monster_heavy_hit"
   },
   "HitFeedbackRef": "ui_combat_feedback_hit",
   "DefeatFeedbackRef": "ui_combat_feedback_shield_break",
@@ -77,7 +78,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 34,
+          "Damage": 14,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "ironclad_guard_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
           "RepeatCount": 1
         }
       },

@@ -34,7 +34,7 @@ public static class CombatHUDIntentBindingSmokeTest {
         string text = CollectText(canvasObj);
         // The intent badge over the enemy shows the attack's number; her own side no longer previews the hit.
         Text badge = FindRectRecursive(canvasObj.transform, "EnemyIntentBadge_Text")?.GetComponent<Text>();
-        bool passed = badge != null && badge.text == "9"
+        bool passed = badge != null && badge.text == ((int)ConfigManager.Monsters["mob_scavenger_bug"].AI.Actions[0].Params["Damage"]).ToString()
             && text.Contains("拾荒虫")
             && FindRectRecursive(canvasObj.transform, "IncomingDamage_Text") == null;
 

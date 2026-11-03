@@ -23,7 +23,7 @@
     "Base": 98,
     "Variance": 12
   },
-  "HP": 98,
+  "HP": 140,
   "PortraitID": "monster_mob_echo_pilgrim_portrait",
   "CombatVisualID": "monster_mob_echo_pilgrim_combat",
   "CombatScale": 1.05,
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 13,
+          "Damage": 21,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "echo_pilgrim_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "RandomPlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 41,
           "RepeatCount": 1
         }
       },

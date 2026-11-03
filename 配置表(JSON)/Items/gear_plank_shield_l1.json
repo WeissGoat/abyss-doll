@@ -28,7 +28,7 @@
         "EffectID": "AddRuntimeShield",
         "Level": 0,
         "Target": "Self",
-        "Params": [16.0]
+        "Params": [7.0]
       }
     ]
   },

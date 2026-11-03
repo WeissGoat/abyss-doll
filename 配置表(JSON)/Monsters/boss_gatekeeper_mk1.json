@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Boss", "Layer1", "RouteGate"],
   "DifficultyBudget": { "Base": 150, "Variance": 0 },
   "SpawnWeightTags": ["Layer1Boss", "RouteGate", "BossNodeOnly"],
-  "HP": 160,
+  "HP": 175,
   "PortraitID": "monster_boss_gatekeeper_mk1_portrait",
   "CombatVisualID": "monster_boss_gatekeeper_mk1_combat",
   "CombatScale": 1.5,
@@ -20,7 +20,7 @@
     {
       "IntentID": "gatekeeper_strike",
       "IntentType": "Attack",
-      "PowerPreview": 22,
+      "PowerPreview": 13,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.boss_basic_attack",
@@ -113,7 +113,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 20,
+          "Damage": 13,
           "RepeatCount": 1
         }
       },
@@ -126,7 +126,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 14,
+          "Damage": 13,
           "RepeatCount": 1
         }
       },

@@ -22,8 +22,8 @@ public static class CombatQueueTest {
         // Start Combat
         core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
         
-        // Enemy HP should be 40
         var enemy = core.Combat.EnemyFaction.Fighters[0];
+        int startHp = enemy.RuntimeHP;
         Debug.Log($"Enemy initial HP: {enemy.RuntimeHP}");
         
         // Player attacks manually
@@ -34,7 +34,7 @@ public static class CombatQueueTest {
         ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(weapon, 0, 0);
         GridSolver.RecalculateAllEffects(core.CurrentPlayer.ActiveDoll);
         int expectedDamage = (int)weapon.Combat.RuntimeDamage;
-        int expectedRemainingHp = Mathf.Max(0, 40 - expectedDamage);
+        int expectedRemainingHp = Mathf.Max(0, startHp - expectedDamage);
         
         core.Combat.PlayerFaction.Fighters[0].Attack(enemy, weapon);
         

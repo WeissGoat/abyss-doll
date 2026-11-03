@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Layer1", "ChargeIntro", "SafeRoute", "CounterCheck"],
   "DifficultyBudget": { "Base": 45, "Variance": 10 },
   "SpawnWeightTags": ["Layer1Common", "ChargeTeaching", "LowRisk", "ArmorCounter"],
-  "HP": 45,
+  "HP": 75,
   "Armor": 3,
   "PortraitID": "monster_mob_rust_hound_portrait",
   "CombatVisualID": "monster_mob_rust_hound_combat",
@@ -21,7 +21,7 @@
     {
       "IntentID": "plated_hound_bite",
       "IntentType": "Attack",
-      "PowerPreview": 11,
+      "PowerPreview": 9,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.block_or_finish",
@@ -30,7 +30,7 @@
     {
       "IntentID": "plated_hound_rush",
       "IntentType": "Charge",
-      "PowerPreview": 20,
+      "PowerPreview": 23,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.charge_window",
@@ -71,7 +71,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 11,
+          "Damage": 9,
           "RepeatCount": 1
         }
       },
@@ -84,7 +84,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 20,
+          "Damage": 23,
           "RepeatCount": 1
         }
       }

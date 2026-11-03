@@ -23,7 +23,7 @@
     "Base": 132,
     "Variance": 12
   },
-  "HP": 132,
+  "HP": 180,
   "PortraitID": "monster_mob_shell_grafter_portrait",
   "CombatVisualID": "monster_mob_shell_grafter_combat",
   "CombatScale": 1.1,
@@ -42,7 +42,7 @@
     {
       "IntentID": "grafter_hit",
       "IntentType": "Attack",
-      "PowerPreview": 18,
+      "PowerPreview": 21,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.basic_guard",
@@ -66,7 +66,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 18,
+          "Damage": 21,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "shell_grafter_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 41,
           "RepeatCount": 1
         }
       },

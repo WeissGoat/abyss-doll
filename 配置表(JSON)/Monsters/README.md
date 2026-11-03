@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
   - 开发文档/11_怪物AI与行动系统(MonsterActionAI).md
-  - 设计文档/数值/02_战斗伤害与生存公式.md
+  - 设计文档/数值/02_战斗数值.md
   - 配置表(JSON)/README.md
   - 设计文档/_archive/config/audits/28_Monsters正式配置承接审计.md
   - 设计文档/_archive/config/audits/29_Dungeons正式配置承接审计.md

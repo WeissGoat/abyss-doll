@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Layer1", "ChargeIntro", "SafeRoute"],
   "DifficultyBudget": { "Base": 45, "Variance": 10 },
   "SpawnWeightTags": ["Layer1Common", "ChargeTeaching", "LowRisk"],
-  "HP": 52,
+  "HP": 105,
   "PortraitID": "monster_mob_rust_hound_portrait",
   "CombatVisualID": "monster_mob_rust_hound_combat",
   "CombatScale": 0.9,
@@ -20,7 +20,7 @@
     {
       "IntentID": "rust_hound_attack_small",
       "IntentType": "Attack",
-      "PowerPreview": 11,
+      "PowerPreview": 9,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.block_or_finish",
@@ -29,7 +29,7 @@
     {
       "IntentID": "rust_hound_charge_attack",
       "IntentType": "Charge",
-      "PowerPreview": 20,
+      "PowerPreview": 23,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.charge_window",
@@ -70,7 +70,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 11,
+          "Damage": 9,
           "RepeatCount": 1
         }
       },
@@ -83,7 +83,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 20,
+          "Damage": 23,
           "RepeatCount": 1
         }
       }

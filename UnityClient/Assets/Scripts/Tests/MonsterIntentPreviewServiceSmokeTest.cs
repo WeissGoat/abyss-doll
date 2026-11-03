@@ -26,9 +26,9 @@ public static class MonsterIntentPreviewServiceSmokeTest {
             && intent != null
             && intent.IntentType == MonsterIntentType.Attack
             && intent.CanExecute
-            && intent.DamagePerHit == 9
+            && intent.DamagePerHit == (int)ConfigManager.Monsters["mob_scavenger_bug"].AI.Actions[0].Params["Damage"]
             && intent.RepeatCount == 1
-            && intent.EstimatedTotalDamage == 9
+            && intent.EstimatedTotalDamage == intent.DamagePerHit
             && intent.Title == "攻击";
 
         if (passed) {

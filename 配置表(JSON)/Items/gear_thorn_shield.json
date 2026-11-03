@@ -54,14 +54,14 @@
         "Level": 0,
         "Target": "Self",
         "Params": [
-          14.0
+          9.0
         ]
       },
       {
         "EffectID": "Thorns",
         "Level": 0,
         "Params": [
-          7
+          4
         ]
       }
     ]

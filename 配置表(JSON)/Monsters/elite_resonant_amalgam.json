@@ -39,7 +39,7 @@
     "RiskReward",
     "ShuffleCleanseCounter"
   ],
-  "HP": 150,
+  "HP": 160,
   "Armor": 0,
   "PortraitID": "monster_elite_mutant_amalgam_portrait",
   "CombatVisualID": "monster_elite_mutant_amalgam_combat",
@@ -50,7 +50,7 @@
     {
       "IntentID": "resonant_amalgam_crushing_blow",
       "IntentType": "Attack",
-      "PowerPreview": 45,
+      "PowerPreview": 19,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.heavy_attack",
@@ -101,7 +101,8 @@
   "ActionVfxRef": {
     "resonant_amalgam_crushing_blow": "vfx_monster_heavy_hit",
     "resonant_amalgam_shuffle": "vfx_monster_grid_lock_warning",
-    "resonant_amalgam_cleanse": "vfx_monster_pack_junk"
+    "resonant_amalgam_cleanse": "vfx_monster_pack_junk",
+    "resonant_amalgam_heavy_windup": "vfx_monster_heavy_hit"
   },
   "HitFeedbackRef": "ui_combat_feedback_hit",
   "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
@@ -117,7 +118,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 45,
+          "Damage": 19,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "resonant_amalgam_heavy_windup",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 37,
           "RepeatCount": 1
         }
       },

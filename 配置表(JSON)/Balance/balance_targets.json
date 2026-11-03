@@ -1,7 +1,8 @@
 {
-  "Version": 0,
-  "Note": "数值尺子 v0（阶段 2 里程碑 0）。规则和每个数的来历见 设计文档/数值/04_回合与AP尺子.md；检查脚本 tools/balance/check_budget.py。游戏运行时不读这个文件。",
+  "Version": 1,
+  "Note": "数值目标（阶段 2 里程碑 1）。规则和每个数的来历见 设计文档/数值/02_战斗数值.md。怪物的血量和出手由 tools/balance/apply_monster_targets.py 从这里生成；物品按公式检查 tools/balance/check_budget.py；实战量测 FightLabTest。游戏运行时不读这个文件。",
   "APPerTurn": 3,
+  "OffenseAPPerTurn": 2,
   "DollHP": 100,
   "SelfDamageWeight": 1.5,
   "RarityAllowance": { "Common": 1.0, "Uncommon": 1.1, "Rare": 1.2, "Epic": 1.35 },
@@ -13,20 +14,69 @@
     "BurstUsesPerCombat": 2,
     "BurstAllowance": 1.5
   },
+  "ActiveShield": {
+    "BaselineCells": 2,
+    "AllowancePerExtraCell": 0.1,
+    "ThornsValue": 0.5,
+    "Over": 1.25,
+    "Under": 0.6
+  },
   "PassiveShield": {
-    "ShareOfMobHit": { "1": 0.25, "2": 0.35, "3": 0.45, "4": 0.5 },
+    "BaseShare": 0.25,
+    "SharePerCell": 0.125,
+    "MaxShare": 1.0,
     "Over": 1.2
   },
   "Fights": {
-    "Normal": { "Turns": [3, 4], "HitMultiplier": 1.0 },
-    "Elite": { "Turns": [5, 6], "HitMultiplier": 1.8 },
-    "Boss": { "Turns": [7, 9], "HitMultiplier": 1.6 },
-    "PlayerOutputShare": 0.8,
+    "Normal": {
+      "Turns": [3, 4], "HPLoss": [6, 14], "HPFactor": 0.9,
+      "Hits": { "Regular": { "ShieldAP": 1, "Leak": 3 }, "Big": { "ShieldAP": 3, "Leak": 5 } }
+    },
+    "Elite": {
+      "Turns": [5, 6], "HPLoss": [20, 35], "HPFactor": 0.85,
+      "Hits": { "Regular": { "ShieldAP": 1, "Leak": 8 }, "Big": { "ShieldAP": 3, "Leak": 14 } }
+    },
+    "Boss": {
+      "Turns": [7, 9], "HPLoss": [35, 55], "HPFactor": 0.85,
+      "Hits": { "Regular": { "ShieldAP": 1, "Leak": 7 }, "Big": { "ShieldAP": 3, "Leak": 16 } }
+    },
     "Tolerance": 0.3
   },
   "Layers": [
-    { "Layer": 1, "DamagePerAP": 15, "MobHitPerTurn": 10 },
-    { "Layer": 2, "DamagePerAP": 20, "MobHitPerTurn": 13 },
-    { "Layer": 3, "DamagePerAP": 26, "MobHitPerTurn": 17 }
-  ]
+    { "Layer": 1, "DamagePerAP": 15, "ShieldPerAP": 6, "Arrival": { "DamagePerAP": 15, "ShieldPerAP": 6, "Passive": 0 } },
+    { "Layer": 2, "DamagePerAP": 20, "ShieldPerAP": 8, "Arrival": { "DamagePerAP": 17, "ShieldPerAP": 7, "Passive": 6 } },
+    { "Layer": 3, "DamagePerAP": 26, "ShieldPerAP": 10, "Arrival": { "DamagePerAP": 22, "ShieldPerAP": 9, "Passive": 9 } }
+  ],
+  "Monsters": {
+    "mob_scavenger_bug": { "HP": 0.75, "Hit": 0.85 },
+    "boss_gatekeeper_mk1": { "HP": 0.85 },
+    "elite_ironclad_guard": { "HP": 0.8 },
+    "mob_volatile_scavenger": { "HP": 0.7 },
+    "mob_lost_miner_echo": { "Keep": ["lost_miner_whisper"] },
+    "mob_acid_slime": { "HP": 1.15 },
+    "mob_clear_slime": { "HP": 1.15 },
+    "mob_rust_hound": { "HP": 1.1 },
+    "mob_plated_rust_hound": { "HP": 0.8 },
+    "mob_acid_slime_mature": { "HP": 1.0 },
+    "mob_rust_cultivator": { "HP": 1.1 },
+    "mob_soul_midge_swarm": { "HP": 0.85 },
+    "mob_mycelium_crawler": { "HP": 0.95 },
+    "mob_nerve_midge_swarm": { "HP": 0.9 },
+    "mob_shell_grafter": { "HP": 1.3 },
+    "mob_spore_archer": { "HP": 1.05 },
+    "elite_crystal_bulwark": { "HP": 1.1, "Hit": 0.9 },
+    "elite_mutant_amalgam": { "Hit": 0.85 },
+    "elite_resonant_amalgam": { "Hit": 0.9 },
+    "elite_spore_matriarch": { "HP": 1.15 },
+    "elite_vein_knight": { "HP": 1.15 }
+  },
+  "FightLab": {
+    "Note": "参考配装：刚到这一层时手里有的东西，都是上面几层能拿到的好装备（第 1 层就是开局的装备），和 Layers 里的 Arrival 对应。摆法交给 LoadoutArranger，不带消耗品，满血开打。",
+    "FightsPerEncounter": 30,
+    "Loadouts": [
+      { "Layer": 1, "ChassisID": "chassis_lv1_basic", "Items": ["gear_rusty_dagger", "gear_wooden_shield"] },
+      { "Layer": 2, "ChassisID": "chassis_lv2_expanded", "Items": ["gear_tactical_blade", "gear_plank_shield_l1", "gear_cracked_iron_armor"] },
+      { "Layer": 3, "ChassisID": "chassis_lv2_expanded", "Items": ["gear_chain_hook", "gear_thorn_shield", "gear_cracked_iron_armor", "gear_riveted_plate"] }
+    ]
+  }
 }

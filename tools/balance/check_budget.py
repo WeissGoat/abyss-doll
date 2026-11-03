@@ -1,7 +1,10 @@
-"""Checks items and monsters in 配置表(JSON) against the numeric ruler (配置表(JSON)/Balance/balance_targets.json).
+"""Checks items and monsters in 配置表(JSON) against the numeric targets (配置表(JSON)/Balance/balance_targets.json).
 
-The ruler and where each number comes from: 设计文档/数值/04_回合与AP尺子.md. Prints one line per item or monster
-outside its budget; nothing is blocked. --strict exits 1 when anything is over budget (for later use in tests).
+The model and where each number comes from: 设计文档/数值/02_战斗数值.md. Items are priced by formula (weapons by net
+damage per AP, active shields by shield per AP, passive shields by a share of one AP of shield); monsters are compared
+with what tools/balance/apply_monster_targets.py would write, so a hand edit shows up here. How a fight actually goes is
+measured by the fight lab (FightLabTest). Prints one line per item or monster outside its budget; nothing is blocked.
+--strict exits 1 when anything is over budget.
 
     python tools/balance/check_budget.py            # over / under budget only
     python tools/balance/check_budget.py --all      # every priced item and monster
@@ -11,6 +14,8 @@ import glob
 import json
 import os
 import sys
+
+import apply_monster_targets
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CONFIG = os.path.join(ROOT, "配置表(JSON)")
@@ -58,57 +63,54 @@ def check_weapon(item, layer, ruler, row):
     return ratio, weapon["Over"], weapon["Under"], detail
 
 
+def check_active_shield(item, layer, ruler, row):
+    combat = item["Combat"]
+    rule = ruler["ActiveShield"]
+    ap = max(1, combat.get("APCost", 1))
+    shield = sum(first_param(e) for e in effects(item, "AddRuntimeShield"))
+    thorns = sum(first_param(e) for e in effects(item, "Thorns"))
+    per_ap = (shield + thorns * rule["ThornsValue"]) / ap
+    cells = len(item["Grid"]["Shape"])
+    allowance = (1 + rule["AllowancePerExtraCell"] * (cells - rule["BaselineCells"])) * ruler["RarityAllowance"].get(item.get("Rarity"), 1.0)
+    budget = row["ShieldPerAP"] * allowance
+    detail = f"每 AP 护盾 {per_ap:.1f}（护盾 {shield:g}" + (f"，反伤 {thorns:g}" if thorns else "") + f"，{ap} AP），预算 {budget:.1f}"
+    return per_ap / budget if budget else 0, rule["Over"], rule["Under"], detail
+
+
 def check_passive_shield(item, layer, ruler, row):
     shield = sum(first_param(e) for e in effects(item, "AddRuntimeShieldOnTurnStart"))
     cells = len(item["Grid"]["Shape"])
-    shares = ruler["PassiveShield"]["ShareOfMobHit"]
-    share = shares[str(min(cells, max(int(k) for k in shares)))]
-    budget = row["MobHitPerTurn"] * share * ruler["RarityAllowance"].get(item.get("Rarity"), 1.0)
-    ratio = shield / budget if budget else 0
-    detail = f"每回合白送护盾 {shield:g}，预算 {budget:.1f}（本层普通怪一下 {row['MobHitPerTurn']} 的 {share:.0%}）"
-    return ratio, ruler["PassiveShield"]["Over"], 0, detail
-
-
-def expected_hit(monster):
-    actions = (monster.get("AI") or {}).get("Actions", [])
-    total = sum(a.get("Weight", 0) for a in actions) or 1
-    hit = 0.0
-    for action in actions:
-        params = action.get("Params") or {}
-        damage = params.get("Damage", 0) * params.get("RepeatCount", 1)
-        share = action.get("Weight", 0) / total
-        cooldown = action.get("CooldownTurns", 0)
-        if cooldown:
-            share = min(share, 1 / (cooldown + 1))
-        hit += share * damage
-    return hit
+    rule = ruler["PassiveShield"]
+    share = min(rule["MaxShare"], rule["BaseShare"] + rule["SharePerCell"] * cells)
+    budget = row["ShieldPerAP"] * share * ruler["RarityAllowance"].get(item.get("Rarity"), 1.0)
+    detail = f"每回合白送护盾 {shield:g}，预算 {budget:.1f}（本层 1 AP 盾 {row['ShieldPerAP']} 的 {share:.0%}）"
+    return shield / budget if budget else 0, rule["Over"], 0, detail
 
 
 def check_monster(monster, ruler, rows):
-    layer = monster.get("Layer")
-    row = rows.get(layer)
-    if row is None:
+    result = apply_monster_targets.targets_for(monster, ruler, rows)
+    if result is None:
         return None
-    kind = "Boss" if monster["MonsterID"].startswith("boss_") else "Elite" if monster["MonsterID"].startswith("elite_") else "Normal"
-    fights = ruler["Fights"]
-    target = fights[kind]
-    output = ruler["APPerTurn"] * row["DamagePerAP"] * fights["PlayerOutputShare"]
-    turns = monster.get("HP", 0) / output
-    hit = expected_hit(monster)
-    hit_target = row["MobHitPerTurn"] * target["HitMultiplier"]
-    low, high = target["Turns"]
-    tolerance = fights["Tolerance"]
+    kind, hp, regular, big = result
+    keep = ruler.get("Monsters", {}).get(monster["MonsterID"], {}).get("Keep", [])
     problems = []
-    if turns < low * (1 - tolerance):
-        problems.append(f"太快打死：约 {turns:.1f} 回合，目标 {low}–{high}")
-    elif turns > high * (1 + tolerance):
-        problems.append(f"太慢：约 {turns:.1f} 回合，目标 {low}–{high}")
-    if hit > hit_target * (1 + tolerance):
-        problems.append(f"打得太痛：每回合约 {hit:.1f}，目标 {hit_target:.0f}")
-    elif hit < hit_target * (1 - tolerance):
-        problems.append(f"打得太轻：每回合约 {hit:.1f}，目标 {hit_target:.0f}")
-    summary = f"HP {monster.get('HP')}，约 {turns:.1f} 回合打死，每回合约 {hit:.1f} 伤害"
-    return kind, layer, summary, problems
+    if abs(monster.get("HP", 0) - hp) > max(5, hp * 0.05):
+        problems.append(f"HP {monster.get('HP')}，目标 {hp}")
+    hits = []
+    for action in (monster.get("AI") or {}).get("Actions", []):
+        if action.get("ActionType") != "DamageTarget":
+            continue
+        params = action.get("Params") or {}
+        damage = params.get("Damage", 0) * max(1, params.get("RepeatCount", 1))
+        big_hit = action.get("CooldownTurns", 0) >= apply_monster_targets.BIG_COOLDOWN
+        hits.append(f"{damage}{'（重击）' if big_hit else ''}")
+        if action["ActionID"] in keep:
+            continue
+        target = big if big_hit else regular
+        if abs(damage - target) > max(2, target * 0.1):
+            problems.append(f"{action['ActionID']} 出手 {damage}，目标 {target}")
+    summary = f"HP {monster.get('HP')}，出手 {' / '.join(hits) or '无'}"
+    return kind, monster.get("Layer"), summary, problems
 
 
 def main():
@@ -131,6 +133,8 @@ def main():
         layer = item_layer(item)
         if combat.get("TriggerType") == "Manual" and combat.get("DamageType") in ("Physical", "Energy"):
             check = check_weapon
+        elif combat.get("TriggerType") == "Manual" and effects(item, "AddRuntimeShield"):
+            check = check_active_shield
         elif effects(item, "AddRuntimeShieldOnTurnStart"):
             check = check_passive_shield
         else:

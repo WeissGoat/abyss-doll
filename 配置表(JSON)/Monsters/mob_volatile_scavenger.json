@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "SafeRoute", "Tutorial", "Layer1", "CounterCheck"],
   "DifficultyBudget": { "Base": 35, "Variance": 8 },
   "SpawnWeightTags": ["Layer1Common", "LowRisk", "TutorialBranch", "ExplosionCounter"],
-  "HP": 34,
+  "HP": 65,
   "Armor": 0,
   "PortraitID": "monster_mob_scavenger_bug_portrait",
   "CombatVisualID": "monster_mob_scavenger_bug_combat",
@@ -21,7 +21,7 @@
     {
       "IntentID": "volatile_scavenger_nip",
       "IntentType": "Attack",
-      "PowerPreview": 7,
+      "PowerPreview": 9,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.block_or_finish",
@@ -30,7 +30,7 @@
     {
       "IntentID": "volatile_scavenger_burst",
       "IntentType": "Charge",
-      "PowerPreview": 18,
+      "PowerPreview": 23,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.charge_window",
@@ -71,7 +71,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 7,
+          "Damage": 9,
           "RepeatCount": 1
         }
       },
