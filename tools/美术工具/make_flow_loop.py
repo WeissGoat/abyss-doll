@@ -29,11 +29,11 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from make_alpha_loop import find_ffmpeg, loop
+from make_alpha_loop import find_ffmpeg, loop, read_frames
 
 
 def figure_grey(frame):
-    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    grey = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     green = (frame[..., 1].astype(int) - np.maximum(frame[..., 0], frame[..., 2]).astype(int)) > 80
     grey[green] = 0
     return grey
@@ -77,13 +77,8 @@ def main():
     parser.add_argument('--preview')
     args = parser.parse_args()
 
-    cap = cv2.VideoCapture(args.src)
-    fps = cap.get(cv2.CAP_PROP_FPS) or 24.0
-    frames = []
-    ok, frame = cap.read()
-    while ok:
-        frames.append(frame)
-        ok, frame = cap.read()
+    frames, fps = read_frames(args.src)
+    frames = [f.astype(np.uint8) for f in frames]
     h, w = frames[0].shape[:2]
     portrait = np.array(Image.open(args.portrait).convert('RGBA').resize((w, h), Image.LANCZOS)).astype(np.float32)
 

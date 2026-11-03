@@ -12,15 +12,15 @@
   alpha), so the background can be any flat colour (mid-grey keeps H3 from tinting the figure green). The colour is
   still unmixed against the background measured in the corners; no green clamp. The fade blends alpha too.
 - Output: VP8 WebM with alpha (yuva420p), no audio. Import it in Unity with "Keep Alpha" on.
-Needs numpy, OpenCV, Pillow and an ffmpeg with libvpx (imageio-ffmpeg's bundled one works).
+Needs numpy, Pillow and an ffmpeg with libvpx (imageio-ffmpeg's bundled one works).
 """
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import tempfile
 
-import cv2
 import numpy as np
 from PIL import Image
 
@@ -33,15 +33,22 @@ def find_ffmpeg():
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
+def probe(path):
+    # Size and frame rate from ffmpeg's stream line, e.g. "Video: h264 ..., 832x1248 [SAR 1:1 DAR 2:3], ..., 24 fps".
+    info = subprocess.run([find_ffmpeg(), '-hide_banner', '-i', path], capture_output=True, text=True).stderr
+    line = next(l for l in info.splitlines() if 'Video:' in l)
+    w, h = map(int, re.search(r'[ ,](\d{2,})x(\d{2,})[ ,]', line).groups())
+    fps = re.search(r'([\d.]+) fps', line)
+    return w, h, float(fps.group(1)) if fps else 24.0
+
+
 def read_frames(path):
-    cap = cv2.VideoCapture(path)
-    fps = cap.get(cv2.CAP_PROP_FPS) or 24.0
-    frames = []
-    ok, frame = cap.read()
-    while ok:
-        frames.append(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB).astype(np.float32))
-        ok, frame = cap.read()
-    return frames, fps
+    # ffmpeg, not OpenCV: H3 tags its clips BT.709 and ffmpeg follows the tag, while OpenCV decodes them as BT.601,
+    # which shifts every colour (the green background reads (20,255,6) instead of (1,242,0)).
+    w, h, fps = probe(path)
+    cmd = [find_ffmpeg(), '-loglevel', 'error', '-i', path, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-']
+    raw = subprocess.run(cmd, check=True, capture_output=True).stdout
+    return list(np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3).astype(np.float32)), fps
 
 
 def read_alpha(path, size):
