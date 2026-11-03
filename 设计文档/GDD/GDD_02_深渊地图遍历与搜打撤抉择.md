@@ -10,7 +10,7 @@ related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
   - 开发文档/数据与实体定义/04_深渊与战斗实体.md
   - 开发文档/10_奖励与掉落系统(RewardSystem).md
-  - 设计文档/数值/02_战斗伤害与生存公式.md
+  - 设计文档/数值/02_战斗数值.md
   - 设计文档/数值/03_深渊产出与掉落期望.md
   - 配置表(JSON)/Dungeons/README.md
   - 配置表(JSON)/Rewards/README.md

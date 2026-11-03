@@ -9,7 +9,7 @@ description: Use when adding or changing Project P3 game content or numbers thro
 
 ## 步骤
 
-1. **读规则**：先读该类目的 `配置表(JSON)/<类目>/README.md`（字段和取值），再挑一两个同类现有条目当模板。数值基准见 `设计文档/数值/00_基准价值与空间本位模型.md`（1 格 = 100 金币 = 10 DPS），相关系统规则见 `设计文档/GDD/` 和 `设计文档/规则卡/`。
+1. **读规则**：先读该类目的 `配置表(JSON)/<类目>/README.md`（字段和取值），再挑一两个同类现有条目当模板。战斗数值见 `设计文档/数值/02_战斗数值.md`（怪物的血量和出手用 `tools/balance/apply_monster_targets.py` 从目标表生成，不手改；新物品用 `tools/balance/check_budget.py` 对预算），价格见 `设计文档/数值/00_基准价值与空间本位模型.md`（1 格 = 100 金币），相关系统规则见 `设计文档/GDD/` 和 `设计文档/规则卡/`。
 2. **改或新增 JSON**：
    - ID 全局唯一，小写加下划线，沿用类目前缀：物品 `gear_` / `loot_` / `con_` / `mat_` / `trade_` / `order_`，奖励 `reward_`，底盘 `chassis_`，义体 `pros_`，配方 `craft_`，维护 `maint_`，深渊层 `layer_<n>`。
    - 引用别的配置时用对方的 ID（掉落引用 `RewardID`、物品效果引用效果类型等），并确认被引用的条目存在。

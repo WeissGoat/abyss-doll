@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
-  - 设计文档/数值/02_战斗伤害与生存公式.md
+  - 设计文档/数值/02_战斗数值.md
   - 配置表(JSON)/Monsters/README.md
 last_verified: 2026-05-25
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
