@@ -13,7 +13,7 @@
   "ContentPackRefs": [
     "design_pack_layer3_route_corrosion"
   ],
-  "SANCostPerNode": 3,
+  "SANCostPerNode": 2,
   "CorruptionPerNode": 6,
   "ExpectedNodeCount": 12,
   "MapProfileID": "layer3_route_attrition",
