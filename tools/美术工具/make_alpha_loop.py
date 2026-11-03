@@ -110,6 +110,7 @@ def main():
     parser.add_argument('dst')
     parser.add_argument('--fade', type=int, default=12)
     parser.add_argument('--bitrate', default='3M')
+    parser.add_argument('--crf', type=int, help='constant quality (4-63, lower is better); --bitrate becomes the cap')
     parser.add_argument('--preview')
     parser.add_argument('--grey-edges', action='store_true', help='take the colour out of see-through strands')
     parser.add_argument('--alpha', help='matte WebM of the same clip (VP9 with alpha) to take alpha from instead of keying')
@@ -136,7 +137,8 @@ def main():
             if args.preview and i in (0, len(frames) // 3, 2 * len(frames) // 3, len(frames) - 1):
                 keyed.append(rgba)
         cmd = [find_ffmpeg(), '-y', '-loglevel', 'error', '-framerate', f'{fps:g}', '-i', os.path.join(tmp, '%05d.png'),
-               '-c:v', 'libvpx', '-pix_fmt', 'yuva420p', '-auto-alt-ref', '0', '-b:v', args.bitrate, '-an', args.dst]
+               '-c:v', 'libvpx', '-pix_fmt', 'yuva420p', '-auto-alt-ref', '0', '-b:v', args.bitrate,
+               *(['-crf', str(args.crf)] if args.crf is not None else []), '-an', args.dst]
         subprocess.run(cmd, check=True)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
