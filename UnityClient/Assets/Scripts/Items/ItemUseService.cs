@@ -220,7 +220,7 @@ public static class ItemUseService {
         }
 
         if (item.ItemType != nameof(ItemType.Consumable) || item.Combat == null || item.Combat.TriggerType != TriggerType.Manual.ToString()) {
-            failureReason = $"[{item.Name}] 不能在安全屋中直接使用。";
+            failureReason = $"[{item.Name}] 不能在升降梯旁直接使用。";
             return false;
         }
 

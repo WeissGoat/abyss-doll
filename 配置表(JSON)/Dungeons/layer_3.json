@@ -15,10 +15,11 @@
   ],
   "SANCostPerNode": 3,
   "CorruptionPerNode": 6,
-  "ExpectedNodeCount": 8,
+  "ExpectedNodeCount": 12,
   "MapProfileID": "layer3_route_attrition",
   "MapSeed": 3072,
-  "RowCount": 7,
+  "RowCount": 12,
+  "Segments": [4, 4, 4],
   "MinWidth": 3,
   "MaxWidth": 4,
   "MinRouteCount": 3,
@@ -165,8 +166,7 @@
     "TreasureNode": 10,
     "EventNode": 18,
     "RestStopNode": 6,
-    "HazardNode": 8,
-    "SafeRoomNode": 4
+    "HazardNode": 8
   },
   "RequiredNodes": [
     {
@@ -516,11 +516,11 @@
     "RuntimeRole": "PostBossSafeZone",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN；污染物和订单状态保留。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，可以深入下一层或返回小镇。"
   },
   "SafeZoneRules": {
-    "FreeRecoverHP": true,
-    "FreeRecoverSAN": true,
+    "RecoverHPRatio": 0.3,
+    "RecoverSANRatio": 0.2,
     "ClearRouteCorrosion": true,
     "ClearItemPollution": false,
     "ClearOrderState": false,
@@ -528,11 +528,21 @@
     "AllowDescend": true,
     "PreserveRunLedger": true
   },
+  "SegmentExit": {
+    "NodeType": "SafeRoomNode",
+    "NodeIconID": "node_safe_room_icon",
+    "Title": "升降梯",
+    "Description": "菌丝缠住的老升降梯，摇柄上结着一层白霜。",
+    "RiskLevel": "Safe",
+    "RiskHint": "段末升降梯：带着收获回城，或者继续深入。这里不能休整。",
+    "RecoverHPRatio": 0,
+    "RecoverSANRatio": 0
+  },
   "EndNode": {
     "NodeType": "StairsNode",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，可撤离、回城处理污染或继续深入。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，可以撤离、回城处理污染或继续深入。"
   },
   "UnlockRule": {
     "RequiresHighestUnlockedLayer": 3,
@@ -651,7 +661,7 @@
       "ExpectedGuaranteedItemRefs": [
         "mat_core_tier3_seed"
       ],
-      "PassCriteria": "Boss 保底三阶机核种，Boss 后免费恢复 HP / SAN，但保留物品污染、订单物和背包压力。",
+      "PassCriteria": "Boss 保底三阶机核种，Boss 后回 30% HP、20% SAN，保留物品污染、订单物和背包压力。",
       "FailureSignals": [
         "三阶机核无来源",
         "安全区错误净化所有污染",

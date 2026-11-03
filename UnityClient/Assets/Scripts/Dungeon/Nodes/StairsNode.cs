@@ -6,7 +6,10 @@ public class StairsNode : NodeBase {
     public override void OnEnterNode() {
         Debug.Log($"[Dungeon] Entered Stairs Node {NodeID}. Choose to descend or return to town.");
         GameRoot.Core?.Dungeon?.TryUnlockNextStartLayerFromClearedLayer(LayerID);
-        DungeonSafeZoneService.RestoreActiveDollToFull(NodeID, "LayerEndSafeZone");
+        DungeonSafeZoneRules rules = ConfigManager.Dungeons != null && ConfigManager.Dungeons.TryGetValue(LayerID, out DungeonConfig config)
+            ? config.SafeZoneRules ?? new DungeonSafeZoneRules()
+            : new DungeonSafeZoneRules();
+        DungeonSafeZoneService.Recover(NodeID, "LayerEndSafeZone", rules.RecoverHPRatio, rules.RecoverSANRatio);
         DungeonEventBus.PublishStairsEntered(this);
     }
 

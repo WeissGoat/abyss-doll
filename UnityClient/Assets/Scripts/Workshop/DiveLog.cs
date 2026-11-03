@@ -282,7 +282,7 @@ public static class DiveLogService {
             return combat.MonsterIDs.Any(id => id != null && id.StartsWith("elite_")) ? "精英" : "战斗";
         }
 
-        if (node is SafeRoomNode) return "安全屋";
+        if (node is SafeRoomNode) return "升降梯";
         if (node is StairsNode) return "阶梯";
         if (node is TreasureNode) return "宝藏";
         if (node is RestStopNode) return "营地";

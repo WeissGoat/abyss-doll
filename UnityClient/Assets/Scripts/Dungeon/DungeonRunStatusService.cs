@@ -62,7 +62,7 @@ public static class DungeonRunStatusService {
         }
 
         status.StepsToExit = FindStepsToKnownExit(layer, out NodeBase exit);
-        status.ExitLabel = exit is StairsNode ? "阶梯" : exit is SafeRoomNode ? "安全屋" : null;
+        status.ExitLabel = exit is StairsNode ? "阶梯" : exit is SafeRoomNode ? "升降梯" : null;
 
         foreach (ItemEntity item in dungeon.CarriedRunLoot()) {
             status.LootCount++;

@@ -11,7 +11,13 @@ public class DungeonConfig {
     public int ExpectedNodeCount;
     public string MapProfileID;
     public int MapSeed;
+    // Rows of route nodes when the layer has no Segments.
     public int RowCount;
+    // Rows of route nodes in each segment (GDD_13: the layer is walked in 2-3 segments); a lift (SegmentExit) stands
+    // between two segments, where she can go home with what she carries.
+    public List<int> Segments = new List<int>();
+    public NodePoolEntry SegmentExit;
+    public DungeonSafeZoneRules SafeZoneRules = new DungeonSafeZoneRules();
     public int MinWidth;
     public int MaxWidth;
     public int MinRouteCount;
@@ -38,8 +44,18 @@ public class NodePoolEntry {
     public string RiskHint;
     public List<string> MonsterIDs = new List<string>();
     public string RewardID;
+    // A lift or safe room: the share of max HP / SAN it gives back on the way on (0: none).
+    public float RecoverHPRatio;
+    public float RecoverSANRatio;
     public List<DungeonNodeOutcomeConfig> OutcomeEffects = new List<DungeonNodeOutcomeConfig>();
     public int Weight;
+}
+
+// The safe zone after the layer's boss (GDD_13: it no longer heals fully, so wear carries from one layer into the next).
+[Serializable]
+public class DungeonSafeZoneRules {
+    public float RecoverHPRatio = 1f;
+    public float RecoverSANRatio = 1f;
 }
 
 [Serializable]

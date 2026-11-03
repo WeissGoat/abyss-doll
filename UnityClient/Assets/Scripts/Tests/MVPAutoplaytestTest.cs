@@ -555,9 +555,11 @@ internal class MVPAutoplayCampaign {
     private bool Rearranges => _style != MVPAutoplayStyle.Careful;
     private bool Greedy => _style == MVPAutoplayStyle.Greedy;
 
-    // Going on from layer 2 to layer 3 in the same dive needs this much HP left.
+    // Going down the stairs to the next layer in the same dive needs this much HP left.
     private const int DeeperHPPercent = 60;
-    // A careful player walks home from a safe room once the haul is worth this much on that layer (base value of what
+    // Below this at a lift she goes home: the next segment ends at another lift or the boss.
+    private const int LiftRetreatHPPercent = 45;
+    // A careful player walks home from a lift once the haul is worth this much on that layer (base value of what
     // the dive added to the backpack), and does not take a haul this big down the stairs.
     private static readonly int[] RetreatHaul = { 0, 700, 1400, 2200 };
 
@@ -635,15 +637,19 @@ internal class MVPAutoplayCampaign {
                     break;
                 }
             } else if (node is SafeRoomNode safeRoomNode) {
+                // A lift at a segment's end: home with a haul worth keeping, or before she is too hurt to go on.
                 UseConsumablesOutsideCombat();
-                safeRoomNode.Rest();
-                if (HaulValue() >= RetreatHaul[_core.Dungeon.CurrentLayer.LayerID]) {
+                DollEntity diver = _core.CurrentPlayer.ActiveDoll;
+                bool hurt = diver.Status.HP_Current * 100 < diver.Status.HP_Max * LiftRetreatHPPercent;
+                if (hurt || HaulValue() >= RetreatHaul[_core.Dungeon.CurrentLayer.LayerID]) {
                     _currentExpedition.Evacuated = true;
                     _currentExpedition.HaulValue = HaulValue();
                     safeRoomNode.Evacuate();
                     _currentExpedition.ReachedTown = _settledVictory;
                     break;
                 }
+
+                safeRoomNode.Continue();
             } else if (node is DungeonOutcomeNode) {
                 // Outcome nodes publish their result through the event bus.
                 // The autoplay handler confirms that result and lets the dungeon flow return to the map.
@@ -662,11 +668,12 @@ internal class MVPAutoplayCampaign {
                     }
                 }
 
-                // Down from layer 1 whenever going deep; from layer 2 only with HP to spare.
+                // Down when going deep and she has HP to spare (the safe zone gives back only part of it); from layer 2
+                // only with a haul not worth risking.
                 DollEntity diver = _core.CurrentPlayer.ActiveDoll;
                 bool healthy = diver.Status.HP_Current * 100 >= diver.Status.HP_Max * DeeperHPPercent;
                 bool worthKeeping = HaulValue() >= RetreatHaul[layer];
-                if (attemptLayer2 && layer < 3 && (layer == 1 || (healthy && !worthKeeping && readyForLayer3)) && stairsNode.CanEnterNextLayer()) {
+                if (attemptLayer2 && layer < 3 && healthy && (layer == 1 || (!worthKeeping && readyForLayer3)) && stairsNode.CanEnterNextLayer()) {
                     stairsNode.EnterNextLayer();
                     if (layer == 1) {
                         _report.EnteredLayer2 = true;

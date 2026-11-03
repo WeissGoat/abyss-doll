@@ -286,7 +286,7 @@ public static class HomeLoop {
     public static string UnlockText(int level) {
         switch (level) {
             case 1: return "夜里她会多说一些话";
-            case 2: return "安全屋里，她会提醒你前面的路";
+            case 2: return "升降梯旁，她会提醒你前面的路";
             case 3: return "每次下潜一次：致命的一击，她会咬牙撑住（留 1 HP）";
             default: return "她更信任你了";
         }

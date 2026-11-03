@@ -36,27 +36,42 @@ public class DungeonLayer {
         RunSeed = ResolveSeed(config, runSeed);
         System.Random rng = new System.Random(RunSeed);
 
-        int routeRowCount = ResolveRouteRowCount(config);
         int minWidth = ResolveMinWidth(config);
         int maxWidth = ResolveMaxWidth(config, minWidth);
         int minRouteCount = Mathf.Clamp(config.MinRouteCount > 0 ? config.MinRouteCount : minWidth, 1, maxWidth);
+        List<int> segments = config.Segments != null && config.Segments.Count > 0
+            ? config.Segments
+            : new List<int> { ResolveRouteRowCount(config) };
 
-        for (int rowIndex = 0; rowIndex < routeRowCount; rowIndex++) {
-            int width = ResolveRouteRowWidth(rowIndex, routeRowCount, minWidth, maxWidth, minRouteCount, rng);
-            List<NodeBase> row = new List<NodeBase>();
-            for (int columnIndex = 0; columnIndex < width; columnIndex++) {
-                NodePoolEntry entry = PickRandomNode(config.NodePool, rng);
-                NodeBase node = CreateConfiguredNode(entry, $"layer_{config.LayerID}_r{rowIndex}_c{columnIndex}", config.LayerID);
-                if (node == null) {
-                    continue;
+        for (int segmentIndex = 0; segmentIndex < segments.Count; segmentIndex++) {
+            int segmentRows = Mathf.Max(1, segments[segmentIndex]);
+            for (int rowInSegment = 0; rowInSegment < segmentRows; rowInSegment++) {
+                int rowIndex = NodeRows.Count;
+                int width = ResolveRouteRowWidth(rowInSegment, segmentRows, minWidth, maxWidth, minRouteCount, rng);
+                List<NodeBase> row = new List<NodeBase>();
+                for (int columnIndex = 0; columnIndex < width; columnIndex++) {
+                    // Elites wait for the second segment: the first is where she finds out how the layer hits.
+                    NodePoolEntry entry = PickRandomNode(config.NodePool, rng, allowElite: segmentIndex > 0);
+                    NodeBase node = CreateConfiguredNode(entry, $"layer_{config.LayerID}_r{rowIndex}_c{columnIndex}", config.LayerID);
+                    if (node == null) {
+                        continue;
+                    }
+
+                    ConfigureMapPosition(node, rowIndex, columnIndex, ResolveRouteTheme(columnIndex, width));
+                    row.Add(node);
                 }
 
-                ConfigureMapPosition(node, rowIndex, columnIndex, ResolveRouteTheme(columnIndex, width));
-                row.Add(node);
+                if (row.Count > 0) {
+                    NodeRows.Add(row);
+                }
             }
 
-            if (row.Count > 0) {
-                NodeRows.Add(row);
+            if (segmentIndex < segments.Count - 1 && config.SegmentExit != null) {
+                NodeBase lift = CreateConfiguredNode(config.SegmentExit, $"layer_{config.LayerID}_lift{segmentIndex + 1}", config.LayerID);
+                if (lift != null) {
+                    ConfigureMapPosition(lift, NodeRows.Count, 0, "SafeZone");
+                    NodeRows.Add(new List<NodeBase> { lift });
+                }
             }
         }
 
@@ -174,30 +189,39 @@ public class DungeonLayer {
         return Mathf.Clamp(Mathf.RoundToInt(normalized * (targetCount - 1)), 0, targetCount - 1);
     }
 
-    private NodePoolEntry PickRandomNode(List<NodePoolEntry> pool, System.Random rng) {
+    private NodePoolEntry PickRandomNode(List<NodePoolEntry> pool, System.Random rng, bool allowElite) {
         if (pool == null || pool.Count == 0) {
             return null;
         }
 
+        List<NodePoolEntry> candidates = allowElite ? pool : pool.FindAll(p => !IsEliteEntry(p));
+        if (candidates.Count == 0) {
+            candidates = pool;
+        }
+
         int totalWeight = 0;
-        foreach (var p in pool) {
+        foreach (var p in candidates) {
             totalWeight += p.Weight;
         }
 
         if (totalWeight <= 0) {
-            return pool[0];
+            return candidates[0];
         }
 
         int roll = rng.Next(0, totalWeight);
         int current = 0;
-        foreach (var p in pool) {
+        foreach (var p in candidates) {
             current += p.Weight;
             if (roll < current) {
                 return p;
             }
         }
 
-        return pool[pool.Count - 1];
+        return candidates[candidates.Count - 1];
+    }
+
+    private static bool IsEliteEntry(NodePoolEntry entry) {
+        return entry?.MonsterIDs != null && entry.MonsterIDs.Exists(id => id != null && id.StartsWith("elite_", StringComparison.Ordinal));
     }
 
     private int ResolveSeed(DungeonConfig config, int runSeed) {

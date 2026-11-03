@@ -14,10 +14,11 @@
   ],
   "SANCostPerNode": 2,
   "CorruptionPerNode": 4,
-  "ExpectedNodeCount": 7,
+  "ExpectedNodeCount": 10,
   "MapProfileID": "layer2_bag_pressure",
   "MapSeed": 2048,
-  "RowCount": 6,
+  "RowCount": 10,
+  "Segments": [5, 5],
   "MinWidth": 2,
   "MaxWidth": 4,
   "MinRouteCount": 3,
@@ -152,8 +153,7 @@
     "TreasureNode": 10,
     "EventNode": 16,
     "RestStopNode": 8,
-    "HazardNode": 8,
-    "SafeRoomNode": 6
+    "HazardNode": 8
   },
   "RequiredNodes": [
     {
@@ -518,22 +518,32 @@
     "RuntimeRole": "PostBossSafeZone",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，免费恢复并选择撤离或继续深入。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，选择撤离或继续深入。"
   },
   "SafeZoneRules": {
-    "FreeRecoverHP": true,
-    "FreeRecoverSAN": true,
+    "RecoverHPRatio": 0.3,
+    "RecoverSANRatio": 0.2,
     "ClearItemPollution": false,
     "ClearOrderState": false,
     "AllowExtract": true,
     "AllowDescend": true,
     "PreserveRunLedger": true
   },
+  "SegmentExit": {
+    "NodeType": "SafeRoomNode",
+    "NodeIconID": "node_safe_room_icon",
+    "Title": "升降梯",
+    "Description": "管廊检修用的升降台，锈得厉害，但还撑得住两个人。",
+    "RiskLevel": "Safe",
+    "RiskHint": "段末升降梯：带着收获回城，或者继续深入。这里不能休整。",
+    "RecoverHPRatio": 0,
+    "RecoverSANRatio": 0
+  },
   "EndNode": {
     "NodeType": "StairsNode",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN，可选择深入下一层或返回小镇。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，可以深入下一层或返回小镇。"
   },
   "UnlockRule": {
     "RequiresHighestUnlockedLayer": 2,
@@ -656,7 +666,7 @@
       "ExpectedGuaranteedItemRefs": [
         "mat_core_tier2_fragment"
       ],
-      "PassCriteria": "Boss 保底二阶碎片，Boss 后安全区免费恢复 HP / SAN，但保留背包、订单、污染和探索账本。",
+      "PassCriteria": "Boss 保底二阶碎片，Boss 后安全区回 30% HP、20% SAN，保留背包、订单、污染和探索账本。",
       "FailureSignals": [
         "二阶碎片仍由 elite_mutant_amalgam 保底",
         "Boss 后清订单或污染",

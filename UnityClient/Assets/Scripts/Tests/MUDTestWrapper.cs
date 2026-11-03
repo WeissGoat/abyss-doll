@@ -73,7 +73,7 @@ public static class MUDTestWrapper {
                 }
             } else if (currNode is SafeRoomNode safeRoom) {
                 Debug.Log("[MUD] 进入安全区，睡一觉回满...");
-                safeRoom.Rest();
+                safeRoom.Continue();
                 
                 if (currNode.NextNodes != null && currNode.NextNodes.Count > 0) {
                     currNode = currNode.NextNodes[0];

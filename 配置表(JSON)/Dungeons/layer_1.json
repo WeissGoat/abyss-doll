@@ -14,10 +14,11 @@
   ],
   "SANCostPerNode": 1,
   "CorruptionPerNode": 2,
-  "ExpectedNodeCount": 6,
+  "ExpectedNodeCount": 8,
   "MapProfileID": "layer1_tutorial_branching",
   "MapSeed": 1024,
-  "RowCount": 5,
+  "RowCount": 8,
+  "Segments": [4, 4],
   "MinWidth": 2,
   "MaxWidth": 3,
   "MinRouteCount": 2,
@@ -145,8 +146,7 @@
     "TreasureNode": 12,
     "EventNode": 16,
     "RestStopNode": 8,
-    "HazardNode": 6,
-    "SafeRoomNode": 8
+    "HazardNode": 6
   },
   "RequiredNodes": [
     {
@@ -386,16 +386,6 @@
       "Weight": 3
     },
     {
-      "NodeType": "SafeRoomNode",
-      "NodeIconID": "node_safe_room_icon",
-      "Title": "低压岔路",
-      "Description": "矿道暂时稳定，可以在这里休整回满，也可以带着收获返回小镇。",
-      "RiskLevel": "Safe",
-      "RiskHint": "层内安全屋：休整回满，或在这里撤离。",
-      "MonsterIDs": [],
-      "Weight": 8
-    },
-    {
       "NodeType": "TreasureNode",
       "NodeIconID": "node_treasurenode_icon",
       "Title": "废弃矿车",
@@ -484,22 +474,32 @@
     "RuntimeRole": "PostBossSafeZone",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，免费恢复并选择撤离或继续深入。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，选择撤离或继续深入。"
   },
   "SafeZoneRules": {
-    "FreeRecoverHP": true,
-    "FreeRecoverSAN": true,
+    "RecoverHPRatio": 0.3,
+    "RecoverSANRatio": 0.2,
     "ClearItemPollution": false,
     "ClearOrderState": false,
     "AllowExtract": true,
     "AllowDescend": true,
     "PreserveRunLedger": true
   },
+  "SegmentExit": {
+    "NodeType": "SafeRoomNode",
+    "NodeIconID": "node_safe_room_icon",
+    "Title": "升降梯",
+    "Description": "旧矿井的吊笼还能动。拉一下铃，绳索会把你们吊回地面。",
+    "RiskLevel": "Safe",
+    "RiskHint": "段末升降梯：带着收获回城，或者继续深入。这里不能休整。",
+    "RecoverHPRatio": 0,
+    "RecoverSANRatio": 0
+  },
   "EndNode": {
     "NodeType": "StairsNode",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN，可选择深入下一层或返回小镇。"
+    "RiskHint": "Boss 后安全区：回 30% HP、20% SAN，可以深入下一层或返回小镇。"
   },
   "UnlockRule": {
     "UnlocksLayerID": 2,
@@ -637,7 +637,7 @@
         "mat_core_tier1 仍由 elite_scrap_guard 保底",
         "Boss 奖励空池或缺 reward_boss_gatekeeper_mk1",
         "Boss 后没有 SafeZone / Stairs",
-        "Boss 后安全区不免费恢复 HP / SAN"
+        "Boss 后安全区没有回 30% HP、20% SAN"
       ]
     },
     {

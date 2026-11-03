@@ -664,11 +664,13 @@ public static class P3DevTools {
                 log.AppendLine("Ending comic: " + FindOverlay()?.CurrentText);
                 DemoEndingComic.Current.Advance();
             } else if (IsPanelActive("SafeRoomPanel")) {
-                if (EasyFights && ClickByLabel("休整", log)) {
+                // A lift at a segment's end (go on / home with the haul) or the stairs after the boss (down / home).
+                bool lift = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode is SafeRoomNode;
+                if (EasyFights && lift && ClickByLabel("继续深入", log)) {
                     continue;
                 }
 
-                if (!ClickByLabel("返回小镇", log)) {
+                if (!ClickByLabel(lift ? "带着收获回城" : "返回小镇", log)) {
                     break;
                 }
             } else if (stopAtMap && IsPanelActive("DungeonMapPanel") && GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode != null) {
@@ -863,7 +865,7 @@ public static class P3DevTools {
     }
 
     // The route to the end of the Demo, not its numbers: layer 3 open and chosen, and every fight from here on starts
-    // with the enemies at 1 HP (RunDive also rests at safe rooms instead of leaving, so it reaches the boss).
+    // with the enemies at 1 HP (RunDive also goes on at lifts instead of leaving, so it reaches the boss).
     public static bool EasyFights;
 
     public static string PrepareDemoEnding() {

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public static class DungeonStairsProgressionTest {
         TestDungeonStartLayerDefaultsAndLockedValidation();
         TestDungeonStartLayerUiShowsReadinessReasons();
         TestStairsUnlocksNextStartLayer();
-        TestStairsRestoresDollStatusWithoutClearingLootLedger();
+        TestStairsRecoversPartOfDollStatusWithoutClearingLootLedger();
         TestStartRunAtUnlockedLayerResetsRunLootLedger();
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
@@ -34,9 +35,14 @@ public static class DungeonStairsProgressionTest {
         DungeonConfig config = ConfigManager.Dungeons[1];
         NodeBase bossNode = GetBossNode(layer);
         NodeBase finalNode = FindLastNode(layer);
+        // Route rows, a lift between two segments, the boss and the stairs.
+        int lifts = Mathf.Max(0, config.Segments.Count - 1);
+        int expectedRows = config.Segments.Sum() + lifts + 2;
+        bool liftsInPlace = layer != null && layer.NodeRows.Count(row => row.Count == 1 && row[0] is SafeRoomNode) == lifts;
 
         bool networkShapeValid = layer != null
-            && layer.NodeRows.Count == config.RowCount + 2
+            && layer.NodeRows.Count == expectedRows
+            && liftsInPlace
             && layer.EntryNodes.Count >= config.MinRouteCount
             && CountNodes(layer) > config.ExpectedNodeCount + 1
             && CountEdges(layer) >= CountNodes(layer) - 1
@@ -54,7 +60,7 @@ public static class DungeonStairsProgressionTest {
         if (networkShapeValid) {
             Debug.Log("Configured Layer Network Stairs Generation PASSED.");
         } else {
-            Debug.LogError($"Configured Layer Network Stairs Generation FAILED. Rows={layer?.NodeRows.Count ?? -1}/{config.RowCount + 2}, Entries={layer?.EntryNodes.Count ?? -1}/{config.MinRouteCount}, Nodes={CountNodes(layer)}, Edges={CountEdges(layer)}, EndNode={config.EndNode?.NodeType ?? "null"}, BossType={bossNode?.GetType().Name ?? "null"}, FinalType={finalNode?.GetType().Name ?? "null"}");
+            Debug.LogError($"Configured Layer Network Stairs Generation FAILED. Rows={layer?.NodeRows.Count ?? -1}/{expectedRows}, Lifts={liftsInPlace}, Entries={layer?.EntryNodes.Count ?? -1}/{config.MinRouteCount}, Nodes={CountNodes(layer)}, Edges={CountEdges(layer)}, EndNode={config.EndNode?.NodeType ?? "null"}, BossType={bossNode?.GetType().Name ?? "null"}, FinalType={finalNode?.GetType().Name ?? "null"}");
         }
 
         int beforeSan = core.CurrentPlayer.ActiveDoll.Status.SAN_Current;
@@ -301,14 +307,18 @@ public static class DungeonStairsProgressionTest {
         }
     }
 
-    private static void TestStairsRestoresDollStatusWithoutClearingLootLedger() {
+    private static void TestStairsRecoversPartOfDollStatusWithoutClearingLootLedger() {
         CoreBackend core = CreateCore();
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
         BackpackGrid grid = ResetBackpack(doll);
 
         core.Dungeon.LoadLayer(1);
-        doll.Status.HP_Current = Mathf.Max(1, doll.Status.HP_Max - 25);
-        doll.Status.SAN_Current = Mathf.Max(1, doll.Status.SAN_Max - 15);
+        // Low enough that the safe zone's share (GDD_13: not a full heal) cannot top her up.
+        doll.Status.HP_Current = Mathf.Max(1, doll.Status.HP_Max - 60);
+        doll.Status.SAN_Current = Mathf.Max(1, doll.Status.SAN_Max - 30);
+        DungeonSafeZoneRules rules = ConfigManager.Dungeons[1].SafeZoneRules;
+        int expectedHP = Mathf.Min(doll.Status.HP_Max, doll.Status.HP_Current + Mathf.RoundToInt(doll.Status.HP_Max * rules.RecoverHPRatio));
+        int expectedSAN = Mathf.Min(doll.Status.SAN_Max, doll.Status.SAN_Current + Mathf.RoundToInt(doll.Status.SAN_Max * rules.RecoverSANRatio));
 
         StairsNode stairs = FindLastNode(core.Dungeon.CurrentLayer) as StairsNode;
         ItemEntity carriedLoot = ConfigManager.CreateItem("loot_gear_scrap");
@@ -321,8 +331,9 @@ public static class DungeonStairsProgressionTest {
         core.Dungeon.CurrentLayer.CurrentNode = FindPredecessor(core.Dungeon.CurrentLayer, stairs);
         core.Dungeon.MoveToNode(stairs);
 
-        bool restored = doll.Status.HP_Current == doll.Status.HP_Max
-            && doll.Status.SAN_Current == doll.Status.SAN_Max;
+        bool restored = doll.Status.HP_Current == expectedHP
+            && doll.Status.SAN_Current == expectedSAN
+            && expectedHP < doll.Status.HP_Max;
 
         stairs?.EnterNextLayer();
         _lastSettlementResult = null;
@@ -338,7 +349,7 @@ public static class DungeonStairsProgressionTest {
         if (stairs != null && restored && ledgerPreserved) {
             Debug.Log("Stairs Safe Zone Recovery PASSED.");
         } else {
-            Debug.LogError($"Stairs Safe Zone Recovery FAILED. Stairs={stairs != null}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, SAN={doll.Status.SAN_Current}/{doll.Status.SAN_Max}, Picked={_lastSettlementResult?.PickedUpCount ?? -1}, Brought={_lastSettlementResult?.BroughtOutCount ?? -1}, Lost={_lastSettlementResult?.LostCount ?? -1}");
+            Debug.LogError($"Stairs Safe Zone Recovery FAILED. Stairs={stairs != null}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max} (expected {expectedHP}), SAN={doll.Status.SAN_Current}/{doll.Status.SAN_Max} (expected {expectedSAN}), Picked={_lastSettlementResult?.PickedUpCount ?? -1}, Brought={_lastSettlementResult?.BroughtOutCount ?? -1}, Lost={_lastSettlementResult?.LostCount ?? -1}");
         }
     }
 

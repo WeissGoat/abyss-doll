@@ -28,8 +28,8 @@ public class SafeRoomUIController : MonoBehaviour {
         _currentSafeRoomNode = node;
         _currentStairsNode = null;
         ApplyRoomSkin(VisualAssetService.ResolveSafeRoomBackgroundID());
-        SetButtonLabel(restBtn, "休整");
-        SetButtonLabel(evacuateBtn, "返回小镇");
+        SetButtonLabel(restBtn, "继续深入");
+        SetButtonLabel(evacuateBtn, "带着收获回城");
         SetPrimaryInteractable(true);
         RefreshItemHints();
     }
@@ -48,7 +48,7 @@ public class SafeRoomUIController : MonoBehaviour {
 
     private void HandlePrimaryAction() {
         if (_currentSafeRoomNode != null) {
-            _currentSafeRoomNode.Rest();
+            _currentSafeRoomNode.Continue();
             return;
         }
 
@@ -108,7 +108,7 @@ public class SafeRoomUIController : MonoBehaviour {
 
         BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         if (grid == null) {
-            itemHintText.text = "安全屋中可整理背包，并点击消耗品立即使用。";
+            itemHintText.text = LiftLine();
             return;
         }
 
@@ -121,9 +121,9 @@ public class SafeRoomUIController : MonoBehaviour {
             lines.Add($"{item.Name}: {ItemPresentationRules.BuildUseHint(item)}");
         }
 
-        itemHintText.text = lines.Count > 0
-            ? "安全屋补给\n" + string.Join("\n", lines)
-            : "安全屋补给\n当前背包里没有可用消耗品。";
+        itemHintText.text = LiftLine() + (lines.Count > 0
+            ? "\n" + string.Join("\n", lines)
+            : "\n背包里没有能用的消耗品。");
 
         // Bond 2: Zero says what she senses on the paths ahead.
         if (BondService.Level(GameRoot.Core?.CurrentPlayer?.ActiveDoll) >= HomeLoop.HintLevel) {
@@ -132,6 +132,26 @@ public class SafeRoomUIController : MonoBehaviour {
                 itemHintText.text = $"零号：「{hint}」\n" + itemHintText.text;
             }
         }
+    }
+
+    // What the lift offers: home now with what she carries, or on to the next lift or the boss.
+    private string LiftLine() {
+        DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
+        string ahead = string.Empty;
+        if (layer != null && _currentSafeRoomNode != null) {
+            int rows = 0;
+            for (int row = _currentSafeRoomNode.MapRow + 1; row < layer.NodeRows.Count; row++) {
+                NodeBase first = layer.NodeRows[row].Count > 0 ? layer.NodeRows[row][0] : null;
+                if (first is SafeRoomNode || first is StairsNode || first is CombatNode && first.NodeID.EndsWith("_boss")) {
+                    ahead = first is SafeRoomNode ? $"再走 {rows} 格是下一座升降梯。" : $"再走 {rows} 格是首领。";
+                    break;
+                }
+
+                rows++;
+            }
+        }
+
+        return "升降梯\n现在回城，背包里的东西就落袋了；继续深入，" + (string.IsNullOrEmpty(ahead) ? "前面没有回头路。" : ahead);
     }
 
     private void SetButtonLabel(Button button, string label) {

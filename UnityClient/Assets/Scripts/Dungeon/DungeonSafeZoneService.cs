@@ -1,7 +1,9 @@
 using UnityEngine;
 
+// What a lift or the safe zone after a boss gives back (GDD_13: a share of max HP / SAN, not a full heal, so the wear of
+// a layer carries into the next one).
 public static class DungeonSafeZoneService {
-    public static DungeonSafeZoneRecoveryResult RestoreActiveDollToFull(string sourceID, string reason) {
+    public static DungeonSafeZoneRecoveryResult Recover(string sourceID, string reason, float hpRatio, float sanRatio) {
         DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
         if (doll == null || doll.Status == null) {
             string failureReason = "Active doll is missing.";
@@ -15,13 +17,13 @@ public static class DungeonSafeZoneService {
         int maxHP = Mathf.Max(0, status.HP_Max);
         int maxSAN = Mathf.Max(0, status.SAN_Max);
 
-        status.HP_Current = maxHP;
-        status.SAN_Current = maxSAN;
+        status.HP_Current = Mathf.Min(maxHP, beforeHP + Mathf.RoundToInt(maxHP * Mathf.Max(0f, hpRatio)));
+        status.SAN_Current = Mathf.Min(maxSAN, beforeSAN + Mathf.RoundToInt(maxSAN * Mathf.Max(0f, sanRatio)));
 
         GameEventBus.PublishHPChanged(doll.Name, status.HP_Current, status.HP_Max);
         GameEventBus.PublishSANChanged(doll.Name, status.SAN_Current, status.SAN_Max);
 
-        Debug.Log($"[DungeonSafeZone] Restored active doll. Source={sourceID ?? "Unknown"}, Reason={reason ?? "Unknown"}, HP={beforeHP}->{status.HP_Current}, SAN={beforeSAN}->{status.SAN_Current}");
+        Debug.Log($"[DungeonSafeZone] Recovered active doll. Source={sourceID ?? "Unknown"}, Reason={reason ?? "Unknown"}, HP={beforeHP}->{status.HP_Current}, SAN={beforeSAN}->{status.SAN_Current}");
         return DungeonSafeZoneRecoveryResult.Succeeded(sourceID, reason, beforeHP, status.HP_Current, beforeSAN, status.SAN_Current);
     }
 }

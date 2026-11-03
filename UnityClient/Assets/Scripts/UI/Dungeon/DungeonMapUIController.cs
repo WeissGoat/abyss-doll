@@ -546,7 +546,7 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         if (node is SafeRoomNode) {
-            return "安全屋";
+            return "升降梯";
         }
 
         if (node is StairsNode) {

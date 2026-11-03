@@ -203,7 +203,7 @@ public static class MainFlowGoldenPathSmokeTest {
         }
 
         if (node is SafeRoomNode safeRoom) {
-            safeRoom.Rest();
+            safeRoom.Continue();
             Step("safe_room_resolved", $"Node={node.NodeID}");
             return true;
         }
