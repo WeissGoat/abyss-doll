@@ -11,7 +11,8 @@
 - --alpha: take alpha from a matte of the same clip instead of keying (the cloud BiRefNet workflow's VP9 WebM with
   alpha), so the background can be any flat colour (mid-grey keeps H3 from tinting the figure green). The colour is
   still unmixed against the background measured in the corners; no green clamp. The fade blends alpha too.
-- Output: VP8 WebM with alpha (yuva420p), no audio. Import it in Unity with "Keep Alpha" on.
+- Output: VP8 WebM with alpha (yuva420p), no audio, constant quality --crf 32 (about 6.7 MB for 5 s at 832x1248;
+  lower values grow the file but barely improve on it, the 4:2:0 colour loss is the floor). Import it in Unity with "Keep Alpha" on.
 Needs numpy, Pillow and an ffmpeg with libvpx (imageio-ffmpeg's bundled one works).
 """
 import argparse
@@ -109,8 +110,8 @@ def main():
     parser.add_argument('src')
     parser.add_argument('dst')
     parser.add_argument('--fade', type=int, default=12)
-    parser.add_argument('--bitrate', default='3M')
-    parser.add_argument('--crf', type=int, help='constant quality (4-63, lower is better); --bitrate becomes the cap')
+    parser.add_argument('--bitrate', default='12M', help='cap with --crf, the target bitrate with --crf 0')
+    parser.add_argument('--crf', type=int, default=32, help='constant quality (4-63, lower is better); 0 for a fixed bitrate')
     parser.add_argument('--preview')
     parser.add_argument('--grey-edges', action='store_true', help='take the colour out of see-through strands')
     parser.add_argument('--alpha', help='matte WebM of the same clip (VP9 with alpha) to take alpha from instead of keying')
@@ -138,7 +139,7 @@ def main():
                 keyed.append(rgba)
         cmd = [find_ffmpeg(), '-y', '-loglevel', 'error', '-framerate', f'{fps:g}', '-i', os.path.join(tmp, '%05d.png'),
                '-c:v', 'libvpx', '-pix_fmt', 'yuva420p', '-auto-alt-ref', '0', '-b:v', args.bitrate,
-               *(['-crf', str(args.crf)] if args.crf is not None else []), '-an', args.dst]
+               *(['-crf', str(args.crf)] if args.crf else []), '-an', args.dst]
         subprocess.run(cmd, check=True)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
