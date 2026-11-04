@@ -8,6 +8,10 @@ public class DungeonConfig {
     public int SANCostPerNode;
     // Extra SAN per step on this layer when she is hurt, overloaded or corroded (GDD_02 §3.5).
     public DungeonSanTaxRules SANTax = new DungeonSanTaxRules();
+    // Growth gates (GDD_13): starting a dive on this layer from town costs a permit fee (walking down the stairs does
+    // not), and she needs a chassis of this level to go in at all, from town or down the stairs.
+    public int DirectStartFee;
+    public int RequiredChassisLevel;
     // Corruption (侵蚀) Zero gains for every node walked on this layer (DollStrainService).
     public float CorruptionPerNode;
     public int ExpectedNodeCount;
@@ -46,6 +50,9 @@ public class NodePoolEntry {
     public string RiskHint;
     public List<string> MonsterIDs = new List<string>();
     public string RewardID;
+    // An event that asks the player to choose (GDD_02 §3.3): the scene to play; each of its choices carries its own
+    // outcome and reward (SceneChoice). Without it the event just resolves OutcomeEffects and RewardID.
+    public string SceneID;
     // A lift or safe room: the share of max HP / SAN it gives back on the way on (0: none).
     public float RecoverHPRatio;
     public float RecoverSANRatio;

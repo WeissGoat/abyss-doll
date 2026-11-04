@@ -590,7 +590,8 @@ public static class P3DevTools {
     // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
     // stopAtMap: stop on the route map once Zero has walked a node (reports "Map ready."), for the same reason.
     // stopAtLift: stop on a lift's screen before sending anything up (reports "Lift ready.").
-    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false, bool stopAtLift = false) {
+    // stopAtEvent: stop on a dungeon event once its choices show (reports "Event ready.").
+    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false, bool stopAtLift = false, bool stopAtEvent = false) {
         StringBuilder log = new StringBuilder();
         if (FinishArrival(log)) {
             return log.ToString() + Describe();
@@ -622,6 +623,19 @@ public static class P3DevTools {
         string lastSignature = null;
         for (int step = 0; step < maxSteps; step++) {
             if (ScenePanel.IsShowing) {
+                // A dungeon event's scene: its lines, then the first choice. The prologue's scenes are PlayPrologue's.
+                if (GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode is EventNode) {
+                    Transform choice = ScenePanel.Active.transform.Find("Dialog/SceneChoice_0");
+                    if (stopAtEvent && choice != null && choice.gameObject.activeInHierarchy) {
+                        log.AppendLine("Event ready.");
+                        break;
+                    }
+
+                    if (StoryStep(log)) {
+                        continue;
+                    }
+                }
+
                 log.AppendLine("A scene is showing; PlayPrologue() plays it.");
                 break;
             }
@@ -888,7 +902,27 @@ public static class P3DevTools {
         player.HighestUnlockedDungeonLayer = Mathf.Max(player.HighestUnlockedDungeonLayer, 3);
         player.LastSelectedDungeonStartLayer = 3;
         EasyFights = true;
-        return "Layer 3 open and chosen; fights are easy until EasyFights is cleared.\n" + Describe();
+
+        // Layer 3 asks for a bigger chassis (GDD_13 growth gate): hand over the materials and money and upgrade the
+        // usual way, as a player who got here would have.
+        string chassis = string.Empty;
+        DollEntity doll = player.ActiveDoll;
+        while (doll?.Chassis != null && !DiveReadinessService.ChassisAllows(doll, ConfigManager.Dungeons[3]) && doll.Chassis.UpgradeCost != null) {
+            foreach (CraftingRequirement required in doll.Chassis.UpgradeCost.RequiredItems ?? new List<CraftingRequirement>()) {
+                for (int i = ItemLifecycleService.CountOwnedItems(player, required.ConfigID); i < required.Count; i++) {
+                    ItemLifecycleService.MarkGroundInventoryItem(player, ConfigManager.CreateItem(required.ConfigID), "DevDemoEnding");
+                }
+            }
+
+            player.Money += doll.Chassis.UpgradeCost.Money;
+            ChassisUpgradeResult upgrade = ChassisUpgradeService.Upgrade(player, doll);
+            chassis += upgrade.Success ? $"Chassis upgraded to {doll.Chassis.ChassisID}.\n" : $"Chassis upgrade failed: {upgrade.Reason}\n";
+            if (!upgrade.Success) {
+                break;
+            }
+        }
+
+        return "Layer 3 open and chosen; fights are easy until EasyFights is cleared.\n" + chassis + Describe();
     }
 
     // Clicks 和她说话 in the hall or the attic (goes to the hall from the studio).

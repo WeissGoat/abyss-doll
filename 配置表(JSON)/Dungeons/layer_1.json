@@ -401,15 +401,9 @@
       "Title": "矿工遗包",
       "Description": "破损背包里留下矿灯和镇静剂，但翻找会消耗少量 SAN。",
       "RewardID": "reward_node_event_layer1_miner_pack",
+      "SceneID": "ev_l1_miner_pack",
       "RiskLevel": "Medium",
-      "RiskHint": "事件节点，以少量 SAN 压力换取可带走物资。",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -1
-        }
-      ],
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 8
     },
     {
@@ -418,15 +412,9 @@
       "Title": "裂纹圣牌",
       "Description": "石缝中的圣牌仍有微弱回响，带走它会提高背包取舍压力。",
       "RewardID": "reward_node_event_layer1_cracked_relic",
+      "SceneID": "ev_l1_cracked_relic",
       "RiskLevel": "Medium",
-      "RiskHint": "高价值事件节点，可能带来大件战利品。",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -1
-        }
-      ],
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 6
     },
     {

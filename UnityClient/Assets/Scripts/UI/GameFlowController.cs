@@ -137,6 +137,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered += HandlePrologueBeatEntered;
+        DungeonEventBus.OnChoiceEventEntered += HandleChoiceEventEntered;
         DungeonEventBus.OnRunCheckpoint += HandleRunCheckpoint;
         GameAudio.BindGameEvents();
 
@@ -363,6 +364,11 @@ public class GameFlowController : MonoBehaviour {
         } else if (node is PrologueBringBackNode cart) {
             ScenePanel.Play("t0_mine_cart", itemID => ScenePanel.Play("t0_head_home", _ => cart.Choose(itemID)), PrologueShallowRun.BringBackOptions());
         }
+    }
+
+    // A dungeon event: its scene, then the choice's outcome on the usual result or loot screen.
+    private void HandleChoiceEventEntered(EventNode node) {
+        ScenePanel.Play(node.SceneID, node.Choose);
     }
 
     private void HandleSafeRoomEntered(NodeBase node) {
@@ -1163,6 +1169,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered -= HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered -= HandlePrologueBeatEntered;
+        DungeonEventBus.OnChoiceEventEntered -= HandleChoiceEventEntered;
         DungeonEventBus.OnRunCheckpoint -= HandleRunCheckpoint;
     }
 }

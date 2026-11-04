@@ -26,10 +26,20 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
     }
 
     public override void OnEnterNode() {
-        List<string> outcomeLines = new List<string>();
-        ApplyConfiguredOutcomes(outcomeLines);
+        Resolve(_outcomeEffects, RewardID, null);
+    }
 
-        CombatLootPickupResult lootResult = PrepareLootPickupResult(outcomeLines);
+    // Applies the outcome, then offers the reward's loot or shows the result card. lead replaces the node's description
+    // at the top of the card (an event choice says what she did).
+    protected void Resolve(IEnumerable<DungeonNodeOutcomeConfig> effects, string rewardID, string lead) {
+        if (!string.IsNullOrEmpty(lead)) {
+            _description = lead;
+        }
+
+        List<string> outcomeLines = new List<string>();
+        ApplyConfiguredOutcomes(effects, outcomeLines);
+
+        CombatLootPickupResult lootResult = PrepareLootPickupResult(rewardID, outcomeLines);
         if (lootResult != null && lootResult.OfferedItems.Count > 0) {
             _pendingLootResult = lootResult;
             DungeonEventBus.PublishCombatLootPrepared(lootResult);
@@ -67,12 +77,12 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
         DungeonEventBus.PublishNodeSettlementCompleted();
     }
 
-    private void ApplyConfiguredOutcomes(List<string> outcomeLines) {
-        if (_outcomeEffects.Count == 0) {
+    private void ApplyConfiguredOutcomes(IEnumerable<DungeonNodeOutcomeConfig> effects, List<string> outcomeLines) {
+        if (effects == null) {
             return;
         }
 
-        foreach (DungeonNodeOutcomeConfig effect in _outcomeEffects) {
+        foreach (DungeonNodeOutcomeConfig effect in effects) {
             if (effect == null) {
                 continue;
             }
@@ -155,12 +165,12 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
         outcomeLines.Add(BuildDeltaLine("金币", before, player.Money));
     }
 
-    private CombatLootPickupResult PrepareLootPickupResult(List<string> outcomeLines) {
-        if (string.IsNullOrEmpty(RewardID)) {
+    private CombatLootPickupResult PrepareLootPickupResult(string rewardID, List<string> outcomeLines) {
+        if (string.IsNullOrEmpty(rewardID)) {
             return null;
         }
 
-        RewardRollResult rewardResult = new RewardSystem().Roll(RewardID, BuildRewardContext());
+        RewardRollResult rewardResult = new RewardSystem().Roll(rewardID, BuildRewardContext());
         if (rewardResult == null) {
             return null;
         }

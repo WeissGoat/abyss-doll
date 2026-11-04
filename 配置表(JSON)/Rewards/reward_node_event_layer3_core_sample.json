@@ -1,0 +1,38 @@
+{
+  "RewardID": "reward_node_event_layer3_core_sample",
+  "Name": "Layer 3 Contested Core Sample",
+  "Tags": [
+    "Node",
+    "Event",
+    "Layer3"
+  ],
+  "RewardRole": "EventNode",
+  "SourceType": "DungeonNode",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer1_formal_core"
+  ],
+  "RewardTier": "Minor",
+  "ExpectedValueBand": {
+    "Min": 400,
+    "Max": 800
+  },
+  "RiskBudgetTag": "ExplorationFind",
+  "ValidationTags": [
+    "Layer1Reward",
+    "L1EventReward",
+    "MinerPackEvent"
+  ],
+  "AuditNotes": "The careful choice of a dungeon event (2026-11-04): one item, no extras.",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_spore_amber",
+      "Count": 1
+    }
+  ],
+  "WeightedPools": []
+}

@@ -20,4 +20,9 @@ public class SceneChoice {
     public string ID;
     public string Label;
     public string Hint;
+    // In a dungeon event (NodePoolEntry.SceneID): what choosing it does, as a node outcome, the reward it rolls and
+    // the line the result card opens with.
+    public List<DungeonNodeOutcomeConfig> Outcome = new List<DungeonNodeOutcomeConfig>();
+    public string RewardID;
+    public string Result;
 }

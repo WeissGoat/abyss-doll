@@ -456,6 +456,10 @@ public static class DungeonStairsProgressionTest {
 
     private static void TestStairsProgressionOpensNextLayerMapEntries() {
         CoreBackend core = CreateCore();
+        // The stairs into layer 3 ask for the level-2 chassis (its growth gate); a direct start asks for the permit fee.
+        core.CurrentPlayer.ActiveDoll.Chassis = ConfigManager.Chassis["chassis_lv2_expanded"];
+        core.CurrentPlayer.Money = 5000;
+        ResetBackpack(core.CurrentPlayer.ActiveDoll);
         core.Dungeon.LoadLayer(1);
 
         _lastUnlockedStartLayerID = -1;

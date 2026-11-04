@@ -441,16 +441,10 @@
       "Title": "活孢子捕获点",
       "Description": "可捕获活孢子笼完成订单，但会立即占用 2x3 空间。",
       "RiskLevel": "Medium",
-      "RiskHint": "订单目标事件，空间不足时不应吞掉订单。",
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 8,
       "RewardID": "reward_node_event_layer2_spore_capture",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -2
-        }
-      ]
+      "SceneID": "ev_l2_spore_capture"
     },
     {
       "NodeType": "EventNode",
@@ -458,16 +452,10 @@
       "Title": "腐蚀储藏箱",
       "Description": "可用溶剂安全打开，否则带低级腐蚀风险。",
       "RiskLevel": "Medium",
-      "RiskHint": "事件节点，用消耗品换安全收益。",
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 8,
       "RewardID": "reward_node_event_layer2_corroded_cache",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -1
-        }
-      ]
+      "SceneID": "ev_l2_corroded_cache"
     },
     {
       "NodeType": "RestStopNode",
@@ -554,6 +542,7 @@
     "RequiresEndNodeReached": true
   },
   "DirectStartAllowed": true,
+  "DirectStartFee": 150,
   "PreviousLayerRequired": 1,
   "NextLayerID": 3,
   "FixedSeedSamples": [

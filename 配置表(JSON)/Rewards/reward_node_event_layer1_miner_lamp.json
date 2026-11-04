@@ -1,0 +1,38 @@
+{
+  "RewardID": "reward_node_event_layer1_miner_lamp",
+  "Name": "Layer 1 Miner Pack Careful Choice",
+  "Tags": [
+    "Node",
+    "Event",
+    "Layer1"
+  ],
+  "RewardRole": "EventNode",
+  "SourceType": "DungeonNode",
+  "LayerRange": {
+    "Min": 1,
+    "Max": 1
+  },
+  "ContentPackRefs": [
+    "design_pack_layer1_formal_core"
+  ],
+  "RewardTier": "Minor",
+  "ExpectedValueBand": {
+    "Min": 150,
+    "Max": 300
+  },
+  "RiskBudgetTag": "ExplorationFind",
+  "ValidationTags": [
+    "Layer1Reward",
+    "L1EventReward",
+    "MinerPackEvent"
+  ],
+  "AuditNotes": "The careful choice of a dungeon event (2026-11-04): one item, no extras.",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "trade_miner_lamp",
+      "Count": 1
+    }
+  ],
+  "WeightedPools": []
+}

@@ -6,6 +6,8 @@ public static class DungeonEventBus {
     public static event Action<NodeBase> OnSafeRoomEntered;
     public static event Action<StairsNode> OnStairsEntered;
     public static event Action<PrologueBeatNode> OnPrologueBeatEntered;
+    // An event that waits for the player's choice (EventNode.Choose).
+    public static event Action<EventNode> OnChoiceEventEntered;
 
     public static event Action OnNodeSettlementCompleted;
     public static event Action OnNodeResolutionFinished;
@@ -95,8 +97,13 @@ public static class DungeonEventBus {
         OnDungeonStartLayerRejected?.Invoke(layerID, reason);
     }
 
+    public static void PublishChoiceEventEntered(EventNode node) {
+        OnChoiceEventEntered?.Invoke(node);
+    }
+
     public static void ResetAllListeners() {
         OnLayerLoaded = null;
+        OnChoiceEventEntered = null;
         OnNodeEntered = null;
         OnSafeRoomEntered = null;
         OnStairsEntered = null;

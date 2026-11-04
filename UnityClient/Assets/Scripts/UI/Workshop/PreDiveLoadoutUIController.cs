@@ -88,7 +88,9 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
 
         string layerName = ConfigManager.Dungeons.TryGetValue(_layerID, out DungeonConfig layer) ? layer.Name : string.Empty;
         _titleText.text = $"出发前整备 · 第 {_layerID} 层 {layerName}";
-        _statusText.text = $"第 {player.CurrentDay} 天 · 资金 {player.Money}G · 从仓库挑要带下去的东西，整备不花时间。";
+        int fee = layer?.DirectStartFee ?? 0;
+        string permit = fee > 0 ? $" · 直达许可费 {fee}G（出发时付）" : string.Empty;
+        _statusText.text = $"第 {player.CurrentDay} 天 · 资金 {player.Money}G{permit} · 从仓库挑要带下去的东西，整备不花时间。";
         RebuildStashList(player);
     }
 

@@ -31,6 +31,9 @@ public enum DiveReadinessIssueCode {
     NoHP,
     LowHPWarning,
     LowSANWarning,
+    PermitFee,
+    PermitFeeUnaffordable,
+    ChassisTooSmall,
     DayNotStartable
 }
 
@@ -166,6 +169,16 @@ public static class DiveReadinessService {
                 $"Layer {layerID} is locked. HighestUnlocked={player.HighestUnlockedDungeonLayer}.",
                 "Clear the previous layer first.");
         }
+
+        int fee = ConfigManager.Dungeons[layerID].DirectStartFee;
+        if (fee > 0) {
+            bool affordable = player.Money >= fee;
+            result.AddIssue(
+                affordable ? DiveReadinessIssueCode.PermitFee : DiveReadinessIssueCode.PermitFeeUnaffordable,
+                affordable ? DiveReadinessIssueSeverity.Info : DiveReadinessIssueSeverity.Blocker,
+                affordable ? $"直达第 {layerID} 层要付许可费 {fee}G。" : $"直达第 {layerID} 层要付许可费 {fee}G，现在只有 {player.Money}G。",
+                affordable ? "从浅层走下去不收钱。" : "先从浅层走下去，或者攒够钱。");
+        }
     }
 
     private static void ValidateDoll(DollEntity doll, DiveReadinessResult result, bool autoUnequipIllegalProsthetics) {
@@ -180,6 +193,13 @@ public static class DiveReadinessService {
 
         ValidateStatus(doll, result);
         ValidateSANForLayer(doll, ConfigManager.Dungeons.TryGetValue(result.LayerID, out DungeonConfig layer) ? layer : null, result);
+        if (!ChassisAllows(doll, layer)) {
+            result.AddIssue(
+                DiveReadinessIssueCode.ChassisTooSmall,
+                DiveReadinessIssueSeverity.Blocker,
+                $"第 {result.LayerID} 层要 {layer.RequiredChassisLevel} 级底盘才撑得住，零号现在是 {doll.Chassis?.Level ?? 0} 级。",
+                "先在工作台升级底盘。");
+        }
         ValidateChassis(doll, result);
         ValidateProsthetics(doll, result, autoUnequipIllegalProsthetics && !result.HasBlockers());
     }
@@ -242,6 +262,11 @@ public static class DiveReadinessService {
             DiveReadinessIssueSeverity.Warning,
             $"零号心神不足（SAN {doll.Status.SAN_Current}/{doll.Status.SAN_Max}），光走到这一层的首领就要 {walk}，路上的事件和危险还会再扣。",
             "可以出发，到升降梯就回；想打首领先停工休息一天。");
+    }
+
+    // The growth gate on a layer (GDD_13): the chassis level it asks for.
+    public static bool ChassisAllows(DollEntity doll, DungeonConfig layer) {
+        return layer == null || layer.RequiredChassisLevel <= 0 || (doll?.Chassis?.Level ?? 0) >= layer.RequiredChassisLevel;
     }
 
     // Route rows plus the boss; lifts and the safe zone cost nothing.

@@ -45,7 +45,8 @@ public class SafeRoomUIController : MonoBehaviour {
         _currentSafeRoomNode = null;
         _currentStairsNode = node;
         ApplyRoomSkin(VisualAssetService.ResolveStairsRoomBackgroundID());
-        SetButtonLabel(restBtn, node != null && node.CanEnterNextLayer() ? "进入下一层" : "深渊尽头");
+        string blocked = GameRoot.Core?.Dungeon?.NextLayerBlockReason();
+        SetButtonLabel(restBtn, node != null && node.CanEnterNextLayer() ? "进入下一层" : string.IsNullOrEmpty(blocked) ? "深渊尽头" : "底盘撑不住");
         SetTitle("安 全 区");
         SetButtonLabel(evacuateBtn, "返回小镇");
         SetPrimaryInteractable(node != null && node.CanEnterNextLayer());
@@ -109,9 +110,12 @@ public class SafeRoomUIController : MonoBehaviour {
 
         if (_currentStairsNode != null) {
             int currentLayer = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? _currentStairsNode.LayerID;
+            string blocked = GameRoot.Core?.Dungeon?.NextLayerBlockReason();
             itemHintText.text = _currentStairsNode.CanEnterNextLayer()
                 ? $"阶梯间\n继续深入将进入第 {currentLayer + 1} 层；返回小镇会立刻结算当前带出的战利品。"
-                : "阶梯间\n已经抵达当前最深处；请返回小镇并结算战利品。";
+                : !string.IsNullOrEmpty(blocked)
+                    ? $"阶梯间\n{blocked}先回小镇升级底盘。"
+                    : "阶梯间\n已经抵达当前最深处；请返回小镇并结算战利品。";
             return;
         }
 

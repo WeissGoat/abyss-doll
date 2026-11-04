@@ -1,0 +1,43 @@
+{
+  "SceneID": "ev_l1_cracked_relic",
+  "Title": "矿道 · 裂纹圣牌",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "石缝里……有光。",
+      "Face": "surprised"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "是一块圣牌。它在响，很轻。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "take",
+      "Label": "撬下来带走",
+      "Hint": "得到裂纹圣牌：值钱，但带着它每走一格多扣 SAN",
+      "RewardID": "reward_node_event_layer1_cracked_relic",
+      "Result": "圣牌离开石缝时，回响停了一下，又在她的背包里响起来。"
+    },
+    {
+      "ID": "pray",
+      "Label": "让她对着它站一会儿",
+      "Hint": "SAN +4，什么都不拿",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": 4
+        }
+      ],
+      "Result": "她闭上眼。回响和她的呼吸慢慢对齐了。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "她看了它很久，还是没有伸手。"
+    }
+  ]
+}

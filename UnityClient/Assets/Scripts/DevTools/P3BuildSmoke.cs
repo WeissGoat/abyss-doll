@@ -162,6 +162,7 @@ public class P3BuildSmoke : MonoBehaviour {
         bool unpackCaptured = false;
         bool mapCaptured = false;
         bool liftCaptured = false;
+        bool eventCaptured = false;
         bool continueChecked = false;
         int unpacked = 0;
         int talks = 0;
@@ -175,8 +176,15 @@ public class P3BuildSmoke : MonoBehaviour {
                 yield return Capture("03c_journal_page");
             }
 
-            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured);
+            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured, mapCaptured && !eventCaptured);
             Note(report);
+            if (report.Contains("Event ready.")) {
+                // A dungeon event's choices, each with its price (2026-11-04).
+                eventCaptured = true;
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture("03h_event");
+                continue;
+            }
             if (report.Contains("Lift ready.")) {
                 // A lift between segments: go on or home, and the parcel of loot she can send up (2026-11-04).
                 liftCaptured = true;

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// The road tax on deeper layers (GDD_02 §3.5) and the lift's parcel (§4.3A).
+// The road tax on deeper layers (GDD_02 §3.5), the lift's parcel (§4.3A), events with choices (§3.3) and the
+// growth gates between layers (GDD_13).
 public static class DungeonPressureTest {
     private static DungeonSettlementResult _settlement;
 
@@ -11,6 +12,9 @@ public static class DungeonPressureTest {
         TestStepCostCarriesTheTax();
         TestParcelSendsLootHomeAndSurvivesDefeat();
         TestParcelSurvivesASave();
+        TestChoiceEventWaitsForTheChoice();
+        TestPermitFee();
+        TestChassisGate();
         Debug.Log("=== Dungeon Pressure Test Finished ===");
     }
 
@@ -38,8 +42,11 @@ public static class DungeonPressureTest {
     private static void TestStepCostCarriesTheTax() {
         CoreBackend core = CreateCore();
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        // Layer 3 asks for the level-2 chassis (its growth gate).
+        doll.Chassis = ConfigManager.Chassis["chassis_lv2_expanded"];
         ResetBackpack(doll);
         core.CurrentPlayer.HighestUnlockedDungeonLayer = 3;
+        core.CurrentPlayer.Money = 5000;
         core.Dungeon.LoadLayer(3);
         NodeBase entry = core.Dungeon.CurrentLayer.EntryNodes[0];
         doll.Status.HP_Current = doll.Status.HP_Max;
@@ -91,6 +98,62 @@ public static class DungeonPressureTest {
         bool restored = core.Dungeon.RestoreRun(snapshot);
         bool counted = core.Dungeon.LiftParcelUsed() == DungeonManager.ItemCells(scrap);
         Check(saved && restored && counted, "Lift parcel survives a save", $"saved={saved}, restored={restored}, used={core.Dungeon.LiftParcelUsed()}");
+    }
+
+    private static void TestChoiceEventWaitsForTheChoice() {
+        CoreBackend core = CreateCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        ResetBackpack(doll);
+        core.Dungeon.LoadLayer(1);
+        EventNode node = new EventNode { NodeID = "pressure_choice" };
+        node.Init(new NodePoolEntry { NodeType = "EventNode", Title = "裂纹圣牌", SceneID = "ev_l1_cracked_relic", RewardID = "reward_node_event_layer1_cracked_relic" });
+
+        EventNode asked = null;
+        DungeonNodeResolutionResult card = null;
+        DungeonEventBus.OnChoiceEventEntered += entered => asked = entered;
+        DungeonEventBus.OnDungeonNodeResolutionPrepared += result => card = result;
+        doll.Status.SAN_Current = 20;
+        node.OnEnterNode();
+        bool waited = asked == node && card == null && doll.Status.SAN_Current == 20;
+
+        SceneChoice pray = node.Choices.Find(choice => choice.ID == "pray");
+        node.Choose("pray");
+        int gained = pray?.Outcome.Count > 0 ? pray.Outcome[0].Amount : 0;
+        bool resolved = card != null && card.Summary.StartsWith(pray?.Result ?? "?") && doll.Status.SAN_Current == 20 + gained && gained > 0;
+        Check(waited && resolved && node.Choices[node.Choices.Count - 1].ID == "leave", "Choice event waits for the choice",
+            $"waited={waited}, resolved={resolved}, SAN={doll.Status.SAN_Current}, card={card?.Summary}");
+    }
+
+    private static void TestPermitFee() {
+        CoreBackend core = CreateCore();
+        PlayerProfile player = core.CurrentPlayer;
+        ResetBackpack(player.ActiveDoll);
+        player.HighestUnlockedDungeonLayer = 2;
+        int fee = ConfigManager.Dungeons[2].DirectStartFee;
+
+        player.Money = fee - 1;
+        bool blocked = !DiveReadinessService.Evaluate(player, 2).CanDive;
+        player.Money = fee + 100;
+        bool started = core.Dungeon.StartRunAtLayer(2);
+        Check(fee > 0 && blocked && started && player.Money == 100, "Permit fee for a direct start",
+            $"fee {fee}, blocked when short={blocked}, started={started}, money left {player.Money}");
+    }
+
+    private static void TestChassisGate() {
+        CoreBackend core = CreateCore();
+        PlayerProfile player = core.CurrentPlayer;
+        ResetBackpack(player.ActiveDoll);
+        player.HighestUnlockedDungeonLayer = 3;
+        player.Money = 5000;
+        int required = ConfigManager.Dungeons[3].RequiredChassisLevel;
+        bool small = player.ActiveDoll.Chassis.Level < required;
+        DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, 3);
+        bool blockedFromTown = readiness.Issues.Exists(issue => issue.Code == DiveReadinessIssueCode.ChassisTooSmall) && !readiness.CanDive;
+
+        core.Dungeon.StartRunAtLayer(2);
+        bool stairsShut = !core.Dungeon.CanEnterNextLayer() && !string.IsNullOrEmpty(core.Dungeon.NextLayerBlockReason()) && !core.Dungeon.EnterNextLayer();
+        Check(required > 0 && small && blockedFromTown && stairsShut, "Chassis gate on layer 3",
+            $"required {required}, chassis {player.ActiveDoll.Chassis.Level}, blocked from town={blockedFromTown}, stairs shut={stairsShut}");
     }
 
     private static ItemEntity PickUp(BackpackGrid grid, string configID, int x, int y) {

@@ -1,0 +1,54 @@
+{
+  "SceneID": "ev_l3_contested_core",
+  "Title": "菌丝宫廷 · 争夺孢核",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "它在跳。像心脏。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "好几只手的痕迹……有人想要它，也有人想毁掉它。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "两边都会出价。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "take",
+      "Label": "整颗取走",
+      "Hint": "SAN -6，大件，几方都在抢",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -6
+        }
+      ],
+      "RewardID": "reward_node_event_layer3_contested_core",
+      "Result": "她抱起它的时候，整面菌墙跟着收紧了一下。"
+    },
+    {
+      "ID": "sample",
+      "Label": "切一块样本",
+      "Hint": "SAN -2，得到一块孢晶琥珀",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -2
+        }
+      ],
+      "RewardID": "reward_node_event_layer3_core_sample",
+      "Result": "刀口很小，它还是抽搐了一下。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "它在她身后继续跳着，一下，一下。"
+    }
+  ]
+}

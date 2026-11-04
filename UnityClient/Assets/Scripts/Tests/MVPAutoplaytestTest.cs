@@ -651,6 +651,12 @@ internal class MVPAutoplayCampaign {
 
                 SendBestLootHome();
                 safeRoomNode.Continue();
+            } else if (node is EventNode choiceEvent && choiceEvent.HasChoices) {
+                // An event with choices: the first (the greediest) while she is in good shape, else walk on (the last).
+                DollEntity diver = _core.CurrentPlayer.ActiveDoll;
+                bool fresh = diver.Status.HP_Current * 2 >= diver.Status.HP_Max && diver.Status.SAN_Current * 2 >= diver.Status.SAN_Max;
+                List<SceneChoice> choices = choiceEvent.Choices;
+                choiceEvent.Choose(fresh ? choices[0].ID : choices[choices.Count - 1].ID);
             } else if (node is DungeonOutcomeNode) {
                 // Outcome nodes publish their result through the event bus.
                 // The autoplay handler confirms that result and lets the dungeon flow return to the map.

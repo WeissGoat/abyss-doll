@@ -1,0 +1,55 @@
+{
+  "SceneID": "ev_l2_spore_capture",
+  "Title": "管廊 · 活孢子",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "孢子……在动。",
+      "Face": "surprised"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "镇上有人收活的。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "笼子很大。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "capture",
+      "Label": "整笼带走",
+      "Hint": "SAN -3，得到活孢子笼：占 6 格，订单要的",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -3
+        }
+      ],
+      "RewardID": "reward_node_event_layer2_spore_capture",
+      "Result": "笼门合上的时候，孢子贴着栏杆朝她挤过来。"
+    },
+    {
+      "ID": "sample",
+      "Label": "刮一点样本",
+      "Hint": "SAN -1，一两件小东西",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -1
+        }
+      ],
+      "RewardID": "reward_node_event_layer2",
+      "Result": "她用指甲刮下一点，飞快地塞进口袋。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "孢子在她身后慢慢合拢。"
+    }
+  ]
+}

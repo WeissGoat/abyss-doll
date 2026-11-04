@@ -1,0 +1,55 @@
+{
+  "SceneID": "ev_l3_singing_fossil",
+  "Title": "菌丝宫廷 · 低唱化石",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "有人在唱歌。",
+      "Face": "surprised"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "……是石头。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "我想听完。",
+      "Face": "sad"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "dig",
+      "Label": "把它挖出来",
+      "Hint": "SAN -5，得到低唱化石：很值钱，带着会低语",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -5
+        }
+      ],
+      "RewardID": "reward_node_event_layer3_singing_fossil",
+      "Result": "歌声断了一拍，从她的背包里接着唱下去。"
+    },
+    {
+      "ID": "listen",
+      "Label": "陪她听完",
+      "Hint": "SAN +8，什么都不拿",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": 8
+        }
+      ],
+      "Result": "歌停的时候，她轻轻说了句谢谢。不知道是对谁。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "她走出很远，还回头听了一次。"
+    }
+  ]
+}

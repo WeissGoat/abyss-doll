@@ -1,0 +1,50 @@
+{
+  "SceneID": "ev_l2_corroded_cache",
+  "Title": "管廊 · 腐蚀储藏箱",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "箱子锁住了。锁在冒泡。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "是腐蚀液，别直接碰。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "force",
+      "Label": "硬撬开",
+      "Hint": "HP -10，里面的东西全拿",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": -10
+        }
+      ],
+      "RewardID": "reward_node_event_layer2_corroded_cache",
+      "Result": "锁崩开时溅了她一手，金属手指冒起白烟。"
+    },
+    {
+      "ID": "slow",
+      "Label": "一圈一圈拧开",
+      "Hint": "SAN -4，里面的东西全拿",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -4
+        }
+      ],
+      "RewardID": "reward_node_event_layer2_corroded_cache",
+      "Result": "她屏着气拧了很久，久到手开始发抖。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "她把手收回来，在裙子上擦了擦。"
+    }
+  ]
+}

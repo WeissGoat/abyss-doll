@@ -1,0 +1,54 @@
+{
+  "SceneID": "ev_l1_miner_pack",
+  "Title": "矿道 · 矿工遗包",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "这里有个背包。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "绳子烂了……里面好像还有东西。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "小心点，别割到手。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "rummage",
+      "Label": "整个倒出来",
+      "Hint": "HP -6，里面的东西全拿",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": -6
+        }
+      ],
+      "RewardID": "reward_node_event_layer1_miner_pack",
+      "Result": "她把背包倒过来抖了抖，手背被碎玻璃划开一道口子。"
+    },
+    {
+      "ID": "careful",
+      "Label": "只拿看得见的",
+      "Hint": "SAN -2，只拿那盏矿灯",
+      "Outcome": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -2
+        }
+      ],
+      "RewardID": "reward_node_event_layer1_miner_lamp",
+      "Result": "她一件件拣出来，越拣越慢，像在翻别人的遗物。"
+    },
+    {
+      "ID": "leave",
+      "Label": "走开",
+      "Hint": "什么都不拿",
+      "Result": "她把背包放回原处，压平了翻起的布角。"
+    }
+  ]
+}

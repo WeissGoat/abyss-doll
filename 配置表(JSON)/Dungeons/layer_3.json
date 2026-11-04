@@ -443,17 +443,11 @@
       "Title": "争夺孢核脉动",
       "Description": "可以取走 3x3 争夺孢核或切样本。",
       "RiskLevel": "High",
-      "RiskHint": "订单目标事件，空间不足时不要强拿。",
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 8,
       "RewardID": "reward_node_event_layer3_contested_core",
-      "OrderID": "order_workshop_spore_core_frame",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -3
-        }
-      ]
+      "SceneID": "ev_l3_contested_core",
+      "OrderID": "order_workshop_spore_core_frame"
     },
     {
       "NodeType": "EventNode",
@@ -461,16 +455,10 @@
       "Title": "低唱化石合唱",
       "Description": "高价值遗物和地图预览伴随低语。",
       "RiskLevel": "Medium",
-      "RiskHint": "遗物事件，可用锚定符坠止损。",
+      "RiskHint": "事件：要她做个选择，每个选择的代价不同。",
       "Weight": 8,
       "RewardID": "reward_node_event_layer3_singing_fossil",
-      "OutcomeEffects": [
-        {
-          "Type": "ModifyResource",
-          "Resource": "SAN",
-          "Amount": -5
-        }
-      ]
+      "SceneID": "ev_l3_singing_fossil"
     },
     {
       "NodeType": "HazardNode",
@@ -553,6 +541,8 @@
     "RequiresEndNodeReached": true
   },
   "DirectStartAllowed": true,
+  "DirectStartFee": 400,
+  "RequiredChassisLevel": 2,
   "PreviousLayerRequired": 2,
   "NextLayerID": 4,
   "FixedSeedSamples": [

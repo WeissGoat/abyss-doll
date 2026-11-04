@@ -392,6 +392,12 @@ public class DungeonManager {
         }
 
         player.LastSelectedDungeonStartLayer = layerID;
+        int fee = prologue ? 0 : ConfigManager.Dungeons[layerID].DirectStartFee;
+        if (fee > 0) {
+            player.Money -= fee;
+            Debug.Log($"[DungeonManager] Paid the permit fee for Layer {layerID}: {fee}G.");
+        }
+
         PreDiveLoadoutService.RememberLoadout(player);
         DayCycleService.BeginDiveDay(player, layerID);
         DiveLogService.Begin(player, layerID, prologue);
@@ -463,8 +469,21 @@ public class DungeonManager {
         }
     }
 
+    // Down the stairs: there is a next layer and her chassis is up to it (the stairs charge no permit fee).
     public bool CanEnterNextLayer() {
-        return CurrentLayer != null && ConfigManager.Dungeons.ContainsKey(CurrentLayer.LayerID + 1);
+        return CurrentLayer != null && ConfigManager.Dungeons.TryGetValue(CurrentLayer.LayerID + 1, out DungeonConfig next)
+            && DiveReadinessService.ChassisAllows(GameRoot.Core?.CurrentPlayer?.ActiveDoll, next);
+    }
+
+    // Why the stairs lead nowhere for her yet (null when they do, or when this is the deepest layer).
+    public string NextLayerBlockReason() {
+        if (CurrentLayer == null || !ConfigManager.Dungeons.TryGetValue(CurrentLayer.LayerID + 1, out DungeonConfig next)) {
+            return null;
+        }
+
+        return DiveReadinessService.ChassisAllows(GameRoot.Core?.CurrentPlayer?.ActiveDoll, next)
+            ? null
+            : $"第 {next.LayerID} 层要 {next.RequiredChassisLevel} 级底盘才撑得住。";
     }
 
     public bool EnterNextLayer() {
@@ -477,6 +496,11 @@ public class DungeonManager {
         if (!ConfigManager.Dungeons.ContainsKey(nextLayerID)) {
             Debug.Log("[DungeonManager] No next layer configured. Evacuating from abyss end.");
             DungeonEventBus.PublishDungeonEvacuated();
+            return false;
+        }
+
+        if (!CanEnterNextLayer()) {
+            Debug.LogWarning($"[DungeonManager] Cannot descend to Layer {nextLayerID}: {NextLayerBlockReason()}");
             return false;
         }
 
