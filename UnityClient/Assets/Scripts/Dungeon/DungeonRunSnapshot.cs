@@ -18,6 +18,8 @@ public class DungeonRunSnapshot {
     // (the settlement counts both).
     public List<string> AcceptedLootIDs = new List<string>();
     public List<ItemEntity> AcceptedLootGone = new List<ItemEntity>();
+    // Loot she sent up a lift this dive; it is in the stash already.
+    public List<string> SentHomeIDs = new List<string>();
 
     // The dive's journal page and the state she set out in, for the night card.
     public DiveLog Log;

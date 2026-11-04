@@ -16,15 +16,15 @@
     },
     {
       "Period": 3,
-      "BaseRent": 2400
+      "BaseRent": 2800
     },
     {
       "Period": 4,
-      "BaseRent": 3600
+      "BaseRent": 4200
     },
     {
       "Period": 5,
-      "BaseRent": 4500
+      "BaseRent": 5200
     }
   ],
   "WorkshopMaintenanceBase": 0,
@@ -43,6 +43,7 @@
   "ShowcaseWidth": 4,
   "ShowcaseHeight": 4,
   "ShowcaseIgnoredTags": ["Material", "RiskPremium", "Trade", "Layer1", "Layer2", "Layer3"],
+  "LiftParcelCells": 2,
   "ShopPriceMultiplier": 1.2,
   "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "gear_whetstone", "con_repair_kit", "con_cheap_sedative", "gear_rusty_syringe", "gear_rubble_hammer", "gear_old_wrench", "gear_plated_shield", "gear_stone_bag", "gear_corroded_dagger"],
   "PawnProtectedTags": [

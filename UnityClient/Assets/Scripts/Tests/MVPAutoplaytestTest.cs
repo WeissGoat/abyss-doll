@@ -649,6 +649,7 @@ internal class MVPAutoplayCampaign {
                     break;
                 }
 
+                SendBestLootHome();
                 safeRoomNode.Continue();
             } else if (node is DungeonOutcomeNode) {
                 // Outcome nodes publish their result through the event bus.
@@ -674,6 +675,7 @@ internal class MVPAutoplayCampaign {
                 bool healthy = diver.Status.HP_Current * 100 >= diver.Status.HP_Max * DeeperHPPercent;
                 bool worthKeeping = HaulValue() >= RetreatHaul[layer];
                 if (attemptLayer2 && layer < 3 && healthy && (layer == 1 || (!worthKeeping && readyForLayer3)) && stairsNode.CanEnterNextLayer()) {
+                    SendBestLootHome();
                     stairsNode.EnterNextLayer();
                     if (layer == 1) {
                         _report.EnteredLayer2 = true;
@@ -1241,6 +1243,13 @@ internal class MVPAutoplayCampaign {
         return (GetGrid()?.ContainedItems ?? new List<ItemEntity>())
             .Where(item => !_carriedAtStart.Contains(item.InstanceID))
             .Sum(item => item.BaseValue);
+    }
+
+    // Before going on from a lift (or down the stairs): fill the lift's parcel with the loot worth most per cell.
+    private void SendBestLootHome() {
+        foreach (ItemEntity item in _core.Dungeon.CarriedRunLoot().OrderByDescending(item => (float)item.BaseValue / DungeonManager.ItemCells(item))) {
+            _core.Dungeon.TrySendHome(item, out _);
+        }
     }
 
     private BackpackGrid GetGrid() {

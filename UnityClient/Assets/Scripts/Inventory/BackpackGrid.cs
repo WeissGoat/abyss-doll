@@ -58,6 +58,29 @@ public class BackpackGrid {
     
     public List<ItemEntity> ContainedItems { get; private set; }
     
+    // Open cells of the chassis, and how many of them hold something (junk included).
+    public int UsableCellCount() {
+        return CountCells(false);
+    }
+
+    public int FilledCellCount() {
+        return CountCells(true);
+    }
+
+    private int CountCells(bool filledOnly) {
+        int count = 0;
+        for (int x = 0; x < Width; x++) {
+            for (int y = 0; y < Height; y++) {
+                string cell = _gridMatrix[x, y];
+                if (cell != LockedCellMarker && (!filledOnly || cell != null)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
     public BackpackGrid(ChassisComponent chassis) {
         Width = chassis.GridWidth;
         Height = chassis.GridHeight;

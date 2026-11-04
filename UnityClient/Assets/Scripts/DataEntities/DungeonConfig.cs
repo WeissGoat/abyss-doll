@@ -6,6 +6,8 @@ public class DungeonConfig {
     public int LayerID;
     public string Name;
     public int SANCostPerNode;
+    // Extra SAN per step on this layer when she is hurt, overloaded or corroded (GDD_02 §3.5).
+    public DungeonSanTaxRules SANTax = new DungeonSanTaxRules();
     // Corruption (侵蚀) Zero gains for every node walked on this layer (DollStrainService).
     public float CorruptionPerNode;
     public int ExpectedNodeCount;
@@ -52,6 +54,19 @@ public class NodePoolEntry {
 }
 
 // The safe zone after the layer's boss (GDD_13: it no longer heals fully, so wear carries from one layer into the next).
+[Serializable]
+public class DungeonSanTaxRules {
+    // HP below this share of max adds LowHPExtra a step; 0 extra turns a rule off.
+    public float LowHPRatio = 0.3f;
+    public int LowHPExtra;
+    // The backpack's open cells filled to this share (junk counts) adds OverloadExtra a step.
+    public float OverloadRatio = 0.8f;
+    public int OverloadExtra;
+    // Her corruption (0-100) at or above this adds CorruptionExtra a step.
+    public float CorruptionThreshold = 50f;
+    public int CorruptionExtra;
+}
+
 [Serializable]
 public class DungeonSafeZoneRules {
     public float RecoverHPRatio = 1f;

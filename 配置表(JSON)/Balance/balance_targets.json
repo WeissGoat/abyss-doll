@@ -82,10 +82,10 @@
       "con_anchor_charm": { "Keep": true }
     },
     "Week": {
-      "Note": "一周按前线层算：下潜 DivesPerWeek 次，SuccessRate 的下潜带东西回城，每次带回 CellsHome 格（第 1 层 4×4 背包去掉装备约 9 格，第 2 层起 5×5 约 15 格，都不一定装满）。按垃圾箱价算收入，RentShare 是这一周房租占收入的目标。Frontier 写两层时按两层收入的平均算（第 2 周一边升底盘一边开始下第 2 层）。",
+      "Note": "一周按前线层算：下潜 DivesPerWeek 次，SuccessRate 的下潜带东西回城，每次带回 CellsHome 格（第 1 层 4×4 背包去掉装备约 9 格，第 2 层起 5×5 约 15 格，都不一定装满；另加升降梯货篮送回的 2 格）。按垃圾箱价算收入，RentShare 是这一周房租占收入的目标。Frontier 写两层时按两层收入的平均算（第 2 周一边升底盘一边开始下第 2 层）。",
       "DivesPerWeek": 5,
       "SuccessRate": 0.7,
-      "CellsHome": { "1": 7, "2": 12, "3": 12 },
+      "CellsHome": { "1": 9, "2": 14, "3": 14 },
       "Weeks": [
         { "Week": 1, "Frontier": 1, "RentShare": 0.3 },
         { "Week": 2, "Frontier": [1, 2], "RentShare": 0.25 },

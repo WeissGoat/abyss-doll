@@ -331,6 +331,8 @@ public class DungeonLayer {
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
     private readonly List<ItemEntity> _runAcceptedLoot = new List<ItemEntity>();
+    // Loot sent up a lift this dive (GDD_02 §4.3A): already in the town stash, safe whatever happens below.
+    private readonly List<ItemEntity> _sentHome = new List<ItemEntity>();
     private int _currentRunSeed;
     // Set once a run has been settled, so a second evacuate/defeat event (a double click on 返回小镇) cannot
     // settle it again and skip a day. Cleared when the next run starts.
@@ -577,10 +579,20 @@ public class DungeonManager {
         return CollectAcceptedLootStillInBackpack(GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid);
     }
 
+    // The road tax she pays on top of the layer's SAN per step right now (empty on a layer without one).
+    public List<SanTaxLine> PreviewSanTax() {
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        DungeonConfig config = CurrentLayer != null && ConfigManager.Dungeons.TryGetValue(CurrentLayer.LayerID, out DungeonConfig found) ? found : null;
+        return DungeonSanTaxService.Resolve(config, doll, doll?.RuntimeGrid as BackpackGrid);
+    }
+
     private int GetSanCostForNode(NodeBase node) {
         int baseCost = GetBaseSanCostForNode(node);
         EffectModifierResolution resolution = ResolveMovementSanCost(node, baseCost);
         int totalCost = Mathf.Max(0, Mathf.RoundToInt(resolution.FinalValue));
+        if (baseCost > 0) {
+            totalCost += DungeonSanTaxService.Total(PreviewSanTax());
+        }
 
         if (resolution.Modifiers.Count > 0) {
             Debug.Log($"[DungeonManager] Movement SAN cost resolved. Node={node?.NodeID ?? "UnknownNode"}, Base={baseCost}, Final={totalCost}, Modifiers={resolution.Modifiers.Count}");
@@ -658,7 +670,9 @@ public class DungeonManager {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
             if (grid != null) {
                 List<ItemEntity> carriedRunLoot = CollectAcceptedLootStillInBackpack(grid);
-                PopulateRunLootSummary(result, carriedRunLoot);
+                List<ItemEntity> broughtOut = new List<ItemEntity>(carriedRunLoot);
+                broughtOut.AddRange(_sentHome);
+                PopulateRunLootSummary(result, broughtOut);
 
                 foreach (var item in carriedRunLoot) {
                     if (item == null) {
@@ -707,6 +721,7 @@ public class DungeonManager {
 
         ItemLifecycleBatchResult defeatResult = ItemLifecycleService.ResolveDefeatBackpackItems(player, "DungeonDefeat");
         List<ItemEntity> preservedRunLoot = CollectPreservedRunLoot(defeatResult);
+        preservedRunLoot.AddRange(_sentHome);
         PopulateRunLootSummary(result, preservedRunLoot);
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
@@ -787,6 +802,8 @@ public class DungeonManager {
 
             if (grid != null && grid.ContainedItems.Contains(item)) {
                 snapshot.AcceptedLootIDs.Add(item.InstanceID);
+            } else if (_sentHome.Contains(item)) {
+                snapshot.SentHomeIDs.Add(item.InstanceID);
             } else {
                 snapshot.AcceptedLootGone.Add(item);
             }
@@ -845,6 +862,16 @@ public class DungeonManager {
         foreach (ItemEntity item in snapshot.AcceptedLootGone ?? new List<ItemEntity>()) {
             if (item != null) {
                 _runAcceptedLoot.Add(item);
+            }
+        }
+
+        // What went up a lift is in the stash, which the player's save restored.
+        List<ItemEntity> stash = GameRoot.Core?.CurrentPlayer?.StashInventory;
+        foreach (string id in snapshot.SentHomeIDs ?? new List<string>()) {
+            ItemEntity item = stash?.Find(candidate => candidate != null && candidate.InstanceID == id);
+            if (item != null) {
+                _runAcceptedLoot.Add(item);
+                _sentHome.Add(item);
             }
         }
 
@@ -975,6 +1002,65 @@ public class DungeonManager {
 
     private void ResetRunLootLedger() {
         _runAcceptedLoot.Clear();
+        _sentHome.Clear();
+    }
+
+    // The lift's parcel (GDD_02 §4.3A, the safe box): at a lift or the safe zone after a boss she can send loot picked
+    // up this dive home, up to LiftParcelCells cells a dive (more with the 升降梯货篮 upgrade). It reaches the town
+    // stash at once, so a later defeat cannot take it, and it no longer takes room in the backpack or fights.
+    public bool CanSendHomeHere => IsRunInProgress && (CurrentLayer?.CurrentNode is SafeRoomNode || CurrentLayer?.CurrentNode is StairsNode);
+
+    public int LiftParcelCapacity() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        EconomyConfig config = TownEconomyService.GetConfig();
+        return Mathf.Max(0, (config?.LiftParcelCells ?? 0) + Mathf.RoundToInt(HomeUpgradeService.Value(player, "LiftParcelCells")));
+    }
+
+    public int LiftParcelUsed() {
+        int used = 0;
+        foreach (ItemEntity item in _sentHome) {
+            used += ItemCells(item);
+        }
+
+        return used;
+    }
+
+    public List<ItemEntity> SentHome() {
+        return new List<ItemEntity>(_sentHome);
+    }
+
+    public static int ItemCells(ItemEntity item) {
+        return item?.Grid?.Shape != null ? Mathf.Max(1, item.Grid.Shape.Length) : 1;
+    }
+
+    public bool TrySendHome(ItemEntity item, out string reason) {
+        reason = string.Empty;
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (!CanSendHomeHere) {
+            reason = "只有在升降梯和层间安全区才能把东西送上去。";
+            return false;
+        }
+
+        if (item == null || !CarriedRunLoot().Contains(item)) {
+            reason = "只能送这一趟捡到、还在背包里的东西。";
+            return false;
+        }
+
+        int free = LiftParcelCapacity() - LiftParcelUsed();
+        if (ItemCells(item) > free) {
+            reason = $"货篮只剩 {free} 格，{item.Name} 要 {ItemCells(item)} 格。";
+            return false;
+        }
+
+        if (!ItemLifecycleService.TryMoveBackpackItemToGroundInventory(player, item, "LiftParcel", out ItemLifecycleResult result)) {
+            reason = result?.Reason ?? "送不上去。";
+            return false;
+        }
+
+        _sentHome.Add(item);
+        Debug.Log($"[DungeonManager] Sent {item.Name} home by the lift ({LiftParcelUsed()}/{LiftParcelCapacity()} cells).");
+        DungeonEventBus.PublishRunCheckpoint();
+        return true;
     }
 
     private string BuildStartLayerRejectionReason(PlayerProfile player, int layerID) {

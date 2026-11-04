@@ -103,3 +103,4 @@
 | `NightSAN` | 5 | 每晚营业之后 SAN 回复 |
 | `ShowcaseColumns` | 1 | 橱窗多几列 |
 | `ShelfSlots` | 3 | 架子多几个位置（基础 6 个） |
+| `LiftParcelCells` | 2 | 每趟能从升降梯先送回家的格数（基础 2 格，`Economy/economy_town_v1.json` 的 `LiftParcelCells`） |

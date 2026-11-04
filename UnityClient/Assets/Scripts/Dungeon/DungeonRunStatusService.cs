@@ -16,6 +16,8 @@ public class DungeonRunStatus {
     public int NextStepSanMax;
     // Steps her SAN still covers at the cheapest next cost; -1 when that step is free.
     public int StepsSanAllows = -1;
+    // The road tax in the next step's cost, e.g. "过载 +1、重伤 +2" (empty when there is none).
+    public string SanTaxText;
     // Shortest walk to a safe room or stairs that is not hidden in the fog; -1 when none is in sight.
     public int StepsToExit = -1;
     public string ExitLabel;
@@ -57,6 +59,7 @@ public static class DungeonRunStatusService {
             anyNext = true;
         }
 
+        status.SanTaxText = DungeonSanTaxService.Describe(dungeon.PreviewSanTax());
         if (anyNext && status.NextStepSanMin > 0) {
             status.StepsSanAllows = status.SAN / status.NextStepSanMin;
         }

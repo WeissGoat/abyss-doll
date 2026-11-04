@@ -36,6 +36,8 @@ public class EconomyConfig {
     public int ShowcaseWidth = 4;
     public int ShowcaseHeight = 4;
     public List<string> ShowcaseIgnoredTags = new List<string>();
+    // Cells of loot a dive can send home up the lifts (GDD_02 §4.3A, the safe box); 升降梯货篮 adds more.
+    public int LiftParcelCells = 2;
 }
 
 [Serializable]

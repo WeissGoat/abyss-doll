@@ -13,6 +13,7 @@
     "design_pack_layer2_bag_pressure"
   ],
   "SANCostPerNode": 2,
+  "SANTax": { "OverloadRatio": 0.8, "OverloadExtra": 1 },
   "CorruptionPerNode": 4,
   "ExpectedNodeCount": 10,
   "MapProfileID": "layer2_bag_pressure",

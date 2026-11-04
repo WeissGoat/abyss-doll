@@ -24,7 +24,7 @@ public static class HomeUpgradeTest {
             }
         }
 
-        Check(ConfigManager.HomeUpgrades.Count == 5, $"{ConfigManager.HomeUpgrades.Count} upgrades in config");
+        Check(ConfigManager.HomeUpgrades.Count == 6, $"{ConfigManager.HomeUpgrades.Count} upgrades in config");
 
         // Money and once only.
         player.Money = 100;
@@ -32,6 +32,9 @@ public static class HomeUpgradeTest {
         player.Money = 5000;
         Check(HomeUpgradeService.Buy(player, "upg_bench_lamp", out _) && player.Money == 5000 - 350, $"lamp purchase left {player.Money}G");
         Check(!HomeUpgradeService.Buy(player, "upg_bench_lamp", out _), "bought the lamp twice");
+
+        // The lift basket: two more cells of loot sent home a dive.
+        Check(HomeUpgradeService.Buy(player, "upg_lift_basket", out _) && Mathf.RoundToInt(HomeUpgradeService.Value(player, "LiftParcelCells")) == 2, "the lift basket adds no parcel cells");
 
         // The lamp: quick repair costs 15% less.
         int listPrice = ConfigManager.MaintenanceConfigs["maint_quick_repair"].Cost.Money;
@@ -66,7 +69,7 @@ public static class HomeUpgradeTest {
         Check(MementoService.ShelfSlots(player) == 9, "second shelf did not add room");
 
         SaveFile restored = SaveService.Deserialize(SaveService.Serialize(player));
-        Check(restored.Player.HomeUpgrades.Count == 5, "upgrades lost in the save");
+        Check(restored.Player.HomeUpgrades.Count == ConfigManager.HomeUpgrades.Count, "upgrades lost in the save");
 
         if (failures.Count == 0) {
             Debug.Log("Home Upgrade PASSED.");

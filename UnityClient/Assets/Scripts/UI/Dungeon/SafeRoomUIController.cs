@@ -10,6 +10,11 @@ public class SafeRoomUIController : MonoBehaviour {
 
     private SafeRoomNode _currentSafeRoomNode;
     private StairsNode _currentStairsNode;
+    // The lift's parcel: a list of this dive's loot she can send home from here (DungeonManager.TrySendHome).
+    private const int ParcelRows = 6;
+    private RectTransform _parcelPanel;
+    private Text _parcelHeader;
+    private readonly System.Collections.Generic.List<Button> _parcelButtons = new System.Collections.Generic.List<Button>();
 
     void Start() {
         EnsureHintText();
@@ -28,10 +33,12 @@ public class SafeRoomUIController : MonoBehaviour {
         _currentSafeRoomNode = node;
         _currentStairsNode = null;
         ApplyRoomSkin(VisualAssetService.ResolveSafeRoomBackgroundID());
+        SetTitle("升 降 梯");
         SetButtonLabel(restBtn, "继续深入");
         SetButtonLabel(evacuateBtn, "带着收获回城");
         SetPrimaryInteractable(true);
         RefreshItemHints();
+        RefreshParcel();
     }
 
     public void Setup(StairsNode node) {
@@ -39,9 +46,11 @@ public class SafeRoomUIController : MonoBehaviour {
         _currentStairsNode = node;
         ApplyRoomSkin(VisualAssetService.ResolveStairsRoomBackgroundID());
         SetButtonLabel(restBtn, node != null && node.CanEnterNextLayer() ? "进入下一层" : "深渊尽头");
+        SetTitle("安 全 区");
         SetButtonLabel(evacuateBtn, "返回小镇");
         SetPrimaryInteractable(node != null && node.CanEnterNextLayer());
         RefreshItemHints();
+        RefreshParcel();
         // The deepest boss just fell: the end of the Demo starts here (DemoEndingComic).
         DemoEndingComic.PlayIfDue(null);
     }
@@ -82,7 +91,7 @@ public class SafeRoomUIController : MonoBehaviour {
         hintRect.anchorMax = new Vector2(0.5f, 0f);
         hintRect.pivot = new Vector2(0.5f, 0f);
         hintRect.anchoredPosition = new Vector2(0f, 24f);
-        hintRect.sizeDelta = new Vector2(760f, 160f);
+        hintRect.sizeDelta = new Vector2(760f, 200f);
 
         itemHintText = hintObj.AddComponent<Text>();
         itemHintText.font = defaultFont;
@@ -134,6 +143,83 @@ public class SafeRoomUIController : MonoBehaviour {
         }
     }
 
+    // One button per piece of this dive's loot still in the backpack, best value per cell first; one that does not fit
+    // what is left of the parcel is greyed out with the reason.
+    public void RefreshParcel() {
+        DungeonManager dungeon = GameRoot.Core?.Dungeon;
+        EnsureParcelPanel();
+        bool open = dungeon != null && dungeon.CanSendHomeHere && dungeon.LiftParcelCapacity() > 0;
+        _parcelPanel.gameObject.SetActive(open);
+        if (!open) {
+            return;
+        }
+
+        int free = dungeon.LiftParcelCapacity() - dungeon.LiftParcelUsed();
+        System.Collections.Generic.List<ItemEntity> loot = dungeon.CarriedRunLoot();
+        loot.Sort((a, b) => (b.BaseValue / DungeonManager.ItemCells(b)).CompareTo(a.BaseValue / DungeonManager.ItemCells(a)));
+        _parcelHeader.text = $"升降梯货篮：还能送 {free}/{dungeon.LiftParcelCapacity()} 格\n送上去的东西直接到家，战败也不会丢";
+        if (loot.Count == 0) {
+            _parcelHeader.text += "\n（这一趟还没捡到能送的东西）";
+        }
+
+        for (int i = 0; i < ParcelRows; i++) {
+            Button button = _parcelButtons[i];
+            ItemEntity item = i < loot.Count ? loot[i] : null;
+            button.gameObject.SetActive(item != null);
+            if (item == null) {
+                continue;
+            }
+
+            int cells = DungeonManager.ItemCells(item);
+            UITheme.SetButtonLabel(button, $"送上去 · {item.Name}  {cells} 格 · {item.BaseValue}G");
+            button.interactable = cells <= free;
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => {
+                if (GameRoot.Core.Dungeon.TrySendHome(item, out string reason)) {
+                    GameAudio.PlaySfx("click");
+                } else {
+                    Debug.Log("[SafeRoomUI] " + reason);
+                }
+
+                RefreshParcel();
+                RefreshItemHints();
+            });
+        }
+    }
+
+    private void EnsureParcelPanel() {
+        if (_parcelPanel != null) {
+            return;
+        }
+
+        Image plate = UITheme.CreatePanel(transform, "LiftParcel_Panel", new Color(0.08f, 0.06f, 0.04f, 0.82f));
+        _parcelPanel = plate.rectTransform;
+        _parcelPanel.anchorMin = new Vector2(0f, 1f);
+        _parcelPanel.anchorMax = new Vector2(0f, 1f);
+        _parcelPanel.pivot = new Vector2(0f, 1f);
+        _parcelPanel.anchoredPosition = new Vector2(48f, -170f);
+        _parcelPanel.sizeDelta = new Vector2(500f, 96f + ParcelRows * 50f);
+
+        _parcelHeader = UITheme.CreateText(_parcelPanel, "LiftParcelHeader_Text", string.Empty, 22, UITheme.TextOnDark, TextAnchor.UpperLeft);
+        RectTransform header = _parcelHeader.rectTransform;
+        header.anchorMin = new Vector2(0f, 1f);
+        header.anchorMax = new Vector2(1f, 1f);
+        header.pivot = new Vector2(0.5f, 1f);
+        header.anchoredPosition = new Vector2(0f, -12f);
+        header.sizeDelta = new Vector2(-32f, 84f);
+
+        for (int i = 0; i < ParcelRows; i++) {
+            Button button = UITheme.CreateButton(_parcelPanel, $"LiftParcelItem{i}_Button", string.Empty, UITheme.PanelRaised, UITheme.TextPrimary, 20);
+            RectTransform rect = (RectTransform)button.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(0.5f, 1f);
+            rect.anchoredPosition = new Vector2(0f, -96f - i * 50f);
+            rect.sizeDelta = new Vector2(-32f, 42f);
+            _parcelButtons.Add(button);
+        }
+    }
+
     // What the lift offers: home now with what she carries, or on to the next lift or the boss.
     private string LiftLine() {
         DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
@@ -152,6 +238,13 @@ public class SafeRoomUIController : MonoBehaviour {
         }
 
         return "升降梯\n现在回城，背包里的东西就落袋了；继续深入，" + (string.IsNullOrEmpty(ahead) ? "前面没有回头路。" : ahead);
+    }
+
+    private void SetTitle(string label) {
+        Text title = transform.Find("Title_Text")?.GetComponent<Text>();
+        if (title != null) {
+            title.text = label;
+        }
     }
 
     private void SetButtonLabel(Button button, string label) {

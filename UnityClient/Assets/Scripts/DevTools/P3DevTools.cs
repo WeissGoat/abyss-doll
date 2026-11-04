@@ -589,7 +589,8 @@ public static class P3DevTools {
     // or stairs, evacuates, and returns to the workshop. Stops early on anything it does not recognise.
     // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
     // stopAtMap: stop on the route map once Zero has walked a node (reports "Map ready."), for the same reason.
-    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false) {
+    // stopAtLift: stop on a lift's screen before sending anything up (reports "Lift ready.").
+    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false, bool stopAtLift = false) {
         StringBuilder log = new StringBuilder();
         if (FinishArrival(log)) {
             return log.ToString() + Describe();
@@ -666,6 +667,16 @@ public static class P3DevTools {
             } else if (IsPanelActive("SafeRoomPanel")) {
                 // A lift at a segment's end (go on / home with the haul) or the stairs after the boss (down / home).
                 bool lift = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode is SafeRoomNode;
+                if (stopAtLift && lift) {
+                    log.AppendLine("Lift ready.");
+                    break;
+                }
+
+                // The best piece that fits goes up first, as a player would before choosing.
+                for (int sent = 0; sent < 6 && ClickByLabel("送上去", null); sent++) {
+                    log.AppendLine($"Sent home by the lift: {GameRoot.Core.Dungeon.LiftParcelUsed()}/{GameRoot.Core.Dungeon.LiftParcelCapacity()} cells.");
+                }
+
                 if (EasyFights && lift && ClickByLabel("继续深入", log)) {
                     continue;
                 }
@@ -958,13 +969,13 @@ public static class P3DevTools {
             return;
         }
 
-        // A day that cannot dive, or Zero herself too worn, corroded, broken or short of SAN for the chosen layer's
+        // A day that cannot dive, or Zero herself too worn, corroded, broken, badly hurt or short of SAN for the chosen layer's
         // boss: rest, as a player would (resting is what the readiness hint asks for).
         bool dayBlocked = !DayCycleService.CanDive(player, out string reason);
         DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, Mathf.Max(1, player.LastSelectedDungeonStartLayer));
         bool dollBlocked = readiness.Issues.Exists(issue => issue.Severity == DiveReadinessIssueSeverity.Blocker
             && (issue.Code == DiveReadinessIssueCode.NoHP || issue.Code == DiveReadinessIssueCode.ExtremeWear || issue.Code == DiveReadinessIssueCode.ExtremeCorruption)
-            || issue.Code == DiveReadinessIssueCode.LowSANWarning);
+            || issue.Code == DiveReadinessIssueCode.LowSANWarning || issue.Code == DiveReadinessIssueCode.LowHPWarning);
         if (dayBlocked || dollBlocked) {
             ClickByLabel(TownDayHUD.RestLabel, log);
             ClickByLabel("休息一天", log);

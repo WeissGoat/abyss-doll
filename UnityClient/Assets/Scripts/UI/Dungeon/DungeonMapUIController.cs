@@ -930,6 +930,9 @@ public class DungeonMapUIController : MonoBehaviour {
             : status.NextStepSanMin == status.NextStepSanMax
                 ? $"下一步 -{status.NextStepSanMin} SAN"
                 : $"下一步 -{status.NextStepSanMin}~{status.NextStepSanMax} SAN";
+        if (status.NextStepSanMax > 0 && !string.IsNullOrEmpty(status.SanTaxText)) {
+            step += Tint($"（{status.SanTaxText}）", true);
+        }
         if (status.StepsSanAllows >= 0) {
             step += Tint($"，还够走 {status.StepsSanAllows} 步", sanLow);
         }

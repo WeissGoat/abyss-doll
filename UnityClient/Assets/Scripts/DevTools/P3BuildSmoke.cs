@@ -161,6 +161,7 @@ public class P3BuildSmoke : MonoBehaviour {
         int journalPages = 0;
         bool unpackCaptured = false;
         bool mapCaptured = false;
+        bool liftCaptured = false;
         bool continueChecked = false;
         int unpacked = 0;
         int talks = 0;
@@ -174,8 +175,15 @@ public class P3BuildSmoke : MonoBehaviour {
                 yield return Capture("03c_journal_page");
             }
 
-            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured);
+            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured);
             Note(report);
+            if (report.Contains("Lift ready.")) {
+                // A lift between segments: go on or home, and the parcel of loot she can send up (2026-11-04).
+                liftCaptured = true;
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture("03g_lift");
+                continue;
+            }
             if (report.Contains("Map ready.")) {
                 // The route map mid-dive: terrain, paths, medallions, the arrow and the next steps (2026-10-28).
                 mapCaptured = true;
