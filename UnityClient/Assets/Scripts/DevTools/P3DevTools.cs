@@ -958,12 +958,13 @@ public static class P3DevTools {
             return;
         }
 
-        // A day that cannot dive, or Zero herself too worn, corroded or broken for the chosen layer: rest, as a
-        // player would (resting is what the readiness hint asks for).
+        // A day that cannot dive, or Zero herself too worn, corroded, broken or short of SAN for the chosen layer's
+        // boss: rest, as a player would (resting is what the readiness hint asks for).
         bool dayBlocked = !DayCycleService.CanDive(player, out string reason);
         DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, Mathf.Max(1, player.LastSelectedDungeonStartLayer));
         bool dollBlocked = readiness.Issues.Exists(issue => issue.Severity == DiveReadinessIssueSeverity.Blocker
-            && (issue.Code == DiveReadinessIssueCode.NoHP || issue.Code == DiveReadinessIssueCode.ExtremeWear || issue.Code == DiveReadinessIssueCode.ExtremeCorruption));
+            && (issue.Code == DiveReadinessIssueCode.NoHP || issue.Code == DiveReadinessIssueCode.ExtremeWear || issue.Code == DiveReadinessIssueCode.ExtremeCorruption)
+            || issue.Code == DiveReadinessIssueCode.LowSANWarning);
         if (dayBlocked || dollBlocked) {
             ClickByLabel(TownDayHUD.RestLabel, log);
             ClickByLabel("休息一天", log);
@@ -1251,11 +1252,25 @@ public static class P3DevTools {
 
     private static bool EnterNextMapNode(StringBuilder log) {
         Button fallback = null;
+        List<Button> nodes = new List<Button>();
         foreach (Button button in ClickableButtons()) {
-            if (button.transform.parent == null || button.transform.parent.name != MapLayoutName) {
-                continue;
+            if (button.transform.parent != null && button.transform.parent.name == MapLayoutName) {
+                nodes.Add(button);
+            }
+        }
+
+        if (EasyFights) {
+            // The route to the ending walks through the fights it made easy; events and hazards cost SAN a layer-3 bar
+            // cannot always spare (three events in a row left her at 0 before the boss).
+            List<Button> ranked = new List<Button>();
+            for (int rank = 0; rank <= 3; rank++) {
+                ranked.AddRange(nodes.FindAll(b => EasyRouteRank(ButtonLabel(b)) == rank));
             }
 
+            nodes = ranked;
+        }
+
+        foreach (Button button in nodes) {
             if (!ButtonLabel(button).Contains("首领")) {
                 log.AppendLine($"Enter node '{ButtonLabel(button)}'.");
                 button.onClick.Invoke();
@@ -1273,6 +1288,18 @@ public static class P3DevTools {
 
         log.AppendLine("Stopped: no enterable map node.");
         return false;
+    }
+
+    private static int EasyRouteRank(string label) {
+        if (label.Contains("营地")) {
+            return 0;
+        }
+
+        if (label.Contains("战斗") || label.Contains("宝藏")) {
+            return 1;
+        }
+
+        return label.Contains("事件") || label.Contains("危险") ? 3 : 2;
     }
 
     private static bool ClickFirstContinue(StringBuilder log) {

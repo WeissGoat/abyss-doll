@@ -96,9 +96,11 @@ public static class UILayoutCheck {
             }
 
             if (isText) {
-                // Part of the text under an opaque box drawn after it (a caption behind the grid it describes).
+                // Part of the text under an opaque box drawn after it (a caption behind the grid it describes). The item
+                // hover card sits over whatever is beside the hovered item on purpose, so it does not count.
                 foreach (Shown box in panels) {
                     if (box.Layer == s.Layer && !Related(s.Graphic.transform, box.Graphic.transform)
+                        && box.Graphic.GetComponentInParent<ItemTooltip>() == null
                         && box.Graphic.color.a * box.Graphic.canvasRenderer.GetInheritedAlpha() >= BlockerAlpha
                         && OverlapShare(s.Rect, box.Rect) > 0.15f && UIOcclusion.DrawsAfter(box.Graphic, s.Graphic)) {
                         Add(findings, "text covered", s.Graphic, "by " + Name(box.Graphic));

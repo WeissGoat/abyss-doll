@@ -30,6 +30,7 @@ public enum DiveReadinessIssueCode {
     AutoUnequippedProsthetic,
     NoHP,
     LowHPWarning,
+    LowSANWarning,
     DayNotStartable
 }
 
@@ -112,6 +113,8 @@ public static class DiveReadinessService {
     public const float HeavyWearWarningThreshold = 60f;
     public const float ExtremeCorruptionThreshold = 90f;
     public const float HighCorruptionWarningThreshold = 70f;
+    // SAN below the walk to the layer's boss times this: events and hazards on the way cost SAN too.
+    public const float SANWalkHeadroom = 1.5f;
 
     public static DiveReadinessResult Evaluate(PlayerProfile player, int layerID, bool autoUnequipIllegalProsthetics = false) {
         DiveReadinessResult result = new DiveReadinessResult {
@@ -176,6 +179,7 @@ public static class DiveReadinessService {
         }
 
         ValidateStatus(doll, result);
+        ValidateSANForLayer(doll, ConfigManager.Dungeons.TryGetValue(result.LayerID, out DungeonConfig layer) ? layer : null, result);
         ValidateChassis(doll, result);
         ValidateProsthetics(doll, result, autoUnequipIllegalProsthetics && !result.HasBlockers());
     }
@@ -223,6 +227,39 @@ public static class DiveReadinessService {
                 $"零号侵蚀偏深（{doll.Status.Corruption:0}/100）。",
                 "可以出发，但最好先净化。");
         }
+    }
+
+    // SAN does not come back between dives on its own (GDD_02 §3.5): only resting, care and the safe zone after a
+    // boss return it, so a player can set off with too little to reach the boss.
+    private static void ValidateSANForLayer(DollEntity doll, DungeonConfig layer, DiveReadinessResult result) {
+        int walk = WalkToBossSAN(layer);
+        if (doll.Status.HP_Current <= 0 || walk <= 0 || doll.Status.SAN_Current >= walk * SANWalkHeadroom) {
+            return;
+        }
+
+        result.AddIssue(
+            DiveReadinessIssueCode.LowSANWarning,
+            DiveReadinessIssueSeverity.Warning,
+            $"零号心神不足（SAN {doll.Status.SAN_Current}/{doll.Status.SAN_Max}），光走到这一层的首领就要 {walk}，路上的事件和危险还会再扣。",
+            "可以出发，到升降梯就回；想打首领先停工休息一天。");
+    }
+
+    // Route rows plus the boss; lifts and the safe zone cost nothing.
+    public static int WalkToBossSAN(DungeonConfig layer) {
+        if (layer == null) {
+            return 0;
+        }
+
+        int rows = 0;
+        if (layer.Segments != null && layer.Segments.Count > 0) {
+            foreach (int segment in layer.Segments) {
+                rows += segment;
+            }
+        } else {
+            rows = layer.RowCount;
+        }
+
+        return (rows + 1) * layer.SANCostPerNode;
     }
 
     private static void ValidateChassis(DollEntity doll, DiveReadinessResult result) {
