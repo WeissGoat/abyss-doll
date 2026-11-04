@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
   - 开发文档/10_奖励与掉落系统(RewardSystem).md
-  - 设计文档/数值/03_深渊产出与掉落期望.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/Chassis/README.md
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Dungeons/README.md

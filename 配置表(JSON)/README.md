@@ -10,7 +10,7 @@ related:
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - tools/config/README.md
-  - 设计文档/数值/00_基准价值与空间本位模型.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/Chassis/README.md
   - 配置表(JSON)/CraftingRecipes/README.md
   - 配置表(JSON)/Dolls/README.md

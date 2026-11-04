@@ -7,7 +7,7 @@ domain: config_chassis
 status: active
 source_of_truth: true
 related:
-  - 设计文档/数值/00_基准价值与空间本位模型.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/CraftingRecipes/README.md
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Prosthetics/README.md

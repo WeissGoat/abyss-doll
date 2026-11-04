@@ -12,7 +12,7 @@ related:
   - 版本规划/_archive/11_纵切批次与需求文档承接矩阵.md
   - 开发文档/00_程序开发大纲.md
   - agent_status/program.md
-  - 设计文档/数值/00_基准价值与空间本位模型.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/README.md
   - 设计文档/GDD/GDD_08_人偶养成子模块全案.md
   - 设计文档/GDD/GDD_12_人偶交互管理器.md

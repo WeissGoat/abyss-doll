@@ -11,7 +11,7 @@ related:
   - 开发文档/数据与实体定义/04_深渊与战斗实体.md
   - 开发文档/10_奖励与掉落系统(RewardSystem).md
   - 设计文档/数值/02_战斗数值.md
-  - 设计文档/数值/03_深渊产出与掉落期望.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/Dungeons/README.md
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
