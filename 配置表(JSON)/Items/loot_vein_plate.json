@@ -3,7 +3,7 @@
   "Name": "菌脉甲片",
   "ItemType": "Loot",
   "Rarity": "Uncommon",
-  "BaseValue": 460,
+  "BaseValue": 900,
   "IconID": "item_loot_vein_plate_icon",
   "DescriptionKey": "item.loot_vein_plate.desc",
   "Description": "菌脉长成的硬甲片，又厚又重，占地方。",

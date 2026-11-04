@@ -24,6 +24,7 @@ public static class TownEconomyOverviewServiceSmokeTest {
         TownEconomyOverviewReport report = TownEconomyOverviewService.BuildReport(player);
         TownEconomySellCandidate candidate = report.SellCandidates.FirstOrDefault(item => item.Item == scrap);
         TownEconomySellChannelValue dumpValue = candidate?.ChannelValues.FirstOrDefault(value => value.Channel == EconomySellChannel.DumpBox.ToString());
+        int rumorValue = Mathf.RoundToInt(ConfigManager.Items["loot_gear_scrap"].BaseValue * ConfigManager.Rumors["rumor_mechanical_price_up"].PriceMultiplier);
 
         bool passed = refresh.Success
             && report.Success
@@ -31,9 +32,9 @@ public static class TownEconomyOverviewServiceSmokeTest {
             && candidate != null
             && candidate.SourceContainer == "GroundInventory"
             && candidate.BestChannel == EconomySellChannel.DumpBox.ToString()
-            && candidate.BestValue == 150
+            && candidate.BestValue == rumorValue
             && dumpValue != null
-            && dumpValue.FinalValue == 150
+            && dumpValue.FinalValue == rumorValue
             && dumpValue.AppliedRumorIDs.Contains("rumor_mechanical_price_up");
 
         if (passed) {
@@ -107,7 +108,7 @@ public static class TownEconomyOverviewServiceSmokeTest {
             && report.Success
             && report.EstimatedMonthlyBill == 600
             && report.RentCountdown == 1
-            && report.PawnCandidates.Any(candidate => candidate.ItemID == "gear_charge_pistol" && candidate.PawnValue == 200)
+            && report.PawnCandidates.Any(candidate => candidate.ItemID == "gear_charge_pistol" && candidate.PawnValue == TownEconomyService.CalculatePawnValue(ConfigManager.Items["gear_charge_pistol"], TownEconomyService.GetConfig()))
             && faction != null
             && faction.ReputationValue == 10
             && faction.TrustValue == 2

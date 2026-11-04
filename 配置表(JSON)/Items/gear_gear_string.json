@@ -3,7 +3,7 @@
   "Name": "齿轮串",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 220,
+  "BaseValue": 160,
   "IconID": "item_gear_gear_string_icon",
   "DescriptionKey": "item.gear_gear_string.desc",
   "Description": "几枚齿轮用细链串在一起，挨着别的机械件时便转得更起劲。",

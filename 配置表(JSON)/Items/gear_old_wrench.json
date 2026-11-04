@@ -3,7 +3,7 @@
   "Name": "旧扳手",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 150,
+  "BaseValue": 160,
   "IconID": "item_gear_old_wrench_icon",
   "DescriptionKey": "item.gear_old_wrench.desc",
   "Description": "手柄磨亮的旧扳手，敲过矿轨，也拧过零号背后的螺丝。",

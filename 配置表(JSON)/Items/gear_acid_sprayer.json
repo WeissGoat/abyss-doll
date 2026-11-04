@@ -3,7 +3,7 @@
   "Name": "酸液喷壶",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 720,
+  "BaseValue": 440,
   "IconID": "item_gear_acid_sprayer_icon",
   "DescriptionKey": "item.gear_acid_sprayer.desc",
   "Description": "旧矿场的酸泵被拆下来焊进喷壶，壶嘴边还结着化不开的白霜。",

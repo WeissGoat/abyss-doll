@@ -3,7 +3,7 @@
   "Name": "磨刀石",
   "ItemType": "Armor",
   "Rarity": "Common",
-  "BaseValue": 140,
+  "BaseValue": 160,
   "IconID": "item_gear_whetstone_icon",
   "DescriptionKey": "item.gear_whetstone.desc",
   "Description": "放在武器旁边，闲下来就磨两下。贴着它的刀刃都会更快。",

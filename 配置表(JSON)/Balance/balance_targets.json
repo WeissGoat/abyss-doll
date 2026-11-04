@@ -1,4 +1,4 @@
-{
+﻿{
   "Version": 1,
   "Note": "数值目标（阶段 2 里程碑 1）。规则和每个数的来历见 设计文档/数值/02_战斗数值.md。怪物的血量和出手由 tools/balance/apply_monster_targets.py 从这里生成；物品按公式检查 tools/balance/check_budget.py；实战量测 FightLabTest。游戏运行时不读这个文件。",
   "APPerTurn": 3,
@@ -69,6 +69,33 @@
     "elite_resonant_amalgam": { "Hit": 0.9 },
     "elite_spore_matriarch": { "HP": 1.15 },
     "elite_vein_knight": { "HP": 1.15 }
+  },
+  "Economy": {
+    "Note": "经济目标（阶段 2 里程碑 1 第 2 批）。规则和每个数的来历见 设计文档/数值/01_经济数值.md。战利品和装备的 BaseValue 由 tools/balance/apply_item_values.py 从这里生成，掉落和房租由 tools/balance/check_economy.py 检查。",
+    "CellValue": { "1": 100, "2": 125, "3": 170 },
+    "Rarity": { "Common": 1.0, "Uncommon": 1.2, "Rare": 1.45, "Epic": 1.75 },
+    "Shape": { "Compact": 1.0, "Large": 1.1, "Irregular": 1.25 },
+    "RiskPremium": 1.3,
+    "GearShare": 0.8,
+    "GearMinCells": 2,
+    "Items": {
+      "con_anchor_charm": { "Keep": true }
+    },
+    "Week": {
+      "Note": "一周按前线层算：下潜 DivesPerWeek 次，SuccessRate 的下潜带东西回城，每次带回 CellsHome 格（第 1 层 4×4 背包去掉装备约 9 格，第 2 层起 5×5 约 15 格，都不一定装满）。按垃圾箱价算收入，RentShare 是这一周房租占收入的目标。Frontier 写两层时按两层收入的平均算（第 2 周一边升底盘一边开始下第 2 层）。",
+      "DivesPerWeek": 5,
+      "SuccessRate": 0.7,
+      "CellsHome": { "1": 7, "2": 12, "3": 12 },
+      "Weeks": [
+        { "Week": 1, "Frontier": 1, "RentShare": 0.3 },
+        { "Week": 2, "Frontier": [1, 2], "RentShare": 0.25 },
+        { "Week": 3, "Frontier": 3, "RentShare": 0.3 },
+        { "Week": 4, "Frontier": 3, "RentShare": 0.45 }
+      ],
+      "Tolerance": 0.25
+    },
+    "CellsPerNode": { "1": [1.4, 2.2], "2": [2.5, 4.0], "3": [2.5, 4.0] },
+    "ValueTolerance": 0.2
   },
   "FightLab": {
     "Note": "参考配装：刚到这一层时手里有的东西，都是上面几层能拿到的好装备（第 1 层就是开局的装备），和 Layers 里的 Arrival 对应。摆法交给 LoadoutArranger，不带消耗品，满血开打。",

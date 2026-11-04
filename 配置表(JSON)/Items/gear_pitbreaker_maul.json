@@ -3,7 +3,7 @@
   "Name": "坑道破岩锤",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 780,
+  "BaseValue": 720,
   "IconID": "item_gear_pitbreaker_maul_icon",
   "DescriptionKey": "item.gear_pitbreaker_maul.desc",
   "Description": "矿工用断裂轨道铆成的破岩大锤，挥一次要喘很久，砸下去却能让整条坑道发闷。",

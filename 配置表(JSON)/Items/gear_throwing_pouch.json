@@ -3,7 +3,7 @@
   "Name": "投掷腰包",
   "ItemType": "Armor",
   "Rarity": "Uncommon",
-  "BaseValue": 220,
+  "BaseValue": 190,
   "IconID": "item_gear_throwing_pouch_icon",
   "DescriptionKey": "item.gear_throwing_pouch.desc",
   "Description": "用废弃输送带裁成的腰包，边上还留着矿工自己缝的投掷搭扣。",

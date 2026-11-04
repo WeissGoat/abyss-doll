@@ -3,7 +3,7 @@
   "Name": "矿工提灯",
   "ItemType": "Loot",
   "Rarity": "Uncommon",
-  "BaseValue": 260,
+  "BaseValue": 240,
   "IconID": "item_loot_rusty_coil_icon",
   "DescriptionKey": "item.trade_miner_lamp.desc",
   "Description": "旧时矿工的提灯，灯罩上还刻着主人的名字。",

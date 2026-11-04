@@ -16,15 +16,15 @@
     },
     {
       "Period": 3,
-      "BaseRent": 1500
+      "BaseRent": 2400
     },
     {
       "Period": 4,
-      "BaseRent": 2100
+      "BaseRent": 3600
     },
     {
       "Period": 5,
-      "BaseRent": 2800
+      "BaseRent": 4500
     }
   ],
   "WorkshopMaintenanceBase": 0,

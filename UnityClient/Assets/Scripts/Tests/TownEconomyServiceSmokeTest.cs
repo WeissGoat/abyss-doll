@@ -103,12 +103,14 @@ public static class TownEconomyServiceSmokeTest {
     private static void TestPawnRequiredAndPlayerSelectedPawnPaysRent() {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
-        player.Money = 450;
         player.CurrentDay = 7;
         player.CurrentMonth = 1;
         player.CurrentMonthDay = 7;
         player.StashInventory.Clear();
-        ItemEntity pawnItem = AddStashItem(player, "gear_charge_pistol");
+        // Worth enough that pawning it covers more than the light-debt allowance, so the bill waits for the pawn.
+        ItemEntity pawnItem = AddStashItem(player, "gear_corroded_bulwark");
+        int pawnValue = TownEconomyService.BuildPawnCandidates(player).Find(candidate => candidate.Item == pawnItem)?.PawnValue ?? 0;
+        player.Money = TownEconomyService.ResolveBaseRent(TownEconomyService.GetConfig(), 1) - pawnValue + 50;
 
         MonthlyRentSettlementReport preview = TownEconomyService.ResolveMonthlyRent(player);
         MonthlyRentSettlementReport paid = TownEconomyService.ResolveMonthlyRent(player, new[] { pawnItem });
@@ -119,7 +121,7 @@ public static class TownEconomyServiceSmokeTest {
             && player.HasPendingMonthlyRent == false
             && paid.Success
             && paid.Status == MonthlyRentSettlementStatus.Paid
-            && paid.PawnIncome == 200
+            && paid.PawnIncome == pawnValue
             && paid.PawnedItems.Count == 1
             && player.Money == 50
             && !player.StashInventory.Contains(pawnItem);

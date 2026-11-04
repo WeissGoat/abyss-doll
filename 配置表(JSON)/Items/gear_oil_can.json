@@ -3,7 +3,7 @@
   "Name": "油壶",
   "ItemType": "Armor",
   "Rarity": "Uncommon",
-  "BaseValue": 240,
+  "BaseValue": 190,
   "IconID": "item_gear_oil_can_icon",
   "DescriptionKey": "item.gear_oil_can.desc",
   "Description": "坑道工留下的黄铜油壶，壶嘴歪了，挤出的旧油还能让齿轮多咬一阵。",

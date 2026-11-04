@@ -3,7 +3,7 @@
   "Name": "盾油",
   "ItemType": "Armor",
   "Rarity": "Uncommon",
-  "BaseValue": 360,
+  "BaseValue": 240,
   "IconID": "item_gear_shield_oil_icon",
   "DescriptionKey": "item.gear_shield_oil.desc",
   "Description": "坑道维修工调出来的厚油，涂在盾面上，敌人的胳膊会越来越沉。",

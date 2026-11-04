@@ -3,7 +3,7 @@
   "Name": "碎石锤",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 170,
+  "BaseValue": 240,
   "IconID": "item_gear_rubble_hammer_icon",
   "DescriptionKey": "item.gear_rubble_hammer.desc",
   "Description": "塌方坑道里捡来的短柄碎石锤，锤头裂了，靠几圈粗铁箍硬撑着。",

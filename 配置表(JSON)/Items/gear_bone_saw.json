@@ -3,7 +3,7 @@
   "Name": "骨锯",
   "ItemType": "Weapon",
   "Rarity": "Uncommon",
-  "BaseValue": 230,
+  "BaseValue": 190,
   "IconID": "item_gear_bone_saw_icon",
   "DescriptionKey": "item.gear_bone_saw.desc",
   "Description": "坑道兽医用来剖开骨壳的旧锯，齿缝里还卡着黑砂，每拉一下都会留下洗不净的泥痕。",

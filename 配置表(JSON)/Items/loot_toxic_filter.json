@@ -3,7 +3,7 @@
   "Name": "污染滤芯",
   "ItemType": "Loot",
   "Rarity": "Rare",
-  "BaseValue": 800,
+  "BaseValue": 710,
   "IconID": "item_loot_toxic_filter_icon",
   "DescriptionKey": "item.loot_toxic_filter.desc",
   "Description": "吸饱了毒雾的滤芯，很值钱。带着它走路，零号会更累。",

@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 开发文档/02_网格背包与计算系统(GridSystem).md
   - 开发文档/数据与实体定义/03_物品与网格实体.md
-  - 设计文档/数值/00_基准价值与空间本位模型.md
+  - 设计文档/数值/01_经济数值.md
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Rumors/README.md
   - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md

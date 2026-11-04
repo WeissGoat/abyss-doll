@@ -3,7 +3,7 @@
   "Name": "飞刀包",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 800,
+  "BaseValue": 440,
   "IconID": "item_gear_throwing_knife_pack_icon",
   "DescriptionKey": "item.gear_throwing_knife_pack.desc",
   "Description": "旧矿场巡检员留下的皮制飞刀包，袋口和带扣都被矿工用铜线重新缠过。",

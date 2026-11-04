@@ -3,7 +3,7 @@
   "Name": "酸腺囊",
   "ItemType": "Loot",
   "Rarity": "Rare",
-  "BaseValue": 520,
+  "BaseValue": 1180,
   "IconID": "item_loot_acid_gland_icon",
   "DescriptionKey": "item.loot_acid_gland.desc",
   "Description": "酸液怪的腺体，还在一鼓一鼓地渗酸。值钱，但会慢慢蚀坏旁边的东西。",

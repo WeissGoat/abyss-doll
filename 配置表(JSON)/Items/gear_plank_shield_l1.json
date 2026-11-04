@@ -3,7 +3,7 @@
   "Name": "拼板护盾",
   "ItemType": "Armor",
   "Rarity": "Common",
-  "BaseValue": 180,
+  "BaseValue": 320,
   "IconID": "item_gear_wooden_shield_icon",
   "DescriptionKey": "item.gear_plank_shield_l1.desc",
   "Description": "几块木板钉在一起的护盾。举起来的那一刻，总比什么都没有强。",

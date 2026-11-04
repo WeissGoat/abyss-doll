@@ -3,7 +3,7 @@
   "Name": "棘刺盾",
   "ItemType": "Armor",
   "Rarity": "Rare",
-  "BaseValue": 750,
+  "BaseValue": 440,
   "IconID": "item_gear_thorn_shield_icon",
   "DescriptionKey": "item.gear_thorn_shield.desc",
   "Description": "把矿车护板和断钉铆在一起，举起来时能听见铁屑在盾后乱跳。",

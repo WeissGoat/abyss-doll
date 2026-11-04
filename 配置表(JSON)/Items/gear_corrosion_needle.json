@@ -3,7 +3,7 @@
   "Name": "腐蚀针",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 210,
+  "BaseValue": 160,
   "IconID": "item_gear_corrosion_needle_icon",
   "DescriptionKey": "item.gear_corrosion_needle.desc",
   "Description": "用坑道废钉磨尖的小针，针身被酸液蚀出一道道细槽。",

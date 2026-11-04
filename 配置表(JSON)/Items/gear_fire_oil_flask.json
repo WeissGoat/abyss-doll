@@ -3,7 +3,7 @@
   "Name": "火油瓶",
   "ItemType": "Weapon",
   "Rarity": "Uncommon",
-  "BaseValue": 360,
+  "BaseValue": 240,
   "IconID": "item_gear_fire_oil_flask_icon",
   "DescriptionKey": "item.gear_fire_oil_flask.desc",
   "Description": "坑道照明用的旧油瓶，被拾荒人套上布塞和铁箍，专门往裂隙里扔。",

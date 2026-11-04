@@ -3,7 +3,7 @@
   "Name": "夜光菌簇",
   "ItemType": "Loot",
   "Rarity": "Uncommon",
-  "BaseValue": 260,
+  "BaseValue": 300,
   "IconID": "item_trade_luminous_fungus_icon",
   "DescriptionKey": "item.trade_luminous_fungus.desc",
   "Description": "会在暗处发光的菌簇，传闻里总有人在打听它的下落。",

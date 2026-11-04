@@ -3,7 +3,7 @@
   "Name": "培养皿",
   "ItemType": "Anchor",
   "Rarity": "Uncommon",
-  "BaseValue": 380,
+  "BaseValue": 240,
   "IconID": "item_gear_petri_dish_icon",
   "DescriptionKey": "item.gear_petri_dish.desc",
   "Description": "从矿坑医务棚里捡来的玻璃皿，底下的锈色菌膜还在慢慢吐泡。",

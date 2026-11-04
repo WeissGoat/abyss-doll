@@ -3,7 +3,7 @@
   "Name": "封存遗物匣",
   "ItemType": "Loot",
   "Rarity": "Epic",
-  "BaseValue": 1100,
+  "BaseValue": 1880,
   "IconID": "item_trade_sealed_relic_box_icon",
   "DescriptionKey": "item.trade_sealed_relic_box.desc",
   "Description": "封着的遗物匣，摇起来里面有东西在响。黑市的人会很感兴趣。",

@@ -3,7 +3,7 @@
   "Name": "铆钉甲片",
   "ItemType": "Armor",
   "Rarity": "Common",
-  "BaseValue": 180,
+  "BaseValue": 160,
   "IconID": "item_gear_riveted_plate_icon",
   "DescriptionKey": "item.gear_riveted_plate.desc",
   "Description": "旧矿车外壳裁下的窄甲片，边缘还留着没敲平的铆钉。",

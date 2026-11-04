@@ -3,7 +3,7 @@
   "Name": "聚焦镜片",
   "ItemType": "Armor",
   "Rarity": "Uncommon",
-  "BaseValue": 260,
+  "BaseValue": 190,
   "IconID": "item_gear_focus_lens_icon",
   "DescriptionKey": "item.gear_focus_lens.desc",
   "Description": "磨得很薄的镜片，把光收成一束，照在右边的武器上。",

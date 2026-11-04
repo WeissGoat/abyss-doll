@@ -3,7 +3,7 @@
   "Name": "腐蚀壁盾",
   "ItemType": "Armor",
   "Rarity": "Epic",
-  "BaseValue": 980,
+  "BaseValue": 1050,
   "IconID": "item_gear_corroded_bulwark_icon",
   "DescriptionKey": "item.gear_corroded_bulwark.desc",
   "Description": "从第二层的墙里撬出来的盾，锈得厉害，却比新盾还硬。回城记得保养。",

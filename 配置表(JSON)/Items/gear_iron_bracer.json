@@ -3,7 +3,7 @@
   "Name": "铆铁护腕",
   "ItemType": "Armor",
   "Rarity": "Rare",
-  "BaseValue": 420,
+  "BaseValue": 290,
   "IconID": "item_gear_iron_bracer_icon",
   "DescriptionKey": "item.gear_iron_bracer.desc",
   "Description": "废旧矿机的护轴扣被改成护腕，勒住手腕后，挨着它握重物会更稳。",

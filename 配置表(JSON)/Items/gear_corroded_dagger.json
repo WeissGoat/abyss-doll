@@ -3,7 +3,7 @@
   "Name": "锈蚀短匕",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 150,
+  "BaseValue": 160,
   "IconID": "item_gear_corroded_dagger_icon",
   "DescriptionKey": "item.gear_corroded_dagger.desc",
   "Description": "从旧矿场废料里敲出的短匕，锈口靠手工重新开刃，刃根缠着吸血的暗红布条。",

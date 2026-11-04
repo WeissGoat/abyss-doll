@@ -1225,7 +1225,7 @@ public static class TownEconomyService {
         return false;
     }
 
-    private static int CalculatePawnValue(ItemEntity item, EconomyConfig config) {
+    public static int CalculatePawnValue(ItemEntity item, EconomyConfig config) {
         if (item == null || config == null) {
             return 0;
         }

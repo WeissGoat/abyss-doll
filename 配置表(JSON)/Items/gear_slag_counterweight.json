@@ -3,7 +3,7 @@
   "Name": "矿渣配重块",
   "ItemType": "Anchor",
   "Rarity": "Uncommon",
-  "BaseValue": 220,
+  "BaseValue": 190,
   "IconID": "item_gear_slag_counterweight_icon",
   "DescriptionKey": "item.gear_slag_counterweight.desc",
   "Description": "从旧矿车轭架拆下的配重铁，用铁丝缠在重型武器边上，挥空时能借它喘一口气。",

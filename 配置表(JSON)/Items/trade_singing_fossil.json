@@ -3,7 +3,7 @@
   "Name": "低唱化石",
   "ItemType": "Loot",
   "Rarity": "Epic",
-  "BaseValue": 1250,
+  "BaseValue": 1700,
   "IconID": "item_trade_singing_fossil_icon",
   "DescriptionKey": "item.trade_singing_fossil.desc",
   "Description": "会低声唱歌的化石。收藏家愿意出大价钱，可听久了会睡不着。",

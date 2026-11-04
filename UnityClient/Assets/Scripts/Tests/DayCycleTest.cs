@@ -93,7 +93,7 @@ public static class DayCycleTest {
         core = NewCore();
         player = core.CurrentPlayer;
         player.StashInventory.Clear();
-        ItemEntity pawnItem = ConfigManager.CreateItem("gear_charge_pistol");
+        ItemEntity pawnItem = ConfigManager.CreateItem("gear_corroded_bulwark");
         ItemLifecycleService.MarkGroundInventoryItem(player, pawnItem, "Test");
         int pawnValue = TownEconomyService.BuildPawnCandidates(player).Find(candidate => candidate.Item == pawnItem)?.PawnValue ?? 0;
         player.Money = rent1 - pawnValue + 5;

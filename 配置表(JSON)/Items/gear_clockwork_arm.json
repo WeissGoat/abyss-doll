@@ -3,7 +3,7 @@
   "Name": "发条臂",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 780,
+  "BaseValue": 440,
   "IconID": "item_gear_clockwork_arm_icon",
   "DescriptionKey": "item.gear_clockwork_arm.desc",
   "Description": "旧矿场拆下的钟表臂骨，缠上布条后仍会替零号咬住下一击。",

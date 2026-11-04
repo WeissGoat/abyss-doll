@@ -3,7 +3,7 @@
   "Name": "低语之刃",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 760,
+  "BaseValue": 440,
   "IconID": "item_gear_whispering_blade_icon",
   "DescriptionKey": "item.gear_whispering_blade.desc",
   "Description": "旧矿场的手工短刃，刃背刻满听不清的低语，握久了便要用清醒去换那一下锋响。",

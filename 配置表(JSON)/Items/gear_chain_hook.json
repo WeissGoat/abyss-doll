@@ -3,7 +3,7 @@
   "Name": "链钩短枪",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 720,
+  "BaseValue": 580,
   "IconID": "item_gear_chain_hook_icon",
   "DescriptionKey": "item.gear_chain_hook.desc",
   "Description": "带倒钩的短枪，链条一甩就能勾回来。第二层的拾荒人都爱用它。",

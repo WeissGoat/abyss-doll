@@ -24,18 +24,19 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
         TownEconomyReadabilitySnapshot snapshot = TownEconomyReadabilityTextService.BuildSnapshot(player);
         TownEconomyReadabilitySellLine sellLine = snapshot.SellLines.FirstOrDefault(line => line.ItemID == "loot_gear_scrap");
         TownEconomyReadabilityRumorLine rumorLine = snapshot.RumorLines.FirstOrDefault(line => line.RumorID == "rumor_mechanical_price_up");
+        int rumorValue = Mathf.RoundToInt(ConfigManager.Items["loot_gear_scrap"].BaseValue * ConfigManager.Rumors["rumor_mechanical_price_up"].PriceMultiplier);
 
         bool passed = refresh.Success
             && snapshot.Success
             && sellLine != null
-            && sellLine.BestValue == 150
+            && sellLine.BestValue == rumorValue
             && sellLine.ChannelLines.Any(line => line.Contains("传闻"))
             && rumorLine != null
             && rumorLine.StatusText.Contains("x1.5")
             && snapshot.CombinedText.Contains("小镇经济")
             && snapshot.CombinedText.Contains("传闻")
             && snapshot.SellableCount > 0
-            && snapshot.TotalBestSellValue >= 150;
+            && snapshot.TotalBestSellValue >= rumorValue;
 
         if (passed) {
             Debug.Log("Town Economy Readability Sell Rumor Snapshot PASSED.");
@@ -104,7 +105,7 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
             && snapshot.RentPressureText.Contains("600G")
             && snapshot.PressureLines.Any(line => line.Contains("可典当候选"))
             && pawnLine != null
-            && pawnLine.PawnValue == 200
+            && pawnLine.PawnValue == TownEconomyService.CalculatePawnValue(ConfigManager.Items["gear_charge_pistol"], TownEconomyService.GetConfig())
             && factionLine != null
             && factionLine.ReputationValue == 10
             && factionLine.TrustValue == 2

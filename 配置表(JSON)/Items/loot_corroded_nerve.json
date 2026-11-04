@@ -3,7 +3,7 @@
   "Name": "腐蚀神经束",
   "ItemType": "Loot",
   "Rarity": "Rare",
-  "BaseValue": 700,
+  "BaseValue": 960,
   "IconID": "item_loot_corroded_nerve_icon",
   "DescriptionKey": "item.loot_corroded_nerve.desc",
   "Description": "被腐蚀成黑色的神经束，捏着时能听到细碎的低语。",

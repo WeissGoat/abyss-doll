@@ -3,7 +3,7 @@
   "Name": "生锈注射器",
   "ItemType": "Weapon",
   "Rarity": "Common",
-  "BaseValue": 150,
+  "BaseValue": 160,
   "IconID": "item_gear_rusty_syringe_icon",
   "DescriptionKey": "item.gear_rusty_syringe.desc",
   "Description": "拾荒人用旧血浆管改出来的注射器，推杆发涩，针尖却还灵。",
