@@ -561,6 +561,10 @@ public class DungeonMapUIController : MonoBehaviour {
             return "营地";
         }
 
+        if (node is RelicNode) {
+            return "遗物";
+        }
+
         if (node is EventNode) {
             return "事件";
         }

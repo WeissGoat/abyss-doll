@@ -498,6 +498,16 @@
           "Amount": -2
         }
       ]
+    },
+    {
+      "NodeType": "RelicNode",
+      "NodeIconID": "node_treasurenode_icon",
+      "Title": "遗物祭台",
+      "Description": "她把手从祭台上收了回来。",
+      "SceneID": "ev_relic_altar",
+      "RiskLevel": "Low",
+      "RiskHint": "三件深渊遗物里挑一件：只在这一趟有用，要占背包，出了深渊就散。",
+      "Weight": 6
     }
   ],
   "BossNode": "boss_spore_foundry",

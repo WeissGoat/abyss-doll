@@ -29,9 +29,9 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
         Resolve(_outcomeEffects, RewardID, null);
     }
 
-    // Applies the outcome, then offers the reward's loot or shows the result card. lead replaces the node's description
-    // at the top of the card (an event choice says what she did).
-    protected void Resolve(IEnumerable<DungeonNodeOutcomeConfig> effects, string rewardID, string lead) {
+    // Applies the outcome, then offers the reward's loot (plus any items given) or shows the result card. lead replaces
+    // the node's description at the top of the card (an event choice says what she did).
+    protected void Resolve(IEnumerable<DungeonNodeOutcomeConfig> effects, string rewardID, string lead, List<ItemEntity> givenItems = null) {
         if (!string.IsNullOrEmpty(lead)) {
             _description = lead;
         }
@@ -39,7 +39,7 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
         List<string> outcomeLines = new List<string>();
         ApplyConfiguredOutcomes(effects, outcomeLines);
 
-        CombatLootPickupResult lootResult = PrepareLootPickupResult(rewardID, outcomeLines);
+        CombatLootPickupResult lootResult = PrepareLootPickupResult(rewardID, outcomeLines, givenItems);
         if (lootResult != null && lootResult.OfferedItems.Count > 0) {
             _pendingLootResult = lootResult;
             DungeonEventBus.PublishCombatLootPrepared(lootResult);
@@ -165,21 +165,22 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
         outcomeLines.Add(BuildDeltaLine("金币", before, player.Money));
     }
 
-    private CombatLootPickupResult PrepareLootPickupResult(string rewardID, List<string> outcomeLines) {
-        if (string.IsNullOrEmpty(rewardID)) {
-            return null;
+    private CombatLootPickupResult PrepareLootPickupResult(string rewardID, List<string> outcomeLines, List<ItemEntity> givenItems) {
+        List<ItemEntity> items = new List<ItemEntity>(givenItems ?? new List<ItemEntity>());
+        string source = "Given";
+        if (!string.IsNullOrEmpty(rewardID)) {
+            RewardRollResult rewardResult = new RewardSystem().Roll(rewardID, BuildRewardContext());
+            if (rewardResult != null) {
+                if (rewardResult.Money > 0) {
+                    ModifyPlayerMoney(rewardResult.Money, outcomeLines);
+                }
+
+                items.AddRange(rewardResult.GeneratedItems ?? new List<ItemEntity>());
+                source = rewardResult.RootRewardID;
+            }
         }
 
-        RewardRollResult rewardResult = new RewardSystem().Roll(rewardID, BuildRewardContext());
-        if (rewardResult == null) {
-            return null;
-        }
-
-        if (rewardResult.Money > 0) {
-            ModifyPlayerMoney(rewardResult.Money, outcomeLines);
-        }
-
-        if (rewardResult.GeneratedItems == null || rewardResult.GeneratedItems.Count == 0) {
+        if (items.Count == 0) {
             return null;
         }
 
@@ -187,12 +188,12 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
             NodeID = NodeID
         };
 
-        foreach (ItemEntity item in rewardResult.GeneratedItems) {
+        foreach (ItemEntity item in items) {
             if (item == null) {
                 continue;
             }
 
-            ItemLifecycleService.MarkGeneratedToInbox(item, $"Reward:{rewardResult.RootRewardID}");
+            ItemLifecycleService.MarkGeneratedToInbox(item, $"Reward:{source}");
             pickupResult.OfferedItems.Add(item);
             pickupResult.TotalEstimatedValue += item.BaseValue;
         }

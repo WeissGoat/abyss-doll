@@ -163,6 +163,7 @@ public class P3BuildSmoke : MonoBehaviour {
         bool mapCaptured = false;
         bool liftCaptured = false;
         bool eventCaptured = false;
+        bool altarCaptured = false;
         bool continueChecked = false;
         int unpacked = 0;
         int talks = 0;
@@ -176,13 +177,20 @@ public class P3BuildSmoke : MonoBehaviour {
                 yield return Capture("03c_journal_page");
             }
 
-            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured, mapCaptured && !eventCaptured);
+            string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured, mapCaptured && !eventCaptured, mapCaptured && !altarCaptured);
             Note(report);
             if (report.Contains("Event ready.")) {
                 // A dungeon event's choices, each with its price (2026-11-04).
                 eventCaptured = true;
                 yield return new WaitForSecondsRealtime(0.5f);
                 yield return Capture("03h_event");
+                continue;
+            }
+            if (report.Contains("Altar ready.")) {
+                // A relic altar: three relics to pick one from (2026-11-04).
+                altarCaptured = true;
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture("03i_relic_altar");
                 continue;
             }
             if (report.Contains("Lift ready.")) {
@@ -264,6 +272,20 @@ public class P3BuildSmoke : MonoBehaviour {
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         int dayAfterDives = player.CurrentDay;
+
+        // A dive's route may meet no event and no altar: show their choices once anyway for the layout check.
+        if (!stuck) {
+            foreach (bool altar in new[] { false, true }) {
+                if (altar ? altarCaptured : eventCaptured) {
+                    continue;
+                }
+
+                Note("[preview] " + P3DevTools.PreviewChoices(altar));
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture(altar ? "03i_relic_altar" : "03h_event");
+                ScenePanel.Active?.gameObject.SetActive(false);
+            }
+        }
 
         // The end of the Demo (2026-10-24): layer 3 with easy fights (the route, not the numbers), the comic at the
         // stairs, her song line at the door, the ending's night talk and 「第一章 · 完」.

@@ -1,0 +1,27 @@
+{
+  "SceneID": "ev_relic_altar",
+  "Title": "深渊 · 遗物祭台",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "这里……摆着东西。",
+      "Face": "surprised"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "它们在等人拿走。只能拿一样。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "出了深渊，这些东西就会散掉。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "leave",
+      "Label": "都不拿",
+      "Hint": "什么都不拿",
+      "Result": "她把手从祭台上收了回来。"
+    }
+  ]
+}

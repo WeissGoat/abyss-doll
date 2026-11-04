@@ -1,0 +1,116 @@
+{
+  "ConfigID": "rel_abyss_heart",
+  "Name": "深渊之心",
+  "ItemType": "Relic",
+  "Rarity": "Epic",
+  "BaseValue": 0,
+  "IconID": "item_rel_abyss_heart_icon",
+  "DescriptionKey": "item.rel_abyss_heart.desc",
+  "Description": "每回合 +10 护盾，相邻武器伤害 +25%",
+  "ItemRole": [
+    "Relic"
+  ],
+  "LayerTags": [],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShieldOnTurnStart",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [
+          10.0
+        ]
+      },
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Params": [
+          0.25
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Relic"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "Dissolve",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Relic"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_rel_abyss_heart_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.rel_abyss_heart"
+  },
+  "Flavor": "很重，很暖。抱着它的时候，零号说听见了很远的地方在叫她。"
+}

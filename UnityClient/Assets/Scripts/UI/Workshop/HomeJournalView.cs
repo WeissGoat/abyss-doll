@@ -131,6 +131,10 @@ public class HomeJournalView : MonoBehaviour {
             lines.Add($"丢在下面 {log.Lost} 件：{Join(log.LostNames)}");
         }
 
+        if (log.RelicNames != null && log.RelicNames.Count > 0) {
+            lines.Add($"出了深渊就散掉的遗物：{Join(log.RelicNames)}");
+        }
+
         if (log.LeftBehind > 0) {
             lines.Add($"背包装不下，留下了 {log.LeftBehind} 件。");
         }

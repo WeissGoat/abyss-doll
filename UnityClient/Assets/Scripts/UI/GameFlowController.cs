@@ -368,7 +368,7 @@ public class GameFlowController : MonoBehaviour {
 
     // A dungeon event: its scene, then the choice's outcome on the usual result or loot screen.
     private void HandleChoiceEventEntered(EventNode node) {
-        ScenePanel.Play(node.SceneID, node.Choose);
+        ScenePanel.Play(node.Scene, node.Choose);
     }
 
     private void HandleSafeRoomEntered(NodeBase node) {

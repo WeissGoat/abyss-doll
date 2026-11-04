@@ -590,8 +590,9 @@ public static class P3DevTools {
     // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
     // stopAtMap: stop on the route map once Zero has walked a node (reports "Map ready."), for the same reason.
     // stopAtLift: stop on a lift's screen before sending anything up (reports "Lift ready.").
-    // stopAtEvent: stop on a dungeon event once its choices show (reports "Event ready.").
-    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false, bool stopAtLift = false, bool stopAtEvent = false) {
+    // stopAtEvent: stop on a dungeon event once its choices show (reports "Event ready."); stopAtAltar the same on a
+    // relic altar ("Altar ready.").
+    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false, bool stopAtMap = false, bool stopAtLift = false, bool stopAtEvent = false, bool stopAtAltar = false) {
         StringBuilder log = new StringBuilder();
         if (FinishArrival(log)) {
             return log.ToString() + Describe();
@@ -624,10 +625,11 @@ public static class P3DevTools {
         for (int step = 0; step < maxSteps; step++) {
             if (ScenePanel.IsShowing) {
                 // A dungeon event's scene: its lines, then the first choice. The prologue's scenes are PlayPrologue's.
-                if (GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode is EventNode) {
+                if (GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode is EventNode eventNode) {
                     Transform choice = ScenePanel.Active.transform.Find("Dialog/SceneChoice_0");
-                    if (stopAtEvent && choice != null && choice.gameObject.activeInHierarchy) {
-                        log.AppendLine("Event ready.");
+                    bool altar = eventNode is RelicNode;
+                    if ((altar ? stopAtAltar : stopAtEvent) && choice != null && choice.gameObject.activeInHierarchy) {
+                        log.AppendLine(altar ? "Altar ready." : "Event ready.");
                         break;
                     }
 
@@ -923,6 +925,30 @@ public static class P3DevTools {
         }
 
         return "Layer 3 open and chosen; fights are easy until EasyFights is cleared.\n" + chassis + Describe();
+    }
+
+    // Shows a dungeon event's or a relic altar's choices outside a dive, for the build's layout check (the route a dive
+    // takes may meet neither). Whatever is clicked closes it and changes nothing.
+    public static string PreviewChoices(bool altar) {
+        EventNode node = altar ? new RelicNode { NodeID = "preview_altar" } : new EventNode { NodeID = "preview_event" };
+        node.Init(new NodePoolEntry { NodeType = altar ? nameof(RelicNode) : nameof(EventNode), SceneID = altar ? "ev_relic_altar" : "ev_l2_corroded_cache" });
+        if (node is RelicNode relicNode) {
+            relicNode.RollOffer();
+        }
+
+        ScenePanel panel = ScenePanel.Play(node.Scene, _ => { });
+        for (int i = 0; panel != null && i < 12; i++) {
+            Transform choice = panel.transform.Find("Dialog/SceneChoice_0");
+            if (choice != null && choice.gameObject.activeInHierarchy) {
+                return $"Choices showing: {node.Choices.Count}.";
+            }
+
+            if (!ClickWithin(panel.transform, ScenePanel.ContinueLabel, null)) {
+                break;
+            }
+        }
+
+        return "Choices did not show.";
     }
 
     // Clicks 和她说话 in the hall or the attic (goes to the hall from the studio).

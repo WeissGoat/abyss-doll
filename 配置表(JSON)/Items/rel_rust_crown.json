@@ -1,0 +1,101 @@
+{
+  "ConfigID": "rel_rust_crown",
+  "Name": "锈铁王冠",
+  "ItemType": "Relic",
+  "Rarity": "Rare",
+  "BaseValue": 0,
+  "IconID": "item_rel_rust_crown_icon",
+  "DescriptionKey": "item.rel_rust_crown.desc",
+  "Description": "相邻武器伤害 +35%",
+  "ItemRole": [
+    "Relic"
+  ],
+  "LayerTags": [],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Params": [
+          0.35
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Relic"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "Dissolve",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Relic"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_rel_rust_crown_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.rel_rust_crown"
+  },
+  "Flavor": "谁也没戴过的王冠，锈迹底下还在发烫。"
+}

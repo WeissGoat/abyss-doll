@@ -16,6 +16,8 @@ public class DungeonSettlementResult {
     public int LostCount;
     public int LostEstimatedValue;
     public List<string> LostNames = new List<string>();
+    // Relics she carried out of the abyss, which crumbled at the exit (not loot, so neither brought out nor lost).
+    public List<string> RelicsDissolved = new List<string>();
     // The dive took the day: business settlement ran and the calendar moved on (rule card 01).
     public DailyEconomyReport DayReport;
 }

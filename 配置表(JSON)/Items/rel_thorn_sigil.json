@@ -1,0 +1,95 @@
+{
+  "ConfigID": "rel_thorn_sigil",
+  "Name": "荆棘圣徽",
+  "ItemType": "Relic",
+  "Rarity": "Rare",
+  "BaseValue": 0,
+  "IconID": "item_rel_thorn_sigil_icon",
+  "DescriptionKey": "item.rel_thorn_sigil.desc",
+  "Description": "被打时反伤 5",
+  "ItemRole": [
+    "Relic"
+  ],
+  "LayerTags": [],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "Thorns",
+        "Level": 0,
+        "Params": [
+          5
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Relic"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "Dissolve",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Relic"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_rel_thorn_sigil_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.rel_thorn_sigil"
+  },
+  "Flavor": "缠着铁刺的徽记，谁碰她，谁就流血。"
+}

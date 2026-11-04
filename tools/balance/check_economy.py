@@ -56,7 +56,8 @@ class Haul:
 
 def item_haul(item_id, count=1):
     item = ITEMS.get(item_id)
-    if item is None:
+    # Relics are worth nothing in town and crumble at the exit, so they are not haul.
+    if item is None or item.get("ItemType") == "Relic":
         return Haul()
     sellable = item.get("BaseValue", 0) > 0 and item.get("ItemType") != "QuestItem"
     gold = item.get("BaseValue", 0) * ECONOMY["DumpBoxMultiplier"] if sellable else 0

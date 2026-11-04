@@ -829,6 +829,54 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_rel_abyss_heart_icon
+    Sprite: {fileID: 21300000, guid: 51488cd5203e4c6092b31c38aaf7df97, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_lamp_eye_icon
+    Sprite: {fileID: 21300000, guid: c79289bf9fa6450b91a37a22dfbe40d8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_prayer_bone_icon
+    Sprite: {fileID: 21300000, guid: 0a3a7a5f1ab8497ab95d45da55e765fa, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_resonant_cluster_icon
+    Sprite: {fileID: 21300000, guid: 83f70c95a7c0465c914cee6958d87109, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_rust_crown_icon
+    Sprite: {fileID: 21300000, guid: 265dcd7a6e4c4b32b54833aaee254a80, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_spore_heart_icon
+    Sprite: {fileID: 21300000, guid: 5f6ff04b62b34e1e9828f61e24c2c22c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_thorn_sigil_icon
+    Sprite: {fileID: 21300000, guid: e00fea6020954e08a8d9a060c6c84a22, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_rel_weak_bell_icon
+    Sprite: {fileID: 21300000, guid: 72dc856399f14477a0df19184a0c044d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_trade_luminous_fungus_icon
     Sprite: {fileID: 21300000, guid: d73bd777def26a549bf3a2db317b89d1, type: 3}
     Prefab: {fileID: 0}

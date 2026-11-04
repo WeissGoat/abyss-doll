@@ -1,0 +1,98 @@
+{
+  "ConfigID": "rel_spore_heart",
+  "Name": "孢子心核",
+  "ItemType": "Relic",
+  "Rarity": "Rare",
+  "BaseValue": 0,
+  "IconID": "item_rel_spore_heart_icon",
+  "DescriptionKey": "item.rel_spore_heart.desc",
+  "Description": "每回合让所有敌人中毒 2",
+  "ItemRole": [
+    "Relic"
+  ],
+  "LayerTags": [],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ApplyStatus",
+        "Level": 0,
+        "Target": "AllEnemies",
+        "Trigger": "TurnStart",
+        "Status": "Poison",
+        "Params": [
+          2
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Relic"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "Dissolve",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Relic"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_rel_spore_heart_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.rel_spore_heart"
+  },
+  "Flavor": "还在缓慢搏动的孢子团，靠近它的东西都会生病。"
+}

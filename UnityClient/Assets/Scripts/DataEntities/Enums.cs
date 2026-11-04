@@ -6,7 +6,9 @@ public enum ItemType {
     Consumable = 2,
     Loot = 3,
     QuestItem = 4,
-    Anchor = 5
+    Anchor = 5,
+    // 深渊遗物 (GDD_06 §3.2C): a passive for this dive only; it dissolves when she leaves the abyss.
+    Relic = 6
 }
 
 public enum ItemOwnerScope {

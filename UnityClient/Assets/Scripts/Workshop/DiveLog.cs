@@ -43,6 +43,8 @@ public class DiveLog {
     public List<string> BroughtOutIDs = new List<string>();
     public int Lost;
     public List<string> LostNames = new List<string>();
+    // Relics that crumbled when she left the abyss.
+    public List<string> RelicNames = new List<string>();
     // Bond 3: she held on once against a lethal blow (one HP left).
     public bool HeldOn;
     // 精神好: she set out cared for and talked to; the first fight's first turn gets +1 AP (SpiritUsed once it has).
@@ -184,6 +186,7 @@ public static class DiveLogService {
         log.BroughtOutIDs = result?.BroughtOutIDs != null ? new List<string>(result.BroughtOutIDs) : new List<string>();
         log.Lost = result?.LostCount ?? 0;
         log.LostNames = result?.LostNames != null ? new List<string>(result.LostNames) : new List<string>();
+        log.RelicNames = result?.RelicsDissolved != null ? new List<string>(result.RelicsDissolved) : new List<string>();
         log.EliteBypassed = !log.EliteFought && BypassedAnElite(layer);
         log.Shown = log.Prologue;
 

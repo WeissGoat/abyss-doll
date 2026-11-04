@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // The road tax on deeper layers (GDD_02 §3.5), the lift's parcel (§4.3A), events with choices (§3.3) and the
-// growth gates between layers (GDD_13).
+// growth gates between layers (GDD_13) and abyss relics (GDD_06 §3.2C).
 public static class DungeonPressureTest {
     private static DungeonSettlementResult _settlement;
 
@@ -15,6 +15,8 @@ public static class DungeonPressureTest {
         TestChoiceEventWaitsForTheChoice();
         TestPermitFee();
         TestChassisGate();
+        TestRelicAltarOffersThree();
+        TestRelicsStayInTheAbyss();
         Debug.Log("=== Dungeon Pressure Test Finished ===");
     }
 
@@ -154,6 +156,50 @@ public static class DungeonPressureTest {
         bool stairsShut = !core.Dungeon.CanEnterNextLayer() && !string.IsNullOrEmpty(core.Dungeon.NextLayerBlockReason()) && !core.Dungeon.EnterNextLayer();
         Check(required > 0 && small && blockedFromTown && stairsShut, "Chassis gate on layer 3",
             $"required {required}, chassis {player.ActiveDoll.Chassis.Level}, blocked from town={blockedFromTown}, stairs shut={stairsShut}");
+    }
+
+    private static void TestRelicAltarOffersThree() {
+        CoreBackend core = CreateCore();
+        ResetBackpack(core.CurrentPlayer.ActiveDoll);
+        core.Dungeon.LoadLayer(1);
+        RelicNode altar = new RelicNode { NodeID = "pressure_altar" };
+        altar.Init(new NodePoolEntry { NodeType = "RelicNode", Title = "遗物祭台", SceneID = "ev_relic_altar" });
+
+        CombatLootPickupResult offered = null;
+        DungeonEventBus.OnCombatLootPrepared += result => offered = result;
+        GameRandom.Seed(7);
+        altar.OnEnterNode();
+        List<SceneChoice> first = new List<SceneChoice>(altar.Choices);
+        GameRandom.Seed(7);
+        altar.OnEnterNode();
+        bool sameAgain = first.Count == altar.Choices.Count && first.TrueForAll(choice => altar.Choices.Exists(again => again.ID == choice.ID));
+
+        bool shape = first.Count == RelicNode.Offered + 1 && first[first.Count - 1].ID == "leave"
+            && first.GetRange(0, RelicNode.Offered).TrueForAll(choice => DungeonManager.IsRelic(ConfigManager.Items[choice.ID]));
+        altar.Choose(first[0].ID);
+        bool given = offered != null && offered.OfferedItems.Count == 1 && offered.OfferedItems[0].ConfigID == first[0].ID;
+        Check(shape && sameAgain && given, "Relic altar offers three", $"choices={first.Count}, same on re-entry={sameAgain}, given={given}");
+    }
+
+    private static void TestRelicsStayInTheAbyss() {
+        CoreBackend core = CreateCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = ResetBackpack(doll);
+        core.Dungeon.LoadLayer(1);
+        ItemEntity relic = PickUp(grid, "rel_prayer_bone", 0, 0);
+        ItemEntity scrap = PickUp(grid, "loot_gear_scrap", 1, 0);
+        StandOnLift(core.Dungeon.CurrentLayer);
+        bool refused = !core.Dungeon.TrySendHome(relic, out string reason);
+
+        _settlement = null;
+        DungeonEventBus.OnDungeonSettlementPrepared += Capture;
+        DungeonEventBus.PublishDungeonEvacuated();
+        DungeonEventBus.OnDungeonSettlementPrepared -= Capture;
+        bool gone = !core.CurrentPlayer.StashInventory.Exists(item => item.ConfigID == "rel_prayer_bone")
+            && core.CurrentPlayer.StashInventory.Contains(scrap);
+        bool reported = _settlement != null && _settlement.RelicsDissolved.Contains(relic.Name)
+            && _settlement.BroughtOutCount == 1 && _settlement.LostCount == 0;
+        Check(refused && gone && reported, "Relics stay in the abyss", $"refused={refused} ({reason}), gone={gone}, reported={reported}");
     }
 
     private static ItemEntity PickUp(BackpackGrid grid, string configID, int x, int y) {

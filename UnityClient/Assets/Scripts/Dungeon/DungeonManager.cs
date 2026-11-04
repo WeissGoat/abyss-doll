@@ -194,7 +194,7 @@ public class DungeonLayer {
             return null;
         }
 
-        List<NodePoolEntry> candidates = allowElite ? pool : pool.FindAll(p => !IsEliteEntry(p));
+        List<NodePoolEntry> candidates = allowElite ? pool : pool.FindAll(p => !IsEliteEntry(p) && p.NodeType != nameof(RelicNode));
         if (candidates.Count == 0) {
             candidates = pool;
         }
@@ -689,6 +689,7 @@ public class DungeonManager {
             IsVictory = true
         };
 
+        result.RelicsDissolved.AddRange(DissolveRelics(player));
         var activeDoll = player?.ActiveDoll;
         if (activeDoll != null) {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
@@ -743,6 +744,7 @@ public class DungeonManager {
             IsVictory = false
         };
 
+        result.RelicsDissolved.AddRange(DissolveRelics(player));
         ItemLifecycleBatchResult defeatResult = ItemLifecycleService.ResolveDefeatBackpackItems(player, "DungeonDefeat");
         List<ItemEntity> preservedRunLoot = CollectPreservedRunLoot(defeatResult);
         preservedRunLoot.AddRange(_sentHome);
@@ -1053,6 +1055,28 @@ public class DungeonManager {
         return new List<ItemEntity>(_sentHome);
     }
 
+    public static bool IsRelic(ItemEntity item) {
+        return item != null && item.ItemType == nameof(ItemType.Relic);
+    }
+
+    // Relics belong to the abyss: leaving it (home by a lift, the stairs' 返回小镇 or a defeat) they crumble.
+    private List<string> DissolveRelics(PlayerProfile player) {
+        List<string> names = new List<string>();
+        BackpackGrid grid = player?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid == null) {
+            return names;
+        }
+
+        foreach (ItemEntity relic in grid.ContainedItems.FindAll(IsRelic)) {
+            grid.RemoveItem(relic);
+            ItemLifecycleService.MarkDetachedItemLost(relic, "RelicDissolved", out _);
+            _runAcceptedLoot.Remove(relic);
+            names.Add(relic.Name);
+        }
+
+        return names;
+    }
+
     public static int ItemCells(ItemEntity item) {
         return item?.Grid?.Shape != null ? Mathf.Max(1, item.Grid.Shape.Length) : 1;
     }
@@ -1067,6 +1091,11 @@ public class DungeonManager {
 
         if (item == null || !CarriedRunLoot().Contains(item)) {
             reason = "只能送这一趟捡到、还在背包里的东西。";
+            return false;
+        }
+
+        if (IsRelic(item)) {
+            reason = "遗物离开深渊就会散掉，送不上去。";
             return false;
         }
 

@@ -1,16 +1,34 @@
 {
   "RewardID": "reward_monster_elite_scrap_guard",
   "Name": "Layer 1 Scrap Guard Elite Drop",
-  "Tags": ["Monster", "Layer1", "Elite"],
+  "Tags": [
+    "Monster",
+    "Layer1",
+    "Elite"
+  ],
   "RewardRole": "EliteDrop",
   "SourceType": "Monster",
-  "LayerRange": { "Min": 1, "Max": 1 },
-  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LayerRange": {
+    "Min": 1,
+    "Max": 1
+  },
+  "ContentPackRefs": [
+    "design_pack_layer1_formal_core"
+  ],
   "RewardTier": "Elite",
-  "ExpectedValueBand": { "Min": 260, "Max": 620 },
+  "ExpectedValueBand": {
+    "Min": 260,
+    "Max": 620
+  },
   "RiskBudgetTag": "RiskReward",
-  "ValidationTags": ["Layer1Reward", "L1EliteReward", "NoBossGuaranteedCore"],
-  "SeedSampleRefs": ["V-L1-ELITE-RISK-01"],
+  "ValidationTags": [
+    "Layer1Reward",
+    "L1EliteReward",
+    "NoBossGuaranteedCore"
+  ],
+  "SeedSampleRefs": [
+    "V-L1-ELITE-RISK-01"
+  ],
   "AuditNotes": "Formal elite reward. Boss tag and mat_core_tier1 guaranteed drop migrated to reward_boss_gatekeeper_mk1.",
   "Guaranteed": [],
   "WeightedPools": [
@@ -19,10 +37,30 @@
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
-        { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 28, "Count": 1 },
-        { "Type": "Item", "ItemID": "trade_cracked_relic", "Weight": 24, "Count": 1 },
-        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 34, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_plank_shield_l1", "Weight": 14, "Count": 1 }
+        {
+          "Type": "Item",
+          "ItemID": "gear_tactical_blade",
+          "Weight": 28,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "trade_cracked_relic",
+          "Weight": 24,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_rusty_coil",
+          "Weight": 34,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_plank_shield_l1",
+          "Weight": 14,
+          "Count": 1
+        }
       ]
     },
     {
@@ -30,8 +68,75 @@
       "RollCount": 1,
       "AllowDuplicate": true,
       "Entries": [
-        { "Type": "Money", "Money": 24, "Weight": 40, "Count": 1 },
-        { "Type": "Nothing", "Weight": 60 }
+        {
+          "Type": "Money",
+          "Money": 24,
+          "Weight": 40,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 60
+        }
+      ]
+    },
+    {
+      "PoolID": "relic",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "rel_abyss_heart",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_lamp_eye",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_prayer_bone",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_resonant_cluster",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_rust_crown",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_spore_heart",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_thorn_sigil",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "rel_weak_bell",
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 60
+        }
       ]
     }
   ]

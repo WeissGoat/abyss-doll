@@ -282,6 +282,7 @@ public static class ItemPresentationRules {
             case nameof(ItemType.Weapon): return "武器";
             case nameof(ItemType.Armor): return "防具";
             case nameof(ItemType.Anchor): return "护符";
+            case nameof(ItemType.Relic): return "深渊遗物";
             case nameof(ItemType.Consumable): return "消耗品";
             case nameof(ItemType.Loot): return "战利品";
             case nameof(ItemType.QuestItem): return "委托物品";

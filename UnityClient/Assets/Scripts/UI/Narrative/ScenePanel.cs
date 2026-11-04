@@ -12,7 +12,8 @@ public class ScenePanel : MonoBehaviour {
     public const string ContinueLabel = "▶";
     public const string DoneLabel = "继续";
     public const string ZeroSpeaker = "零号";
-    private const int MaxChoices = 3;
+    // A relic altar offers three and a way out.
+    private const int MaxChoices = 4;
     private const float WideWidth = 1180f;
     private const float NarrowWidth = 1040f;
     private const float Margin = 40f;
@@ -48,13 +49,18 @@ public class ScenePanel : MonoBehaviour {
             Debug.LogWarning($"[ScenePanel] Scene {sceneID} not found.");
         }
 
+        return Play(scene ?? new SceneConfig { SceneID = sceneID }, onChosen, allowedChoiceIDs, extraText);
+    }
+
+    // A scene built at runtime (a relic altar's three offers).
+    public static ScenePanel Play(SceneConfig scene, Action<string> onChosen, IList<string> allowedChoiceIDs = null, string extraText = null) {
         ScenePanel panel = Ensure();
         if (panel == null) {
             onChosen?.Invoke(null);
             return null;
         }
 
-        panel.Present(scene ?? new SceneConfig { SceneID = sceneID }, allowedChoiceIDs, extraText, onChosen);
+        panel.Present(scene ?? new SceneConfig(), allowedChoiceIDs, extraText, onChosen);
         return panel;
     }
 
