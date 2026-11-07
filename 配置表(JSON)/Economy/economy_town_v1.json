@@ -45,7 +45,7 @@
   "ShowcaseIgnoredTags": ["Material", "RiskPremium", "Trade", "Layer1", "Layer2", "Layer3"],
   "LiftParcelCells": 2,
   "ShopPriceMultiplier": 1.2,
-  "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "gear_whetstone", "con_repair_kit", "con_cheap_sedative", "gear_rusty_syringe", "gear_rubble_hammer", "gear_old_wrench", "gear_plated_shield", "gear_stone_bag", "gear_corroded_dagger", "gear_spark_cell", "gear_copper_conduit", "gear_rivet_driver"],
+  "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "gear_whetstone", "con_repair_kit", "con_cheap_sedative", "gear_rusty_syringe", "gear_rubble_hammer", "gear_old_wrench", "gear_plated_shield", "gear_stone_bag", "gear_corroded_dagger", "gear_spark_cell", "gear_copper_conduit", "gear_rivet_driver", "gear_music_box"],
   "PawnProtectedTags": [
     "Bond",
     "OrderBound",

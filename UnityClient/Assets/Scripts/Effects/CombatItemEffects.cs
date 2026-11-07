@@ -68,7 +68,26 @@ public static class CombatItemEffects {
     public static int StrikeDamage(ItemEntity weapon) {
         float charge = Ledger?.TakeCharge(weapon) ?? 0f;
         float damage = (weapon?.Combat?.RuntimeDamage ?? 0f) + StrikeBonus(weapon);
-        return Mathf.RoundToInt(damage * (1f + charge) * OutputScale);
+        return Mathf.RoundToInt(damage * (1f + charge) * OutputScale * (1f + OutputBonus(weapon)));
+    }
+
+    // What the items around it add to this item's damage and shields right now (BondResonance).
+    public static float OutputBonus(ItemEntity target) {
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (target == null || grid == null || !grid.ContainedItems.Contains(target)) {
+            return 0f;
+        }
+
+        float bonus = 0f;
+        foreach (ItemEntity item in grid.ContainedItems) {
+            foreach (EffectData data in item?.Combat?.Effects ?? new List<EffectData>()) {
+                if (data?.EffectID == "BondResonance") {
+                    bonus += EffectFactory.CreateEffect(data)?.OutputBonus(item, target, grid) ?? 0f;
+                }
+            }
+        }
+
+        return bonus;
     }
 
     // Flat damage the weapon's own effects add at the moment of the strike (赤热刃: per point of overload).

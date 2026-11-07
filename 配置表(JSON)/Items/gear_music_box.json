@@ -1,0 +1,115 @@
+{
+  "ConfigID": "gear_music_box",
+  "Name": "八音盒",
+  "ItemType": "Anchor",
+  "Rarity": "Uncommon",
+  "BaseValue": 380,
+  "IconID": "item_gear_music_box_icon",
+  "DescriptionKey": "item.gear_music_box.desc",
+  "Description": "旧木头八音盒，发条拧不紧了，只能弹出半支曲子。零号撑不住的时候，它会自己响起来。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "BondResonance",
+        "Level": 0,
+        "Params": [
+          0.3,
+          0.1,
+          0.4,
+          60.0
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Anchor",
+    "Bond",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Anchor",
+      "Bond",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_music_box_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_music_box"
+  }
+}

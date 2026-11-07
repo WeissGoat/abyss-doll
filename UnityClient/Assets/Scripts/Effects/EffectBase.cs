@@ -67,6 +67,11 @@ public abstract class EffectBase {
         return 0f;
     }
 
+    // Extra share (0.3 = +30%) the provider adds to another item's damage and shields right now (八音盒).
+    public virtual float OutputBonus(ItemEntity provider, ItemEntity target, BackpackGrid grid) {
+        return 0f;
+    }
+
     // False blocks using the provider right now (e.g. its uses this fight are spent).
     public virtual bool AllowsUse(ItemEntity provider, out string reason) {
         reason = string.Empty;

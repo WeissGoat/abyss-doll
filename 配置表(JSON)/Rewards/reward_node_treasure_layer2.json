@@ -183,6 +183,18 @@
           "ItemID": "gear_rivet_driver",
           "Weight": 6,
           "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_scrap_cannon",
+          "Weight": 6,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_lonely_blade",
+          "Weight": 6,
+          "Count": 1
         }
       ]
     }

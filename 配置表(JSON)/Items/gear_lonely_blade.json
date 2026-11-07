@@ -1,0 +1,110 @@
+{
+  "ConfigID": "gear_lonely_blade",
+  "Name": "孤高之刃",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 440,
+  "IconID": "item_gear_lonely_blade_icon",
+  "DescriptionKey": "item.gear_lonely_blade.desc",
+  "Description": "细长的单刃，握在手里轻得像没拿东西。背包越空，它划出去的弧光越亮。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 6,
+    "Effects": [
+      {
+        "EffectID": "PerEmptyCellDamage",
+        "Level": 0,
+        "Params": [
+          2.0
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Melee",
+    "Sharp",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Melee",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_lonely_blade_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_lonely_blade"
+  }
+}

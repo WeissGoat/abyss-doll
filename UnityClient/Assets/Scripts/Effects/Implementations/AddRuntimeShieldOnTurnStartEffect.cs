@@ -12,7 +12,7 @@ public class AddRuntimeShieldOnTurnStartEffect : EffectBase {
     }
 
     public override void ApplyToFighter(FighterEntity fighter, ItemEntity provider) {
-        fighter.AddShield((int)_shieldAmount);
+        fighter.AddShield(Mathf.RoundToInt(_shieldAmount * (1f + CombatItemEffects.OutputBonus(provider))));
         Debug.Log($"[Effect] {provider?.Name} passive triggered. Added {_shieldAmount} shield to {fighter.Name}.");
     }
 }

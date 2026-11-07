@@ -1,0 +1,113 @@
+{
+  "ConfigID": "gear_scrap_cannon",
+  "Name": "粉碎炮",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 580,
+  "IconID": "item_gear_scrap_cannon_icon",
+  "DescriptionKey": "item.gear_scrap_cannon.desc",
+  "Description": "炮膛里装着一对咬合的铁齿。什么都往里塞：碎铁、怪物吐的黏块、捡来的破烂，嚼碎了就轰出去。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 6,
+    "Effects": [
+      {
+        "EffectID": "BurnCheapest",
+        "Level": 0,
+        "Params": [
+          9.0
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Heavy",
+    "Mechanical",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Heavy",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_scrap_cannon_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_scrap_cannon"
+  }
+}
