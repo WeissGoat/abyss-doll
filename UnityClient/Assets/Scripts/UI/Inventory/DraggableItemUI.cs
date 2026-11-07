@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,23 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public const float HeldAlpha = 0.7f;
 
     public ItemEntity ItemData { get; private set; }
+
+    // Tiles on screen by item, so the combat screen can light an item where it lies (BackpackFx).
+    private static readonly Dictionary<string, DraggableItemUI> Live = new Dictionary<string, DraggableItemUI>();
+
+    public static DraggableItemUI Find(string instanceID) {
+        if (string.IsNullOrEmpty(instanceID) || !Live.TryGetValue(instanceID, out DraggableItemUI tile)) {
+            return null;
+        }
+
+        return tile != null && tile.isActiveAndEnabled ? tile : null;
+    }
+
+    private void OnEnable() {
+        if (!string.IsNullOrEmpty(ItemData?.InstanceID)) {
+            Live[ItemData.InstanceID] = this;
+        }
+    }
     public bool IsPendingDiscard { get; private set; }
     
     private Vector3 _originalPosition;
@@ -39,6 +57,10 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public int DragCellOffsetY { get; private set; }
 
     public void SetupData(ItemEntity itemData) {
+        if (itemData?.InstanceID != null) {
+            Live[itemData.InstanceID] = this;
+        }
+
         ItemData = itemData;
         _wasInGrid = false;
         _lastPlacement = InventoryItemPlacement.Missing;
@@ -438,6 +460,10 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     private void OnDisable() {
+        if (!string.IsNullOrEmpty(ItemData?.InstanceID) && Live.TryGetValue(ItemData.InstanceID, out DraggableItemUI known) && known == this) {
+            Live.Remove(ItemData.InstanceID);
+        }
+
         ItemTooltip.HideFor(transform as RectTransform);
         SetHeldOnTop(false);
         if (_isDragging) {

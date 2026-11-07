@@ -150,7 +150,7 @@ public class DollFighter : FighterEntity {
             // A neighbour's charge raises this strike once; 迟缓 on Zero and 破甲 on the target change it too.
             int dmg = CombatStatusService.ModifyDamage(this, target, CombatItemEffects.StrikeDamage(weaponSource));
             string pose = weaponSource.ConfigID == ItemUseService.UnarmedStrikeConfigID ? CombatPose.Punch : null;
-            GameEventBus.PublishAttackAction(this, target, weaponSource.Name, weaponSource.IconID, pose);
+            GameEventBus.PublishAttackAction(this, target, weaponSource.Name, weaponSource.IconID, pose, weaponSource);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
             int targetHPBefore = target.RuntimeHP;
@@ -170,7 +170,7 @@ public class DollFighter : FighterEntity {
             outcome.Killed = targetHPBefore > 0 && target.RuntimeHP <= 0;
         }
         else if (weaponSource.Combat.DamageType == DamageType.Shield.ToString()) {
-            GameEventBus.PublishAttackAction(this, this, weaponSource.Name, weaponSource.IconID);
+            GameEventBus.PublishAttackAction(this, this, weaponSource.Name, weaponSource.IconID, null, weaponSource);
             foreach (var effectData in weaponSource.Combat.Effects) {
                 EffectBase effect = EffectFactory.CreateEffect(effectData);
                 // Turn-start effects on a shield wait for the turn start.

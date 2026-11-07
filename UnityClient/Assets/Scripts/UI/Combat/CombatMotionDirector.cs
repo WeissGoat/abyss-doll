@@ -5,7 +5,8 @@ using UnityEngine.UI;
 // Plays CombatBeats on the combat stage: idle breathing, a lunge when a fighter strikes, a flash, shake and floating
 // number when one is hit, a coloured pulse for shield and healing, and a small screen shake for heavy hits on Zero.
 // On top of that, pose-to-pose acting: a fighter with a pose set (CombatPose) snaps to its attack, guard, hurt, item
-// or kneel pose for the beat; Zero's core flares and the weapon's icon flies out of her open palm, a slash or burst
+// or kneel pose for the beat; the item that fires lights up in the backpack, Zero's core flares and a slash or a bolt
+// leaves her open palm (the item never leaves the backpack: it is a module on her chassis), a slash or burst
 // marks the hit, a hit freezes
 // the stage for a few frames (hitstop) and pushes it in a little, and Zero holding on at 1 HP gets a quick cut-in.
 // The HUD rebuilds enemy slots whenever HP changes, so motion is kept per fighter and applied every frame to whatever
@@ -271,6 +272,7 @@ public class CombatMotionDirector : MonoBehaviour {
                         _hitstopUntil = Time.unscaledTime + HeavyHitstopSeconds * 2f;
                     } else if (beat.Kind == CombatBeatKind.Strike && selfUse) {
                         SetPose(striker, CombatPose.Guard, now + ActPoseSeconds);
+                        BackpackFx.Flare(beat.SourceItemID);
                     } else if (beat.Kind == CombatBeatKind.Strike && beat.Pose == CombatPose.Punch && HasPose(striker.PoseSetID, CombatPose.Punch)) {
                         // Bare hands: a plain punch, no core flare and nothing thrown.
                         SetPose(striker, CombatPose.Punch, now + AttackPoseSeconds);
@@ -295,10 +297,14 @@ public class CombatMotionDirector : MonoBehaviour {
                         if (striker.Fighter is DollFighter) {
                             _lastDollStrike = now;
                             TryGetActor(beat.Target, out Actor aimed);
-                            SpawnSwing(striker, aimed, beat.SourceVisualID, now);
+                            BackpackFx.Flare(beat.SourceItemID);
+                            SpawnSwing(striker, aimed, beat.Ranged, now);
                         }
                     }
                 }
+                break;
+            case CombatBeatKind.ChainPulse:
+                BackpackFx.Pulse(beat.SourceItemID, beat.TargetItemID);
                 break;
             case CombatBeatKind.Hit:
                 if (TryGetActor(beat.Target, out Actor target)) {
@@ -533,23 +539,21 @@ public class CombatMotionDirector : MonoBehaviour {
         }
     }
 
-    // She does not swing the weapon: the core in her chest flares under her hand and the weapon's icon flies out of
-    // her open palm in a low arc onto the enemy, with a pale-blue streak behind it.
-    private void SpawnSwing(Actor actor, Actor target, string iconID, float now) {
+    // She does not swing or throw the weapon (反馈 4: it read as throwing a knife for 1 AP): the weapon is a module on her
+    // chassis and lights up in the backpack (BackpackFx), the core in her chest flares under her hand, and what it does
+    // leaves her open palm: a crescent slash for a blade, a bolt for a gun or a throw, with a pale-blue streak behind.
+    private void SpawnSwing(Actor actor, Actor target, bool ranged, float now) {
         if (_popupLayer == null) {
             return;
         }
 
         float sign = actor.FacesRight ? 1f : -1f;
         SpawnBurst(actor, CoreLight, now, Mirror(actor, CorePoint), 130f);
-        if (string.IsNullOrEmpty(iconID) || !VisualAssetService.TryGetSprite(iconID, out Sprite icon)) {
-            return;
-        }
-
-        Image trail = CreateVfxImage("CombatLaunchTrail_Image", TrailSprite(), new Vector2(40f, 64f), new Vector2(1f, 0.5f));
+        Image trail = CreateVfxImage("CombatLaunchTrail_Image", TrailSprite(), new Vector2(40f, ranged ? 40f : 64f), new Vector2(1f, 0.5f));
         trail.preserveAspect = false;
-        trail.color = CoreLight;
-        Image image = CreateVfxImage("CombatSwing_Image", icon, new Vector2(150f, 150f), new Vector2(0.5f, 0.5f));
+        trail.color = ranged ? ShotColor : CoreLight;
+        Image image = CreateVfxImage("CombatSwing_Image", ranged ? BurstSprite() : SlashSprite(), ranged ? new Vector2(80f, 80f) : new Vector2(170f, 170f), new Vector2(0.5f, 0.5f));
+        image.color = ranged ? ShotColor : SlashColor;
         Vector2 origin = StagePoint(actor, Mirror(actor, PalmPoint).x, PalmPoint.y);
         Vector2 destination = target != null && target.Rect != null && target != actor
             ? StagePoint(target, 0.5f, 0.5f)

@@ -473,6 +473,71 @@ public static class P3DevTools {
         return $"Enemies at {Mathf.Max(1, hp)} HP.\n" + Describe();
     }
 
+    // Trigger chains on the combat screen (phase 2 M2): the backpack is swapped for a wired chain (battery, rivet driver,
+    // shield projector, conduit, steam cannon, arranged by LoadoutArranger) and a fight starts; EndChainShowcase puts
+    // the real backpack back and returns to the workshop. Nothing of the run or the stash is touched.
+    private static object _showcaseGrid;
+    public static readonly string[] ChainShowcaseItems = { "gear_spark_cell", "gear_rivet_driver", "gear_shield_projector", "gear_copper_conduit", "gear_steam_cannon" };
+
+    public static string ChainShowcase() {
+        GameFlowController flow = GameFlowController.Instance;
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        if (flow == null || doll == null) {
+            return "Game is not running.";
+        }
+
+        if (_showcaseGrid == null) {
+            _showcaseGrid = doll.RuntimeGrid;
+        }
+
+        BackpackGrid grid = new BackpackGrid(doll.Chassis);
+        doll.RuntimeGrid = grid;
+        foreach (string id in ChainShowcaseItems) {
+            ItemEntity item = ConfigManager.CreateItem(id);
+            if (item != null) {
+                grid.TryPlaceFirstAvailable(item, out _, out _);
+            }
+        }
+
+        LoadoutArranger.Arrange(doll, 2);
+        GameRoot.Core.Combat.StartCombat(new List<string> { "mob_rust_hound" });
+        flow.EnterCombat();
+        ItemEntity battery = grid.ContainedItems.Find(item => item.ConfigID == "gear_spark_cell");
+        return $"Chain showcase: {grid.ContainedItems.Count} items, battery fires {TriggerChain.Workers(battery, grid)}, links {TriggerChain.AllLinks(grid).Count}.";
+    }
+
+    // Shows the battery's card, which lights its line on the backpack.
+    public static string ChainShowcaseHover() {
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        ItemEntity battery = grid?.ContainedItems.Find(item => item.ConfigID == "gear_spark_cell");
+        DraggableItemUI tile = DraggableItemUI.Find(battery?.InstanceID);
+        if (tile == null) {
+            return "Battery tile not on screen.";
+        }
+
+        ItemTooltip.Show(battery, (RectTransform)tile.transform);
+        return "Hovering the battery: " + ItemTooltip.ShownBody.Replace("\n", " | ");
+    }
+
+    public static string EndChainShowcase() {
+        GameFlowController flow = GameFlowController.Instance;
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        ItemTooltip.Hide();
+        if (doll == null || flow == null) {
+            return "Game is not running.";
+        }
+
+        GameRoot.Core.Combat.CurrentState = CombatState.End;
+        VisualQueue.Clear();
+        if (_showcaseGrid != null) {
+            doll.RuntimeGrid = _showcaseGrid;
+            _showcaseGrid = null;
+        }
+
+        flow.EnterWorkshop();
+        return "Chain showcase closed.\n" + Describe();
+    }
+
     // Debug fight against the given monsters, comma-separated (e.g. Fight("boss_gatekeeper_mk1") for the boss entrance
     // clip, Fight("mob_rust_hound,mob_rust_hound")).
     public static string Fight(string monsters) {

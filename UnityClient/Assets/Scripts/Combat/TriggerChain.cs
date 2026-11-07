@@ -373,6 +373,8 @@ public static class TriggerChain {
     private static bool FireModule(ItemUseOutcome start, ChainStep step) {
         DollFighter user = start.User;
         ItemEntity item = step.Item;
+        // The spark travels along the link before the module fires.
+        GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.ChainPulse, Actor = user, SourceItemID = step.Parent?.InstanceID, TargetItemID = item.InstanceID });
         float scale = 1f + step.Bonus;
         ItemUseOutcome outcome = new ItemUseOutcome { User = user, Item = item, FromChain = true };
         if (IsStrike(item)) {
@@ -384,7 +386,7 @@ public static class TriggerChain {
             user.Strike(target, item, outcome, scale);
         } else {
             if (item.Combat.DamageType == nameof(DamageType.Shield)) {
-                GameEventBus.PublishAttackAction(user, user, item.Name, item.IconID);
+                GameEventBus.PublishAttackAction(user, user, item.Name, item.IconID, null, item);
             }
 
             CombatItemEffects.OutputScale = scale;

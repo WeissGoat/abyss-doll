@@ -6,7 +6,9 @@ public enum CombatBeatKind {
     Hit,
     Shield,
     Heal,
-    Interfere
+    Interfere,
+    // A trigger chain passes from one module to the next (SourceItemID -> TargetItemID).
+    ChainPulse
 }
 
 // Pose names a fighter can show. Each is an optional sprite "<pose set>_<pose>" in the VisualAssetRegistry
@@ -35,6 +37,11 @@ public class CombatBeat {
     // The item the strike was made with (its icon flies across the stage), and a pose the moment asks for, e.g.
     // CombatPose.Kneel when Zero holds on at 1 HP; empty means the screen picks the pose from the beat kind.
     public string SourceVisualID;
+    // The backpack item behind the beat (it lights up where it lies), the next module of a chain, and whether the item
+    // shoots (a bolt leaves Zero) rather than cuts (a slash leaves Zero).
+    public string SourceItemID;
+    public string TargetItemID;
+    public bool Ranged;
     public string Pose;
     // How long the queue holds after this beat; 0 takes the kind's default (a monster's strike holds until its move
     // lands, CombatAttackMotion.ImpactSeconds).
@@ -49,6 +56,8 @@ public class CombatBeat {
                 return 0.42f;
             case CombatBeatKind.Interfere:
                 return 0.7f;
+            case CombatBeatKind.ChainPulse:
+                return 0.14f;
             default:
                 return 0.2f;
         }

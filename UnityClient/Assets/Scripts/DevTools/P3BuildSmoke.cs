@@ -287,6 +287,18 @@ public class P3BuildSmoke : MonoBehaviour {
             }
         }
 
+        // Trigger chains (phase 2 M2): a wired chain backpack in a fight, its start hovered so the line lights up, ports,
+        // links and the overload readout all in one shot for the layout check.
+        if (!stuck) {
+            Note("[chain] " + P3DevTools.ChainShowcase());
+            yield return new WaitForSecondsRealtime(1.5f);
+            Note("[chain] " + P3DevTools.ChainShowcaseHover());
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Capture("03j_chain_combat");
+            Note("[chain] " + P3DevTools.EndChainShowcase());
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+
         // The end of the Demo (2026-10-24): layer 3 with easy fights (the route, not the numbers), the comic at the
         // stairs, her song line at the door, the ending's night talk and 「第一章 · 完」.
         bool comicCaptured = false;
