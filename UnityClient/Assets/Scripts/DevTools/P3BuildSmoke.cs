@@ -292,6 +292,7 @@ public class P3BuildSmoke : MonoBehaviour {
         if (!stuck) {
             Note("[chain] " + P3DevTools.ChainShowcase());
             yield return new WaitForSecondsRealtime(1.5f);
+            yield return Capture("03k_chain_links");
             Note("[chain] " + P3DevTools.ChainShowcaseHover());
             yield return new WaitForSecondsRealtime(0.4f);
             yield return Capture("03j_chain_combat");

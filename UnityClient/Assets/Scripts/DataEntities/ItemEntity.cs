@@ -320,7 +320,8 @@ public static class ItemPresentationRules {
         List<string> parts = new List<string>();
         if (ins > 0) parts.Add($"入口 {ins}");
         if (outs > 0) parts.Add($"出口 {outs}");
-        lines.Add($"接口：{string.Join("、", parts)}（出口对上别的物品的入口才接通）");
+        lines.Add($"接口：{string.Join("、", parts)}");
+        lines.Add("出口对上另一件物品的入口才接通");
         if (ins > 0) {
             int load = item.Combat?.ChainLoad ?? 0;
             lines.Add(load == 0 ? "被链路带动时不加过载" : load > 0 ? $"被链路带动时过载 +{load}" : $"被链路带动时过载 {load}");

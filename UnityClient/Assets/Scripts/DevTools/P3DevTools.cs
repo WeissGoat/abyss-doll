@@ -473,11 +473,11 @@ public static class P3DevTools {
         return $"Enemies at {Mathf.Max(1, hp)} HP.\n" + Describe();
     }
 
-    // Trigger chains on the combat screen (phase 2 M2): the backpack is swapped for a wired chain (battery, rivet driver,
-    // shield projector, conduit, steam cannon, arranged by LoadoutArranger) and a fight starts; EndChainShowcase puts
+    // Trigger chains on the combat screen (phase 2 M2): the backpack is swapped for a wired chain (battery, conduit, rivet
+    // driver, shield projector, arranged by LoadoutArranger) and a fight starts; EndChainShowcase puts
     // the real backpack back and returns to the workshop. Nothing of the run or the stash is touched.
     private static object _showcaseGrid;
-    public static readonly string[] ChainShowcaseItems = { "gear_spark_cell", "gear_rivet_driver", "gear_shield_projector", "gear_copper_conduit", "gear_steam_cannon" };
+    public static readonly string[] ChainShowcaseItems = { "gear_spark_cell", "gear_copper_conduit", "gear_rivet_driver", "gear_shield_projector" };
 
     public static string ChainShowcase() {
         GameFlowController flow = GameFlowController.Instance;
