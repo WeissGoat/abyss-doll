@@ -248,9 +248,15 @@ public static class ItemUseService {
             return false;
         }
 
-        return item.Combat.TriggerType == TriggerType.Manual.ToString()
-            && item.ItemType == nameof(ItemType.Weapon)
+        if (item.Combat.TriggerType != TriggerType.Manual.ToString()) {
+            return false;
+        }
+
+        bool weapon = item.ItemType == nameof(ItemType.Weapon)
             && (item.Combat.DamageType == DamageType.Physical.ToString() || item.Combat.DamageType == DamageType.Energy.ToString());
+        // A chain start whose line holds a weapon needs a target too (GDD_01 §5.1A), unless Zero is jammed.
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        return weapon || (TriggerChain.State?.Jammed != true && TriggerChain.ChainHasStrike(item, grid));
     }
 
     private static void ApplyDirectItemPayload(ItemEntity item, ItemUseContext context) {

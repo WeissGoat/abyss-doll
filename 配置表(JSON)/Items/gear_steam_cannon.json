@@ -1,0 +1,120 @@
+{
+  "ConfigID": "gear_steam_cannon",
+  "Name": "蒸汽炮",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 580,
+  "IconID": "item_gear_steam_cannon_icon",
+  "DescriptionKey": "item.gear_steam_cannon.desc",
+  "Description": "锅炉和炮管焊在一起的大家伙。手摇要费很大劲，接上电就自己轰。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ],
+    "Ports": [
+      {
+        "Cell": [
+          0,
+          1
+        ],
+        "Side": "Left",
+        "Kind": "In"
+      }
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 2,
+    "DamageType": "Physical",
+    "BaseValue": 36,
+    "Effects": [],
+    "ChainLoad": 4
+  },
+  "Tags": [
+    "Weapon",
+    "Heavy",
+    "Mechanical",
+    "Chain",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Heavy",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_steam_cannon_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_steam_cannon"
+  }
+}

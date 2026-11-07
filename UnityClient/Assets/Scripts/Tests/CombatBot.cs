@@ -30,13 +30,24 @@ public static class CombatBot {
         }
 
         Strike(combat, player, grid, player.CurrentAP);
+        Vent(combat, player, grid);
+    }
+
+    // Heat into shield: with AP left and a hit coming, vent the overload (泄压阀).
+    private static void Vent(CombatSystem combat, DollFighter player, BackpackGrid grid) {
+        ItemEntity vent = grid.ContainedItems.FirstOrDefault(item => item?.Combat?.Effects != null
+            && item.Combat.Effects.Exists(effect => effect?.EffectID == "VentOverload")
+            && item.Combat.APCost <= player.CurrentAP && CombatItemEffects.CanUse(item, out _));
+        if (vent != null && combat.CurrentState == CombatState.PlayerTurn && Unblocked(combat) > 0) {
+            ItemUseService.TryUseItem(vent, out _);
+        }
     }
 
     private static void Strike(CombatSystem combat, DollFighter player, BackpackGrid grid, int ap) {
         int guard = 0;
         while (combat.CurrentState == CombatState.PlayerTurn && guard++ < 12) {
             ItemEntity weapon = BestWeapon(grid, ap);
-            FighterEntity target = PickTarget(combat, weapon);
+            FighterEntity target = PickTarget(combat, weapon, grid);
             if (weapon == null || target == null) {
                 return;
             }
@@ -59,13 +70,47 @@ public static class CombatBot {
             && (item.Combat.DamageType == DamageType.Physical.ToString() || item.Combat.DamageType == DamageType.Energy.ToString());
     }
 
+    // A trigger-chain start the bot will use: its line holds a strike and firing it now stays within the overload
+    // capacity (the bot does not jam itself on purpose).
+    public static bool IsChainStrike(ItemEntity item, BackpackGrid grid) {
+        ChainState state = TriggerChain.State;
+        return item?.Combat != null
+            && item.Combat.TriggerType == TriggerType.Manual.ToString()
+            && item.ItemType != nameof(ItemType.Consumable)
+            && TriggerChain.HasOutPort(item)
+            && state != null && !state.Jammed
+            && state.Overload + TriggerChain.PlannedLoad(item, grid) <= state.Capacity
+            && TriggerChain.ChainHasStrike(item, grid);
+    }
+
+    // Using a chain start always fires its line, and a hot item heats Zero; the bot skips a use that would push the
+    // overload over capacity (it does not jam itself on purpose).
+    public static bool WouldJam(ItemEntity item, BackpackGrid grid) {
+        ChainState state = TriggerChain.State;
+        return state != null && state.Overload + TriggerChain.UseLoad(item, grid) > state.Capacity;
+    }
+
+    // A use's worth: the item's own strike and, for a chain start within capacity, the strikes down its line.
+    public static float StrikeValue(ItemEntity item, BackpackGrid grid) {
+        float value = IsWeapon(item) ? EffectiveDamage(item) : 0f;
+        if (grid != null && IsChainStrike(item, grid)) {
+            foreach (ChainStep step in TriggerChain.Plan(item, grid)) {
+                if (TriggerChain.IsStrike(step.Item) && TriggerChain.CanFire(step.Item, out _)) {
+                    value += EffectiveDamage(step.Item) * (1f + step.Bonus);
+                }
+            }
+        }
+
+        return value;
+    }
+
     // A strike's worth: its damage, plus poison as the HP it takes over the next turns and 破甲 as half a strike more.
     public static float EffectiveDamage(ItemEntity item) {
         if (item?.Combat == null) {
             return 0f;
         }
 
-        float damage = item.Combat.RuntimeDamage > 0f ? item.Combat.RuntimeDamage : item.Combat.BaseValue;
+        float damage = (item.Combat.RuntimeDamage > 0f ? item.Combat.RuntimeDamage : item.Combat.BaseValue) + CombatItemEffects.StrikeBonus(item);
         foreach (EffectData effect in item.Combat.Effects ?? new List<EffectData>()) {
             float value = effect?.Params != null && effect.Params.Length > 0 ? effect.Params[0] : 0f;
             if (effect?.EffectID == "ApplyStatus" && effect.Trigger != "TurnStart") {
@@ -79,9 +124,9 @@ public static class CombatBot {
 
     public static ItemEntity BestWeapon(BackpackGrid grid, int ap) {
         return grid?.ContainedItems
-            .Where(item => IsWeapon(item) && item.Combat.APCost <= ap && CombatItemEffects.CanUse(item, out _))
-            .OrderByDescending(item => EffectiveDamage(item) / Mathf.Max(1f, item.Combat.APCost))
-            .ThenByDescending(EffectiveDamage)
+            .Where(item => (IsWeapon(item) || IsChainStrike(item, grid)) && item.Combat.APCost <= ap && CombatItemEffects.CanUse(item, out _) && !WouldJam(item, grid))
+            .OrderByDescending(item => StrikeValue(item, grid) / Mathf.Max(1f, item.Combat.APCost))
+            .ThenByDescending(item => StrikeValue(item, grid))
             .FirstOrDefault();
     }
 
@@ -141,7 +186,7 @@ public static class CombatBot {
         }
 
         ItemEntity mainWeapon = BestWeapon(grid, player.MaxAP);
-        float perAP = mainWeapon == null ? 0f : EffectiveDamage(mainWeapon) / Mathf.Max(1f, mainWeapon.Combat.APCost);
+        float perAP = mainWeapon == null ? 0f : StrikeValue(mainWeapon, grid) / Mathf.Max(1f, mainWeapon.Combat.APCost);
         float perTurn = Mathf.Max(1f, perAP * player.MaxAP);
         float shieldAmount = ShieldAmount(shield);
         int maxUses = player.CurrentAP / Mathf.Max(1, shield.Combat.APCost);
@@ -188,8 +233,9 @@ public static class CombatBot {
                 break;
             }
 
-            EnemyView target = Choose(left, Mathf.RoundToInt(EffectiveDamage(weapon)));
-            target.HP -= Mathf.Max(1, Mathf.RoundToInt(EffectiveDamage(weapon)) - target.Armor);
+            int damage = Mathf.RoundToInt(StrikeValue(weapon, grid));
+            EnemyView target = Choose(left, damage);
+            target.HP -= Mathf.Max(1, damage - target.Armor);
             if (target.HP <= 0) {
                 left.Remove(target);
             }
@@ -200,13 +246,13 @@ public static class CombatBot {
         return left;
     }
 
-    private static FighterEntity PickTarget(CombatSystem combat, ItemEntity weapon) {
+    private static FighterEntity PickTarget(CombatSystem combat, ItemEntity weapon, BackpackGrid grid) {
         List<EnemyView> enemies = Enemies(combat);
         if (enemies.Count == 0 || weapon == null) {
             return null;
         }
 
-        return Choose(enemies, Mathf.RoundToInt(EffectiveDamage(weapon))).Fighter;
+        return Choose(enemies, Mathf.RoundToInt(StrikeValue(weapon, grid))).Fighter;
     }
 
     // Finish an enemy this strike kills (the most dangerous first); otherwise hit the one whose hits per HP left are

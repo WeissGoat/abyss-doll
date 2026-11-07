@@ -83,6 +83,10 @@ public class ChassisComponent {
     public bool[][] GridMask;
     public List<Vector2Int> LockedCells = new List<Vector2Int>();
     public ChassisUpgradeCost UpgradeCost;
+    // Trigger chains (GDD_01 §5.1A, GDD_08 §2.4): Zero jams once a use leaves more overload than this; it cools by
+    // OverloadCooling at each of her turn starts.
+    public int OverloadCapacity = 3;
+    public int OverloadCooling = 2;
 }
 
 [Serializable]

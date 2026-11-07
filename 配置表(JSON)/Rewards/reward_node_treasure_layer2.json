@@ -135,6 +135,54 @@
           "ItemID": "gear_saint_token",
           "Weight": 12,
           "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_splitter_valve",
+          "Weight": 8,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_steam_cannon",
+          "Weight": 6,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_amp_coil",
+          "Weight": 6,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_heat_sink",
+          "Weight": 8,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_redhot_blade",
+          "Weight": 6,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_vent_valve",
+          "Weight": 8,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_spark_cell",
+          "Weight": 6,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_rivet_driver",
+          "Weight": 6,
+          "Count": 1
         }
       ]
     }

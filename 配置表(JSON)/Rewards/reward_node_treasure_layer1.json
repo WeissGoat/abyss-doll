@@ -40,7 +40,12 @@
         { "Type": "Item", "ItemID": "gear_stone_bag", "Weight": 12, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_throwing_pouch", "Weight": 10, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_bone_saw", "Weight": 8, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_corroded_dagger", "Weight": 12, "Count": 1 }
+        { "Type": "Item", "ItemID": "gear_corroded_dagger", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_spark_cell", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_copper_conduit", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_elbow_conduit", "Weight": 8, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rivet_driver", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_shield_projector", "Weight": 10, "Count": 1 }
       ]
     }
   ]

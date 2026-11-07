@@ -49,6 +49,9 @@ public static class CombatItemEffects {
 
     private static CombatItemLedger Ledger => GameRoot.Core?.Combat?.Items;
 
+    // Output of the module a trigger chain is firing now, raised by amplifiers before it (1 outside a chain).
+    public static float OutputScale = 1f;
+
     public static int Uses(ItemEntity item) {
         return Ledger?.Uses(item) ?? 0;
     }
@@ -64,8 +67,18 @@ public static class CombatItemEffects {
     // A weapon's damage for this strike: its runtime damage, raised by a charge (which is spent).
     public static int StrikeDamage(ItemEntity weapon) {
         float charge = Ledger?.TakeCharge(weapon) ?? 0f;
-        float damage = weapon?.Combat?.RuntimeDamage ?? 0f;
-        return Mathf.RoundToInt(damage * (1f + charge));
+        float damage = (weapon?.Combat?.RuntimeDamage ?? 0f) + StrikeBonus(weapon);
+        return Mathf.RoundToInt(damage * (1f + charge) * OutputScale);
+    }
+
+    // Flat damage the weapon's own effects add at the moment of the strike (赤热刃: per point of overload).
+    public static float StrikeBonus(ItemEntity weapon) {
+        float bonus = 0f;
+        foreach (EffectData data in weapon?.Combat?.Effects ?? new List<EffectData>()) {
+            bonus += EffectFactory.CreateEffect(data)?.StrikeBonus(weapon) ?? 0f;
+        }
+
+        return bonus;
     }
 
     public static bool CanUse(ItemEntity item, out string reason) {
@@ -110,6 +123,12 @@ public static class CombatItemEffects {
                     EffectFactory.CreateEffect(data)?.OnNeighborUsed(outcome, neighbour);
                 }
             }
+        }
+
+        // A use by hand sets off what its out ports link to (GDD_01 §5.1A); a module fired by the chain starts none.
+        if (!outcome.FromChain) {
+            TriggerChain.Fire(outcome);
+            TriggerChain.CheckOverflow(outcome.User);
         }
     }
 

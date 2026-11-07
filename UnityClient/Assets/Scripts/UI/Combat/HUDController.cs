@@ -59,6 +59,8 @@ public class HUDController : MonoBehaviour {
     // The fight in which she has already acted (spent AP): the how-to-attack hint is gone from then on.
     private object _actedFight;
     private Transform _apPipParent;
+    // Trigger-chain overload next to the AP lanterns (GDD_01 §5.1A); shown once the backpack holds a chain item.
+    private Text _overloadLabel;
     private CombatIntentReadabilitySnapshot _intentSnapshot;
     private CombatMotionDirector _motion;
     // Whose turn the screen shows. The backend resolves the enemy turn at once; the screen catches up through the
@@ -91,6 +93,7 @@ public class HUDController : MonoBehaviour {
         GameEventBus.OnSANChanged += HandleSANChanged;
         GameEventBus.OnAPChanged += HandleAPChanged;
         GameEventBus.OnShieldChanged += HandleShieldChanged;
+        GameEventBus.OnOverloadChanged += HandleOverloadChanged;
         GameEventBus.OnTurnStarted += HandleQueuedTurnStarted;
         GameEventBus.OnTargetSelectionChanged += HandleTargetSelectionChanged;
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
@@ -128,6 +131,7 @@ public class HUDController : MonoBehaviour {
         GameEventBus.OnSANChanged -= HandleSANChanged;
         GameEventBus.OnAPChanged -= HandleAPChanged;
         GameEventBus.OnShieldChanged -= HandleShieldChanged;
+        GameEventBus.OnOverloadChanged -= HandleOverloadChanged;
         GameEventBus.OnTurnStarted -= HandleQueuedTurnStarted;
         GameEventBus.OnTargetSelectionChanged -= HandleTargetSelectionChanged;
         CombatEventBus.OnCombatPhase -= HandleCombatPhase;
@@ -727,6 +731,37 @@ public class HUDController : MonoBehaviour {
             HandleAPChanged(doll.Name, activeFighter.CurrentAP, activeFighter.MaxAP);
             HandleShieldChanged(doll.Name, activeFighter.RuntimeShield);
         }
+
+        ChainState chain = TriggerChain.State;
+        if (chain != null) {
+            HandleOverloadChanged(chain.Overload, chain.Capacity, chain.Jammed);
+        }
+    }
+
+    private void HandleOverloadChanged(int overload, int capacity, bool jammed) {
+        if (_playerStatusPanel == null) {
+            return;
+        }
+
+        if (_overloadLabel == null) {
+            _overloadLabel = EnsureChildLabel(_playerStatusPanel.transform, null, "Overload_Text", string.Empty, 22, UITheme.TextOnDark, TextAnchor.MiddleLeft);
+            AddLabelOutline(_overloadLabel);
+            RectTransform rect = _overloadLabel.rectTransform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            // Right of three AP lanterns (78 wide, standing 16 into each other).
+            rect.anchoredPosition = new Vector2(214f, -62f);
+            rect.sizeDelta = new Vector2(150f, 52f);
+        }
+
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        bool chainItems = grid != null && grid.ContainedItems.Exists(TriggerChain.HasPorts);
+        _overloadLabel.gameObject.SetActive(chainItems || overload > 0 || jammed);
+        _overloadLabel.text = jammed ? "卡壳" : $"过载 {overload}/{capacity}";
+        _overloadLabel.color = jammed
+            ? new Color(0.95f, 0.35f, 0.28f)
+            : overload >= capacity ? new Color(1f, 0.62f, 0.25f) : new Color(0.55f, 0.9f, 0.95f);
     }
 
     private void RefreshEnemyButtons() {

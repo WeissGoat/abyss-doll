@@ -15,6 +15,8 @@ public class CombatSystem {
     public CombatTimelineRecorder Timeline => _timeline;
     // Uses and charges of backpack items in this fight (CombatItemEffects).
     public CombatItemLedger Items { get; } = new CombatItemLedger();
+    // Zero's overload and jam (TriggerChain).
+    public ChainState Chain { get; } = new ChainState();
 
     private readonly MonsterActionRunner _monsterActionRunner = new MonsterActionRunner();
     private readonly MonsterActionRuntimeState _monsterActionState = new MonsterActionRuntimeState();
@@ -29,6 +31,7 @@ public class CombatSystem {
         _monsterRuntimeModifiers.Clear();
         _timeline.Reset();
         Items.Reset();
+        Chain.Reset(GameRoot.Core?.CurrentPlayer?.ActiveDoll?.Chassis);
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));

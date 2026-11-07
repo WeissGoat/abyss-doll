@@ -1,0 +1,123 @@
+{
+  "ConfigID": "gear_amp_coil",
+  "Name": "增幅线圈",
+  "ItemType": "Armor",
+  "Rarity": "Rare",
+  "BaseValue": 290,
+  "IconID": "item_gear_amp_coil_icon",
+  "DescriptionKey": "item.gear_amp_coil.desc",
+  "Description": "缠得很密的紫铜线圈。电流过一遍会变得更凶。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ],
+    "Ports": [
+      {
+        "Cell": [
+          0,
+          0
+        ],
+        "Side": "Left",
+        "Kind": "In"
+      },
+      {
+        "Cell": [
+          0,
+          0
+        ],
+        "Side": "Right",
+        "Kind": "Out"
+      }
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ChainAmplify",
+        "Level": 0,
+        "Params": [
+          0.3
+        ]
+      }
+    ],
+    "ChainLoad": 1
+  },
+  "Tags": [
+    "Chain",
+    "Energy",
+    "Support",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Energy",
+      "Support",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_amp_coil_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_amp_coil"
+  }
+}

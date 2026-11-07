@@ -1,0 +1,131 @@
+{
+  "ConfigID": "gear_redhot_blade",
+  "Name": "赤热刃",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 440,
+  "IconID": "item_gear_redhot_blade_icon",
+  "DescriptionKey": "item.gear_redhot_blade.desc",
+  "Description": "刀身里埋着电热丝的短刀。零号身上越烫，它就烧得越红。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ],
+    "Ports": [
+      {
+        "Cell": [
+          0,
+          0
+        ],
+        "Side": "Left",
+        "Kind": "In"
+      }
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 16,
+    "Effects": [
+      {
+        "EffectID": "PerOverloadDamage",
+        "Level": 0,
+        "Params": [
+          3.0
+        ]
+      },
+      {
+        "EffectID": "HeatOnUse",
+        "Level": 0,
+        "Params": [
+          1.0
+        ]
+      }
+    ],
+    "ChainLoad": 1
+  },
+  "Tags": [
+    "Weapon",
+    "Melee",
+    "Heat",
+    "Chain",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Melee",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_redhot_blade_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_redhot_blade"
+  }
+}

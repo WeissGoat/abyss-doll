@@ -16,6 +16,17 @@ public class DollFighter : FighterEntity {
     protected override void ProcessEffects(CombatEventType phase) {
         if (phase == CombatEventType.OnTurnStart) {
             CurrentAP = Mathf.Min(CurrentAP + DataRef.Stats.APRegen, MaxAP);
+            // Trigger chains (GDD_01 §5.1A): the overload cools, or a jam from last turn takes hold and costs an AP.
+            ChainState chain = TriggerChain.State;
+            if (chain != null) {
+                chain.OnTurnStart();
+                if (chain.Jammed) {
+                    CurrentAP = Mathf.Max(0, CurrentAP - ChainState.JamAPPenalty);
+                    GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = $"卡壳：这回合链路不通，AP -{ChainState.JamAPPenalty}" });
+                }
+
+                GameEventBus.PublishOverloadChanged(chain.Overload, chain.Capacity, chain.Jammed);
+            }
             // 精神好: cared for and talked to last night, the dive's first turn gets one more (it may pass the cap).
             if (HomeEveningService.TakeSpirit()) {
                 CurrentAP += HomeEveningService.SpiritAP;
@@ -113,7 +124,27 @@ public class DollFighter : FighterEntity {
         }
 
         ItemUseOutcome outcome = new ItemUseOutcome { User = this, Item = weaponSource, Target = target };
+        Strike(target, weaponSource, outcome, 1f);
+        CombatItemEffects.AfterUse(outcome);
+    }
+
+    // The item's payload without the AP: a strike on the target, or a shield on herself. A trigger chain fires modules
+    // this way, with `scale` from the amplifiers before them; a use by hand comes through Attack.
+    public void Strike(FighterEntity target, ItemEntity weaponSource, ItemUseOutcome outcome, float scale) {
+        CombatItemEffects.OutputScale = scale;
+        try {
+            StrikeUnscaled(target, weaponSource, outcome);
+        } finally {
+            CombatItemEffects.OutputScale = 1f;
+        }
+    }
+
+    private void StrikeUnscaled(FighterEntity target, ItemEntity weaponSource, ItemUseOutcome outcome) {
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
+            if (target == null) {
+                return;
+            }
+
             // A neighbour's charge raises this strike once; 迟缓 on Zero and 破甲 on the target change it too.
             int dmg = CombatStatusService.ModifyDamage(this, target, CombatItemEffects.StrikeDamage(weaponSource));
             string pose = weaponSource.ConfigID == ItemUseService.UnarmedStrikeConfigID ? CombatPose.Punch : null;
@@ -146,8 +177,6 @@ public class DollFighter : FighterEntity {
                 }
             }
         }
-
-        CombatItemEffects.AfterUse(outcome);
     }
 
     private void SyncRuntimeHPToDoll() {

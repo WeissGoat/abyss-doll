@@ -10,7 +10,8 @@ public class AddRuntimeShieldEffect : EffectBase {
     }
 
     public override void ApplyToFighter(FighterEntity fighter, ItemEntity provider) {
-        fighter.AddShield((int)_shieldAmount);
+        // A trigger chain's amplifiers raise it (CombatItemEffects.OutputScale is 1 otherwise).
+        fighter.AddShield(Mathf.RoundToInt(_shieldAmount * CombatItemEffects.OutputScale));
         Debug.Log($"[Effect] Active shield used from {provider?.Name}. Added {_shieldAmount} shield to {fighter.Name}.");
     }
 }

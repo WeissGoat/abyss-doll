@@ -46,6 +46,20 @@ public class ItemGridComponent {
     public int Rotation;
     public int GridCost;
     public int[] CurrentPos = new int[2] { 0, 0 };
+    // Trigger-chain ports (GDD_01 §5.1A): an out port facing an in port across one cell edge links two items.
+    public List<ItemPort> Ports;
+}
+
+// One port on one cell edge, in the item's unrotated shape coordinates; it turns with the item.
+[Serializable]
+public class ItemPort {
+    public int[] Cell;
+    // Left / Right / Up / Down.
+    public string Side;
+    // In / Out.
+    public string Kind;
+
+    public bool IsOut => string.Equals(Kind, "Out", StringComparison.OrdinalIgnoreCase);
 }
 
 [Serializable]
@@ -70,6 +84,8 @@ public class ItemCombatComponent {
     public string DamageType;
     public int BaseValue;
     public List<EffectData> Effects = new List<EffectData>();
+    // Overload this item adds when a trigger chain fires it (GDD_01 §5.1A): 0 for conduits, negative for heat sinks.
+    public int ChainLoad = 1;
 
     [NonSerialized]
     public float RuntimeDamage;
@@ -243,6 +259,8 @@ public static class ItemPresentationRules {
             }
         }
 
+        lines.AddRange(ChainLines(item));
+
         if (item.Grid?.Shape != null && BackpackGrid.TryGetRotatedBounds(item, item.Grid.Rotation, out int columns, out int rows)) {
             lines.Add(BackpackGrid.CanRotateItem(item)
                 ? $"占 {columns}×{rows} 格，可旋转（右键或 R）"
@@ -277,7 +295,38 @@ public static class ItemPresentationRules {
         return item.Description ?? string.Empty;
     }
 
+    // Trigger-chain lines (GDD_01 §5.1A): the ports, the load it adds when a chain fires it, and for a start in the
+    // backpack what a use would set off now.
+    private static List<string> ChainLines(ItemEntity item) {
+        List<string> lines = new List<string>();
+        if (!TriggerChain.HasPorts(item)) {
+            return lines;
+        }
+
+        int ins = item.Grid.Ports.FindAll(port => port != null && !port.IsOut).Count;
+        int outs = item.Grid.Ports.FindAll(port => port != null && port.IsOut).Count;
+        List<string> parts = new List<string>();
+        if (ins > 0) parts.Add($"入口 {ins}");
+        if (outs > 0) parts.Add($"出口 {outs}");
+        lines.Add($"接口：{string.Join("、", parts)}（出口对上别的物品的入口才接通）");
+        if (ins > 0) {
+            int load = item.Combat?.ChainLoad ?? 0;
+            lines.Add(load == 0 ? "被链路带动时不加过载" : load > 0 ? $"被链路带动时过载 +{load}" : $"被链路带动时过载 {load}");
+        }
+
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (outs > 0 && grid != null && grid.ContainedItems.Contains(item)) {
+            lines.Add(TriggerChain.Preview(item, grid));
+        }
+
+        return lines;
+    }
+
     public static string TypeLabel(ItemEntity item) {
+        if (item?.ItemType != nameof(ItemType.Weapon) && item?.Tags != null && item.Tags.Contains("Chain")) {
+            return "链路模块";
+        }
+
         switch (item?.ItemType) {
             case nameof(ItemType.Weapon): return "武器";
             case nameof(ItemType.Armor): return "防具";
@@ -302,8 +351,12 @@ public static class ItemPresentationRules {
 
     // Effects the use hint does not already cover: adjacency boosts, per-turn shields and dive cost changes.
     private static string DescribeEffect(EffectData effect, ItemEntity item, int rotation) {
-        if (effect?.Params == null || effect.Params.Length == 0) {
+        if (effect == null) {
             return string.Empty;
+        }
+
+        if (effect.Params == null || effect.Params.Length == 0) {
+            return EffectFactory.CreateEffect(effect)?.Describe(item, rotation) ?? string.Empty;
         }
 
         float value = effect.Params[0];

@@ -517,6 +517,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_amp_coil_icon
+    Sprite: {fileID: 21300000, guid: b7e850324c2b4df8bbaa30d5b691ddd7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_bone_saw_icon
     Sprite: {fileID: 21300000, guid: fd2651ab7ed84069bd4ff4a16589c96b, type: 3}
     Prefab: {fileID: 0}
@@ -553,6 +559,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_copper_conduit_icon
+    Sprite: {fileID: 21300000, guid: 33c8d06514d14cfd966aa8871b575513, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_corroded_bulwark_icon
     Sprite: {fileID: 21300000, guid: 16d950f5889151b499534b937728670d, type: 3}
     Prefab: {fileID: 0}
@@ -571,6 +583,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_elbow_conduit_icon
+    Sprite: {fileID: 21300000, guid: f0d6c973299740b3bd8bb6563b54a065, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_fire_oil_flask_icon
     Sprite: {fileID: 21300000, guid: 5b44bedde7614b3daefa0f4360eefeac, type: 3}
     Prefab: {fileID: 0}
@@ -585,6 +603,12 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: item_gear_gear_string_icon
     Sprite: {fileID: 21300000, guid: 05506fd84fed447eba5c9fe3c3b6404d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_heat_sink_icon
+    Sprite: {fileID: 21300000, guid: e1001c6022024f0dbddedd2b96969209, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -637,6 +661,18 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_redhot_blade_icon
+    Sprite: {fileID: 21300000, guid: af54dc3cdea44d3f8541b0dd441a1e7a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_rivet_driver_icon
+    Sprite: {fileID: 21300000, guid: bd14261b2caf498e886c272af005a4ec, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_riveted_plate_icon
     Sprite: {fileID: 21300000, guid: 29951220ea604d299f2ca2f2a9c86d90, type: 3}
     Prefab: {fileID: 0}
@@ -673,14 +709,38 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_shield_projector_icon
+    Sprite: {fileID: 21300000, guid: 3d93000247ea453abc4fd731989cf4a7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_slag_counterweight_icon
     Sprite: {fileID: 21300000, guid: f7443eed0213422dbef7898a6ccc15cf, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_spark_cell_icon
+    Sprite: {fileID: 21300000, guid: d50f3022b1724c739e46921aba7d7df1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_splitter_valve_icon
+    Sprite: {fileID: 21300000, guid: e8a08367861847669a7d16d34335d206, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_spore_lance_icon
     Sprite: {fileID: 21300000, guid: 8ada5931dd8e23c49b5e0958bc93fc17, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_steam_cannon_icon
+    Sprite: {fileID: 21300000, guid: daed1419c7c94a16b4c0565a216417a0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -717,6 +777,12 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: item_gear_vein_sickle_icon
     Sprite: {fileID: 21300000, guid: 7f1df3edd38efce44a4dd915eb170575, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_vent_valve_icon
+    Sprite: {fileID: 21300000, guid: 40d144d59e6948549c73a83e2849d83f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

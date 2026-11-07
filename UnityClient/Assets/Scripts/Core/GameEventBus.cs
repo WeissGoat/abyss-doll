@@ -6,6 +6,8 @@ public static class GameEventBus {
     public static event Action<string, int, int> OnAPChanged;
     public static event Action<string, int, int> OnSANChanged;
     public static event Action<string, int> OnShieldChanged;
+    // Zero's trigger-chain overload: (now, capacity, jammed this turn).
+    public static event Action<int, int, bool> OnOverloadChanged;
 
     // --- 战斗视觉表现事件 ---
     // 参数: (发起者ID, 目标ID, 伤害值)
@@ -37,6 +39,10 @@ public static class GameEventBus {
         VisualQueue.Enqueue(new ActionCommand(() => OnSANChanged?.Invoke(id, current, max)));
     }
     
+    public static void PublishOverloadChanged(int overload, int capacity, bool jammed) {
+        VisualQueue.Enqueue(new ActionCommand(() => OnOverloadChanged?.Invoke(overload, capacity, jammed)));
+    }
+
     public static void PublishShieldChanged(string id, int current) {
         VisualQueue.Enqueue(new ActionCommand(() => OnShieldChanged?.Invoke(id, current)));
     }
@@ -88,6 +94,7 @@ public static class GameEventBus {
         OnAPChanged = null;
         OnSANChanged = null;
         OnShieldChanged = null;
+        OnOverloadChanged = null;
         OnDamageDealt = null;
         OnAttackAction = null;
         OnCombatBeat = null;

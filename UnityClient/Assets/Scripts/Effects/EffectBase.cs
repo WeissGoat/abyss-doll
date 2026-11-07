@@ -17,6 +17,8 @@ public class ItemUseOutcome {
     public FighterEntity Target;
     public int Damage;
     public bool Killed;
+    // Set off by a trigger chain, not used by hand: it starts no chain of its own (TriggerChain).
+    public bool FromChain;
 }
 
 public abstract class EffectBase {
@@ -59,6 +61,11 @@ public abstract class EffectBase {
 
     // Zero was hit by a monster while the provider sits in her backpack.
     public virtual void OnOwnerHit(DollFighter owner, FighterEntity attacker, int shieldBefore, ItemEntity provider) {}
+
+    // Flat damage added when the provider itself strikes (read at the moment of the strike).
+    public virtual float StrikeBonus(ItemEntity provider) {
+        return 0f;
+    }
 
     // False blocks using the provider right now (e.g. its uses this fight are spent).
     public virtual bool AllowsUse(ItemEntity provider, out string reason) {

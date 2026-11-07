@@ -55,6 +55,8 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `GridWidth` | int | 是 | 背包网格宽度。 |
 | `GridHeight` | int | 是 | 背包网格高度。 |
 | `GridMask` | bool[][] | 是 | 网格可用性掩码；允许异形背包，但必须与宽高一致。 |
+| `OverloadCapacity` | int | 否 | 触发链过载容量（GDD_01 §5.1A），默认 3。一次出手后超过它，零号下回合卡壳。 |
+| `OverloadCooling` | int | 否 | 零号每回合开始散掉的过载，默认 2。 |
 | `BaseSlotTags` | string[] | 否 | 底盘自带槽位语义，例如 `StableCore`、`WideCargo`、`FragileEdge`。 |
 | `AllowedProstheticSlots` | string[] | 是 | 可安装义体槽位，例如 `CorePump`、`LeftArm`、`RightArm`、`HeadSensor`、`BackSpine`。 |
 | `UnlockCondition` | object | 否 | 解锁条件，包含图纸、层级、Boss / 精英材料、订单或剧情条件。初始底盘可为空。 |

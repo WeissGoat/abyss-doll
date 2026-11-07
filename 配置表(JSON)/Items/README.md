@@ -85,6 +85,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `DefaultRotation` | int | 默认朝向 | 默认 `0`；仅允许 `0/90/180/270` 中配置可用朝向 |
 | `AllowedRotations` | array<int> | 允许朝向列表 | 建议由 `CanRotate` 和 `RotationSteps` 推导；正式配置可显式写入便于 Validator 检查 |
 | `PlacementTags` | array<string> | 容器、槽位或特殊放置限制 | 例如 `Backpack`, `WorkshopOnly`, `OrderCargo`, `NoAutoSort` |
+| `Ports` | array | 可选。触发链接口（GDD_01 §5.1A）：`{ "Cell": [x,y], "Side": "Left/Right/Up/Down", "Kind": "In/Out" }`，坐标和方向按不旋转时写，随物品旋转 | 出口对上另一件物品同一条格边上的入口才接通 |
 
 ### Grid 旋转配置规则
 
@@ -176,6 +177,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `DamageType` | enum | 输出的效果类型 | `None`(无直接战斗数值), `Physical`(物理伤害), `Energy`(能量伤害), `Shield`(产生临时护盾), `Heal`(回血), `RestoreSAN`(回理智) |
 | `BaseValue` | int | 基础伤害/治疗/护盾的数值 | 计算战斗力的基础项 |
 | `Effects` | array | 统一效果列表 | 元素使用 `EffectData`。通用成本修正可配置 `ModifyResourceCost` |
+| `ChainLoad` | int | 被触发链带动时加的过载，默认 1 | 导管 0，散热类为负；越强的模块越重 |
 
 ## EffectData 通用字段
 
@@ -188,6 +190,16 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `Resource` | string | 可选。通用 modifier 的资源类型，例如 `SAN`、`HP`、`Money`、`AP` |
 | `Operation` | string | 可选。通用 modifier 的运算方式，例如 `AddFlat`、`AddPercent`、`Multiply` |
 | `Params` | float[] | 效果参数。`ModifyResourceCost` 使用 `Params[0]` 作为修正值 |
+
+### 触发链和热量的效果（GDD_01 §5.1A）
+
+| EffectID | Params | 说明 |
+| :--- | :--- | :--- |
+| `ChainStarter` | — | 只负责起链；出口没接上能带动的模块、或卡壳时不能用 |
+| `ChainAmplify` | [0] 加成（0.3 = +30%） | 链路经过它之后带动的模块伤害、护盾提高 |
+| `PerOverloadDamage` | [0] 每点过载加的伤害 | 出手那一刻按零号当前过载算 |
+| `HeatOnUse` | [0] 每用一次加的过载 | 手点和被链带动都算；超过容量下回合卡壳 |
+| `VentOverload` | [0] 每点给的护盾 | 使用：过载清零，按泄掉的点数给护盾 |
 
 ### AdjacencyBuffs (相邻增益) 详细字段
 用于实现背包拼图游戏的核心爽点：比如“放在右侧的武器增加30%伤害”。

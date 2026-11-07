@@ -1,0 +1,115 @@
+{
+  "ConfigID": "gear_elbow_conduit",
+  "Name": "弯导管",
+  "ItemType": "Armor",
+  "Rarity": "Common",
+  "BaseValue": 160,
+  "IconID": "item_gear_elbow_conduit_icon",
+  "DescriptionKey": "item.gear_elbow_conduit.desc",
+  "Description": "拐了个直角的铜管，专门绕开背包里碍事的东西。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ],
+    "Ports": [
+      {
+        "Cell": [
+          0,
+          0
+        ],
+        "Side": "Left",
+        "Kind": "In"
+      },
+      {
+        "Cell": [
+          0,
+          0
+        ],
+        "Side": "Down",
+        "Kind": "Out"
+      }
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [],
+    "ChainLoad": 0
+  },
+  "Tags": [
+    "Chain",
+    "Conduit",
+    "Mechanical",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Conduit",
+      "Mechanical",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_elbow_conduit_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_elbow_conduit"
+  }
+}

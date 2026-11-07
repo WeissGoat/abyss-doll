@@ -99,6 +99,12 @@
   },
   "FightLab": {
     "Note": "参考配装：刚到这一层时手里有的东西，都是上面几层能拿到的好装备（第 1 层就是开局的装备），和 Layers 里的 Arrival 对应。摆法交给 LoadoutArranger，不带消耗品，满血开打。",
+    "ArchetypesNote": "流派配装（docs/specs/2026-11-07-trigger-chains.md）：和本层参考配装比，同一批战斗。应该更强，但不超过三成；格子和摆放是代价。",
+    "Archetypes": [
+      { "Name": "对照（第 2 层掉落，无链路）", "Layer": 2, "ChassisID": "chassis_lv2_expanded", "Items": ["gear_tactical_blade", "gear_corroded_dagger", "gear_whetstone", "gear_plank_shield_l1", "gear_cracked_iron_armor"] },
+      { "Name": "链路", "Layer": 2, "ChassisID": "chassis_lv2_expanded", "Items": ["gear_spark_cell", "gear_rivet_driver", "gear_steam_cannon", "gear_plank_shield_l1", "gear_cracked_iron_armor"] },
+      { "Name": "链路+热量", "Layer": 2, "ChassisID": "chassis_lv2_expanded", "Items": ["gear_spark_cell", "gear_amp_coil", "gear_rivet_driver", "gear_redhot_blade", "gear_vent_valve", "gear_plank_shield_l1", "gear_cracked_iron_armor"] }
+    ],
     "FightsPerEncounter": 30,
     "Loadouts": [
       { "Layer": 1, "ChassisID": "chassis_lv1_basic", "Items": ["gear_rusty_dagger", "gear_wooden_shield"] },

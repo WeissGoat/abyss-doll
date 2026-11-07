@@ -3,6 +3,8 @@
   "Level": 1,
   "GridWidth": 4,
   "GridHeight": 4,
+  "OverloadCapacity": 3,
+  "OverloadCooling": 1,
   "GridMask": [
     [
       true,

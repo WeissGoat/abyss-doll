@@ -184,6 +184,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             ItemTileFace face = ItemPresentationRules.BuildTileFace(ItemData);
             ApplyValueBadge(face);
             ApplyCostPip(face.APCost);
+            ChainPortView.MarkPorts(GetComponent<RectTransform>(), ItemData);
         }
     }
 
@@ -363,6 +364,9 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (iconImage != null) {
             ApplyIconRotation(iconImage.rectTransform);
         }
+
+        // Ports turn with the tile (trigger chains).
+        ChainPortView.MarkPorts(rect, ItemData);
     }
 
     private void ApplyIconRotation(RectTransform iconRect) {

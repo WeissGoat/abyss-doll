@@ -17,12 +17,15 @@ public class ItemTooltip : MonoBehaviour {
     private Text _flavor;
     private Text _body;
     private RectTransform _anchor;
+    private ItemEntity _item;
 
     public static bool IsShowing => _instance != null && _instance.gameObject.activeSelf;
     public static string ShownTitle => IsShowing ? _instance._title.text : string.Empty;
     public static string ShownBody => IsShowing ? _instance._body.text : string.Empty;
     public static string ShownFlavor => IsShowing && _instance._flavor.gameObject.activeSelf ? _instance._flavor.text : string.Empty;
     public static RectTransform ShownRect => IsShowing ? _instance._rect : null;
+    // The item whose card is up (the backpack lights a trigger chain's line while its start is hovered).
+    public static ItemEntity ShownItem => IsShowing ? _instance._item : null;
 
     public static void Show(ItemEntity item, RectTransform anchor) {
         if (item == null || anchor == null) {
@@ -36,6 +39,7 @@ public class ItemTooltip : MonoBehaviour {
 
         ItemTooltipText text = ItemPresentationRules.BuildTooltip(item);
         tooltip._anchor = anchor;
+        tooltip._item = item;
         tooltip._title.text = text.Title;
         tooltip._flavor.text = text.Flavor ?? string.Empty;
         tooltip._flavor.gameObject.SetActive(!string.IsNullOrEmpty(text.Flavor));
@@ -55,6 +59,7 @@ public class ItemTooltip : MonoBehaviour {
     public static void Hide() {
         if (_instance != null) {
             _instance._anchor = null;
+            _instance._item = null;
             _instance.gameObject.SetActive(false);
         }
     }

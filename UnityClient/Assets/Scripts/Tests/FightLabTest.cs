@@ -59,6 +59,21 @@ public static class FightLabTest {
                     $"(own loadout {AverageLoss(own, "Normal"):0.0}), elites {AverageLoss(shallow, "Elite"):0.0} ({AverageLoss(own, "Elite"):0.0}), " +
                     $"boss {AverageLoss(shallow, "Boss"):0.0} ({AverageLoss(own, "Boss"):0.0}), boss won {shallow.Where(row => row.Kind == "Boss").Sum(row => row.Wins) * 100 / fights}%");
             }
+
+            // Build archetypes (docs/specs/2026-11-07-trigger-chains.md): each against its layer, next to the layer's
+            // reference loadout. Worth more than the reference, but not by much: the cells and the arrangement are the cost.
+            foreach (JToken archetype in targets["FightLab"]["Archetypes"] ?? new JArray()) {
+                int layer = archetype["Layer"].Value<int>();
+                List<FightLabRow> own = rows.Where(row => row.Layer == layer).ToList();
+                List<FightLabRow> built = Encounters(LoadRepoJson($"Dungeons/layer_{layer}.json"), layer)
+                    .Select(encounter => Measure(core, archetype, layer, encounter, fights, targets)).ToList();
+                carried.Add(
+                    $"L{layer} {archetype["Name"]} ({Cells(archetype)} cells vs {Cells(targets["FightLab"]["Loadouts"].First(l => l["Layer"].Value<int>() == layer))}; {ChainReport(core, archetype)}): " +
+                    $"normal turns {AverageTurns(built, "Normal"):0.0} ({AverageTurns(own, "Normal"):0.0}) HP {AverageLoss(built, "Normal"):0.0} ({AverageLoss(own, "Normal"):0.0}), " +
+                    $"elites turns {AverageTurns(built, "Elite"):0.0} ({AverageTurns(own, "Elite"):0.0}) HP {AverageLoss(built, "Elite"):0.0} ({AverageLoss(own, "Elite"):0.0}), " +
+                    $"boss turns {AverageTurns(built, "Boss"):0.0} ({AverageTurns(own, "Boss"):0.0}) HP {AverageLoss(built, "Boss"):0.0} ({AverageLoss(own, "Boss"):0.0}), " +
+                    $"boss won {built.Where(row => row.Kind == "Boss").Sum(row => row.Wins) * 100 / fights}%");
+            }
         } finally {
             Debug.unityLogger.filterLogType = previousFilter;
             VisualQueue.Clear();
@@ -175,6 +190,24 @@ public static class FightLabTest {
         }
 
         return encounters;
+    }
+
+    private static float AverageTurns(List<FightLabRow> rows, string kind) {
+        List<FightLabRow> picked = rows.Where(row => row.Kind == kind).ToList();
+        return picked.Count == 0 ? 0f : picked.Average(row => row.AverageTurns);
+    }
+
+    private static int Cells(JToken loadout) {
+        return loadout["Items"].ToObject<List<string>>().Sum(id => ConfigManager.Items.TryGetValue(id, out ItemEntity item) ? item.Grid?.Shape?.Length ?? 0 : 0);
+    }
+
+    // Whether the arranger wired the chain: the modules each start fires once the loadout is arranged.
+    private static string ChainReport(CoreBackend core, JToken loadout) {
+        DollEntity doll = PrepareDoll(core, loadout);
+        BackpackGrid grid = (BackpackGrid)doll.RuntimeGrid;
+        List<string> parts = grid.ContainedItems.Where(TriggerChain.HasOutPort)
+            .Select(item => $"{item.ConfigID} fires {TriggerChain.Workers(item, grid)}").ToList();
+        return parts.Count == 0 ? "no chain start" : string.Join(", ", parts);
     }
 
     private static float AverageLoss(List<FightLabRow> rows, string kind) {

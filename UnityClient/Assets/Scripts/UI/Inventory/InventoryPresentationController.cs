@@ -326,6 +326,7 @@ public class InventoryPresentationController : MonoBehaviour {
             layerRect.sizeDelta = gridRect.sizeDelta;
             layerRect.localScale = gridRect.localScale;
             AdjacencyLinkView.Ensure(inventoryItemLayer);
+            ChainPortView.Ensure(inventoryItemLayer);
         }
     }
 
