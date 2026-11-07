@@ -113,6 +113,19 @@
           ],
           "OverrideValue": 0
         }
+      },
+      {
+        "ActionID": "crystal_guard_lock",
+        "ActionType": "LockCells",
+        "Target": "PlayerBackpack",
+        "Weight": 25,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Count": 2,
+          "Turns": 2
+        }
       }
     ]
   },

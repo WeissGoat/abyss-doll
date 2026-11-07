@@ -33,6 +33,8 @@ public class DollFighter : FighterEntity {
                 GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = $"零号精神很好：AP +{HomeEveningService.SpiritAP}" });
             }
             Debug.Log($"[{Name}] Turn Started. AP restored to {CurrentAP}/{MaxAP}.");
+            // Spore pollution creeps on (GDD_01 §6.2).
+            CombatItemEffects.SpreadPollution(this);
             GridSolver.RecalculateAllEffects(DataRef); // 重新计算网格连结
             
             // 【关键修复】回合开始时，必须主动向 VisualQueue 和 UI 广播 AP 恢复事件

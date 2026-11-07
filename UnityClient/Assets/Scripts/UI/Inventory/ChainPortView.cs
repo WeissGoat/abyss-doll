@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Trigger chains on screen (GDD_01 §5.1A). Each item tile carries a small notch on every port, amber for an out port
+// Trigger chains on screen (GDD_01 §5.1A), plus the monsters' marks on the backpack (§6.2): violet crystal over sealed
+// cells and a green haze over items fouled with spores. Each item tile carries a small notch on every port, amber for an out port
 // and teal for an in port; they turn and travel with the tile while it is dragged (MarkPorts). On the item layer this
 // view draws a bright seam wherever an out port meets an in port, and while a chain start's card is up it lights the
 // cells of every module its use would fire. Takes no clicks; rebuilds when items move, turn, arrive or leave.
@@ -17,6 +18,9 @@ public class ChainPortView : MonoBehaviour {
 
     private readonly List<Image> _links = new List<Image>();
     private readonly List<Image> _lit = new List<Image>();
+    private readonly List<Image> _marks = new List<Image>();
+    private static readonly Color CrystalColor = new Color(0.72f, 0.55f, 1f, 0.55f);
+    private static readonly Color SporeColor = new Color(0.45f, 0.85f, 0.3f, 0.35f);
     private int _signature;
     private ItemEntity _litStart;
 
@@ -71,8 +75,28 @@ public class ChainPortView : MonoBehaviour {
     public void Rebuild(BackpackGrid grid, ItemEntity litStart) {
         Clear(_links);
         Clear(_lit);
+        Clear(_marks);
         if (grid == null) {
             return;
+        }
+
+        foreach (int[] cell in grid.CrystalCells()) {
+            Image crystal = NewImage("CrystalCell", CellSprite(), CrystalColor);
+            crystal.rectTransform.anchoredPosition = CellCentre(grid, cell[0], cell[1]);
+            crystal.rectTransform.sizeDelta = new Vector2(InventoryDisplaySpec.CellSize, InventoryDisplaySpec.CellSize);
+            _marks.Add(crystal);
+        }
+
+        for (int x = 0; x < grid.Width; x++) {
+            for (int y = 0; y < grid.Height; y++) {
+                ItemEntity item = grid.GetItemAt(x, y);
+                if (item != null && CombatItemEffects.Pollution(item) > 0) {
+                    Image spores = NewImage("SporeCell", CellSprite(), SporeColor);
+                    spores.rectTransform.anchoredPosition = CellCentre(grid, x, y);
+                    spores.rectTransform.sizeDelta = new Vector2(InventoryDisplaySpec.CellSize, InventoryDisplaySpec.CellSize);
+                    _marks.Add(spores);
+                }
+            }
         }
 
         foreach (ChainLink link in TriggerChain.AllLinks(grid)) {
@@ -197,7 +221,7 @@ public class ChainPortView : MonoBehaviour {
         unchecked {
             int hash = 23 * 31 + grid.Width * 131 + grid.Height;
             foreach (ItemEntity item in grid.ContainedItems) {
-                if (item?.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2 || !TriggerChain.HasPorts(item)) {
+                if (item?.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2 || (!TriggerChain.HasPorts(item) && CombatItemEffects.Pollution(item) <= 0)) {
                     continue;
                 }
 
@@ -205,8 +229,17 @@ public class ChainPortView : MonoBehaviour {
                 hash = hash * 31 + item.Grid.CurrentPos[0] * 1000 + item.Grid.CurrentPos[1] * 10 + item.Grid.Rotation / 90;
             }
 
-            // A spent module or a jam changes what a start would fire.
+            // A spent module or a jam changes what a start would fire; crystal and spores come and go.
             hash = hash * 31 + (TriggerChain.State?.Jammed == true ? 7 : 0);
+            foreach (int[] cell in grid.CrystalCells()) {
+                hash = hash * 31 + cell[0] * 100 + cell[1] + 1;
+            }
+
+            foreach (ItemEntity item in grid.ContainedItems) {
+                if (CombatItemEffects.Pollution(item) > 0) {
+                    hash = hash * 31 + (item.InstanceID?.GetHashCode() ?? 0) + 3;
+                }
+            }
             return hash == 0 ? 1 : hash;
         }
     }

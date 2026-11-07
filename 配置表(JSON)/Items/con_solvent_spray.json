@@ -46,9 +46,7 @@
                    "APCost":  1,
                    "DamageType":  "None",
                    "BaseValue":  0,
-                   "Effects":  [
-
-                               ]
+                   "Effects":  [{ "EffectID": "PurgeBackpack", "Level": 0 }]
                },
     "Tags":  [
                  "Consumable",

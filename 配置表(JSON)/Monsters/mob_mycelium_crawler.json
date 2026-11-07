@@ -100,6 +100,18 @@
           ],
           "OverrideValue": 0
         }
+      },
+      {
+        "ActionID": "mycelium_crawler_pollute",
+        "ActionType": "SporePollute",
+        "Target": "PlayerBackpack",
+        "Weight": 20,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 1,
+        "Condition": "Always",
+        "Params": {
+          "SanPerUse": 2
+        }
       }
     ]
   },

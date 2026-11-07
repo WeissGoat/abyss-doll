@@ -254,6 +254,8 @@ public static class MonsterIntentPreviewService {
             case MonsterActionType.GainShield:
             case MonsterActionType.Cleanse:
             case MonsterActionType.ShuffleItems:
+            case MonsterActionType.LockCells:
+            case MonsterActionType.SporePollute:
                 MonsterActionBase action = MonsterActionFactory.Create(actionConfig);
                 return action != null && action.CanExecute(context);
             default:
@@ -345,6 +347,15 @@ public static class MonsterIntentPreviewService {
                 preview.IntentType = MonsterIntentType.Disrupt;
                 preview.ShuffleCount = Mathf.Max(1, reader.GetInt("Count", 2));
                 break;
+            case MonsterActionType.LockCells:
+                preview.IntentType = MonsterIntentType.Disrupt;
+                preview.ShuffleCount = Mathf.Max(1, reader.GetInt("Count", 2));
+                preview.RepeatCount = Mathf.Max(1, reader.GetInt("Turns", 2));
+                break;
+            case MonsterActionType.SporePollute:
+                preview.IntentType = MonsterIntentType.Disrupt;
+                preview.RepeatCount = Mathf.Max(1, reader.GetInt("SanPerUse", 2));
+                break;
             default:
                 preview.IntentType = MonsterIntentType.Unknown;
                 break;
@@ -416,6 +427,18 @@ public static class MonsterIntentPreviewService {
                 preview.ShortText = $"自爆 {preview.EstimatedTotalDamage}（无视护盾）";
                 preview.Badge = preview.EstimatedTotalDamage.ToString();
                 preview.Description = $"引爆自己，造成约 {preview.EstimatedTotalDamage} 伤害，护盾挡不住。在它行动前打倒它就不会爆。";
+                break;
+            case MonsterActionType.LockCells:
+                preview.Title = "结晶";
+                preview.ShortText = $"封住 {preview.ShuffleCount} 格";
+                preview.Badge = $"{preview.ShuffleCount}格";
+                preview.Description = $"在背包里长出结晶，封住 {preview.ShuffleCount} 格 {preview.RepeatCount} 回合：压在上面的物品用不了，链路也从这里断。把物品挪开，或用溶剂喷雾化掉。";
+                break;
+            case MonsterActionType.SporePollute:
+                preview.Title = "孢子";
+                preview.ShortText = "污染 1 件物品";
+                preview.Badge = "孢";
+                preview.Description = $"往一件物品上喷孢子：这场战斗里每用它一次扣 {preview.RepeatCount} SAN，每回合还会往旁边蔓延一件。溶剂喷雾能洗掉。";
                 break;
             case MonsterActionType.ShuffleItems:
                 preview.Title = "震荡";

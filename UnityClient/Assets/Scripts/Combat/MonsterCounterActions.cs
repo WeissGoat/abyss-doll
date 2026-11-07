@@ -245,3 +245,125 @@ public class ShuffleItemsAction : MonsterActionBase {
         return false;
     }
 }
+
+// 结晶 (GDD_01 §6.2 格子封锁型). Params: Count (cells), Turns (Zero's turns until it melts). Seals cells under items
+// that do something in a fight first, then empty cells: a sealed item can neither be used nor pass a trigger chain.
+public class LockCellsAction : MonsterActionBase {
+    public LockCellsAction(MonsterActionConfig config) : base(config) {}
+
+    public override bool CanExecute(MonsterActionContext context) {
+        BackpackGrid grid = MonsterTargetSelector.GetPlayerGrid(context);
+        return grid != null && Candidates(grid, true).Count + Candidates(grid, false).Count > 0;
+    }
+
+    public override bool Execute(MonsterActionContext context) {
+        BackpackGrid grid = MonsterTargetSelector.GetPlayerGrid(context);
+        if (grid == null) {
+            return false;
+        }
+
+        List<int[]> sealedCells = Lock(grid, Mathf.Max(1, Params.GetInt("Count", 2)), Mathf.Max(1, Params.GetInt("Turns", 2)));
+        List<string> names = new List<string>();
+        foreach (int[] cell in sealedCells) {
+            ItemEntity item = grid.GetItemAt(cell[0], cell[1]);
+            if (item != null && !names.Contains(item.Name)) {
+                names.Add(item.Name);
+            }
+        }
+
+        string what = names.Count > 0 ? string.Join("、", names) : $"{sealedCells.Count} 个空格";
+        GameEventBus.PublishInterference(context.Actor, what, Config.ActionID, "结晶封住");
+        context.Combat?.Timeline?.RecordItemInterference(FactionType.Enemy, context.Actor.Name, what, Config.ActionID, "结晶封格",
+            $"{context.Actor.Name} 让背包里长出结晶，封住了 {what}。");
+        return true;
+    }
+
+    // Pure grid work, shared with the tests.
+    public static List<int[]> Lock(BackpackGrid grid, int count, int turns) {
+        List<int[]> picked = new List<int[]>();
+        foreach (bool underItems in new[] { true, false }) {
+            List<int[]> pool = Candidates(grid, underItems);
+            while (picked.Count < count && pool.Count > 0) {
+                int[] cell = pool[GameRandom.Range(0, pool.Count)];
+                pool.Remove(cell);
+                grid.SetCrystal(cell[0], cell[1], turns);
+                picked.Add(cell);
+            }
+        }
+
+        return picked;
+    }
+
+    // Cells not yet crystal: under an item that does something in a fight (one cell per item), or empty and usable.
+    private static List<int[]> Candidates(BackpackGrid grid, bool underItems) {
+        List<int[]> cells = new List<int[]>();
+        HashSet<ItemEntity> taken = new HashSet<ItemEntity>();
+        for (int x = 0; x < grid.Width; x++) {
+            for (int y = 0; y < grid.Height; y++) {
+                if (grid.IsCrystal(x, y)) {
+                    continue;
+                }
+
+                ItemEntity item = grid.GetItemAt(x, y);
+                if (underItems && item?.Combat != null && item.ItemType != nameof(ItemType.Loot) && taken.Add(item)) {
+                    cells.Add(new[] { x, y });
+                } else if (!underItems && item == null && grid.CanPlaceItem(OneCell, x, y, 0)) {
+                    cells.Add(new[] { x, y });
+                }
+            }
+        }
+
+        return cells;
+    }
+
+    private static readonly ItemEntity OneCell = new ItemEntity { InstanceID = "crystal_probe", Name = "结晶", Grid = new ItemGridComponent { Shape = new[] { new[] { 0, 0 } } } };
+}
+
+// 孢子污染 (GDD_01 §6.2 侵蚀型). Params: SanPerUse. Fouls one item that does something in a fight: every use of it
+// costs Zero that much SAN, and at each of her turn starts the spores creep into a neighbour (CombatItemEffects).
+// It lasts the fight; the solvent spray washes it off.
+public class SporePolluteAction : MonsterActionBase {
+    public SporePolluteAction(MonsterActionConfig config) : base(config) {}
+
+    public override bool CanExecute(MonsterActionContext context) {
+        return Pick(MonsterTargetSelector.GetPlayerGrid(context), false) != null;
+    }
+
+    public override bool Execute(MonsterActionContext context) {
+        BackpackGrid grid = MonsterTargetSelector.GetPlayerGrid(context);
+        ItemEntity item = Pick(grid, true);
+        if (item == null || context.Combat == null) {
+            return false;
+        }
+
+        context.Combat.Items.Pollute(item, Mathf.Max(1, Params.GetInt("SanPerUse", 2)));
+        GameEventBus.PublishInterference(context.Actor, item.Name, Config.ActionID, "孢子污染");
+        context.Combat.Timeline?.RecordItemInterference(FactionType.Enemy, context.Actor.Name, item.Name, Config.ActionID, "孢子污染",
+            $"{context.Actor.Name} 往 {item.Name} 上喷了孢子：每用一次扣 SAN，还会往旁边蔓延。", item);
+        return true;
+    }
+
+    // A clean item Zero uses in a fight (by hand first); random when `roll`, the first otherwise (for the preview).
+    public static ItemEntity Pick(BackpackGrid grid, bool roll) {
+        if (grid == null) {
+            return null;
+        }
+
+        List<ItemEntity> manual = new List<ItemEntity>();
+        List<ItemEntity> other = new List<ItemEntity>();
+        foreach (ItemEntity item in grid.ContainedItems) {
+            if (item?.Combat == null || item.ItemType == nameof(ItemType.Loot) || CombatItemEffects.Pollution(item) > 0) {
+                continue;
+            }
+
+            (item.Combat.TriggerType == TriggerType.Manual.ToString() ? manual : other).Add(item);
+        }
+
+        List<ItemEntity> pool = manual.Count > 0 ? manual : other;
+        if (pool.Count == 0) {
+            return null;
+        }
+
+        return roll ? pool[GameRandom.Range(0, pool.Count)] : pool[0];
+    }
+}

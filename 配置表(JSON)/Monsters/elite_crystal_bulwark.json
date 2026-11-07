@@ -124,6 +124,19 @@
           "Multiplier": 0.7,
           "DurationPlayerTurns": 1
         }
+      },
+      {
+        "ActionID": "crystal_bulwark_lock",
+        "ActionType": "LockCells",
+        "Target": "PlayerBackpack",
+        "Weight": 25,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Count": 3,
+          "Turns": 2
+        }
       }
     ]
   },

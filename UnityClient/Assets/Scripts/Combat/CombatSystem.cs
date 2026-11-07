@@ -32,6 +32,7 @@ public class CombatSystem {
         _timeline.Reset();
         Items.Reset();
         Chain.Reset(GameRoot.Core?.CurrentPlayer?.ActiveDoll?.Chassis);
+        PlayerGrid()?.ClearCrystal();
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));
@@ -80,6 +81,7 @@ public class CombatSystem {
         _timeline.RecordTurnEnded(FactionType.Player);
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, PlayerFaction);
         _monsterRuntimeModifiers.AdvancePlayerTurnEnd();
+        PlayerGrid()?.AdvanceCrystal();
 
         if (IsPlayerDefeated()) {
             HandleDefeat();
@@ -168,7 +170,13 @@ public class CombatSystem {
         }
     }
 
+    // Crystal melts when the fight ends; the backpack goes on into the dive.
+    private static BackpackGrid PlayerGrid() {
+        return GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+    }
+
     private void HandleVictory() {
+        PlayerGrid()?.ClearCrystal();
         CurrentState = CombatState.End;
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=green>[CombatSystem] Victory! All enemies defeated.</color>");
@@ -196,6 +204,7 @@ public class CombatSystem {
     }
 
     private void HandleDefeat() {
+        PlayerGrid()?.ClearCrystal();
         CurrentState = CombatState.End;
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=red>[CombatSystem] Defeat! Player combat failure condition reached.</color>");

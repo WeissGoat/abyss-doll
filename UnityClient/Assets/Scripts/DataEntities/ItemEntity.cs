@@ -261,6 +261,18 @@ public static class ItemPresentationRules {
 
         lines.AddRange(ChainLines(item));
 
+        // The monsters' marks this fight (GDD_01 §6.2).
+        BackpackGrid owner = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        int sealedTurns = owner?.SealedTurns(item) ?? 0;
+        if (sealedTurns > 0) {
+            lines.Add($"<color=#B48CFF>被结晶封住：还有 {sealedTurns} 回合，用不了、也不传链（挪开它就行）</color>");
+        }
+
+        int spores = CombatItemEffects.Pollution(item);
+        if (spores > 0) {
+            lines.Add($"<color=#7FD85A>孢子污染：每用一次 SAN -{spores}，每回合往旁边蔓延</color>");
+        }
+
         if (item.Grid?.Shape != null && BackpackGrid.TryGetRotatedBounds(item, item.Grid.Rotation, out int columns, out int rows)) {
             lines.Add(BackpackGrid.CanRotateItem(item)
                 ? $"占 {columns}×{rows} 格，可旋转（右键或 R）"

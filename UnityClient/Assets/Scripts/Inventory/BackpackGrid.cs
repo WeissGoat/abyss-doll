@@ -57,6 +57,60 @@ public class BackpackGrid {
     private string[,] _gridMatrix;
     
     public List<ItemEntity> ContainedItems { get; private set; }
+
+    // Crystal (GDD_01 §6.2 格子封锁型): cells a monster sealed for some of Zero's turns in this fight. Nothing new can
+    // go on them; an item lying on one can neither be used nor pass a trigger chain until it melts or is moved off.
+    private readonly Dictionary<int, int> _crystal = new Dictionary<int, int>();
+
+    public bool IsCrystal(int x, int y) {
+        return _crystal.ContainsKey(x * 1000 + y);
+    }
+
+    public int CrystalTurns(int x, int y) {
+        return _crystal.TryGetValue(x * 1000 + y, out int turns) ? turns : 0;
+    }
+
+    public void SetCrystal(int x, int y, int turns) {
+        if (x >= 0 && y >= 0 && x < Width && y < Height && turns > 0) {
+            _crystal[x * 1000 + y] = Math.Max(turns, CrystalTurns(x, y));
+        }
+    }
+
+    public List<int[]> CrystalCells() {
+        List<int[]> cells = new List<int[]>();
+        foreach (int key in _crystal.Keys) {
+            cells.Add(new[] { key / 1000, key % 1000 });
+        }
+
+        return cells;
+    }
+
+    // One of Zero's turns has passed: every crystal is a turn closer to melting.
+    public void AdvanceCrystal() {
+        foreach (int key in new List<int>(_crystal.Keys)) {
+            if (--_crystal[key] <= 0) {
+                _crystal.Remove(key);
+            }
+        }
+    }
+
+    public void ClearCrystal() {
+        _crystal.Clear();
+    }
+
+    // How many turns the item stays sealed (0 = free): the longest crystal under it.
+    public int SealedTurns(ItemEntity item) {
+        if (_crystal.Count == 0 || item?.Grid?.CurrentPos == null || !ContainedItems.Contains(item)) {
+            return 0;
+        }
+
+        int turns = 0;
+        foreach (int[] cell in GetOccupiedCells(item, item.Grid.CurrentPos[0], item.Grid.CurrentPos[1])) {
+            turns = Math.Max(turns, CrystalTurns(cell[0], cell[1]));
+        }
+
+        return turns;
+    }
     
     // Open cells of the chassis, and how many of them hold something (junk included).
     public int UsableCellCount() {
@@ -363,6 +417,16 @@ public class BackpackGrid {
                 return BackpackPlacementResult.Fail(
                     BackpackPlacementFailure.LockedCell,
                     $"物品 [{item.Name}] 覆盖了不可用格 ({x},{y})。",
+                    targetX,
+                    targetY,
+                    normalizedRotation,
+                    occupiedCells);
+            }
+
+            if (IsCrystal(x, y)) {
+                return BackpackPlacementResult.Fail(
+                    BackpackPlacementFailure.LockedCell,
+                    $"结晶封住了这一格 ({x},{y})，还有 {CrystalTurns(x, y)} 回合化开。",
                     targetX,
                     targetY,
                     normalizedRotation,

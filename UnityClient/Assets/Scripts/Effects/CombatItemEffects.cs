@@ -5,10 +5,29 @@ using UnityEngine;
 public class CombatItemLedger {
     private readonly Dictionary<string, int> _uses = new Dictionary<string, int>();
     private readonly Dictionary<string, float> _charge = new Dictionary<string, float>();
+    // Spore pollution (GDD_01 §6.2): item -> SAN each use costs Zero.
+    private readonly Dictionary<string, int> _polluted = new Dictionary<string, int>();
 
     public void Reset() {
         _uses.Clear();
         _charge.Clear();
+        _polluted.Clear();
+    }
+
+    public int Pollution(ItemEntity item) {
+        return item != null && _polluted.TryGetValue(item.InstanceID ?? string.Empty, out int san) ? san : 0;
+    }
+
+    public void Pollute(ItemEntity item, int sanPerUse) {
+        if (item != null && sanPerUse > 0) {
+            _polluted[item.InstanceID ?? string.Empty] = System.Math.Max(sanPerUse, Pollution(item));
+        }
+    }
+
+    public int PollutedCount => _polluted.Count;
+
+    public void ClearPollution() {
+        _polluted.Clear();
     }
 
     public int Uses(ItemEntity item) {
@@ -100,8 +119,18 @@ public static class CombatItemEffects {
         return bonus;
     }
 
+    public static int Pollution(ItemEntity item) {
+        return Ledger?.Pollution(item) ?? 0;
+    }
+
     public static bool CanUse(ItemEntity item, out string reason) {
         reason = string.Empty;
+        BackpackGrid owner = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        int sealedTurns = owner?.SealedTurns(item) ?? 0;
+        if (sealedTurns > 0) {
+            reason = $"[{item.Name}] 被结晶封住了，还有 {sealedTurns} 回合（挪开它也行）。";
+            return false;
+        }
         foreach (EffectData data in item?.Combat?.Effects ?? new List<EffectData>()) {
             EffectBase effect = EffectFactory.CreateEffect(data);
             if (effect != null && !effect.AllowsUse(item, out reason)) {
@@ -119,6 +148,7 @@ public static class CombatItemEffects {
         }
 
         Ledger?.CountUse(outcome.Item);
+        PayPollution(outcome);
         foreach (EffectData data in outcome.Item.Combat?.Effects ?? new List<EffectData>()) {
             EffectFactory.CreateEffect(data)?.OnItemUsed(outcome, outcome.Item);
         }
@@ -149,6 +179,50 @@ public static class CombatItemEffects {
             TriggerChain.Fire(outcome);
             TriggerChain.CheckOverflow(outcome.User);
         }
+    }
+
+    // A polluted item costs Zero SAN every time it is used, by hand or by a chain.
+    private static void PayPollution(ItemUseOutcome outcome) {
+        int san = Pollution(outcome.Item);
+        DollEntity doll = outcome.User?.DataRef;
+        if (san <= 0 || doll?.Status == null) {
+            return;
+        }
+
+        doll.Status.SAN_Current = Mathf.Max(0, doll.Status.SAN_Current - san);
+        GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
+        GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = outcome.User, Label = $"孢子污染：SAN -{san}" });
+    }
+
+    // Zero's turn starts: the spores creep from one polluted item into one clean neighbour with combat stats.
+    public static ItemEntity SpreadPollution(DollFighter owner) {
+        CombatItemLedger ledger = Ledger;
+        BackpackGrid grid = owner?.DataRef?.RuntimeGrid as BackpackGrid;
+        if (ledger == null || grid == null || ledger.PollutedCount == 0) {
+            return null;
+        }
+
+        List<KeyValuePair<ItemEntity, ItemEntity>> options = new List<KeyValuePair<ItemEntity, ItemEntity>>();
+        foreach (ItemEntity source in grid.ContainedItems) {
+            if (ledger.Pollution(source) <= 0) {
+                continue;
+            }
+
+            foreach (ItemEntity neighbour in GridSolver.Neighbors(source, TargetDirection.AllAdjacent.ToString(), grid)) {
+                if (neighbour?.Combat != null && ledger.Pollution(neighbour) <= 0 && neighbour.ItemType != nameof(ItemType.Loot)) {
+                    options.Add(new KeyValuePair<ItemEntity, ItemEntity>(source, neighbour));
+                }
+            }
+        }
+
+        if (options.Count == 0) {
+            return null;
+        }
+
+        KeyValuePair<ItemEntity, ItemEntity> pick = options[GameRandom.Range(0, options.Count)];
+        ledger.Pollute(pick.Value, ledger.Pollution(pick.Key));
+        GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = owner, Label = $"孢子蔓延到 {pick.Value.Name}" });
+        return pick.Value;
     }
 
     // A monster hit Zero: backpack effects that answer a hit (thorns).

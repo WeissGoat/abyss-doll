@@ -25,7 +25,10 @@ public enum MonsterActionType {
     GainShield,
     Cleanse,
     SelfDestruct,
-    ShuffleItems
+    ShuffleItems,
+    // Interference with the backpack (GDD_01 §6.2): crystal on cells, spores on an item.
+    LockCells,
+    SporePollute
 }
 
 public enum MonsterTargetType {
@@ -79,6 +82,8 @@ public static class MonsterActionConfigParser {
             case MonsterActionType.Cleanse:
                 return MonsterTargetType.AllAllies;
             case MonsterActionType.ShuffleItems:
+            case MonsterActionType.LockCells:
+            case MonsterActionType.SporePollute:
                 return MonsterTargetType.PlayerBackpack;
             case MonsterActionType.DamageTarget:
             case MonsterActionType.SelfDestruct:
@@ -102,6 +107,8 @@ public static class MonsterActionConfigParser {
             case MonsterActionType.Cleanse:
                 return targetType == MonsterTargetType.Self || targetType == MonsterTargetType.AllAllies;
             case MonsterActionType.ShuffleItems:
+            case MonsterActionType.LockCells:
+            case MonsterActionType.SporePollute:
                 return targetType == MonsterTargetType.PlayerBackpack;
             default:
                 return false;
@@ -545,6 +552,10 @@ public static class MonsterActionFactory {
                 return new SelfDestructAction(config);
             case MonsterActionType.ShuffleItems:
                 return new ShuffleItemsAction(config);
+            case MonsterActionType.LockCells:
+                return new LockCellsAction(config);
+            case MonsterActionType.SporePollute:
+                return new SporePolluteAction(config);
             default:
                 return null;
         }

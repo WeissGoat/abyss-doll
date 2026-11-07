@@ -122,6 +122,18 @@
           "Multiplier": 0.75,
           "DurationPlayerTurns": 1
         }
+      },
+      {
+        "ActionID": "spore_matriarch_pollute",
+        "ActionType": "SporePollute",
+        "Target": "PlayerBackpack",
+        "Weight": 25,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 2,
+        "Condition": "Always",
+        "Params": {
+          "SanPerUse": 3
+        }
       }
     ]
   },
