@@ -179,6 +179,10 @@ public class P3BuildSmoke : MonoBehaviour {
 
             string report = P3DevTools.RunDive(40, !combatCaptured, combatCaptured && !mapCaptured, mapCaptured && !liftCaptured, mapCaptured && !eventCaptured, mapCaptured && !altarCaptured);
             Note(report);
+            // A rest can share a report with the next stop (map, lift, event...), so count it before those continue.
+            if (report.Contains("Rested:")) {
+                rests++;
+            }
             if (report.Contains("Event ready.")) {
                 // A dungeon event's choices, each with its price (2026-11-04).
                 eventCaptured = true;
@@ -214,9 +218,6 @@ public class P3BuildSmoke : MonoBehaviour {
                 yield return new WaitForSecondsRealtime(1f);
                 yield return Capture("03b_combat");
                 continue;
-            }
-            if (report.Contains("Rested:")) {
-                rests++;
             }
             if (report.Contains("Dive finished.")) {
                 dives++;
